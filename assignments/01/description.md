@@ -9,7 +9,7 @@
   4. Using Basic Tags: `<h1>`, `<p>`, `<a>`.
 - **Project**: Create a simple HTML page with a heading and a paragraph.
 
-### Session 1 sample
+### Example
 ```html
 <!DOCTYPE html>
 <html>
@@ -31,7 +31,7 @@
   3. List Items (`<li>`).
 - **Project Update**: Add a section with formatted text and both types of lists to the HTML page.
 
-### Session 2 sample
+### Example
 ```html
 <b>Bold Text</b><br>
 <i>Italic Text</i><br>
@@ -57,7 +57,7 @@
   3. Relative vs Absolute URLs.
 - **Project Update**: Include hyperlinks and images in the existing HTML page.
 
-### Session 3 sample
+### Example
 ```html
 <a href="https://weber.edu" target="_blank">Visit weber.edu</a>
 <hr>
@@ -72,7 +72,7 @@
   3. Navigation (`<nav>`).
 - **Project Update**: Refactor the HTML page to include these semantic tags.
 
-### Session 4 sample
+### Example
 ```html
 <header>
     <h1>My Website Header</h1>
@@ -106,7 +106,7 @@
   3. Form Attributes: action, method.
 - **Project Update**: Add a table and a simple form to the webpage.
 
-### Session 5 sample
+### Example
 ```html
 <table>
     <tr>
@@ -136,7 +136,7 @@
   3. Meta tags for character set, viewport, and description.
 - **Project Update**: Link a dummy CSS and JavaScript file; add meta tags.
 
-### Session 6 sample
+### Example
 ```html
 <head>
     <link rel="stylesheet" href="styles.css">
@@ -152,7 +152,7 @@
 - **Topics**:
   1. HTML5 Video and Audio Tags.
    
-### Session 7 sample
+### Example
 ```html
 <video controls>
     <source src="movie.mp4" type="video/mp4">
@@ -166,4 +166,7 @@
 ```
 
 ## Session 8: Project Completion and Review
-At this point, you have a complete HTML page with all the elements and structures learned. The final code is a combination of all the above snippets, organized into a coherent webpage. Save the file as index.html
+At this point, you have a complete HTML page with all the elements and structures learned. The final code is a combination of all the above snippets, organized into a coherent webpage.
+
+### Deliverable
+Save the file as index.html
