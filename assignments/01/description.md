@@ -149,5 +149,5 @@
 ## Project Completion and Review
 At this point, you have a complete HTML page with all the elements and structures learned. The final code combines all the above snippets and is organized into a coherent webpage.
 
-**Deliverable**
-Save the file as index.html
+**Deliverable:**
+Save the file as index.html in your assignments/01 folder
