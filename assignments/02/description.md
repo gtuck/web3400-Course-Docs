@@ -4,7 +4,7 @@ Basics of CSS alongside your HTML project to enhance the webpage. Here's how you
 
 ## External CSS and Meta Styling
 - **Objective**: Understand how to link external CSS files and style metadata elements.
-- **CSS Example**:
+- **HTML Example**:
   ```html
     <head>
         <link rel="stylesheet" href="styles.css">
