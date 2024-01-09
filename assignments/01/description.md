@@ -1,4 +1,4 @@
-### Outline for Basics of HTML
+### Basics of HTML
 
 #### Session 1: Introduction to HTML
 - **Objective**: Understand what HTML is and its role in web development.
