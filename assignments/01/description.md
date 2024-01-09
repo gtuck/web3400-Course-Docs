@@ -1,7 +1,7 @@
 # HTML
 
 ## Introduction to HTML
-- **Objective**: Understand what HTML is and its role in web development.
+- **Objective**: Understand HTML and its role in web development.
 - **Topics**:
   1. History and Evolution of HTML.
   2. Basic Structure of an HTML Document (DOCTYPE, html, head, body).
@@ -147,7 +147,7 @@
 </head>
 ```
 
-## Embeded Video and Audio
+## Embedded Video and Audio
 - **Objective**: Explore additional HTML5 features and APIs.
 - **Topics**:
   1. HTML5 Video and Audio Tags.
@@ -166,7 +166,7 @@
 ```
 
 ## Project Completion and Review
-At this point, you have a complete HTML page with all the elements and structures learned. The final code is a combination of all the above snippets, organized into a coherent webpage.
+At this point, you have a complete HTML page with all the elements and structures learned. The final code combines all the above snippets and is organized into a coherent webpage.
 
 **Deliverable**
 Save the file as index.html
