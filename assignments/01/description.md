@@ -59,9 +59,9 @@
 
 ### Session 3 sample
 ```html
-<a href="https://example.com" target="_blank">Visit Example.com</a>
-
-<img src="image.jpg" alt="Descriptive text for the image">
+<a href="https://weber.edu" target="_blank">Visit weber.edu</a>
+<hr>
+<img width="320" src="https://source.unsplash.com/random/900x700/?fruit" alt="Descriptive text for the image">
 ```
 
 ## Session 4: Structuring Content with HTML5 Semantic Tags
