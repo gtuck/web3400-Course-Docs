@@ -1,6 +1,6 @@
-### Basics of HTML
+# Basics of HTML
 
-#### Session 1: Introduction to HTML
+## Session 1: Introduction to HTML
 - **Objective**: Understand what HTML is and its role in web development.
 - **Topics**:
   1. History and Evolution of HTML.
@@ -9,7 +9,7 @@
   4. Using Basic Tags: `<h1>`, `<p>`, `<a>`.
 - **Project**: Create a simple HTML page with a heading and a paragraph.
 
-## Session 1 sample
+### Session 1 sample
 ```html
 <!DOCTYPE html>
 <html>
@@ -23,7 +23,7 @@
 </html>
 ```
 
-#### Session 2: Exploring Text Formatting and Lists
+## Session 2: Exploring Text Formatting and Lists
 - **Objective**: Learn how to format text and create lists in HTML.
 - **Topics**:
   1. Text Formatting Tags: `<b>`, `<i>`, `<strong>`, `<em>`.
@@ -31,7 +31,7 @@
   3. List Items (`<li>`).
 - **Project Update**: Add a section with formatted text and both types of lists to the HTML page.
 
-## Session 2 sample
+### Session 2 sample
 ```html
 <b>Bold Text</b><br>
 <i>Italic Text</i><br>
@@ -49,7 +49,7 @@
 </ul>
 ```
 
-#### Session 3: Understanding Hyperlinks and Images
+## Session 3: Understanding Hyperlinks and Images
 - **Objective**: Learn to add hyperlinks and images to a webpage.
 - **Topics**:
   1. Anchor Tag `<a>` and Attributes (href, target).
@@ -57,14 +57,14 @@
   3. Relative vs Absolute URLs.
 - **Project Update**: Include hyperlinks and images in the existing HTML page.
 
-## Session 3 sample
+### Session 3 sample
 ```html
 <a href="https://example.com" target="_blank">Visit Example.com</a>
 
 <img src="image.jpg" alt="Descriptive text for the image">
 ```
 
-#### Session 4: Structuring Content with HTML5 Semantic Tags
+## Session 4: Structuring Content with HTML5 Semantic Tags
 - **Objective**: Understand and utilize HTML5 semantic tags for better structure.
 - **Topics**:
   1. Header (`<header>`), Footer (`<footer>`), Main (`<main>`).
@@ -72,7 +72,7 @@
   3. Navigation (`<nav>`).
 - **Project Update**: Refactor the HTML page to include these semantic tags.
 
-## Session 4 sample
+### Session 4 sample
 ```html
 <header>
     <h1>My Website Header</h1>
@@ -98,7 +98,7 @@
 </footer>
 ```
 
-#### Session 5: Tables and Forms
+## Session 5: Tables and Forms
 - **Objective**: Learn how to create tables and simple forms.
 - **Topics**:
   1. Creating Tables: `<table>`, `<tr>`, `<th>`, `<td>`.
@@ -106,7 +106,7 @@
   3. Form Attributes: action, method.
 - **Project Update**: Add a table and a simple form to the webpage.
 
-## Session 5 sample
+### Session 5 sample
 ```html
 <table>
     <tr>
@@ -128,7 +128,7 @@
 </form>
 ```
 
-#### Session 6: Linking External Resources and Metadata
+## Session 6: Linking External Resources and Metadata
 - **Objective**: Understand how to link external resources and use metadata.
 - **Topics**:
   1. Linking CSS and JavaScript files.
@@ -136,7 +136,7 @@
   3. Meta tags for character set, viewport, and description.
 - **Project Update**: Link a dummy CSS and JavaScript file; add meta tags.
 
-## Session 6 sample
+### Session 6 sample
 ```html
 <head>
     <link rel="stylesheet" href="styles.css">
@@ -147,12 +147,12 @@
 </head>
 ```
 
-#### Session 7: Embeded Video and Audio
+## Session 7: Embeded Video and Audio
 - **Objective**: Explore additional HTML5 features and APIs.
 - **Topics**:
   1. HTML5 Video and Audio Tags.
    
-## Session 7 sample
+### Session 7 sample
 ```html
 <video controls>
     <source src="movie.mp4" type="video/mp4">
@@ -165,5 +165,5 @@
 </audio>
 ```
 
-### Session 8: Project Completion and Review
+## Session 8: Project Completion and Review
 At this point, you have a complete HTML page with all the elements and structures learned. The final code is a combination of all the above snippets, organized into a coherent webpage. Save the file as index.html
