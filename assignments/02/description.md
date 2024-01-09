@@ -31,7 +31,6 @@ Basics of CSS alongside your HTML project to enhance the webpage. Here's how you
       color: green;
   }
   ```
-- **Integration with HTML Project**: Apply these styles to the HTML document created in the first session.
 
 ## Text Formatting and Lists with CSS
 - **Objective**: Learn to style text and lists.
@@ -54,7 +53,6 @@ Basics of CSS alongside your HTML project to enhance the webpage. Here's how you
       margin-bottom: 5px;
   }
   ```
-- **Integration with HTML Project**: Style the lists and formatted text in the HTML document from session 2.
 
 ## Styling Hyperlinks and Images
 - **Objective**: Understand how to style hyperlinks and images.
@@ -75,7 +73,6 @@ Basics of CSS alongside your HTML project to enhance the webpage. Here's how you
       border: 1px solid black;
   }
   ```
-- **Integration with HTML Project**: Apply these styles to the hyperlinks and images in the HTML document from session 3.
 
 ## Styling with HTML5 Semantic Tags
 - **Objective**: Use CSS to enhance the layout and structure.
@@ -95,7 +92,6 @@ Basics of CSS alongside your HTML project to enhance the webpage. Here's how you
       background-color: lightyellow;
   }
   ```
-- **Integration with HTML Project**: Style the HTML5 semantic tags in the HTML document from session 4.
 
 ## Styling Tables and Forms
 - **Objective**: Learn how to style tables and forms for better presentation.
@@ -121,7 +117,6 @@ Basics of CSS alongside your HTML project to enhance the webpage. Here's how you
       margin: 5px 0;
   }
   ```
-- **Integration with HTML Project**: Add styles to the table and form in the HTML document from session 5.
 
 ## Finalizing the Project with Advanced CSS
 - **Objective**: Apply advanced CSS techniques to finalize the project.
@@ -142,7 +137,6 @@ Basics of CSS alongside your HTML project to enhance the webpage. Here's how you
       flex: 1;
   }
   ```
-- **Integration with HTML Project**: Apply advanced CSS styles to finalize the project.
 
 ## Project Completion and Review
 At this point, you have a complete HTML page with all the elements and structures learned. The final code combines all the above snippets and is organized into a coherent, well-structured and styled webpage.
