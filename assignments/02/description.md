@@ -138,5 +138,5 @@ Basics of CSS alongside your HTML project to enhance the webpage. Here's how you
 ## Project Completion and Review
 At this point, you have a complete HTML page with all the elements and structures learned. The final code combines all the above snippets and is organized into a coherent, well-structured and styled webpage.
 
-**Deliverable**
+**Deliverables**
 Save the files as index.html and styles.css
