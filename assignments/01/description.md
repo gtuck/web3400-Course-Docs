@@ -128,10 +128,10 @@
 </form>
 ```
 
-## Embedded Video and Audio
+## Embedded Audio and Video
 - **Objective**: Explore additional HTML5 features and APIs.
 - **Topics**:
-  1. HTML5 Video and Audio Tags.
+  1. HTML5 Audio and Video Tags.
    
 ### Example
 ```html
