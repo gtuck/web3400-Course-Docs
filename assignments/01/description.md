@@ -1,4 +1,4 @@
-# Basics of HTML
+# HTML
 
 ## Introduction to HTML
 - **Objective**: Understand what HTML is and its role in web development.
