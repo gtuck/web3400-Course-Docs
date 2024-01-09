@@ -1,6 +1,6 @@
 # Basics of HTML
 
-## Session 1: Introduction to HTML
+## Introduction to HTML
 - **Objective**: Understand what HTML is and its role in web development.
 - **Topics**:
   1. History and Evolution of HTML.
@@ -23,7 +23,7 @@
 </html>
 ```
 
-## Session 2: Exploring Text Formatting and Lists
+## Exploring Text Formatting and Lists
 - **Objective**: Learn how to format text and create lists in HTML.
 - **Topics**:
   1. Text Formatting Tags: `<b>`, `<i>`, `<strong>`, `<em>`.
@@ -49,7 +49,7 @@
 </ul>
 ```
 
-## Session 3: Understanding Hyperlinks and Images
+## Understanding Hyperlinks and Images
 - **Objective**: Learn to add hyperlinks and images to a webpage.
 - **Topics**:
   1. Anchor Tag `<a>` and Attributes (href, target).
@@ -64,7 +64,7 @@
 <img width="320" src="https://source.unsplash.com/random/900x700/?fruit" alt="Descriptive text for the image">
 ```
 
-## Session 4: Structuring Content with HTML5 Semantic Tags
+## Structuring Content with HTML5 Semantic Tags
 - **Objective**: Understand and utilize HTML5 semantic tags for better structure.
 - **Topics**:
   1. Header (`<header>`), Footer (`<footer>`), Main (`<main>`).
@@ -98,7 +98,7 @@
 </footer>
 ```
 
-## Session 5: Tables and Forms
+## Tables and Forms
 - **Objective**: Learn how to create tables and simple forms.
 - **Topics**:
   1. Creating Tables: `<table>`, `<tr>`, `<th>`, `<td>`.
@@ -128,7 +128,7 @@
 </form>
 ```
 
-## Session 6: Linking External Resources and Metadata
+## Linking External Resources and Metadata
 - **Objective**: Understand how to link external resources and use metadata.
 - **Topics**:
   1. Linking CSS and JavaScript files.
@@ -147,7 +147,7 @@
 </head>
 ```
 
-## Session 7: Embeded Video and Audio
+## Embeded Video and Audio
 - **Objective**: Explore additional HTML5 features and APIs.
 - **Topics**:
   1. HTML5 Video and Audio Tags.
@@ -165,7 +165,7 @@
 </audio>
 ```
 
-## Session 8: Project Completion and Review
+## Project Completion and Review
 At this point, you have a complete HTML page with all the elements and structures learned. The final code is a combination of all the above snippets, organized into a coherent webpage.
 
 ### Deliverable
