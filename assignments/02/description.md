@@ -2,14 +2,22 @@
 
 Basics of CSS alongside your HTML project to enhance the webpage. Here's how you can incorporate CSS into the existing HTML page (index.html):
 
-## External CSS and Meta Styling
-- **Objective**: Understand how to link external CSS files and style metadata elements.
+## Linking External Resources and Metadata
+- **Objective**: Understand how to link external CSS files and use metadata.
+- **Topics**:
+  1. Linking CSS and JavaScript files.
+  2. Using the `<link>` and `<script>` tags.
+  3. Meta tags for character set, viewport, and description.
 - **HTML Example**:
-  ```html
-    <head>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-  ```
+```html
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A brief description of the page">
+</head>
+```
 - **Integration with HTML Project**: Link an external CSS file (e.g., `styles.css`) and apply these styles.
 
 ## Introduction to CSS

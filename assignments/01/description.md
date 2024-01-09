@@ -128,25 +128,6 @@
 </form>
 ```
 
-## Linking External Resources and Metadata
-- **Objective**: Understand how to link external resources and use metadata.
-- **Topics**:
-  1. Linking CSS and JavaScript files.
-  2. Using the `<link>` and `<script>` tags.
-  3. Meta tags for character set, viewport, and description.
-- **Project Update**: Link a dummy CSS and JavaScript file; add meta tags.
-
-### Example
-```html
-<head>
-    <link rel="stylesheet" href="styles.css">
-    <script src="script.js"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A brief description of the page">
-</head>
-```
-
 ## Embedded Video and Audio
 - **Objective**: Explore additional HTML5 features and APIs.
 - **Topics**:
@@ -154,15 +135,15 @@
    
 ### Example
 ```html
-<video controls>
-    <source src="movie.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
-
 <audio controls>
-    <source src="audio.mp3" type="audio/mpeg">
+    <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
     Your browser does not support the audio element.
 </audio>
+<hr>
+<video controls>
+    <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
 ```
 
 ## Project Completion and Review
