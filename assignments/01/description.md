@@ -118,7 +118,7 @@
         <td>Data 2</td>
     </tr>
 </table>
-
+<hr>
 <form>
     <label for="name">Name:</label>
     <input type="text" id="name" name="name"><br>
