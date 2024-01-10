@@ -2,6 +2,8 @@
 
 Verify the development environment and workflow that will be used in the course. Topics should include Forking the web3400 GitHub repo, adding the instructor as a collaborator to your forked repo, Cloning the repo to your local computer and running the .devcontainer, or running it as a GitHub Codespace. Open your repository in Visual Studio Code, open the index.php file, and add the comment "//Function to display files in the website root folder as a link tree" on line 2. Then add, commit, and push the change to your forked web3400 repo.
 
+**Please Note:** You may have completed some of these steps in a previous assignment. It's not intended that you repeat the steps, but to verify that you have completed all the steps in creating your dev environment and understand how to push changes and updates back to your repo so I can access them for grading.
+
 ### 1. Forking the web3400 GitHub Repository
 - **Navigate to the Repository**: Open your web browser and go to [https://github.com/gtuck/web3400.git](https://github.com/gtuck/web3400.git).
 - **Fork the Repository**: Click on the "Fork" button at the top right of the page to create a copy of the repository in your GitHub account.
