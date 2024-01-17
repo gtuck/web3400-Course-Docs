@@ -6,9 +6,10 @@
   1. In your web3400 Docker Container: create a new folder named `01` in your `assignments` folder
   2. In your newly created `01` folder, create a new HTML file named `index.html`.
   3. Add, commit, and push the file to your repo.
-     1. Stage the Change: Execute `git add index.html`.
-     2. Commit the Change: Type `git commit -m "Created index.html"`.
-     3. Push the Change: Run `git push`.
+     1. In a VS Code Terminal `cd` to your `01` folder
+     2. Stage the Change: Execute `git add index.html`.
+     3. Commit the Change: Type `git commit -m "Created index.html"`.
+     4. Push the Change: Run `git push`.
 - **Project**: Create an empty HTML file in the correct folder.
 
 ## Introduction to HTML
