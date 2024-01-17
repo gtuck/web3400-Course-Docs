@@ -166,4 +166,9 @@ At this point, you have a complete HTML page with all the elements and structure
 - **Topics**:
   1. Commit the Change: Type `git commit -m "Update index.html"`.
   2. Push the Change: Run `git push`.
-  3. Visit your web3400 repo on GitHub and verify your updates.
+  3. Confirm Changes on GitHub: Visit your forked repository on GitHub.
+
+## Submitting the Assignment
+- **Objective**: Submit the URL to your completed index.html file.
+- **Topics**:
+  1. Submit the URL of your updated `index.html` file in the format: `https://github.com/[your-account-name]/[your-web3400-repo]/blob/main/assignments/01/index.html`. Replace `[your-account-name]` with your GitHub username and `[your-web3400-repo]` with your repo name.
