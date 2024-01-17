@@ -159,8 +159,8 @@ At this point, you have a complete HTML page with all the elements and structure
 ## Commit and Push the Final Changes
 - **Objective**: Commit and push your completed index.html & styles.css files in a VS Code Terminal.
 - **Topics**:
-  1. Commit the Change: Type `git commit -m "Update assignment 02"`.
-  2. Push the Change: Run `git push`.
+  1. Commit the Changes: Type `git commit -m "Update assignment 02"`.
+  2. Push the Changes: Run `git push`.
   3. Confirm Changes on GitHub: Visit your forked repository on GitHub.
 
 ## Submitting the Assignment
