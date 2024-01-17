@@ -4,8 +4,8 @@
 - **Objective**: Understand how to use VS Code to create a new HTML file and push updates to your web3400 GitHub repo.
 - **Topics**:
   1. In your web3400 Docker Container: create a new folder named `01` in your `assignments` folder
-  2. In your newly created `01` folder create a new HTML file named `index.html`
-  3. Then add, committ, and push the file to your repo.
+  2. In your newly created `01` folder, create a new HTML file named `index.html`.
+  3. Add, commit, and push the file to your repo.
      1. Stage the Change: Execute `git add index.html`.
      2. Commit the Change: Type `git commit -m "Created index.html"`.
      3. Push the Change: Run `git push`.
@@ -29,7 +29,7 @@
 </head>
 <body>
     <h1>Welcome to HTML!</h1>
-    <p>This is a paragraph in my first webpage.</p>
+    <p>This is a paragraph on my first webpage.</p>
 </body>
 </html>
 ```
@@ -61,7 +61,7 @@
 ```
 
 ## Understanding Hyperlinks and Images
-- **Objective**: Learn to add hyperlinks and images to a webpage.
+- **Objective**: Add hyperlinks and images to a webpage.
 - **Topics**:
   1. Anchor Tag `<a>` and Attributes (href, target).
   2. Image Tag `<img>` and Attributes (src, alt).
@@ -160,8 +160,8 @@
 ## Project Completion and Review
 At this point, you have a complete HTML page with all the elements and structures learned. The final code combines all the above snippets and is organized into a coherent webpage (index.html).
 
-## Committ, and Push the Final Changes
-- **Objective**: In a VS Code Terminal committ and push completed index.html file.
+## Commit and Push the Final Changes
+- **Objective**: Commit and push your completed index.html file in a VS Code Terminal.
 - **Topics**:
   1. Commit the Change: Type `git commit -m "Update index.html"`.
   2. Push the Change: Run `git push`.
