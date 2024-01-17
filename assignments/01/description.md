@@ -3,12 +3,13 @@
 ## Create an HTML file 
 - **Objective**: Understand how to use VS Code to create a new HTML file and push updates to your web3400 GitHub repo.
 - **Topics**:
-  1. In your web3400 Docker Container: create a new HTML file (index.html) in your `web3400/assignments/01` folder then add, committ, and push the file to your repo.
-  2. Open Terminal:(if one is not already open) in VS Code (Use Terminal -> New Terminal from the top menu.)
-  3. Stage the Change: Execute `git add index.html`.
-  4. Commit the Change: Type `git commit -m "Added index.html"`.
-  5. Push the Change: Run `git push`.
-- **Project**: Create an empty HTML file.
+  1. In your web3400 Docker Container: create a new folder named `01` in your `assignments` folder
+  2. In your newly created `01` folder create a new HTML file named `index.html`
+  3. Then add, committ, and push the file to your repo.
+     1. Stage the Change: Execute `git add index.html`.
+     2. Commit the Change: Type `git commit -m "Created index.html"`.
+     3. Push the Change: Run `git push`.
+- **Project**: Create an empty HTML file in the correct folder.
 
 ## Introduction to HTML
 - **Objective**: Understand HTML and its role in web development.
@@ -157,18 +158,11 @@
 ```
 
 ## Project Completion and Review
-At this point, you have a complete HTML page with all the elements and structures learned. The final code combines all the above snippets and is organized into a coherent webpage.
+At this point, you have a complete HTML page with all the elements and structures learned. The final code combines all the above snippets and is organized into a coherent webpage (index.html).
 
-**Deliverable:**
-Save the file as index.html in your assignments/01 folder
-
-## Adding, Committing, and Pushing the Changes
-- **Open Terminal in VS Code**: Use Terminal -> New Terminal from the top menu.
-- **Stage the Change**: Execute `git add index.php`.
-- **Commit the Change**: Type `git commit -m "Add comment to index.php"`.
-- **Push the Change**: Run `git push origin main`.
-
-## Submitting the Assignment
-- **Confirm Changes on GitHub**: Visit your `web3400/assignments/01` repository folder on GitHub.
-- **Locate the Updated `index.php` File**: Ensure your changes are visible.
-- **Submit the Assignment**: Provide the URL of your updated `index.php` file in the format: `https://github.com/[your-account-name]/web3400/blob/main/index.php`. Replace `[your-account-name]` with your GitHub username.
+## Committ, and Push the Final Changes
+- **Objective**: In a VS Code Terminal committ and push completed index.html file.
+- **Topics**:
+  1. Commit the Change: Type `git commit -m "Update index.html"`.
+  2. Push the Change: Run `git push`.
+  3. Visit your web3400 repo on GitHub and verify your updates.
