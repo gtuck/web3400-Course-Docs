@@ -1,6 +1,16 @@
-# CSS
+# Introduction to CSS (Assignment 02)
 
-Basics of CSS alongside your HTML project to enhance the webpage. Here's how you can incorporate CSS into the existing HTML page (index.html):
+Basics of CSS alongside your HTML project (assignment 01) to enhance the webpage. Here's how you can incorporate CSS into the existing HTML page (index.html):
+
+## Copy/Clone Assignment 01 to a new Assignment 02 folder. 
+- **Objective**: Understand how to use the VS Code Terminal to `copy` the previous assignment folder and all of its files to a new assignment folder.
+- **Topics**:
+  1. In a VS Code Terminal, `cd` to your `assignments` folder.
+  2. Recursively copy your folder: Run `copy -r 01 02`.
+  4. Add, commit, and push the new `02` folder to your repo.
+     2. Stage the Change: Execute `git add 02`.
+     3. Commit the Change: Type `git commit -m "Created assignment 02"`.
+     4. Push the Change: Run `git push`.
 
 ## Linking External Resources and Metadata
 - **Objective**: Understand how to link external CSS files and use metadata.
@@ -18,7 +28,7 @@ Basics of CSS alongside your HTML project to enhance the webpage. Here's how you
     <meta name="description" content="A brief description of the page">
 </head>
 ```
-- **Integration with HTML Project**: Link an external CSS file (e.g., `styles.css`) and apply these styles.
+- **Integration with HTML Project (Assignment 01)**: Link an external CSS file (e.g., `styles.css`) and apply these styles.
 
 ## Introduction to CSS
 - **Objective**: Understand the role of CSS in web design and learn basic syntax.
@@ -99,7 +109,7 @@ Basics of CSS alongside your HTML project to enhance the webpage. Here's how you
   ```
 
 ## Styling Tables and Forms
-- **Objective**: Learn how to style tables and forms for better presentation.
+- **Objective**: Learn to style tables and forms for better presentation.
 - **CSS Example**:
   ```css
   table {
@@ -144,7 +154,16 @@ Basics of CSS alongside your HTML project to enhance the webpage. Here's how you
   ```
 
 ## Project Completion and Review
-At this point, you have a complete HTML page with all the elements and structures learned. The final code combines all the above snippets and is organized into a coherent, well-structured and styled webpage.
+At this point, you have a complete HTML page with all the elements and structures learned. The final code combines all the above snippets and is organized into a coherent, well-structured, and styled webpage.
 
-**Deliverables**
-Save the files as index.html and styles.css
+## Commit and Push the Final Changes
+- **Objective**: Commit and push your completed index.html & styles.css files in a VS Code Terminal.
+- **Topics**:
+  1. Commit the Change: Type `git commit -m "Update assignment 02"`.
+  2. Push the Change: Run `git push`.
+  3. Confirm Changes on GitHub: Visit your forked repository on GitHub.
+
+## Submitting the Assignment
+- **Objective**: Submit the URL to your completed index.html file.
+- **Topics**:
+  1. Submit the URL of your updated `02` files in the format: `https://github.com/[your-account-name]/[your-web3400-repo]/blob/main/assignments/02/`. Replace `[your-account-name]` with your GitHub username and `[your-web3400-repo]` with your repo name.
