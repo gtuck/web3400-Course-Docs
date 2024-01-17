@@ -1,4 +1,4 @@
-# Introduction HTML (Assignment 01)
+# Introduction to HTML (Assignment 01)
 
 ## Create an HTML file 
 - **Objective**: Understand how to use VS Code to create a new HTML file and push updates to your web3400 GitHub repo.
