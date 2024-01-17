@@ -1,5 +1,15 @@
 # HTML
 
+## Create an HTML file 
+- **Objective**: Understand how to use VS Code to create a new HTML file and push updates to your web3400 GitHub repo.
+- **Topics**:
+  1. In your web3400 Docker Container: create a new HTML file (index.html) in your `web3400/assignments/01` folder then add, committ, and push the file to your repo.
+  2. Open Terminal:(if one is not already open) in VS Code (Use Terminal -> New Terminal from the top menu.)
+  3. Stage the Change: Execute `git add index.html`.
+  4. Commit the Change: Type `git commit -m "Added index.html"`.
+  5. Push the Change: Run `git push`.
+- **Project**: Create an empty HTML file.
+
 ## Introduction to HTML
 - **Objective**: Understand HTML and its role in web development.
 - **Topics**:
@@ -151,3 +161,14 @@ At this point, you have a complete HTML page with all the elements and structure
 
 **Deliverable:**
 Save the file as index.html in your assignments/01 folder
+
+## Adding, Committing, and Pushing the Changes
+- **Open Terminal in VS Code**: Use Terminal -> New Terminal from the top menu.
+- **Stage the Change**: Execute `git add index.php`.
+- **Commit the Change**: Type `git commit -m "Add comment to index.php"`.
+- **Push the Change**: Run `git push origin main`.
+
+## Submitting the Assignment
+- **Confirm Changes on GitHub**: Visit your `web3400/assignments/01` repository folder on GitHub.
+- **Locate the Updated `index.php` File**: Ensure your changes are visible.
+- **Submit the Assignment**: Provide the URL of your updated `index.php` file in the format: `https://github.com/[your-account-name]/web3400/blob/main/index.php`. Replace `[your-account-name]` with your GitHub username.
