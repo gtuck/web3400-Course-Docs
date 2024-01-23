@@ -6,7 +6,7 @@ Basics of CSS alongside your HTML project (assignment 01) to enhance the webpage
 - **Objective**: Understand how to use the VS Code Terminal to `copy` the previous assignment folder and all of its files to a new assignment folder.
 - **Topics**:
   1. In a VS Code Terminal, `cd` to your `assignments` folder.
-  2. Recursively copy your folder: Run `copy -r 01 02`.
+  2. Recursively copy your folder: Run `cp -r 01 02`.
   4. Add, commit, and push the new `02` folder to your repo.
      2. Stage the Change: Execute `git add 02`.
      3. Commit the Change: Type `git commit -m "Created assignment 02"`.
