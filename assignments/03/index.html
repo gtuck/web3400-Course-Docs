@@ -71,31 +71,42 @@
         <div class="container">
             <h2 class="title is-2">Tables and Forms</h2>
             <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
-                <tr>
-                    <th>Header 1</th>
-                    <th>Header 2</th>
-                </tr>
-                <tr>
-                    <td>Data 1</td>
-                    <td>Data 2</td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Header 1</th>
+                        <th>Header 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Footer 1</th>
+                        <th>Footer 2</th>
+                    </tr>
+                </tfoot>
             </table>
-
-            <div class="field">
-                <label class="label">Name</label>
-                <div class="control">
-                    <input class="input" type="text" placeholder="Your name">
+            <form action="" method="post">
+                <div class="field">
+                    <label class="label">Name</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Your name">
+                    </div>
                 </div>
-            </div>
-            <div class="field">
-                <label class="label">Message</label>
-                <div class="control">
-                    <textarea class="textarea" placeholder="Your message"></textarea>
+                <div class="field">
+                    <label class="label">Message</label>
+                    <div class="control">
+                        <textarea class="textarea" placeholder="Your message"></textarea>
+                    </div>
                 </div>
-            </div>
-            <div class="control">
-                <button class="button is-primary">Submit</button>
-            </div>
+                <div class="control">
+                    <button class="button is-primary">Submit</button>
+                </div>
+            </form>
         </div>
     </section>
 
