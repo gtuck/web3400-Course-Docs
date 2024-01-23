@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@vizuaalog/bulmajs@0/dist/bulma.min.js"></script>
+    <title>My Webpage with Bulma</title>
+</head>
+
+<body>
+
+    <header class="hero is-primary">
+        <div class="hero-body">
+            <h1 class="title">Welcome to HTML/CSS with Bulma!</h1>
+        </div>
+    </header>
+
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-menu">
+            <a class="navbar-item" href="#">Home</a>
+            <a class="navbar-item" href="#">About</a>
+        </div>
+    </nav>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="title is-2">Formatted Text and Lists</h2>
+            <p class="content">This is a <strong>bold</strong> and <em>italic</em> paragraph.</p>
+            <div class="content">
+                <ol>
+                    <li>First Ordered Item</li>
+                    <li>Second Ordered Item</li>
+                </ol>
+                <ul>
+                    <li>First Unordered Item</li>
+                    <li>Second Unordered Item</li>
+                </ul>
+            </div>
+
+            <h2 class="title is-2">Hyperlinks and Images</h2>
+            <a href="https://weber.edu" class="button is-link">Visit weber.edu</a>
+            <hr>
+            <figure class="image is-square" width="320px">
+                <img class="is-rounded" src="https://source.unsplash.com/random/320x320/?fruit"
+                    alt="Descriptive text for the image">
+            </figure>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="title is-2">HTML5 Semantic Tags</h2>
+            <article class="message">
+                <div class="message-header">
+                    <p>Article Title</p>
+                </div>
+                <div class="message-body">
+                    Article content...
+                </div>
+            </article>
+            <aside class="notification is-info">
+                <p>Related Links</p>
+                <a href="#">Link 1</a>
+            </aside>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="title is-2">Tables and Forms</h2>
+            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Header 1</th>
+                        <th>Header 2</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                    </tr>
+                    <tr>
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                    </tr>
+                    <tr>
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                    </tr>
+                    <tr>
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                    </tr>
+                    <tr>
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                    </tr>
+                    <tr>
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Footer 1</th>
+                        <th>Footer 2</th>
+                    </tr>
+                </tfoot>
+            </table>
+            <form action="" method="post">
+                <div class="field">
+                    <label class="label">Name</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Your name">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Message</label>
+                    <div class="control">
+                        <textarea class="textarea" placeholder="Your message"></textarea>
+                    </div>
+                </div>
+                <div class="control">
+                    <button class="button is-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="content has-text-centered">
+            <p>
+                <strong>My Webpage</strong> by <a href="#">Your Name</a>. The source code is licensed
+                under MIT.
+            </p>
+        </div>
+    </footer>
+
+</body>
+
+</html>
