@@ -1,26 +1,38 @@
-# CSS Frameworks (Bulma)
+# Introduction to Bulma CSS Framework
 
-We'll follow a similar pattern as the previous HTML and CSS sections to introduce the Bulma CSS Framework. Each section will focus on a specific aspect of Bulma, showing how to use its features in a project. This approach will help you understand how to integrate Bulma into your web development workflow. Bulma is a modern CSS framework based on Flexbox, offering a clean and easy-to-use interface for styling web pages.
+We'll follow a similar pattern as the previous HTML and CSS sections to introduce the Bulma CSS Framework. However to assure we are all starting from the same place I have provided a starter.html file for you to work from. Each section will focus on a specific aspect of Bulma, showing how to use its features in a project. This approach will help you understand how to integrate Bulma into your web development workflow. Bulma is a modern CSS framework based on Flexbox, offering a clean and easy-to-use interface for styling web pages. 
 
 ### Copy/Clone Assignment 02 to a new Assignment 03 folder. 
 - **Steps**:
-  1. In a VS Code Terminal, `cd` to your `assignments` folder.
-  2. Recursively copy your folder: Run `cp -r 02 03`.
-  3. Add, commit, and push the new `03` folder to your repo.
+  1. Navigate to your GitHub repository page for your fork of my web3400 repo. 
+  2. Run the "Sync fork" process this will move the `starter.html` file into your repo.
+  3. your In a VS Code Terminal, `cd` to your `assignments` folder.
+  4. Recursively copy your folder: Run `cp -r 02 03`.
+  5. Add, commit, and push the new `03` folder to your repo.
      1. Stage the Change: Execute `git add 03`.
      2. Commit the Change: Type `git commit -m "Created assignment 03"`.
      3. Push the Change: Run `git push`.
 
+### Getting Started with Bulma
+- **Objective**: Introduction to Bulma and setting it up in a project.
+- **Topics**:
+  1. What is Bulma and why use it?
+  2. Download and add the starter.html file to your assignment 03 folder (via a Sync)
+  3. Make a copy of the starter.html file and name it index.html (all updates will be to)
+  4. Including Bulma, BulmaJS and FontAwesome in your HTML (using CDN).
+  5. Basic Bulma Syntax and Classes.
+- **Project**: Update the basic HTML page to include Bulma's CSS.
 
-### Linking Bulma CSS & BulmaJS
-Before we begin styling the HTML elements, we need to include the Bulma CSS & BulmaJS files in our HTML. Add the following lines in the `<head>` section of your HTML document:
+### Linking to Bulma CSS, BulmaJS and FontAwesome
+Before we begin styling the HTML elements, we need to include the Bulma CSS, BulmaJS and FontAwesome files in our HTML. Add the following lines in the `<head>` section of your HTML document:
 
 ```html
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
-<script src="https://cdn.jsdelivr.net/npm/@vizuaalog/bulmajs@0/dist/bulma.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@vizuaalog/bulmajs@0/dist/bulma.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
 ```
 
-This line imports the Bulma CSS & BulmaJS from a CDN, making all the Bulma styles available for our use and adding functionality to some of the componants.
+These lines import the Bulma CSS & BulmaJS from CDNs, making all the Bulma styles available for our use and adding functionality to some of the componants.
 
 ### Styling the `<header>`
 Bulma provides classes for navigation, typography, and containers. Let's start by styling the `<header>`:
@@ -57,25 +69,84 @@ Bulma has a powerful and responsive navigation component:
 
 The `navbar` class creates a responsive navigation bar, with `navbar-menu` and `navbar-start` organizing your navigation items.
 
-### Step 4: Styling the `<main>` and Its Children
+### Styling the `<main>` and child elements
 Bulma provides a grid system based on Flexbox. Let's apply it to the main content area:
 
 ```html
 <main class="section">
     <div class="container">
-        <article class="content">
-            <!-- Article content here -->
-        </article>
-        <aside class="menu">
-            <!-- Aside content here -->
-        </aside>
+        <h2 class="title is-2">
+            This is the page title
+        </h2>
+        <p class="subtitle">
+          Page content can go here....  
+        </p>
+
+        <h2 class="title">Working with tables</h2>
+            <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>Header 1</th>
+                        <th>Header 2</th>
+                        <th>Header 3</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                        <td>Data 3</td>
+                    </tr>
+                    <tr>
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                        <td>Data 3</td>
+                    </tr>
+                    <tr>
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                        <td>Data 3</td>
+                    </tr>
+                    <tr>
+                        <td>Data 1</td>
+                        <td>Data 2</td>
+                        <td>Data 3</td>
+                    </tr>
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Footer 1</th>
+                        <th>Footer 2</th>
+                        <th>Footer 3</th>
+                    </tr>
+                </tfoot>
+            </table>
+
+        <h2 class="title">Working with forms</h2>
+            <form action="" method="post">
+                <div class="field">
+                    <label class="label">Name</label>
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Your name">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Message</label>
+                    <div class="control">
+                        <textarea class="textarea" placeholder="Your message"></textarea>
+                    </div>
+                </div>
+                <div class="control">
+                    <button class="button is-primary">Submit</button>
+                </div>
+            </form>
     </div>
 </main>
 ```
 
 The `section` class adds spacing around your content, and `container` centers and constrains the width of your content. `content` and `menu` are utility classes for styling typical article and sidebar content.
 
-### Step 5: Styling `<section>` (Tables and Forms)
+### Adding content to the page `<section>` (Tables and Forms)
 Bulma has specific classes for tables and form elements:
 
 ```html
