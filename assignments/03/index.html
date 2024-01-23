@@ -10,12 +10,12 @@
     <title>My Webpage with Bulma</title>
 </head>
 
-<body>
+<body class="has-navbar-fixed-top">
     <!-- BEGIN PAGE HEADER -->
     <header class="container">
 
         <!-- BEGIN MAIN NAV -->
-        <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <nav class="navbar is-fixed-top is-spaced has-shadow is-light" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
                 <a class="navbar-item" href="#">
                     <span class="icon-text">
@@ -53,7 +53,9 @@
             </div>
         </nav>
         <!-- END MAIN NAV -->
-
+        <section class="block">
+            &nbsp; <!-- this adds a little extra space between the nav and the hero -->
+        </section>
         <!-- BEGIN HERO -->
         <section class="hero is-primary">
             <div class="hero-body">
@@ -77,10 +79,12 @@
             <h2 class="subtitle">
                 and <strong>subtitles</strong> is a <em>simple</em> way to add context to your message
             </h2>
+            <hr>
             <div class="content">
-                <h3>Working with content containers</h3>
+                <h2>Working with content containers</h2>
                 <p>This is a <strong>bold</strong> and <em>italic</em> text inside a <strong>content container</strong>.
-                    a single class to handle <strong>WYSIWYG</strong> generated content, where only HTML tags are available.</p>
+                    a single class to handle <strong>WYSIWYG</strong> generated content, where only HTML tags are
+                    available.</p>
                 <h4>For example ordered an unordered lists:</h4>
                 <ol>
                     <li>First Ordered Item</li>
