@@ -32,7 +32,20 @@ These lines import the Bulma CSS, BulmaJS, and FontAwesome from CDNs, making all
 
 ### Styling your index.html
 - **Steps**:
-  1. We will code the index.html file together in class
+  1. We will complete the index.html file together in class.
 
 ### Conclusion
 By following these steps, you will better understand how to apply Bulma styles to your HTML structure, making it more visually appealing and responsive. Remember, Bulma is highly customizable, so feel free to explore its documentation for more advanced styling options.
+
+## Stage, Commit, and Push the Final Changes
+- **Objective**: Commit and push your completed index.html file in a VS Code Terminal.
+- **Topics**:
+  1. Stage the Change: Run `git add 03`.
+  2. Commit the Changes: Type `git commit -m "Update assignment 03"`.
+  3. Push the Changes: Run `git push`.
+  4. Confirm Changes on GitHub: Visit your forked repository on GitHub.
+
+## Submitting the Assignment
+- **Objective**: Submit the URL to your completed index.html file.
+- **Topics**:
+  1. Submit the URL of your updated `02` files in the format: `https://github.com/[your-account-name]/[your-web3400-repo]/blob/main/assignments/03/`. Replace `[your-account-name]` with your GitHub username and `[your-web3400-repo]` with your repo name.
