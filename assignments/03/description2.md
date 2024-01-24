@@ -2,16 +2,13 @@
 
 We'll follow a similar pattern as the previous HTML and CSS sections to introduce the Bulma CSS Framework. However to assure we are all starting from the same place I have provided a starter.html file for you to work from. Each section will focus on a specific aspect of Bulma, showing how to use its features in a project. This approach will help you understand how to integrate Bulma into your web development workflow. Bulma is a modern CSS framework based on Flexbox, offering a clean and easy-to-use interface for styling web pages. 
 
-### Copy/Clone Assignment 02 to a new Assignment 03 folder. 
+### Sync fork and update local repo.
 - **Steps**:
-  1. Navigate to your GitHub repository page for your fork of my web3400 repo. 
-  2. Run the "Sync fork" process this will move the `starter.html` file into your repo.
-  3. your In a VS Code Terminal, `cd` to your `assignments` folder.
-  4. Recursively copy your folder: Run `cp -r 02 03`.
-  5. Add, commit, and push the new `03` folder to your repo.
-     1. Stage the Change: Execute `git add 03`.
-     2. Commit the Change: Type `git commit -m "Created assignment 03"`.
-     3. Push the Change: Run `git push`.
+  1. Navigate to your GitHub repository page for your fork of my web3400 repo.
+  2. Run the "Sync fork" process, this will copy my `03/starter.html` folder/file into your GitHub repo assignments folder.
+  3. Use GitHub Desktop (or the VSCode Terminal `git pull`) to 'pull' your repo, updating your local copy.
+
+You should now have a `03` folder in your assignments directory that includes the `starter.html` file.
 
 ### Getting Started with Bulma
 - **Objective**: Introduction to Bulma and setting it up in a project.
