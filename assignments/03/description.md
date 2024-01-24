@@ -48,4 +48,4 @@ By following these steps, you will better understand how to apply Bulma styles t
 ## Submitting the Assignment
 - **Objective**: Submit the URL to your completed index.html file.
 - **Topics**:
-  1. Submit the URL of your updated `02` files in the format: `https://github.com/[your-account-name]/[your-web3400-repo]/blob/main/assignments/03/`. Replace `[your-account-name]` with your GitHub username and `[your-web3400-repo]` with your repo name.
+  1. Submit the URL of your updated assignment `03` folder in the format: `https://github.com/[your-account-name]/[your-web3400-repo]/blob/main/assignments/03/`. Replace `[your-account-name]` with your GitHub username and `[your-web3400-repo]` with your repo name.
