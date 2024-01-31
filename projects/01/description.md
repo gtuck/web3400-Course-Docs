@@ -1,1 +1,1 @@
-# PHP Project 01
+# phpMyAdmin (Project 01)
