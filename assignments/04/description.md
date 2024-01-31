@@ -1,4 +1,4 @@
-# Introduction to PHP (Assignment 04)
+# Introduction to PHP templates (Assignment 04)
 
 Creating a basic PHP template system is the next step in our development journey and a fantastic way to structure your web application for easy maintenance and scalability. Splitting your HTML structure into reusable components allows you to manage your code more effectively. Let's use the `index.html` file from the previous assignment to guide the creation of a simple PHP template system consisting of `head.php`, `nav.php`, and `footer.php`.
 
