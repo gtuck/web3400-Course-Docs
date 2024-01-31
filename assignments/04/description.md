@@ -134,7 +134,7 @@ Extract the `<footer>` section and place it into `footer.php`. This will contain
 
 ## Using the Template Files
 
-To use these templates in your PHP pages, include them where necessary. For example, create a new page named `index.php` in your `04` folder and add the following code:
+First, delete the `index.html` file in your assignment `04` folder. Then, to use our new templates, we'll use the PHP `include` statement. Create a new page named `index.php` in your `04` folder and add the following code:
 
 ```php
 <?php include 'templates/head.php'; ?>
