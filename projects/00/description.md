@@ -1,1 +1,1 @@
-# Introduction to PHP Syntax (Project 00)
+# PHP Syntax (Project 00)
