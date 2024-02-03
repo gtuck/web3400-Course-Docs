@@ -158,9 +158,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 1. **header.php**: Update the `<title>` tag to `<title><?= $siteName ?></title>`
 2. **footer.php**: Update the content of the `<p>` tag to `<strong><?= $siteName ?></strong> | &copy; Copyright 2024 | The source code is licensed under MIT.`
 3. **nav.php**: There are multiple updates to the nav bar:
-   1. Replace the site name placeholder with `<span>&nbsp;<?=$siteName?></span>`.
-   2. Update the Contact Us button `href` to `href="contact.php"`.
-   3. Add a user message section after the hero section:
+   1. Update the `href` for the site logo link to `href="index.php"`.
+   2. Replace the site name placeholder with `<?= $siteName ?>`.
+   3. Update the Contact Us button `href` to `href="contact.php"`.
+   4. Add a user message section after the hero section:
    ```php
     <?php if (!empty($_SESSION['messages'])) : ?>
         <section class="notification is-warning">
