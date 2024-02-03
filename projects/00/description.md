@@ -84,7 +84,7 @@ CREATE TABLE contact_us (
 
 ```php
 <!-- BEGIN YOUR CONTENT -->
-    <section class="section">
+<section class="section">
     <h1 class="title">Contact Us</h1>
     <form class="box" action="contact.php" method="post">
         <div class="field">
