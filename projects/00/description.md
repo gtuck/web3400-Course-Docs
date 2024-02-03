@@ -10,7 +10,7 @@ This project will guide you through setting up a basic web project using PHP wit
    2. Commit the Change: Type `git commit -m "Created project 00 folder"`.
    3. Push the Change: Run `git push`.
 
-### Create `config.php`
+## Create `config.php` file
 
 `config.php` will serve as the core configuration file for our project. It will include the PDO database connection setup, site variables, and a user message system using a session array.
 
@@ -52,7 +52,7 @@ if (!isset($_SESSION['messages'])) {
 ?>
 ```
 
-### Create `.htaccess`
+## Create `.htaccess` file
 
 The `.htaccess` file will enable `display_errors` for debugging purposes and will secure the `config.php` file from direct access.
 
@@ -67,7 +67,7 @@ Deny from all
 </Files>
 ```
 
-### Create database table and overview of phpMyAdmin
+## Create database table and overview of phpMyAdmin
 
 1. **Log in to phpMyAdmin** using the username `web3400` and the password `password`.
 2. **Create the `contact_us` table** with the following SQL command:
@@ -84,7 +84,7 @@ CREATE TABLE contact_us (
 
 3. **Explore the SQL tab features** in phpMyAdmin to understand how to execute SQL queries directly, import SQL files, and export data from your database.
 
-### Create a Basic Contact Us Form
+## Create a Basic Contact Us Form
 
 1. **File Structure**: Create `contact.php`, containing our contact form and logic to save messages to the database.
 
@@ -161,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 ```
 
-### Update `header.php`, `nav.php` and `footer.php` to include the site variable values and and user message output
+## Update `header.php`, `nav.php` and `footer.php` to include the site variable values and and user message output
 
 1. **header.php**: Update the `<title>` tag to `<title><?= $siteName ?></title>`
 2. **footer.php**: Update the content of the `<p>` tag to `<strong><?= $siteName ?></strong> | &copy; Copyright 2024 | The source code is licensed under MIT.`
@@ -180,11 +180,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
    ```
 
-### Conclusion
+## Conclusion
 
 This setup ensures a basic yet secure contact form that utilizes PHP, PDO, HTML5, and the Bulma CSS framework. By including FontAwesome, you can further enhance the visual appeal of your forms and navigation. Test your form thoroughly to ensure data is saved correctly to your `contact_us` table.
 
-### Stage, Commit, and Push the Final Changes
+## Stage, Commit, and Push the Final Changes
 - **Objective**: Commit and push your completed project 00 changes in a VS Code Terminal.
 - **Topics**:
   1. Stage the Change: Run `git add *`.
