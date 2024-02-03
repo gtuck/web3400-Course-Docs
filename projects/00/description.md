@@ -76,7 +76,7 @@ CREATE TABLE contact_us (
 
 3. **Explore the SQL tab features** in phpMyAdmin to understand how to execute SQL queries directly, import SQL files, and export data from your database.
 
-#### Objective 4: Create a Basic Contact Us Form
+### Objective 4: Create a Basic Contact Us Form
 
 1. **File Structure**: Create `contact.php`, containing our contact form and logic to save messages to the database.
 
@@ -152,5 +152,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 ?>
 ```
+
+### Objective 5: Update `header.php`, `nav.php` and `footer.php` to include the site variable values
+
+1. **header.php**: Update the `<title>` tag to `<title><?= $siteName ?></title>`
+2. **footer.php**: Update the content of the `<p>` to `<strong><?= $siteName ?></strong> | &copy; Copyright 2024 | The source code is licensed under MIT.`
+3. **nav.php**: There are multiple updates to the nav bar:
+   1. Replace the site name placeholder with `<span>&nbsp;<?=$siteName?></span>`.
+   2. Update the Contact Us button `href` to `href="contact.php"`.
+   3. Add a user message section after the hero section:
+   ```php
+    <?php if (!empty($_SESSION['messages'])) : ?>
+        <section class="notification is-warning">
+            <button class="delete"></button>
+            <?php echo implode('<br>', $_SESSION['messages']);
+                  $_SESSION['messages'] = []; // Clear the user responses?>
+        </section>
+    <?php endif; ?>
+   ```
 
 This setup ensures a basic yet secure contact form that utilizes PHP, PDO, HTML5, and the Bulma CSS framework. By including FontAwesome, you can further enhance the visual appeal of your forms and navigation. Test your form thoroughly to ensure data is saved correctly to your `contact_us` table.
