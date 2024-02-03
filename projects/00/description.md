@@ -54,7 +54,7 @@ if (!isset($_SESSION['messages'])) {
 
 ## Create a `.htaccess` file
 
-The `.htaccess` file will enable `display_errors` for debugging purposes and secure the `config.php` file from direct access.
+The `.htaccess` file will enable `display_errors` for debugging purposes and to secure the `config.php` file from direct access.
 
 ```
 # Enable PHP display errors
