@@ -193,7 +193,7 @@ This setup ensures a basic yet secure contact form that utilizes PHP, PDO, HTML5
   3. Push the Changes: Run `git push`.
   4. Confirm Changes on GitHub: Visit your forked repository on GitHub.
 
-## Submitting the Assignment
+## Submitting the Project
 - **Objective**: Submit the URL to your completed index.html file.
 - **Topics**:
-  1. Submit the URL of your updated assignment `04` folder in the format: `https://github.com/[your-account-name]/[your-web3400-repo]/blob/main/projects/00/`. Replace `[your-account-name]` with your GitHub username and `[your-web3400-repo]` with your repo name.
+  1. Submit the URL of your updated project `00` folder in the format: `https://github.com/[your-account-name]/[your-web3400-repo]/blob/main/projects/00/`. Replace `[your-account-name]` with your GitHub username and `[your-web3400-repo]` with your repo name.

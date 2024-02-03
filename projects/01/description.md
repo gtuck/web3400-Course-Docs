@@ -2,7 +2,15 @@
 
 This tutorial will guide you through creating a user account creation and password reset feature for a web application. We'll follow a structured approach, mirroring the design patterns and instructional style from Project 00.
 
-### Learning Objective 1: Create the User Table
+## Copy Project 00 to the Project 01 folder.
+
+1. Recursively copy your folder: Run `cp -r projects/00 projects/01`.
+2. Add, commit, and push the new project `01` folder to your repo.
+   1. Stage the Change: Execute `git add *`.
+   2. Commit the Change: Type `git commit -m "Created project 01"`.
+   3. Push the Change: Run `git push`.
+
+## Learning Objective 1: Create the User Table
 
 1. **Log in to phpMyAdmin** using your credentials.
 2. **Run the following SQL command** to create the user's table:
@@ -28,7 +36,7 @@ CREATE TABLE users (
 
 This table includes all necessary fields to support user account management, including security features and account status tracking.
 
-### Learning Objective 2: Create a `register.php` File
+## Learning Objective 2: Create a `register.php` File
 
 1. **Form HTML**: Create `register.php` to include a registration form.
 
@@ -136,7 +144,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 ```
 
-### Learning Objective 3: Password Reset Link
+## Learning Objective 3: Password Reset Link
 
 1. **Create `reset-pwd.php`**: This file will handle password reset requests.
 
@@ -175,4 +183,19 @@ if (isset($_GET['code'])) {
 ?>
 ```
 
+## Conclusion
+
 Remember to validate all user input and handle errors gracefully. This setup not only enhances your application's security but also improves the user experience by providing clear feedback and easy-to-follow steps for account management.
+
+## Stage, Commit, and Push the Final Changes
+- **Objective**: Commit and push your completed project 00 changes in a VS Code Terminal.
+- **Topics**:
+  1. Stage the Change: Run `git add *`.
+  2. Commit the Changes: Type `git commit -m "Final update for project 01"`.
+  3. Push the Changes: Run `git push`.
+  4. Confirm Changes on GitHub: Visit your forked repository on GitHub.
+
+## Submitting the Project
+- **Objective**: Submit the URL to your completed index.html file.
+- **Topics**:
+  1. Submit the URL of your updated project `01` folder in the format: `https://github.com/[your-account-name]/[your-web3400-repo]/blob/main/projects/01/`. Replace `[your-account-name]` with your GitHub username and `[your-web3400-repo]` with your repo name.
