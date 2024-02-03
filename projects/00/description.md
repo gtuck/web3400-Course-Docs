@@ -6,9 +6,9 @@ This project will guide you through setting up a basic web project using PHP wit
 
 1. Recursively copy your folder: Run `cp -r assignments/04 projects/00`.
 2. Add, commit, and push the new project `00` folder to your repo.
-   a. Stage the Change: Execute `git add *`.
-   b. Commit the Change: Type `git commit -m "Created project 00 folder"`.
-   c. Push the Change: Run `git push`.
+   1. Stage the Change: Execute `git add *`.
+   2. Commit the Change: Type `git commit -m "Created project 00 folder"`.
+   3. Push the Change: Run `git push`.
 
 ### Objective 1: Create `config.php`
 
