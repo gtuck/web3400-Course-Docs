@@ -83,8 +83,6 @@ CREATE TABLE contact_us (
 2. **Form HTML (within `contact.php`)**:
 
 ```php
-<?php include 'nav.php'; ?>
-
 <!-- BEGIN YOUR CONTENT -->
 <section class="section">
     <h1 class="title">Contact Us</h1>
@@ -115,7 +113,6 @@ CREATE TABLE contact_us (
     </form>
 </section>
 <!-- END YOUR CONTENT -->
-<?php include 'footer.php'; ?>
 ```
 
 3. **PHP to Save Form Data (at the top of `contact.php`)**:
@@ -134,9 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$name, $email, $message]);
 
     // Redirect or display a success message
-    $_SESSION['message'] = '
-
-Thank you for contacting us!';
+    $_SESSION['message'] = 'Thank you for contacting us!';
     header('Location: contact.php');
     exit;
 }
