@@ -153,7 +153,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 ```
 
-### Objective 5: Update `header.php`, `nav.php` and `footer.php` to include the site variable values
+### Objective 5: Update `header.php`, `nav.php` and `footer.php` to include the site variable values and and user message output
 
 1. **header.php**: Update the `<title>` tag to `<title><?= $siteName ?></title>`
 2. **footer.php**: Update the content of the `<p>` tag to `<strong><?= $siteName ?></strong> | &copy; Copyright 2024 | The source code is licensed under MIT.`
