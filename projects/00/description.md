@@ -67,7 +67,7 @@ Deny from all
 </Files>
 ```
 
-## Create database table and overview of phpMyAdmin
+## Create a database table and overview of phpMyAdmin
 
 1. **Log in to phpMyAdmin** using the username `web3400` and the password `password`.
 2. **Create the `contact_us` table** with the following SQL command:
