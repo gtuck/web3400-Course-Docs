@@ -1,44 +1,52 @@
 # PHP Syntax (Project 00)
 
-This project will guide you through setting up a basic web project using PHP with PDO for database interaction, HTML5 for structure, the Bulma CSS framework for styling, and FontAwesome for icons. We will work within a PHP template that incorporates `config.php`, `head.php`, `nav.php`, and `footer.php`. All new code will be added between the `nav` and `footer` PHP include statements.
+This project will guide you through setting up a basic web project using PHP with PDO for database interaction. We will work within the PHP template system previously created that incorporates `head.php`, `nav.php`, and `footer.php`. All new code will be added between the `nav` and `footer` 'include' statements.
 
-#### Objective 1: Create `config.php`
+### Objective 1: Create `config.php`
 
 `config.php` will serve as the core configuration file for our project. It will include the PDO database connection setup, site variables, and a user message system using a session array.
 
 ```php
 <?php
-// Start session for user message system
-session_start();
 
 // Site Variables
 $siteName = "My PHP Site";
 $contactEmail = "contact@example.com";
 $contactPhone = "123-456-7890";
 
-// PDO Database Connection
+// Create the connection to the web3400 database
 try {
-    $host = 'localhost';
-    $dbname = 'database_name';
-    $username = 'db_user';
-    $password = 'db_password';
+    // Database connection variables
+    $host = 'db';
+    $dbname = 'web3400';
+    $username = 'web3400';
+    $password = 'password';
     $dsn = "mysql:host=$host;dbname=$dbname;charset=UTF8";
 
+    // Create a PDO connection object
     $pdo = new PDO($dsn, $username, $password);
+
     // Set the PDO error mode to exception
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Store connection in session for easy access
-    $_SESSION['pdo'] = $pdo;
 } catch (PDOException $e) {
     die("Could not connect to the database $dbname :" . $e->getMessage());
 }
+
+// Start a user session for the messages response system
+session_start();
+
+// Crate the message array and store it in a session variable
+if (!isset($_SESSION['messages'])) {
+    $_SESSION['messages'] = [];
+}
+// How to add a message to the array
+// $_SESSION['messages'][] = "Message goes here";
 ?>
 ```
 
-#### Objective 2: Create `.htaccess`
+### Objective 2: Create `.htaccess`
 
-The `.htaccess` file will be used to enable `display_errors` for debugging purposes and to secure the `config.php` file from direct access.
+The `.htaccess` file will enable `display_errors` for debugging purposes and will secure the `config.php` file from direct access.
 
 ```
 # Enable PHP display errors
@@ -52,7 +60,7 @@ Deny from all
 </Files>
 ```
 
-#### Objective 3: Overview of phpMyAdmin
+### Objective 3: Overview of phpMyAdmin
 
 1. **Log in to phpMyAdmin** using the username `web3400` and the password `password`.
 2. **Create the `contact_us` table** with the following SQL command:
@@ -71,7 +79,7 @@ CREATE TABLE contact_us (
 
 #### Objective 4: Create a Basic Contact Us Form
 
-1. **File Structure**: Create `contact.php` which will contain our contact form and logic to save messages to the database.
+1. **File Structure**: Create `contact.php`, containing our contact form and logic to save messages to the database.
 
 2. **Form HTML (within `contact.php`)**:
 
@@ -138,4 +146,4 @@ Thank you for contacting us!';
 ?>
 ```
 
-This setup ensures a basic yet secure contact form that utilizes PHP, PDO, HTML5, and the Bulma CSS framework. By including FontAwesome, you can further enhance the visual appeal of your forms and navigation. Remember to test your form thoroughly to ensure that data is being saved correctly to your `contact_us` table.
+This setup ensures a basic yet secure contact form that utilizes PHP, PDO, HTML5, and the Bulma CSS framework. By including FontAwesome, you can further enhance the visual appeal of your forms and navigation. Test your form thoroughly to ensure data is saved correctly to your `contact_us` table.
