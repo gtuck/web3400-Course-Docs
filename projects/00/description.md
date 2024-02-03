@@ -156,7 +156,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ### Objective 5: Update `header.php`, `nav.php` and `footer.php` to include the site variable values
 
 1. **header.php**: Update the `<title>` tag to `<title><?= $siteName ?></title>`
-2. **footer.php**: Update the content of the `<p>` to `<strong><?= $siteName ?></strong> | &copy; Copyright 2024 | The source code is licensed under MIT.`
+2. **footer.php**: Update the content of the `<p>` tag to `<strong><?= $siteName ?></strong> | &copy; Copyright 2024 | The source code is licensed under MIT.`
 3. **nav.php**: There are multiple updates to the nav bar:
    1. Replace the site name placeholder with `<span>&nbsp;<?=$siteName?></span>`.
    2. Update the Contact Us button `href` to `href="contact.php"`.
