@@ -1,6 +1,6 @@
 # PHP Syntax (Project 00)
 
-This project will guide you through setting up a basic web project using PHP with PDO for database interaction. We will work within the PHP template system previously created that incorporates `head.php`, `nav.php`, and `footer.php`. All new code will be added between the `nav` and `footer` 'include' statements.
+This project will guide you through setting up a basic web project using PHP with PDO for database interaction. We will work within the PHP template system previously created that incorporates `head.php`, `nav.php`, and `footer.php`. New HTML code will be added between the `<!-- BEGIN/END YOUR CONTENT -->` comments and PHP code will be added to the top of the page between the `<?php .... ?>` tags. When we need to inject PHP into the HTML it is often done with the shortcut `<?= $theValue ?>`.
 
 ## Copy Assignment 04 to the Project 00 folder.
 
