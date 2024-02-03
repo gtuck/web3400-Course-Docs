@@ -2,6 +2,14 @@
 
 This project will guide you through setting up a basic web project using PHP with PDO for database interaction. We will work within the PHP template system previously created that incorporates `head.php`, `nav.php`, and `footer.php`. All new code will be added between the `nav` and `footer` 'include' statements.
 
+## Copy Assignment 04 to Project 00 folder.
+
+1. Recursively copy your folder: Run `cp -r assignments/04 projects/00`.
+2. Add, commit, and push the new project `00` folder to your repo.
+   a. Stage the Change: Execute `git add *`.
+   b. Commit the Change: Type `git commit -m "Created project 00 folder"`.
+   c. Push the Change: Run `git push`.
+
 ### Objective 1: Create `config.php`
 
 `config.php` will serve as the core configuration file for our project. It will include the PDO database connection setup, site variables, and a user message system using a session array.
@@ -172,4 +180,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php endif; ?>
    ```
 
+## Conclusion
+
 This setup ensures a basic yet secure contact form that utilizes PHP, PDO, HTML5, and the Bulma CSS framework. By including FontAwesome, you can further enhance the visual appeal of your forms and navigation. Test your form thoroughly to ensure data is saved correctly to your `contact_us` table.
+
+## Stage, Commit, and Push the Final Changes
+- **Objective**: Commit and push your completed project 00 changes in a VS Code Terminal.
+- **Topics**:
+  1. Stage the Change: Run `git add *`.
+  2. Commit the Changes: Type `git commit -m "Final update for project 00"`.
+  3. Push the Changes: Run `git push`.
+  4. Confirm Changes on GitHub: Visit your forked repository on GitHub.
+
+## Submitting the Assignment
+- **Objective**: Submit the URL to your completed index.html file.
+- **Topics**:
+  1. Submit the URL of your updated assignment `04` folder in the format: `https://github.com/[your-account-name]/[your-web3400-repo]/blob/main/projects/00/`. Replace `[your-account-name]` with your GitHub username and `[your-web3400-repo]` with your repo name.
