@@ -118,19 +118,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Encrypt password
     $email = htmlspecialchars($_POST['email']);
     $phone = htmlspecialchars($_POST['phone']);
+    $activation_code = uniqid();
     $security_question = htmlspecialchars($_POST['security_question']);
     $security_question_answer = htmlspecialchars($_POST['security_question_answer']);
     
     // Prepare the SQL statement to prevent SQL injection
-    $stmt = $pdo->prepare("INSERT INTO users (full_name, username, pass_hash, email,
-
- phone, security_question, security_question_answer) VALUES (?, ?, ?, ?, ?, ?, ?)");
+    $stmt = $pdo->prepare("INSERT INTO users (full_name, username, pass_hash, email, phone, activation_code, security_question, security_question_answer) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     
     // Execute the statement with the user data
-    $stmt->execute([$full_name, $username, $password, $email, $phone, $security_question, $security_question_answer]);
+    $stmt->execute([$full_name, $username, $password, $email, $phone, $activation_code, $security_question, $security_question_answer]);
     
     // Generate activation link (pseudo code)
-    $activation_link = "http://yourdomain.com/activate_acct.php?code=generated_activation_code";
+    $activation_link = "http://yourdomain.com/activate_acct.php?code=$activation_code";
     
     echo "Welcome $username. To activate your account, <a href='$activation_link'>click here</a>.";
 }
