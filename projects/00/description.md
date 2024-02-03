@@ -2,7 +2,7 @@
 
 This project will guide you through setting up a basic web project using PHP with PDO for database interaction. We will work within the PHP template system previously created that incorporates `head.php`, `nav.php`, and `footer.php`. All new code will be added between the `nav` and `footer` 'include' statements.
 
-## Copy Assignment 04 to Project 00 folder.
+## Copy Assignment 04 to the Project 00 folder.
 
 1. Recursively copy your folder: Run `cp -r assignments/04 projects/00`.
 2. Add, commit, and push the new project `00` folder to your repo.
@@ -10,7 +10,7 @@ This project will guide you through setting up a basic web project using PHP wit
    2. Commit the Change: Type `git commit -m "Created project 00 folder"`.
    3. Push the Change: Run `git push`.
 
-## Create `config.php` file
+## Create a `config.php` file
 
 `config.php` will serve as the core configuration file for our project. It will include the PDO database connection setup, site variables, and a user message system using a session array.
 
@@ -52,9 +52,9 @@ if (!isset($_SESSION['messages'])) {
 ?>
 ```
 
-## Create `.htaccess` file
+## Create a `.htaccess` file
 
-The `.htaccess` file will enable `display_errors` for debugging purposes and will secure the `config.php` file from direct access.
+The `.htaccess` file will enable `display_errors` for debugging purposes and secure the `config.php` file from direct access.
 
 ```
 # Enable PHP display errors
@@ -62,7 +62,7 @@ php_flag display_errors on
 
 # Secure config.php
 <Files config.php>
-Order Deny,Allow
+Order Deny, Allow
 Deny from all
 </Files>
 ```
@@ -161,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 ```
 
-## Update `header.php`, `nav.php` and `footer.php` to include the site variable values and and user message output
+## Update `header.php`, `nav.php`, and `footer.php` files to include the site variable values and user message output
 
 1. **header.php**: Update the `<title>` tag to `<title><?= $siteName ?></title>`
 2. **footer.php**: Update the content of the `<p>` tag to `<strong><?= $siteName ?></strong> | &copy; Copyright 2024 | The source code is licensed under MIT.`
