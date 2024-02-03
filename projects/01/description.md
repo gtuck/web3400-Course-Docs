@@ -10,7 +10,7 @@ This tutorial will guide you through creating a user account creation and passwo
    2. Commit the Change: Type `git commit -m "Created project 01"`.
    3. Push the Change: Run `git push`.
 
-## Learning Objective 1: Create the User Table
+## Create the User Table
 
 1. **Log in to phpMyAdmin** using your credentials.
 2. **Run the following SQL command** to create the user's table:
@@ -34,83 +34,82 @@ CREATE TABLE users (
 );
 ```
 
-This table includes all necessary fields to support user account management, including security features and account status tracking.
+This table includes fields needed to support user account management, including security features and account status tracking.
 
-## Learning Objective 2: Create a `register.php` File
+## Create a `register.php` File
 
 1. **Form HTML**: Create `register.php` to include a registration form.
 
 ```php
-<?php include 'nav.php'; ?>
+<!-- BEGIN YOUR CONTENT -->
 <section class="section">
-    <div class="container">
-        <h1 class="title">Register</h1>
-        <form action="register.php" method="post">
-            <!-- Full Name -->
-            <div class="field">
-                <label class="label">Full Name</label>
-                <div class="control">
-                    <input class="input" type="text" name="full_name" required>
+    <h1 class="title">Register</h1>
+    <form class="box" action="register.php" method="post">
+        <!-- Full Name -->
+        <div class="field">
+            <label class="label">Full Name</label>
+            <div class="control">
+                <input class="input" type="text" name="full_name" required>
+            </div>
+        </div>
+        <!-- Username -->
+        <div class="field">
+            <label class="label">Username</label>
+            <div class="control">
+                <input class="input" type="text" name="username" required>
+            </div>
+        </div>
+        <!-- Password -->
+        <div class="field">
+            <label class="label">Password</label>
+            <div class="control">
+                <input class="input" type="password" name="password" required>
+            </div>
+        </div>
+        <!-- Email -->
+        <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+                <input class="input" type="email" name="email" required>
+            </div>
+        </div>
+        <!-- Phone -->
+        <div class="field">
+            <label class="label">Phone</label>
+            <div class="control">
+                <input class="input" type="tel" name="phone">
+            </div>
+        </div>
+        <!-- Security Question -->
+        <div class="field">
+            <label class="label">Security Question</label>
+            <div class="control">
+                <div class="select">
+                    <select name="security_question">
+                        <option value="Your first pets name?">Your first pets name?</option>
+                        <option value="The city you were born in?">The city you were born in?</option>
+                        <!-- Add more questions as needed -->
+                    </select>
                 </div>
             </div>
-            <!-- Username -->
-            <div class="field">
-                <label class="label">Username</label>
-                <div class="control">
-                    <input class="input" type="text" name="username" required>
-                </div>
+        </div>
+        <!-- Security Question Answer -->
+        <div class="field">
+            <label class="label">Answer</label>
+            <div class="control">
+                <input class="input" type="text" name="security_question_answer" required>
             </div>
-            <!-- Password -->
-            <div class="field">
-                <label class="label">Password</label>
-                <div class="control">
-                    <input class="input" type="password" name="password" required>
-                </div>
+        </div>
+        <!-- Submit Button -->
+        <div class="field">
+            <div class="control">
+                <button type="submit" class="button is-primary">Register</button>
             </div>
-            <!-- Email -->
-            <div class="field">
-                <label class="label">Email</label>
-                <div class="control">
-                    <input class="input" type="email" name="email" required>
-                </div>
-            </div>
-            <!-- Phone -->
-            <div class="field">
-                <label class="label">Phone</label>
-                <div class="control">
-                    <input class="input" type="tel" name="phone">
-                </div>
-            </div>
-            <!-- Security Question -->
-            <div class="field">
-                <label class="label">Security Question</label>
-                <div class="control">
-                    <div class="select">
-                        <select name="security_question">
-                            <option value="Your first pet's name?">Your first pet's name?</option>
-                            <option value="The city you were born in?">The city you were born in?</option>
-                            <!-- Add more questions as needed -->
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <!-- Security Question Answer -->
-            <div class="field">
-                <label class="label">Answer</label>
-                <div class="control">
-                    <input class="input" type="text" name="security_question_answer" required>
-                </div>
-            </div>
-            <!-- Submit Button -->
-            <div class="field">
-                <div class="control">
-                    <button type="submit" class="button is-primary">Register</button>
-                </div>
-            </div>
-        </form>
-    </div>
+        </div>
+    </form>
+    <a class="subtitle is-link" href="reset-pwd.php">Forgot password?</a>
 </section>
-<?php include 'footer.php'; ?>
+<!-- END YOUR CONTENT -->
 ```
 
 2. **PHP Processing**: At the top of `register.php`, add PHP logic to process the form data, insert it into the database, and generate an activation link.
@@ -188,7 +187,7 @@ if (isset($_GET['code'])) {
 Remember to validate all user input and handle errors gracefully. This setup not only enhances your application's security but also improves the user experience by providing clear feedback and easy-to-follow steps for account management.
 
 ## Stage, Commit, and Push the Final Changes
-- **Objective**: Commit and push your completed project 00 changes in a VS Code Terminal.
+- **Objective**: Commit and push your completed project 01 changes in a VS Code Terminal.
 - **Topics**:
   1. Stage the Change: Run `git add *`.
   2. Commit the Changes: Type `git commit -m "Final update for project 01"`.
