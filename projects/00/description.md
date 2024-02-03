@@ -161,11 +161,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 ```
 
-## Update `header.php`, `nav.php`, and `footer.php` files to include the site variable values and user message output
+## Update `index.php`, `header.php`, `nav.php`, and `footer.php`
 
-1. **header.php**: Update the `<title>` tag to `<title><?= $siteName ?></title>`
-2. **footer.php**: Update the content of the `<p>` tag to `<strong><?= $siteName ?></strong> | &copy; Copyright 2024 | The source code is licensed under MIT.`
-3. **nav.php**: There are multiple updates to the nav bar:
+1. **index.php**: Add the `<?php include 'config.php'; ?>` statement to the top of the file
+2. **header.php**: Update the `<title>` tag to `<title><?= $siteName ?></title>`
+3. **footer.php**: Update the content of the `<p>` tag to `<strong><?= $siteName ?></strong> | &copy; Copyright 2024 | The source code is licensed under MIT.`
+4. **nav.php**: There are multiple updates to the nav bar:
    1. Update the `href` for the site logo link to `href="index.php"`.
    2. Replace the site name placeholder with `<?= $siteName ?>`.
    3. Update the Contact Us button `href` to `href="contact.php"`.
