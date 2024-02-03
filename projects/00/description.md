@@ -14,7 +14,7 @@ $siteName = "My PHP Site";
 $contactEmail = "contact@example.com";
 $contactPhone = "123-456-7890";
 
-// Create the connection to the web3400 database
+// Create the connection to your web3400 database
 try {
     // Database connection variables
     $host = 'db';
@@ -51,7 +51,6 @@ The `.htaccess` file will enable `display_errors` for debugging purposes and wil
 ```
 # Enable PHP display errors
 php_flag display_errors on
-php_value error_reporting 6143
 
 # Secure config.php
 <Files config.php>
@@ -86,38 +85,36 @@ CREATE TABLE contact_us (
 ```php
 <?php include 'nav.php'; ?>
 
-<!-- Contact Form -->
+<!-- BEGIN YOUR CONTENT -->
 <section class="section">
-    <div class="container">
-        <h1 class="title">Contact Us</h1>
-        <form action="contact.php" method="post">
-            <div class="field">
-                <label class="label">Name</label>
-                <div class="control">
-                    <input class="input" type="text" name="name" required>
-                </div>
+    <h1 class="title">Contact Us</h1>
+    <form action="contact.php" method="post">
+        <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+                <input class="input" type="text" name="name" required>
             </div>
-            <div class="field">
-                <label class="label">Email</label>
-                <div class="control">
-                    <input class="input" type="email" name="email" required>
-                </div>
+        </div>
+        <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+                <input class="input" type="email" name="email" required>
             </div>
-            <div class="field">
-                <label class="label">Message</label>
-                <div class="control">
-                    <textarea class="textarea" name="message" required></textarea>
-                </div>
+        </div>
+        <div class="field">
+            <label class="label">Message</label>
+            <div class="control">
+                <textarea class="textarea" name="message" required></textarea>
             </div>
-            <div class="field">
-                <div class="control">
-                    <button class="button is-link">Submit</button>
-                </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <button class="button is-link">Submit</button>
             </div>
-        </form>
-    </div>
+        </div>
+    </form>
 </section>
-
+<!-- END YOUR CONTENT -->
 <?php include 'footer.php'; ?>
 ```
 
