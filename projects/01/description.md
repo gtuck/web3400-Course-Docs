@@ -116,7 +116,7 @@ This table includes fields needed to support user account management, including 
 
 ```php
 <?php
-include 'config.php'; // Include the database connection
+include 'config.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Extract and sanitize user input
@@ -136,28 +136,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$full_name, $username, $password, $email, $phone, $activation_code, $security_question, $security_question_answer]);
     
     // Generate activation link (pseudo code)
-    $activation_link = "http://yourdomain.com/activate_acct.php?code=$activation_code";
+    $activation_link = "activate_acct.php?code=$activation_code";
     
-    echo "Welcome $username. To activate your account, <a href='$activation_link'>click here</a>.";
+    // Create activation link message
+    $_SESSION['messages'][] = "Welcome $username. To activate your account, <a href='$activation_link'>click here</a>.";
 }
 ?>
 ```
 
-## Learning Objective 3: Password Reset Link
+## Password Reset Link
 
 1. **Create `reset-pwd.php`**: This file will handle password reset requests.
 
 ```php
-<?php include 'nav.php'; ?>
-<!-- Password Reset Form -->
-<section class="section">
-    <div class="container">
-        <h1 class="title">Reset Password</h1>
-        <!-- Form asking for username, email, and security question -->
-        <!-- After validation, show new password form -->
-    </div>
-</section>
-<?php include 'footer.php'; ?>
+<!-- BEGIN YOUR CONTENT -->
+
+<!-- END YOUR CONTENT -->
 ```
 
 2. **PHP Logic**: Add logic to validate user input against the database and allow the user to enter a new password.
@@ -167,19 +161,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 1. **Create `activate_acct.php`**: This page activates or reactivates user accounts based on the provided activation code.
 
 ```php
+<!-- BEGIN YOUR CONTENT -->
 <?php
-include 'config.php'; // Include database connection
+// Include your database configuration file
+include 'config.php';
 
-// Check if the activation code is in the URL
+// Check if an activation code is provided in the URL query string
 if (isset($_GET['code'])) {
-    $code = $_GET['code'];
-    
-    // Validate the code and activate the account
-    // Update the `activated_on` field in the users table for the user with the matching activation code
-}
+    $activationCode = $_GET['code'];
 
-// Provide feedback to the user about the status of the activation
+    try {
+        // Prepare a SQL statement to select the user with the given activation code
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE activation_code = :activation_code LIMIT 1");
+        $stmt->execute(['activation_code' => $activationCode]);
+        $user = $stmt->fetch();
+
+        // Check if user exists
+        if ($user) {
+            // User found, now update the activated_on field with the current date and time
+            $updateStmt = $pdo->prepare("UPDATE users SET activated_on = NOW() WHERE activation_code = :activation_code");
+            $updateResult = $updateStmt->execute(['activation_code' => $activationCode]);
+
+            if ($updateResult) {
+                // Update was successful
+                //echo "Account activated successfully. You can now login.";
+                $_SESSION['messages'][] = "Account activated successfully. You can now login.";
+            } else {
+                // Update failed
+                echo "Failed to activate account. Please try the activation link again or contact support.";
+            }
+        } else {
+            // No user found with that activation code
+            echo "Invalid activation code. Please check the link or contact support.";
+        }
+    } catch (PDOException $e) {
+        // Handle any database errors (optional)
+        die("Database error occurred: " . $e->getMessage());
+    }
+} else {
+    // No activation code provided
+    echo "No activation code provided. Please check your activation link.";
+}
 ?>
+<!-- END YOUR CONTENT -->
 ```
 
 ## Conclusion
