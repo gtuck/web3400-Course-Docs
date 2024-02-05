@@ -672,6 +672,35 @@ The `if-elseif-else` statement is used to specify several conditions to check, e
     // Outputs: Grade: C
     ?>
    ```
+
+## Using PHP's alternative syntax for control structures
+
+Make your templates cleaner and more readable, by mixing PHP and HTML. Here's a basic example that demonstrates this syntax with an `if-elseif-else` statement to conditionally render HTML content based on a condition.
+
+### Example: Displaying Different Greetings Based on the Time of Day
+
+```php
+<?php $time = date("H"); ?>
+
+<?php if ($time < 12) : ?>
+    <div>Good morning!</div>
+<?php elseif ($time < 18) : ?>
+    <div>Good afternoon!</div>
+<?php else : ?>
+    <div>Good evening!</div>
+<?php endif; ?>
+```
+
+### Explanation:
+
+- The `<?php $time = date("H"); ?>` line gets the current hour in 24-hour format. The `date("H")` function returns the hour of the day from `00` to `23`.
+- The first condition `<?php if ($time < 12) : ?>` checks if the current time is before noon. If true, it displays "Good morning!".
+- The `<?php elseif ($time < 18) : ?>` line adds an additional condition to check if the time is before 18 (6 PM). If the time is between noon and 6 PM, it displays "Good afternoon!".
+- The `<?php else : ?>` provides a final alternative that displays "Good evening!" if the time is 6 PM or later.
+- The `<?php endif; ?>` ends the conditional block.
+
+This example demonstrates how you can manage multiple conditions in PHP using the alternative syntax, which is especially handy when integrating PHP logic with HTML content.
+
 ## Using the ternary operator
 
    The ternary operator in PHP is a shorthand for the `if-else` statement.
