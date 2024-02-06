@@ -1,4 +1,4 @@
-# PHP code examples:
+# PHP Syntax and Code Examples:
 
 ## Working with Commenting code
 
