@@ -28,16 +28,16 @@ Multi-line comments are used to comment out blocks of code. They start with `/*`
 
  ```php
   /* This is a multi-line comment
-     and it spans over multiple
+     and it spans multiple
      lines. */
   echo "This is not a comment.";
  ```
 
-This method is commonly used for temporarily disabling a block of code or for providing detailed descriptions that span multiple lines.
+This method is commonly used for temporarily disabling a block of code or providing detailed descriptions spanning multiple lines.
 
 ### Documentation Comments
 
-Documentation comments (or DocComments) are a special type of comment that's used for generating API documentation and is structured in a way that documentation generation tools can parse. They start with `/**` and end with `*/`. Inside, you often find annotations in a specific format.
+Documentation comments (or "DocComments") are a special type of comment used for generating API documentation and structured in a way that documentation generation tools can parse. They start with `/**` and end with `*/`. Inside, you often find annotations in a specific format.
 
  ```php
   /**
@@ -51,7 +51,7 @@ Documentation comments (or DocComments) are a special type of comment that's use
   }
  ```
 
-DocComments are particularly useful in large projects and frameworks, where automated documentation generation becomes a crucial part of the workflow.
+DocComments are particularly useful in large projects and frameworks where automated documentation generation becomes crucial to workflow.
 
 ## Basic data types:
 
@@ -218,7 +218,7 @@ Comparison operators in PHP compare two values (numbers or strings) against each
 
 **Equal `==`**
 
-Checks if two values are equal. It returns `true` if the values are equal, and `false` otherwise.
+Checks if two values are equal. It returns `true` if the values are equal and `false` otherwise.
 
   ```php
    if (3 == "3") {
@@ -230,7 +230,7 @@ Here, `3` (an integer) and `"3"` (a string) are considered equal because `==` co
 
 **Identical `===`**
 
-Checks if two values are equal and of the same type. It returns `true` only if both the value and the type are the same.
+Checks if two values are equal and of the same type. It returns `true` only if the value and the type are the same.
 
   ```php
    if (3 === "3") {
@@ -244,7 +244,7 @@ In this case, although `3` and `"3"` have the same value, they are of different 
 
 **Not Equal `!=`**
 
-Checks if the two values are not equal. It returns `true` if the values are not equal, and `false` otherwise.
+Checks if the two values are not equal. It returns `true` if the values are unequal and `false` otherwise.
 
   ```php
    if (3 != 4) {
@@ -346,7 +346,7 @@ The `||` operator returns `true` if at least one of the operands is `true`. It's
  // Outputs: Eligible for entry.
 ```
 
-In this case, having either a valid ID or a passport is enough for eligibility.
+In this case, having a valid ID or a passport is enough for eligibility.
 
 **NOT Operator (`!`)**
 
@@ -383,7 +383,7 @@ The `xor` operator returns `true` if either operand is `true`, but not both. It'
 
 The condition is true in this example because only one of the two conditions (`$hasCar` and `$hasBike`) is true.
 
-These examples demonstrate the use of logical operators in PHP for creating complex conditions by combining simple conditional statements. Logical operators are crucial in decision-making processes in programming.
+These examples demonstrate using logical operators in PHP to create complex conditions by combining simple conditional statements. Logical operators are crucial in decision-making processes in programming.
 
 ## Working with strings
 
@@ -428,7 +428,7 @@ In this example, `$greeting` is a string variable that holds the text `"Hello, W
     $subString = substr($greeting, 7, 5); // Outputs: World
    ```
 
-In this example, `$greeting` demonstrates various string operations like concatenation, finding the length, replacing text within the string, changing case, and extracting a substring. These operations are common in PHP programming, especially when dealing with text processing and manipulation.
+In this example, `$greeting` demonstrates various string operations like concatenation, finding the length, replacing text within the string, changing the case, and extracting a substring. These operations are common in PHP programming, especially when dealing with text processing and manipulation.
 
 ### More about String Concatenation
 
@@ -470,7 +470,7 @@ Using double quotes `" "` allows for variable interpolation:
 
 ## Working with Numbers
 
-Working with numbers is a fundamental aspect of programming in PHP, as in most programming languages. PHP supports different types of numbers, including integers and floating-point numbers (or doubles). Here's a basic example of creating number variables in PHP and performing some common operations with them:
+Working with numbers is a fundamental aspect of programming in PHP, as in most programming languages. PHP supports different numbers, including integers and floating-point numbers (or doubles). Here's a basic example of creating number variables in PHP and performing some common operations with them:
 
 ### Creating Number Variables
 
@@ -514,7 +514,7 @@ In these examples, `$integerNumber` and `$floatingNumber` demonstrate various op
 
 ## Working with Arrays
 
-Arrays in PHP are used to store multiple values in a single variable, making them extremely useful for handling collections of data. Here’s a basic example of creating an array in PHP and performing some common operations with it:
+Arrays in PHP store multiple values in a single variable, making them extremely useful for handling data collections. Here’s a basic example of creating an array in PHP and performing some common operations with it:
 
 ### Creating an Array
 
@@ -570,7 +570,7 @@ In this example, `$fruits` is an array that contains three elements: "Apple", "B
     echo "Age of John is " . $ages["John"]; // Outputs: Age of John is 30
    ```
 
-In these examples, `$fruits` and `$ages` are used to demonstrate how arrays can be created, accessed, modified, and iterated over in PHP. Arrays are a fundamental part of PHP programming and are used for a wide range of tasks, including collecting data sets, passing multiple parameters to functions, and much more.
+In these examples, `$fruits` and `$ages` demonstrate how arrays can be created, accessed, modified, and iterated in PHP. Arrays are a fundamental part of PHP programming and are used for various tasks, including collecting data sets, passing multiple parameters to functions, and much more.
 
 ## Working with Dates
 
@@ -619,7 +619,7 @@ Control statements are crucial to any programming language, including PHP, as th
 
 **Using `if` Statement**
 
-The `if` statement executes a block of code only if a specified condition is true.
+The `if` statement executes a code block only if a specified condition is true.
 
    ```php
     /* In this example, the message "It's warm outside!" is printed only if `$temperature` is greater than 25. */
@@ -635,7 +635,7 @@ The `if` statement executes a block of code only if a specified condition is tru
 
 **Using `if-else` Statement**
 
-The `if-else` statement is used to execute one block of code if a condition is true and another block if the condition is false.
+The `if-else` statement executes one block of code if a condition is true and another if the condition is false.
 
    ```php
     /* Here, the code checks if `$age` is 18 or more. If true, it prints, "You are an adult."; otherwise, it prints "You are a minor." */
@@ -675,7 +675,7 @@ The `if-elseif-else` statement is used to specify several conditions to check, e
 
 ## Using PHP's alternative syntax for control structures
 
-Make your templates cleaner and more readable, by mixing PHP and HTML. Here's a basic example that demonstrates this syntax with an `if-elseif-else` statement to conditionally render HTML content based on a condition.
+Make your templates cleaner and more readable by mixing PHP and HTML. A basic example demonstrates this syntax with an `if-elseif-else` statement to conditionally render HTML content based on a condition.
 
 ### Example: Displaying Different Greetings Based on the Time of Day
 
@@ -695,7 +695,7 @@ Make your templates cleaner and more readable, by mixing PHP and HTML. Here's a 
 
 - The `<?php $time = date("H"); ?>` line gets the current hour in 24-hour format. The `date("H")` function returns the hour of the day from `00` to `23`.
 - The first condition `<?php if ($time < 12) : ?>` checks if the current time is before noon. If true, it displays "Good morning!".
-- The `<?php elseif ($time < 18) : ?>` line adds an additional condition to check if the time is before 18 (6 PM). If the time is between noon and 6 PM, it displays "Good afternoon!".
+- The `<?php elseif ($time < 18) : ?>` line adds a condition to check if the time is before 18 (6 PM). If the time is between noon and 6 PM, it displays "Good afternoon!".
 - The `<?php else : ?>` provides a final alternative that displays "Good evening!" if the time is 6 PM or later.
 - The `<?php endif; ?>` ends the conditional block.
 
@@ -739,7 +739,7 @@ This example demonstrates how you can manage multiple conditions in PHP using th
 
 ## Switch statement
 
-The `switch` statement in PHP is used to perform different actions based on different conditions. It's similar to a series of `if` statements but is often more concise and easier to read, particularly when you have several different conditions to check against the same value. Here's an example of a `switch` statement:
+The `switch` statement in PHP performs different actions based on different conditions. It's similar to a series of `if` statements but is often more concise and easier to read, particularly when you have several different conditions to check against the same value. Here's an example of a `switch` statement:
 
 **Example: `switch` Statement to Display a Weekday**
 
@@ -777,11 +777,53 @@ Suppose you want to display the name of a weekday based on a numeric input (wher
 
 In this example, the `switch` statement is used to check the value of `$dayNumber`. Each `case` represents a possible value of `$dayNumber`, and the corresponding code block is executed if `$dayNumber` matches that case. The `break` statement prevents the code from running into the next case accidentally. The `default` case is executed if none of the cases match the value of `$dayNumber`. In this scenario, since `$dayNumber` is `4`, the output will be `"Thursday"`.
 
+## Redirecting the user to another page
+
+In PHP, a page redirect can be performed using the `header()` function, which sends a raw HTTP header to the client. For a redirect, you would typically use the `Location` header. However, when using PHP's syntax in a document primarily composed of HTML, it's important to remember that any attempt to send headers must be done before any output is sent to the browser, including whitespace or HTML. A redirect should always be placed before any HTML tags.
+
+Here's an example of how you might structure a file with a conditional redirect with PHP at the top and HTML content below.
+
+### Example: Conditional Redirect in PHP
+
+```php
+<?php
+// Determine the condition for the redirect
+$loggedIn = false;
+
+// Perform the redirect based on the condition
+if (!$loggedIn) {
+    header('Location: login.php');
+    exit; // Ensure the script stops executing after the redirect
+}
+
+// Note: No HTML or whitespace before this PHP tag
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome Page</title>
+</head>
+<body>
+    <div>Welcome, you are logged in.</div>
+</body>
+</html>
+```
+
+### Explanation:
+
+- The PHP block at the top checks if a user is logged in by evaluating the `$loggedIn` variable.
+- If `$loggedIn` is `false`, the script sends a `Location` header, redirecting the user to `login.php`. It's crucial to call `exit;` after `header('Location: ...');` to stop the execution of the script immediately after the redirect.
+- The HTML content is only displayed if the user is logged in (`$loggedIn` is `true`), because the script execution would have stopped before reaching the HTML if the user was not logged in.
+- This setup ensures that the header function call to perform the redirect occurs before any HTML output, adhering to PHP's requirement that headers must be sent before output.
+
+Remember, for redirects and any other header manipulations in PHP, always place such code at the beginning of your file before any output (including whitespace and HTML tags) to avoid "headers already sent" errors.
+
 ## PHP's `include` and `require` statements
 
 PHP's `include` and `require` statements are used to insert the contents of one PHP file into another PHP file before the server executes it. They are widely used to maintain clean, modular, and reusable code. Here's a basic example of how to use these statements:
 
-Let's assume you have two PHP files: `header.php` and `footer.php`.
+Suppose you have two PHP files: `header.php` and `footer.php`.
 
 **header.php:**
 
@@ -853,9 +895,9 @@ Additionally, you have `include_once` and `require_once`, which are similar to `
 
 ### Summary
 
-- Use `include` or `require` when you want to reuse code like headers, footers, or common functions across multiple pages.
-- Choose between `include` and `require` based on how you want your script to handle the absence of the included file. Use `require` if the file is essential for the application to run.
-- `include_once` and `require_once` ensure that a file is included only once even if it's called multiple times.
+- Use `include` or `require` when reusing code like headers, footers, or common functions across multiple pages.
+- Choose between `include` and `require` based on how you want your script to handle the absence of the included file. Use `require` if the file is essential for running the application.
+- `include_once` and `require_once` ensure a file is included only once, even if it's called multiple times.
 
 These structures support creating modular, maintainable, and cleaner code in PHP applications.
 
@@ -1013,7 +1055,7 @@ In these examples, `$records` represents the PDO recordset obtained from a datab
 
 ## Working with HTML forms
 
-Creating and working with HTML forms is a fundamental aspect of web development. Forms are used to collect user input, which can be processed by a server-side language like PHP. Here's a basic example of an HTML form and how to handle the form data with PHP:
+Creating and working with HTML forms is a fundamental aspect of web development. Forms collect user input, which can be processed by a server-side language like PHP. Here's a basic example of an HTML form and how to handle the form data with PHP:
 
 ### HTML Form
 
@@ -1060,14 +1102,14 @@ At the top of the same file (`form.php`), add the PHP script to process the form
 
 **How It Works:**
 
-- The form's `action` attribute points to `form.php`, which means that the form data will be submitted to the same script.
+- The form's `action` attribute points to `form.php`, meaning the form data will be submitted to the same script.
 - The `method="post"` attribute specifies that the form data will be sent via the POST method.
 - The PHP script at the top of `form.php` processes the form data. It checks if the form has been submitted using `$_SERVER["REQUEST_METHOD"] == "POST"`.
-- The `$_POST` superglobal is used to collect the data entered into the form. `$_POST['name']` and `$_POST['email']` capture the data from the input fields.
-- `htmlspecialchars` is used to prevent security vulnerabilities like cross-site scripting (XSS) by converting special characters to HTML entities.
+- The `$_POST` superglobal collects the data entered into the form. `$_POST['name']` and `$_POST['email']` capture the data from the input fields.
+- `htmlspecialchars` prevents security vulnerabilities like cross-site scripting (XSS) by converting special characters to HTML entities.
 - The script checks if the name and email fields are filled out. If they are, it echoes a greeting and the email address; if not, it prints an error message.
 
-This basic example demonstrates creating a simple HTML form and processing its data with PHP. It's a common pattern in web development for user data collection and handling.
+This example demonstrates creating a simple HTML form and processing its data with PHP. It's a common pattern in web development for user data collection and handling.
 
 ## Working with Password Hashing
 
@@ -1087,13 +1129,13 @@ This basic example demonstrates creating a simple HTML form and processing its d
 
 ## Working with Sessions
 
-PHP sessions are a way to store information (in variables) to be used across multiple pages. Unlike cookies, session data is stored on the server. Sessions are commonly used to retain user information across different pages for a single visit (session).
+PHP sessions are a way to store information (in variables) to be used across multiple pages. Unlike cookies, session data is stored on the server. Sessions retain user information across different pages for a single visit (session).
 
 Here's a basic example of creating and working with PHP sessions:
 
 ### Starting a Session
 
-First, you need to start a session on each page where you want to access session variables. This is typically done at the very beginning of your PHP script.
+First, you must start a session on each page to access session variables. This is typically done at the very beginning of your PHP script.
 
 ```php
  session_start();
@@ -1167,7 +1209,7 @@ To set a cookie in PHP, you use the `setcookie()` function. This function must b
 
 **Accessing a Cookie**
 
-You can access cookies in PHP using the `$_COOKIE` superglobal array. Remember that a cookie will not be available until the next loading of a page on which the cookie is set.
+You can access cookies in PHP using the `$_COOKIE` superglobal array. Remember that a cookie will not be available until the next page loading on which the cookie is set.
 
 ```php
  // Check if the cookie is set
