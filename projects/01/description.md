@@ -1,6 +1,6 @@
-# User Account Creation & Password Reset (Project 01)
+# User Account Creation (Project 01)
 
-This tutorial will guide you through creating a user account creation and password reset feature for a web application. We'll follow a structured approach, mirroring the design patterns and instructional style from Project 00.
+This tutorial will guide you through creating a user account creation feature for a web application. We'll follow a structured approach, mirroring the design patterns and instructional style from Project 00.
 
 ## Copy Project 00 to the Project 01 folder.
 
@@ -25,20 +25,17 @@ CREATE TABLE users (
     phone VARCHAR(255),
     role ENUM('admin', 'editor', 'user') DEFAULT 'user',
     created_on DATETIME DEFAULT CURRENT_TIMESTAMP,
-    activated_on DATETIME,
     activation_code VARCHAR(255),
     modified_on DATETIME ON UPDATE CURRENT_TIMESTAMP,
-    last_login DATETIME,
-    security_question VARCHAR(255),
-    security_question_answer VARCHAR(255)
+    last_login DATETIME
 );
 ```
 
 This table includes fields needed to support user account management, including security features and account status tracking.
 
-## Create a `register.php` File
+## Create a `register.php` file in your project 01 folder
 
-1. **Form HTML**: Create `register.php` to include a registration form.
+1. **Form HTML**: Add the following HTML to your `register.php` file.
 
 ```php
 <!-- BEGIN YOUR CONTENT -->
@@ -80,26 +77,6 @@ This table includes fields needed to support user account management, including 
                 <input class="input" type="tel" name="phone">
             </div>
         </div>
-        <!-- Security Question -->
-        <div class="field">
-            <label class="label">Security Question</label>
-            <div class="control">
-                <div class="select">
-                    <select name="security_question">
-                        <option value="Your first pets name?">Your first pets name?</option>
-                        <option value="The city you were born in?">The city you were born in?</option>
-                        <!-- Add more questions as needed -->
-                    </select>
-                </div>
-            </div>
-        </div>
-        <!-- Security Question Answer -->
-        <div class="field">
-            <label class="label">Answer</label>
-            <div class="control">
-                <input class="input" type="text" name="security_question_answer" required>
-            </div>
-        </div>
         <!-- Submit Button -->
         <div class="field">
             <div class="control">
@@ -107,92 +84,72 @@ This table includes fields needed to support user account management, including 
             </div>
         </div>
     </form>
-    <a class="subtitle is-link" href="reset-pwd.php">Forgot password?</a>
 </section>
 <!-- END YOUR CONTENT -->
 ```
 
-2. **PHP Processing**: At the top of `register.php`, add PHP logic to process the form data, insert it into the database, and generate an activation link.
+2. **PHP Processing**: At the following PHP code to the top of your `register.php` file, this code will process the form data, check if the username is unique, insert data into the database, and generate an activation link and complete the account activation.
 
 ```php
 <?php
 include 'config.php';
 
+// Check if the form was submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Extract and sanitize user input
+    // Extract, sanitize user input, and assign data to variables
     $full_name = htmlspecialchars($_POST['full_name']);
     $username = htmlspecialchars($_POST['username']);
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Encrypt password
     $email = htmlspecialchars($_POST['email']);
     $phone = htmlspecialchars($_POST['phone']);
-    $activation_code = uniqid();
-    $security_question = htmlspecialchars($_POST['security_question']);
-    $security_question_answer = htmlspecialchars($_POST['security_question_answer']);
-    
-    // Prepare the SQL statement to prevent SQL injection
-    $stmt = $pdo->prepare("INSERT INTO users (full_name, username, pass_hash, email, phone, activation_code, security_question, security_question_answer) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    
-    // Execute the statement with the user data
-    $stmt->execute([$full_name, $username, $password, $email, $phone, $activation_code, $security_question, $security_question_answer]);
-    
-    // Generate activation link (pseudo code)
-    $activation_link = "activate_acct.php?code=$activation_code";
-    
-    // Create activation link message
-    $_SESSION['messages'][] = "Welcome $username. To activate your account, <a href='$activation_link'>click here</a>.";
+    $activation_code = uniqid(); // Generate a unique id
+
+    // Check if the username is unique
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt->execute([$username]);
+    $userExists = $stmt->fetch();
+
+    if ($userExists) {
+        // Username already exists, prompt the user to choose another username
+        $_SESSION['messages'][] = "Username already exists. Please choose another username.";
+    } else {
+        // Username is unique, proceed with inserting the new user record
+        $insertStmt = $pdo->prepare("INSERT INTO users (full_name, username, pass_hash, email, phone, activation_code) VALUES (?, ?, ?, ?, ?, ?)");
+        $insertStmt->execute([$full_name, $username, $password, $email, $phone, $activation_code]);
+        
+        // Generate activation link (pseudo code)
+        $activation_link = "?code=$activation_code";
+        
+        // Create activation link message
+        $_SESSION['messages'][] = "Welcome $username. To activate your account, <a href='$activation_link'>click here</a>.";
+    }
 }
-?>
-```
-
-## Password Reset Link
-
-1. **Create `reset-pwd.php`**: This file will handle password reset requests.
-
-```php
-<!-- BEGIN YOUR CONTENT -->
-
-<!-- END YOUR CONTENT -->
-```
-
-2. **PHP Logic**: Add logic to validate user input against the database and allow the user to enter a new password.
-
-### Learning Objective 4: Account Activation
-
-1. **Create `activate_acct.php`**: This page activates or reactivates user accounts based on the provided activation code.
-
-```php
-<!-- BEGIN YOUR CONTENT -->
-<?php
-// Include your database configuration file
-include 'config.php';
-
 // Check if an activation code is provided in the URL query string
 if (isset($_GET['code'])) {
     $activationCode = $_GET['code'];
 
     try {
         // Prepare a SQL statement to select the user with the given activation code
-        $stmt = $pdo->prepare("SELECT * FROM users WHERE activation_code = :activation_code LIMIT 1");
-        $stmt->execute(['activation_code' => $activationCode]);
+        $stmt = $pdo->prepare("SELECT * FROM users WHERE activation_code = ? LIMIT 1");
+        $stmt->execute([$activationCode]);
         $user = $stmt->fetch();
 
         // Check if user exists
         if ($user) {
             // User found, now update the activated_on field with the current date and time
-            $updateStmt = $pdo->prepare("UPDATE users SET activated_on = NOW() WHERE activation_code = :activation_code");
-            $updateResult = $updateStmt->execute(['activation_code' => $activationCode]);
+            $updateStmt = $pdo->prepare("UPDATE users SET activation_code = NOW() WHERE id = ?");
+            $updateResult = $updateStmt->execute([$user['id']]);
 
             if ($updateResult) {
                 // Update was successful
-                //echo "Account activated successfully. You can now login.";
                 $_SESSION['messages'][] = "Account activated successfully. You can now login.";
             } else {
                 // Update failed
-                echo "Failed to activate account. Please try the activation link again or contact support.";
+                $_SESSION['messages'][] = "Failed to activate account. Please try the activation link again or contact support.";
             }
         } else {
             // No user found with that activation code
-            echo "Invalid activation code. Please check the link or contact support.";
+            $_SESSION['messages'][] = "Invalid activation code. Please check the link or contact support.";
         }
     } catch (PDOException $e) {
         // Handle any database errors (optional)
@@ -200,10 +157,9 @@ if (isset($_GET['code'])) {
     }
 } else {
     // No activation code provided
-    echo "No activation code provided. Please check your activation link.";
-}
+    $_SESSION['messages'][] = "No activation code provided. Please check your activation link.";
+}`
 ?>
-<!-- END YOUR CONTENT -->
 ```
 
 ## Conclusion
