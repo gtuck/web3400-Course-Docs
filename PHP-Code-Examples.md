@@ -1,6 +1,6 @@
 # PHP code examples:
 
-## Commenting code
+## Working with Commenting code
 
 Commenting code is an important practice in programming, allowing developers to annotate code sections for readability and maintainability. PHP supports single-line comments, multi-line comments, and documentation comments. Here are three examples illustrating each type:
 
@@ -53,7 +53,7 @@ Documentation comments (or "DocComments") are a special type of comment used for
 
 DocComments are particularly useful in large projects and frameworks where automated documentation generation becomes crucial to workflow.
 
-## Basic data types:
+##  Working with Basic data types:
 
 PHP data types are not explicitly declared; they are determined at runtime based on the context. In other words, PHP is a *Dynamically Typed Language*.
 
@@ -141,7 +141,7 @@ Creating and using variables in PHP is a fundamental part of programming in this
     // Outputs: The first color is Red, and the third color is Blue
    ```
 
-## Basic PHP assignment operators:
+## Working with Basic PHP assignment operators:
 
 Assignment operators in PHP are used to write a value to a variable. The basic assignment operator is `=`, but several others combine assignment with arithmetic or string operations. Let's go through some examples to illustrate these operators:
 
@@ -212,7 +212,7 @@ Concatenates the right-hand operand to the left-hand operand and assigns the res
    $text .= "World!"; // Equivalent to $text = $text . "World!"; Now $text is "Hello, World!"
   ```
 
-## Comparison operators
+## Working with Comparison operators
 
 Comparison operators in PHP compare two values (numbers or strings) against each other. These operators are essential for controlling the flow of the program through conditional statements like `if`. Let's look at some of the basic comparison operators in PHP, along with examples:
 
@@ -306,7 +306,7 @@ Checks if the value on the left is less than or equal to the value on the right.
    }
   ```
 
-## Logical Operators
+## Working with Logical Operators
 
 Logical operators in PHP are used to combine conditional statements. They are essential for making decisions based on multiple conditions. Here's a basic example of how to create and work with logical operators in PHP:
 
@@ -613,7 +613,7 @@ If you have a specific timestamp, you can format it using the `date()` function.
    // Might output: Formatted date: January 5, 2023, 12:00 am
   ```
 
-## Control statements
+## Working with Control statements
 
 Control statements are crucial to any programming language, including PHP, as they allow you to perform various actions based on different conditions. Here are three examples demonstrating the use of `if`, `if-else`, and `if-elseif-else` in PHP:
 
@@ -673,7 +673,7 @@ The `if-elseif-else` statement is used to specify several conditions to check, e
     ?>
    ```
 
-## Using PHP's alternative syntax for control structures
+##  Working with PHP's alternative syntax for control structures
 
 Make your templates cleaner and more readable by mixing PHP and HTML. A basic example demonstrates this syntax with an `if-elseif-else` statement to conditionally render HTML content based on a condition.
 
@@ -701,7 +701,7 @@ Make your templates cleaner and more readable by mixing PHP and HTML. A basic ex
 
 This example demonstrates how you can manage multiple conditions in PHP using the alternative syntax, which is especially handy when integrating PHP logic with HTML content.
 
-## Using the ternary operator
+##  Working with the ternary operator
 
    The ternary operator in PHP is a shorthand for the `if-else` statement.
    It is used to execute different code based on the evaluation of a condition.
@@ -737,7 +737,7 @@ This example demonstrates how you can manage multiple conditions in PHP using th
    // Outputs: Hello, Alice
    ```
 
-## Switch statement
+## Working with the Switch statement
 
 The `switch` statement in PHP performs different actions based on different conditions. It's similar to a series of `if` statements but is often more concise and easier to read, particularly when you have several different conditions to check against the same value. Here's an example of a `switch` statement:
 
@@ -777,7 +777,7 @@ Suppose you want to display the name of a weekday based on a numeric input (wher
 
 In this example, the `switch` statement is used to check the value of `$dayNumber`. Each `case` represents a possible value of `$dayNumber`, and the corresponding code block is executed if `$dayNumber` matches that case. The `break` statement prevents the code from running into the next case accidentally. The `default` case is executed if none of the cases match the value of `$dayNumber`. In this scenario, since `$dayNumber` is `4`, the output will be `"Thursday"`.
 
-## Redirecting the user to another page
+## Working with the `header()` function
 
 In PHP, a page redirect can be performed using the `header()` function, which sends a raw HTTP header to the client. For a redirect, you would typically use the `Location` header. However, when using PHP's syntax in a document primarily composed of HTML, it's important to remember that any attempt to send headers must be done before any output is sent to the browser, including whitespace or HTML. A redirect should always be placed before any HTML tags.
 
@@ -819,7 +819,7 @@ if (!$loggedIn) {
 
 Remember, for redirects and any other header manipulations in PHP, always place such code at the beginning of your file before any output (including whitespace and HTML tags) to avoid "headers already sent" errors.
 
-## PHP's `include` and `require` statements
+## Working with `include` and `require` statements
 
 PHP's `include` and `require` statements are used to insert the contents of one PHP file into another PHP file before the server executes it. They are widely used to maintain clean, modular, and reusable code. Here's a basic example of how to use these statements:
 
@@ -901,7 +901,7 @@ Additionally, you have `include_once` and `require_once`, which are similar to `
 
 These structures support creating modular, maintainable, and cleaner code in PHP applications.
 
-## Database Connectivity
+## Working with Database Connectivity
 
 **Use PDO to connect to a database, then use a try/catch to test the connection**
    ```php
@@ -930,7 +930,7 @@ These structures support creating modular, maintainable, and cleaner code in PHP
     $pdo = pdo_connect_mariadb();
    ```
 
-## Database CRUD operations
+## Working with Database CRUD operations
 
 **Create (INSERT)**
    ```php
@@ -968,7 +968,7 @@ These structures support creating modular, maintainable, and cleaner code in PHP
     $stmt->execute(['value1']);
    ```
 
-## Examples of blending PHP and HTML to display records
+## Working with blending PHP and HTML to display records
 
 Using `foreach` syntax in PHP, which utilizes a colon `:` and `endforeach;`, can make the code more readable, especially in templates or embedded HTML. Here are the same three examples of outputting data from a PDO recordset, reformatted using this style:
 
@@ -1021,7 +1021,7 @@ This code creates an unordered list where each user's name and email are shown a
 
 In these examples, `$records` represents the PDO recordset obtained from a database query. The `foreach` loop iterates over each row in the recordset, and the data is inserted into HTML elements for display. The exact structure of `$record` (`$record['name']`, `$record['email']`) depends on the columns returned by your SQL query.
 
-## Other Database operations
+## Working with other database operations
 
 **Retrieve Number of Affected Rows**
    ```php
