@@ -13,7 +13,7 @@ This tutorial will guide you through creating a user account creation feature fo
 ## Create the User Table
 
 1. **Log in to phpMyAdmin** using your credentials.
-2. **Run the following SQL command** to create the user's table:
+2. **Run the following SQL command** to create the user's table in your web3400 database:
 
 ```sql
 CREATE TABLE users (
@@ -40,7 +40,7 @@ This table includes fields needed to support user account management, including 
 ```php
 <!-- BEGIN YOUR CONTENT -->
 <section class="section">
-    <h1 class="title">Register</h1>
+    <h1 class="title">Create a user account</h1>
     <form class="box" action="register.php" method="post">
         <!-- Full Name -->
         <div class="field">
@@ -158,7 +158,7 @@ if (isset($_GET['code'])) {
 } else {
     // No activation code provided
     $_SESSION['messages'][] = "No activation code provided. Please check your activation link.";
-}`
+}
 ?>
 ```
 
