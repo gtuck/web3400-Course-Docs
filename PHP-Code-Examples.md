@@ -90,7 +90,7 @@ PHP provides specific functions to check a variable's type:
 - `is_object($value)`: Asserts if the value is an object.
 - `is_null($value)`: Determines if the value is NULL.
 
-## Creating & using variables
+## Working with Variables
 
 Creating and using variables in PHP is a fundamental part of programming in this language. Variables in PHP are used to store data, like strings, integers, arrays, etc., and they start with a `$` sign. Here are three examples that illustrate different ways of creating and using variables in PHP:
 
