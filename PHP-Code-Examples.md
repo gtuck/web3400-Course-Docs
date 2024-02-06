@@ -141,7 +141,7 @@ Creating and using variables in PHP is a fundamental part of programming in this
     // Outputs: The first color is Red, and the third color is Blue
    ```
 
-## Working with Basic PHP assignment operators:
+## Working with assignment operators:
 
 Assignment operators in PHP are used to write a value to a variable. The basic assignment operator is `=`, but several others combine assignment with arithmetic or string operations. Let's go through some examples to illustrate these operators:
 
