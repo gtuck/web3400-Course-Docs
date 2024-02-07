@@ -16,13 +16,14 @@ This tutorial will guide you through creating a user account creation feature fo
 2. **Run the following SQL command** to create the user's table in your web3400 database:
 
 ```sql
-CREATE TABLE users (
+CREATE TABLE users(
     id INT AUTO_INCREMENT PRIMARY KEY,
     full_name VARCHAR(255) NOT NULL,
     username VARCHAR(255) NOT NULL UNIQUE,
     pass_hash VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     phone VARCHAR(255),
+    subscribe BOOLEAN DEFAULT TRUE,
     role ENUM('admin', 'editor', 'user') DEFAULT 'user',
     created_on DATETIME DEFAULT CURRENT_TIMESTAMP,
     activation_code VARCHAR(255),
@@ -31,7 +32,7 @@ CREATE TABLE users (
 );
 ```
 
-This table includes fields needed to support user account management, including security features and account status tracking.
+This table includes fields needed to support user account management, including security features and account type.
 
 ## Create a `register.php` file in your project 01 folder
 
@@ -77,10 +78,22 @@ This table includes fields needed to support user account management, including 
                 <input class="input" type="tel" name="phone">
             </div>
         </div>
-        <!-- Submit Button -->
+        <!-- Subscribe -->
         <div class="field">
             <div class="control">
-                <button type="submit" class="button is-primary">Register</button>
+                <label class="checkbox">
+                    <input name="subscribe" type="checkbox">
+                    <span> Yes, please add me to your mailing list.</span>
+                </label>
+            </div>
+        </div>
+        <!-- Submit Button -->
+        <div class="field is-grouped">
+            <div class="control">
+                <button type="submit" class="button is-link">Register</button>
+            </div>
+            <div class="control">
+                <button type="reset" class="button is-link is-light">Cancel</button>
             </div>
         </div>
     </form>
@@ -102,6 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Encrypt password
     $email = htmlspecialchars($_POST['email']);
     $phone = htmlspecialchars($_POST['phone']);
+    $subscribe = ($_POST['subscribe'] == 'on') ? 1 : 0;
     $activation_code = uniqid(); // Generate a unique id
 
     // Check if the username is unique
@@ -114,8 +128,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['messages'][] = "Username already exists. Please choose another username.";
     } else {
         // Username is unique, proceed with inserting the new user record
-        $insertStmt = $pdo->prepare("INSERT INTO users (full_name, username, pass_hash, email, phone, activation_code) VALUES (?, ?, ?, ?, ?, ?)");
-        $insertStmt->execute([$full_name, $username, $password, $email, $phone, $activation_code]);
+        $insertStmt = $pdo->prepare("INSERT INTO `users`(`full_name`, `username`, `pass_hash`, `email`, `phone`, `subscribe`, `activation_code`) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $insertStmt->execute([$full_name, $username, $password, $email, $phone, $subscribe, $activation_code]);
         
         // Generate activation link (pseudo code)
         $activation_link = "?code=$activation_code";
@@ -143,6 +157,7 @@ if (isset($_GET['code'])) {
             if ($updateResult) {
                 // Update was successful
                 $_SESSION['messages'][] = "Account activated successfully. You can now login.";
+                header('Location: register.php');
             } else {
                 // Update failed
                 $_SESSION['messages'][] = "Failed to activate account. Please try the activation link again or contact support.";
