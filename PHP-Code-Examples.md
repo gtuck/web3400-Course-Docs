@@ -385,7 +385,7 @@ The condition is true in this example because only one of the two conditions (`$
 
 These examples demonstrate using logical operators in PHP to create complex conditions by combining simple conditional statements. Logical operators are crucial in decision-making processes in programming.
 
-## Working with strings
+## Working with Strings
 
 Working with strings is fundamental to any programming language, including PHP. Strings are used to store and manipulate text. Here's a basic example of creating a string variable in PHP and performing some common operations with it:
 
@@ -613,7 +613,7 @@ If you have a specific timestamp, you can format it using the `date()` function.
    // Might output: Formatted date: January 5, 2023, 12:00 am
   ```
 
-## Working with Control statements
+## Working with Control Statements
 
 Control statements are crucial to any programming language, including PHP, as they allow you to perform various actions based on different conditions. Here are three examples demonstrating the use of `if`, `if-else`, and `if-elseif-else` in PHP:
 
@@ -673,7 +673,7 @@ The `if-elseif-else` statement is used to specify several conditions to check, e
     ?>
    ```
 
-##  Working with PHP's alternative syntax for control structures
+##  Working with alternative syntax for control structures
 
 Make your templates cleaner and more readable by mixing PHP and HTML. A basic example demonstrates this syntax with an `if-elseif-else` statement to conditionally render HTML content based on a condition.
 
@@ -701,7 +701,7 @@ Make your templates cleaner and more readable by mixing PHP and HTML. A basic ex
 
 This example demonstrates how you can manage multiple conditions in PHP using the alternative syntax, which is especially handy when integrating PHP logic with HTML content.
 
-##  Working with the ternary operator
+##  Working with the Ternary Operator
 
    The ternary operator in PHP is a shorthand for the `if-else` statement.
    It is used to execute different code based on the evaluation of a condition.
@@ -739,7 +739,7 @@ This example demonstrates how you can manage multiple conditions in PHP using th
 
 ## Working with the Switch statement
 
-The `switch` statement in PHP performs different actions based on different conditions. It's similar to a series of `if` statements but is often more concise and easier to read, particularly when you have several different conditions to check against the same value. Here's an example of a `switch` statement:
+PHP's `switch` statement performs different actions based on different conditions. It's similar to a series of `if` statements but is often more concise and easier to read, particularly when you have several different conditions to check against the same value. Here's an example of a `switch` statement:
 
 **Example: `switch` Statement to Display a Weekday**
 
@@ -1021,7 +1021,7 @@ This code creates an unordered list where each user's name and email are shown a
 
 In these examples, `$records` represents the PDO recordset obtained from a database query. The `foreach` loop iterates over each row in the recordset, and the data is inserted into HTML elements for display. The exact structure of `$record` (`$record['name']`, `$record['email']`) depends on the columns returned by your SQL query.
 
-## Working with other database operations
+## Working with other Database Operations
 
 **Retrieve Number of Affected Rows**
    ```php
@@ -1053,7 +1053,7 @@ In these examples, `$records` represents the PDO recordset obtained from a datab
     }
    ```
 
-## Working with HTML forms
+## Working with HTML Forms
 
 Creating and working with HTML forms is a fundamental aspect of web development. Forms collect user input, which can be processed by a server-side language like PHP. Here's a basic example of an HTML form and how to handle the form data with PHP:
 
@@ -1190,7 +1190,7 @@ When you want to end a session and clear all session data, use `session_destroy(
 
 This example demonstrates a basic usage of PHP sessions. Sessions are widely used for maintaining user state and data across page loads, making them essential for user authentication systems and any application that requires data to persist across multiple pages.
 
-## Baking Cookies
+## Working with Cookies
 
 Cookies in PHP are small pieces of data stored on the client's computer. They are typically used to remember information about the user for the duration of their visit or repeat visits. Here's a basic example of creating and working with cookies in PHP:
 
@@ -1249,7 +1249,7 @@ To delete a cookie, use the `setcookie()` function with an expiration date in th
 
 These examples cover the basic operations you can perform with cookies in PHP - setting, accessing, modifying, and deleting them. Cookies are fundamental to web development for storing user preferences, tracking user sessions, and managing user data across different website pages.
 
-## Working with JSON data
+## Working with JSON Data
 
 Working with JSON (JavaScript Object Notation) data in PHP is quite common, especially in web development for APIs, configurations, and data exchange between a server and a client. JSON is a lightweight data-interchange format that is easy for humans to read and write and for machines to parse and generate.
 
