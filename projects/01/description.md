@@ -1,6 +1,6 @@
 # User Account Creation (Project 01)
 
-This tutorial will guide you through creating a user account creation feature for a web application. We'll follow a structured approach, mirroring the design patterns and instructional style from Project 00.
+In this project we will create systems for a user to register an account, log in/out, password protect certain pages, and update the site navigation template. We'll follow the same structured approach, mirroring the design patterns and instructional style from previous projects.
 
 ## Copy Project 00 to the Project 01 folder.
 
@@ -10,7 +10,7 @@ This tutorial will guide you through creating a user account creation feature fo
    2. Commit the Change: Type `git commit -m "Created project 01"`.
    3. Push the Change: Run `git push`.
 
-## Create the User Table
+## Create the Users Table
 
 1. **Log in to phpMyAdmin** using your credentials.
 2. **Run the following SQL command** to create the user's table in your web3400 database:
@@ -19,10 +19,10 @@ This tutorial will guide you through creating a user account creation feature fo
 CREATE TABLE users(
     id INT AUTO_INCREMENT PRIMARY KEY,
     full_name VARCHAR(255) NOT NULL,
-    username VARCHAR(255) NOT NULL UNIQUE,
+    email VARCHAR(255) NOT NULL UNIQUE,
     pass_hash VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
     phone VARCHAR(255),
+    sms BOOLEAN DEFAULT TRUE,
     subscribe BOOLEAN DEFAULT TRUE,
     role ENUM('admin', 'editor', 'user') DEFAULT 'user',
     created_on DATETIME DEFAULT CURRENT_TIMESTAMP,
@@ -50,11 +50,11 @@ This table includes fields needed to support user account management, including 
                 <input class="input" type="text" name="full_name" required>
             </div>
         </div>
-        <!-- Username -->
+        <!-- Email -->
         <div class="field">
-            <label class="label">Username</label>
+            <label class="label">Email</label>
             <div class="control">
-                <input class="input" type="text" name="username" required>
+                <input class="input" type="email" name="email" required>
             </div>
         </div>
         <!-- Password -->
@@ -64,18 +64,20 @@ This table includes fields needed to support user account management, including 
                 <input class="input" type="password" name="password" required>
             </div>
         </div>
-        <!-- Email -->
-        <div class="field">
-            <label class="label">Email</label>
-            <div class="control">
-                <input class="input" type="email" name="email" required>
-            </div>
-        </div>
         <!-- Phone -->
         <div class="field">
             <label class="label">Phone</label>
             <div class="control">
                 <input class="input" type="tel" name="phone">
+            </div>
+        </div>
+        <!-- sms -->
+        <div class="field">
+            <div class="control">
+                <label class="checkbox">
+                    <input name="sms" type="checkbox">
+                    &nbsp;Yes, please send me text messages.
+                </label>
             </div>
         </div>
         <!-- Subscribe -->
@@ -101,7 +103,7 @@ This table includes fields needed to support user account management, including 
 <!-- END YOUR CONTENT -->
 ```
 
-2. **PHP Processing**: Add the following PHP code to the top of your `register.php` file, this code will process the form data, check if the username is unique, insert data into the database, and generate an activation link and complete the account activation.
+2. **PHP Processing**: Add the following PHP code to the top of your `register.php` file, this code will process the form data, check if the email is unique, insert data into the database, and generate an activation link and complete the account activation.
 
 ```php
 <?php
@@ -111,27 +113,29 @@ include 'config.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Extract, sanitize user input, and assign data to variables
     $full_name = htmlspecialchars($_POST['full_name']);
-    $username = htmlspecialchars($_POST['username']);
+    $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Encrypt password
-    $email = htmlspecialchars($_POST['email']);
     $phone = htmlspecialchars($_POST['phone']);
+    $sms = $_POST['sms'] == 'on' ? 1 : 0;
     $subscribe = $_POST['subscribe'] == 'on' ? 1 : 0;
     $activation_code = uniqid(); // Generate a unique id
 
-    // Check if the username is unique
-    $stmt = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
-    $stmt->execute([$username]);
+    // Check if the email is unique
+    $stmt = $pdo->prepare("SELECT * FROM `users` WHERE `email` = ?");
+    $stmt->execute([$email]);
     $userExists = $stmt->fetch();
 
     if ($userExists) {
-        // Username already exists, prompt the user to choose another username
-        $_SESSION['messages'][] = "Username already exists. Please choose another username.";
+        // Email already exists, prompt the user to choose another
+        $_SESSION['messages'][] = "That email already exists. Please choose another or reset your passowrd";
+        header('Location: register.php');
+        exit;
     } else {
-        // Username is unique, proceed with inserting the new user record
-        $insertStmt = $pdo->prepare("INSERT INTO `users`(`full_name`, `username`, `pass_hash`, `email`, `phone`, `subscribe`, `activation_code`) VALUES (?, ?, ?, ?, ?, ?, ?)");
-        $insertStmt->execute([$full_name, $username, $password, $email, $phone, $subscribe, $activation_code]);
+        // Email is unique, proceed with inserting the new user record
+        $insertStmt = $pdo->prepare("INSERT INTO `users`(`full_name`, `email`, `pass_hash`, `phone`, `sms`, `subscribe`, `activation_code`) VALUES (?, ?, ?, ?, ?, ?, ?)");
+        $insertStmt->execute([$full_name, $email, $password, $phone, $sms, $subscribe, $activation_code]);
 
-        // Generate activation link (pseudo code)
+        // Generate activation link. This is in lieu of sending a verification email and or sms message
         $activation_link = "?code=$activation_code";
 
         // Create activation link message
@@ -157,7 +161,8 @@ if (isset($_GET['code'])) {
             if ($updateResult) {
                 // Update was successful
                 $_SESSION['messages'][] = "Account activated successfully. You can now login.";
-                header('Location: register.php');
+                header('Location: login.php');
+                exit;
             } else {
                 // Update failed
                 $_SESSION['messages'][] = "Failed to activate account. Please try the activation link again or contact support.";
@@ -172,10 +177,87 @@ if (isset($_GET['code'])) {
     }
 } else {
     // No activation code provided
-    //$_SESSION['messages'][] = "No activation code provided. Please check your activation link.";
+    //$_SESSION['messages'][] = "No activation code provided. Please register.";
+    header('Location: register.php');
+    exit;
 }
 ?>
 ```
+
+## Create a `login.php` file in your project 01 folder
+
+1. **Form HTML**: Add the following HTML to your `login.php` file.
+
+```html
+<!-- BEGIN YOUR CONTENT -->
+<section class="section">
+    <h1 class="title">Login</h1>
+    <form class="box" action="login.php" method="post">
+        <!-- Email -->
+        <div class="field">
+            <label class="label">Email</label>
+            <div class="control">
+                <input class="input" type="email" name="email" required>
+            </div>
+        </div>
+        <!-- Password -->
+        <div class="field">
+            <label class="label">Password</label>
+            <div class="control">
+                <input class="input" type="password" name="password" required>
+            </div>
+        </div>
+        <!-- Submit Button -->
+        <div class="field">
+            <div class="control">
+                <button type="submit" class="button is-link">Login</button>
+            </div>
+        </div>
+    </form>
+    <a href="register.php" class="is-link"><strong>Create a new user account</strong></a>
+</section>
+<!-- END YOUR CONTENT -->
+```
+
+1. **PHP Processing**: We will code the PHP code for the `login.php` file together in class.
+
+```php
+<?php
+include 'config.php';
+
+//We will code this together in class
+
+?>
+```
+
+## Create a `logout.php` file in your project 01 folder
+
+1. **PHP Processing**: Add the following PHP to your `logout.php` file.
+
+```php
+<?php
+    session_start();
+    session_destroy();
+    header('Location: login.php');
+?>
+```
+
+## Update `nav.php` tamplate
+
+1. **nav.php**: There are multiple updates to the nav bar:
+   1. Update the `href` for the site logo link to `href="index.php"`.
+   2. Replace the site name placeholder with `<?= $siteName ?>`.
+   3. Update the Contact Us button `href` to `href="contact.php"`.
+   4. Add a user message section after the hero section:
+   ```php
+    <?php if (!empty($_SESSION['messages'])) : ?>
+        <section class="notification is-warning">
+            <button class="delete"></button>
+            <?php echo implode('<br>', $_SESSION['messages']);
+                  $_SESSION['messages'] = []; // Clear the user responses?>
+        </section>
+    <?php endif; ?>
+   ```
 
 ## Conclusion
 
