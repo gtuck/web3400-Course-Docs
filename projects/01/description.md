@@ -244,12 +244,8 @@ include 'config.php';
 ## Update the `nav.php` template
 
 1. **nav.php**: There are multiple updates to the nav bar:
-   1. Replace: ```html
-               <a class="button is-link">
-                Log in
-               </a>
-               ```
-      with: ```html
+   1. Replace the `Log in` button with:
+      ```html
             <!-- BEGIN USER MENU -->
                 <?php if (isset($_SESSION['loggedin'])) : ?>
                     <div class="navbar-item has-dropdown is-hoverable">
@@ -270,7 +266,7 @@ include 'config.php';
             <!-- END USER MENU -->
             ```
 
-   2. Replace the `HERO` with the following code.
+   3. Replace the `HERO` with the following code.
    ```php
     <?php if ($_SERVER['PHP_SELF'] == '/index.php') : ?>
         <!-- BEGIN HERO -->
@@ -289,7 +285,6 @@ include 'config.php';
    ```
 
 ## Conclusion
-
 This setup not only enhances your application's security but also improves the user experience by providing clear feedback and easy-to-follow steps for account management and allows users to register a new account and login/out.
 
 ## Stage, Commit and Push the Final Changes
