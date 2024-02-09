@@ -1,6 +1,6 @@
 # User Account Creation (Project 01)
 
-In this project we will create systems for a user to register an account, log in/out, password protect certain pages, and update the site navigation template. We'll follow the same structured approach, mirroring the design patterns and instructional style from previous projects.
+In this project we will create systems for a user to register an account, log in/out, and update the site navigation template. We'll follow the same structured approach, mirroring the design patterns and instructional style from previous projects.
 
 ## Copy Project 00 to the Project 01 folder.
 
@@ -177,7 +177,6 @@ if (isset($_GET['code'])) {
     }
 } else {
     // No activation code provided
-    //$_SESSION['messages'][] = "No activation code provided. Please register.";
     header('Location: register.php');
     exit;
 }
@@ -245,23 +244,53 @@ include 'config.php';
 ## Update `nav.php` tamplate
 
 1. **nav.php**: There are multiple updates to the nav bar:
-   1. Update the `href` for the site logo link to `href="index.php"`.
-   2. Replace the site name placeholder with `<?= $siteName ?>`.
-   3. Update the Contact Us button `href` to `href="contact.php"`.
-   4. Add a user message section after the hero section:
+   1. Replace: ```html
+               <a class="button is-link">
+                Log in
+               </a>
+               ```
+      with: ```html
+            <!-- BEGIN USER MENU -->
+                <?php if (isset($_SESSION['loggedin'])) : ?>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="button navbar-link">
+                            <span class="icon">
+                               <i class="fas fa-user"></i>
+                             </span>
+                        </a>
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item">Profile</a>
+                            <hr class="navbar-divider">
+                            <a href="logout.php" class="navbar-item">Logout</a>
+                        </div>
+                    </div>
+                <?php else : ?>
+                    <a href="login.php" class="button is-link">Login</a>
+                <?php endif; ?>
+            <!-- END USER MENU -->
+            ```
+
+   2. Replace the `HERO` with the follwoing code.
    ```php
-    <?php if (!empty($_SESSION['messages'])) : ?>
-        <section class="notification is-warning">
-            <button class="delete"></button>
-            <?php echo implode('<br>', $_SESSION['messages']);
-                  $_SESSION['messages'] = []; // Clear the user responses?>
+    <?php if ($_SERVER['PHP_SELF'] == '/index.php') : ?>
+        <!-- BEGIN HERO -->
+        <section class="hero is-link">
+            <div class="hero-body">
+                <p class="title">
+                    Hero title
+                </p>
+                <p class="subtitle">
+                    Hero subtitle
+                </p>
+            </div>
         </section>
+        <!-- END HERO -->
     <?php endif; ?>
    ```
 
 ## Conclusion
 
-Remember to validate all user input and handle errors gracefully. This setup not only enhances your application's security but also improves the user experience by providing clear feedback and easy-to-follow steps for account management.
+This setup not only enhances your application's security but also improves the user experience by providing clear feedback and easy-to-follow steps for account management and allows users to register a new account and log in/out.
 
 ## Stage, Commit, and Push the Final Changes
 - **Objective**: Commit and push your completed project 01 changes in a VS Code Terminal.
