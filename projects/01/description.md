@@ -175,10 +175,6 @@ if (isset($_GET['code'])) {
         // Handle any database errors (optional)
         die("Database error occurred: " . $e->getMessage());
     }
-} else {
-    // No activation code provided
-    header('Location: register.php');
-    exit;
 }
 ?>
 ```
