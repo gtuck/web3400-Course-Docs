@@ -246,25 +246,25 @@ include 'config.php';
 1. **nav.php**: There are multiple updates to the nav bar:
    1. Replace the `Log in` button with:
       ```html
-            <!-- BEGIN USER MENU -->
-                <?php if (isset($_SESSION['loggedin'])) : ?>
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="button navbar-link">
-                            <span class="icon">
-                               <i class="fas fa-user"></i>
-                             </span>
-                        </a>
-                        <div class="navbar-dropdown">
-                            <a class="navbar-item">Profile</a>
-                            <hr class="navbar-divider">
-                            <a href="logout.php" class="navbar-item">Logout</a>
-                        </div>
-                    </div>
-                <?php else : ?>
-                    <a href="login.php" class="button is-link">Login</a>
-                <?php endif; ?>
-            <!-- END USER MENU -->
-            ```
+      <!-- BEGIN USER MENU -->
+         <?php if (isset($_SESSION['loggedin'])) : ?>
+            <div class="navbar-item has-dropdown is-hoverable">
+               <a class="button navbar-link">
+                  <span class="icon">
+                     <i class="fas fa-user"></i>
+                  </span>
+               </a>
+               <div class="navbar-dropdown">
+                  <a class="navbar-item">Profile</a>
+                  <hr class="navbar-divider">
+                  <a href="logout.php" class="navbar-item">Logout</a>
+               </div>
+            </div>
+         <?php else : ?>
+            <a href="login.php" class="button is-link">Login</a>
+         <?php endif; ?>
+      <!-- END USER MENU -->
+      ```
 
    3. Replace the `HERO` with the following code.
    ```php
