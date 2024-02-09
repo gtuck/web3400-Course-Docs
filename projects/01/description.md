@@ -1,6 +1,6 @@
 # User Account Creation (Project 01)
 
-In this project we will create systems for a user to register an account, log in/out, and update the site navigation template. We'll follow the same structured approach, mirroring the design patterns and instructional style from previous projects.
+In this project, we will create systems for users to register an account, log in/out, and update the site navigation template. We'll follow the same structured approach, mirroring previous projects' design patterns and instructional style.
 
 ## Copy Project 00 to the Project 01 folder.
 
@@ -34,7 +34,7 @@ CREATE TABLE users(
 
 This table includes fields needed to support user account management, including security features and account type.
 
-## Create a `register.php` file in your project 01 folder
+## Create a `register.php` file in your Project 01 folder
 
 1. **Form HTML**: Add the following HTML to your `register.php` file.
 
@@ -103,7 +103,7 @@ This table includes fields needed to support user account management, including 
 <!-- END YOUR CONTENT -->
 ```
 
-2. **PHP Processing**: Add the following PHP code to the top of your `register.php` file, this code will process the form data, check if the email is unique, insert data into the database, and generate an activation link and complete the account activation.
+2. **PHP Processing**: Add the following PHP code to the top of your `register.php` file; this code will process the form data, check if the email is unique, insert data into the database, generate an activation link, and complete the account activation.
 
 ```php
 <?php
@@ -135,10 +135,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $insertStmt = $pdo->prepare("INSERT INTO `users`(`full_name`, `email`, `pass_hash`, `phone`, `sms`, `subscribe`, `activation_code`) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $insertStmt->execute([$full_name, $email, $password, $phone, $sms, $subscribe, $activation_code]);
 
-        // Generate activation link. This is in lieu of sending a verification email and or sms message
+        // Generate activation link. This is instead of sending a verification Email and or SMS message
         $activation_link = "?code=$activation_code";
 
-        // Create activation link message
+        // Create an activation link message
         $_SESSION['messages'][] = "Welcome $full_name. To activate your account, <a href='$activation_link'>click here</a>.";
     }
 }
@@ -154,7 +154,7 @@ if (isset($_GET['code'])) {
 
         // Check if user exists
         if ($user) {
-            // User found, now update the activated_on field with the current date and time
+            // User found. Now update the activated_on field with the current date and time
             $updateStmt = $pdo->prepare("UPDATE `users` SET `activation_code` = CONCAT('activated - ', NOW()) WHERE `id` = ?");
             $updateResult = $updateStmt->execute([$user['id']]);
 
@@ -183,7 +183,7 @@ if (isset($_GET['code'])) {
 ?>
 ```
 
-## Create a `login.php` file in your project 01 folder
+## Create a `login.php` file in your Project 01 folder
 
 1. **Form HTML**: Add the following HTML to your `login.php` file.
 
@@ -241,7 +241,7 @@ include 'config.php';
 ?>
 ```
 
-## Update `nav.php` tamplate
+## Update the `nav.php` template
 
 1. **nav.php**: There are multiple updates to the nav bar:
    1. Replace: ```html
@@ -270,7 +270,7 @@ include 'config.php';
             <!-- END USER MENU -->
             ```
 
-   2. Replace the `HERO` with the follwoing code.
+   2. Replace the `HERO` with the following code.
    ```php
     <?php if ($_SERVER['PHP_SELF'] == '/index.php') : ?>
         <!-- BEGIN HERO -->
@@ -290,9 +290,9 @@ include 'config.php';
 
 ## Conclusion
 
-This setup not only enhances your application's security but also improves the user experience by providing clear feedback and easy-to-follow steps for account management and allows users to register a new account and log in/out.
+This setup not only enhances your application's security but also improves the user experience by providing clear feedback and easy-to-follow steps for account management and allows users to register a new account and login/out.
 
-## Stage, Commit, and Push the Final Changes
+## Stage, Commit and Push the Final Changes
 - **Objective**: Commit and push your completed project 01 changes in a VS Code Terminal.
 - **Topics**:
   1. Stage the Change: Run `git add *`.
