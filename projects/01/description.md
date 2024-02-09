@@ -38,7 +38,7 @@ This table includes fields needed to support user account management, including 
 
 1. **Form HTML**: Add the following HTML to your `register.php` file.
 
-```php
+```html
 <!-- BEGIN YOUR CONTENT -->
 <section class="section">
     <h1 class="title">Create a user account</h1>
@@ -83,7 +83,7 @@ This table includes fields needed to support user account management, including 
             <div class="control">
                 <label class="checkbox">
                     <input name="subscribe" type="checkbox">
-                    <span> Yes, please add me to your mailing list.</span>
+                    &nbsp;Yes, please add me to your mailing list.
                 </label>
             </div>
         </div>
@@ -93,7 +93,7 @@ This table includes fields needed to support user account management, including 
                 <button type="submit" class="button is-link">Register</button>
             </div>
             <div class="control">
-                <button type="reset" class="button is-link is-light">Cancel</button>
+                <button type="reset" class="button is-link is-light">Reset</button>
             </div>
         </div>
     </form>
@@ -101,7 +101,7 @@ This table includes fields needed to support user account management, including 
 <!-- END YOUR CONTENT -->
 ```
 
-2. **PHP Processing**: At the following PHP code to the top of your `register.php` file, this code will process the form data, check if the username is unique, insert data into the database, and generate an activation link and complete the account activation.
+2. **PHP Processing**: Add the following PHP code to the top of your `register.php` file, this code will process the form data, check if the username is unique, insert data into the database, and generate an activation link and complete the account activation.
 
 ```php
 <?php
@@ -115,11 +115,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Encrypt password
     $email = htmlspecialchars($_POST['email']);
     $phone = htmlspecialchars($_POST['phone']);
-    $subscribe = ($_POST['subscribe'] == 'on') ? 1 : 0;
+    $subscribe = $_POST['subscribe'] == 'on' ? 1 : 0;
     $activation_code = uniqid(); // Generate a unique id
 
     // Check if the username is unique
-    $stmt = $pdo->prepare("SELECT * FROM users WHERE username = ?");
+    $stmt = $pdo->prepare("SELECT * FROM `users` WHERE `username` = ?");
     $stmt->execute([$username]);
     $userExists = $stmt->fetch();
 
@@ -130,12 +130,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Username is unique, proceed with inserting the new user record
         $insertStmt = $pdo->prepare("INSERT INTO `users`(`full_name`, `username`, `pass_hash`, `email`, `phone`, `subscribe`, `activation_code`) VALUES (?, ?, ?, ?, ?, ?, ?)");
         $insertStmt->execute([$full_name, $username, $password, $email, $phone, $subscribe, $activation_code]);
-        
+
         // Generate activation link (pseudo code)
         $activation_link = "?code=$activation_code";
-        
+
         // Create activation link message
-        $_SESSION['messages'][] = "Welcome $username. To activate your account, <a href='$activation_link'>click here</a>.";
+        $_SESSION['messages'][] = "Welcome $full_name. To activate your account, <a href='$activation_link'>click here</a>.";
     }
 }
 // Check if an activation code is provided in the URL query string
@@ -151,7 +151,7 @@ if (isset($_GET['code'])) {
         // Check if user exists
         if ($user) {
             // User found, now update the activated_on field with the current date and time
-            $updateStmt = $pdo->prepare("UPDATE users SET activation_code = NOW() WHERE id = ?");
+            $updateStmt = $pdo->prepare("UPDATE `users` SET `activation_code` = CONCAT('activated - ', NOW()) WHERE `id` = ?");
             $updateResult = $updateStmt->execute([$user['id']]);
 
             if ($updateResult) {
@@ -172,7 +172,7 @@ if (isset($_GET['code'])) {
     }
 } else {
     // No activation code provided
-    $_SESSION['messages'][] = "No activation code provided. Please check your activation link.";
+    //$_SESSION['messages'][] = "No activation code provided. Please check your activation link.";
 }
 ?>
 ```
