@@ -292,6 +292,6 @@ This setup not only enhances your application's security but also improves the u
   4. Confirm Changes on GitHub: Visit your forked repository on GitHub.
 
 ## Submitting the Project
-- **Objective**: Submit the URL to your completed index.html file.
+- **Objective**: Submit the URL to your completed project 01 folder.
 - **Topics**:
   1. Submit the URL of your updated project `01` folder in the format: `https://github.com/[your-account-name]/[your-web3400-repo]/blob/main/projects/01/`. Replace `[your-account-name]` with your GitHub username and `[your-web3400-repo]` with your repo name.

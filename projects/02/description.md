@@ -80,7 +80,9 @@ try {
             </div>
 
             <div class="content">
-                <?= $user['user_bio'] ?>
+                <p><?= $user['user_bio'] ?></p>
+                Account created: <time datetime="2016-1-1"><?= $user['created_on'] ?></time><br>
+                Account updated: <time datetime="2016-1-1"><?= $user['modified_on'] ?></time><br>
                 Last login: <time datetime="2016-1-1"><?= $user['last_login'] ?></time>
             </div>
         </div>
@@ -154,7 +156,7 @@ try {
         <div class="field">
             <label class="label">Email</label>
             <div class="control">
-                <input class="input" type="email" name="email" value="<?= $user['email'] ?>" required>
+                <input class="input" type="email" name="email" value="<?= $user['email'] ?>" disabled>
             </div>
         </div>
         <!-- Phone -->
@@ -186,8 +188,59 @@ try {
 
 2. **Profile Update Page PHP**: This page allows users to update their profile information. It pre-populates the form fields with the user's existing information fetched from the database.
 
+## Update the `register.php` page to include the new `user_bio` database field:
+
+1. **Update the HTML Form**: Add a new field for `user_bio` to the registration form in `register.php`. You can do this by inserting a new `<div>` within the form to capture the user's biography.
+
+    ```html
+    <!-- Bio -->
+    <div class="field">
+        <label class="label">Bio</label>
+        <div class="control">
+            <textarea class="textarea" name="user_bio" placeholder="Tell us about yourself"></textarea>
+        </div>
+    </div>
+    ```
+
+    This code adds a textarea input field where users can enter their biography.
+
+2. **Update the PHP Processing**: Modify the PHP code in `register.php` to handle the `user_bio` field during form submission and database insertion.
+
+    ```php
+    // Extract, sanitize user input, and assign data to variables
+    $full_name = htmlspecialchars($_POST['full_name']);
+    $email = $_POST['email'];
+    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Encrypt password
+    $phone = htmlspecialchars($_POST['phone']);
+    $sms = $_POST['sms'] == 'on' ? 1 : 0;
+    $subscribe = $_POST['subscribe'] == 'on' ? 1 : 0;
+    $activation_code = uniqid(); // Generate a unique id
+    $user_bio = htmlspecialchars($_POST['user_bio']); // Extract and sanitize user bio
+
+    // Check if the email is unique
+    $stmt = $pdo->prepare("SELECT * FROM `users` WHERE `email` = ?");
+    $stmt->execute([$email]);
+    $userExists = $stmt->fetch();
+
+    if ($userExists) {
+        // Email already exists, prompt the user to choose another
+        $_SESSION['messages'][] = "That email already exists. Please choose another or reset your password";
+        header('Location: register.php');
+        exit;
+    } else {
+        // Email is unique, proceed with inserting the new user record
+        $insertStmt = $pdo->prepare("INSERT INTO `users`(`full_name`, `email`, `pass_hash`, `phone`, `sms`, `subscribe`, `activation_code`, `user_bio`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+        $insertStmt->execute([$full_name, $email, $password, $phone, $sms, $subscribe, $activation_code, $user_bio]);
+    }
+    ```
+
+    Here, we've added the processing for `user_bio`. We sanitize the input and include it in the database insertion query.
+
+
+By following these steps, you can successfully update the `register.php` page to include the `user_bio` field, allowing users to provide additional information during registration.
+
 ## Conclusion
-With the creation of the profile and profile update pages, users can now manage their profile details easily. By adding the `user_bio` field to the `users` table, we've expanded the functionality of our user management system, providing users with a more personalized experience.
+With the creation of the profile and profile update pages, users can now manage their profile details easily. By adding the `user_bio` field to the `users` table, we've expanded the functionality of our user management system, providing users with a more personalized experience. You have successfully implemented user profile management functionality in your web application.
 
 ## Stage, Commit and Push the Final Changes
 - **Objective**: Commit and push your completed project 02 changes
@@ -198,4 +251,8 @@ With the creation of the profile and profile update pages, users can now manage 
   2. Commit the changes: `git commit -m "Added profile and profile update pages"`.
   3. Push the changes: `git push`.
 
-Now you have successfully implemented user profile management functionality in your web application.
+## Submitting the Project
+- **Objective**: Submit the URL to your completed project 02 folder.
+- **Topics**:
+  1. Submit the URL of your updated project `02` folder in the format: `https://github.com/[your-account-name]/[your-web3400-repo]/blob/main/projects/02/`. Replace `[your-account-name]` with your GitHub username and `[your-web3400-repo]` with your repo name.
+
