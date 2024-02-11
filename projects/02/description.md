@@ -30,7 +30,7 @@ This field will store additional information about the user's profile.
 include 'config.php';
 
 /*
-  Get a Gravatar URL for a specified email address or a Placeholder image one is not available
+  Get a Gravatar URL for a specified email address or a placeholder image
   the source code is at https://gravatar.com/site/implement/images/php/
 */
 function get_gravatar($email, $s = 128, $d = 'mp', $r = 'g', $img = false, $atts = array())
