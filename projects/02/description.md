@@ -1,6 +1,6 @@
 # Create and update user profile page (Project 02)
 
-In this project, we will expand our user management system to include a user profile page where users can view and update their profile details. We will add a new field `user_bio` to the `users` table to store additional information about the user. We will update the `register.php` page to included the new `user_bio` field.
+In this project, we will expand our user management system to include a user profile page where users can view and update their profile details. We will add a new field, `user_bio` to the `users` table to store additional information about the user. We will update the `register.php` page to include the new `user_bio` field.
 
 ## Copy Project 01 to the Project 02 folder
 
@@ -23,7 +23,7 @@ This field will store additional information about the user's profile.
 
 ## Create a `profile.php` file in your Project 02 folder
 
-1. **Profile Page HTML**: Create a new file named `profile.php` and add the following HTML to it.
+1. **Profile Page HTML**: Create a new file named `profile.php` and add the following HTML.
 
 ```php
 <?php
@@ -207,7 +207,7 @@ try {
 2. **Update the PHP Processing**: Modify the PHP code in `register.php` to handle the `user_bio` field during form submission and database insertion.
 
     ```php
-    // Extract, sanitize user input, and assign data to variables
+    // Extract, sanitize user input and assign data to variables
     $full_name = htmlspecialchars($_POST['full_name']);
     $email = $_POST['email'];
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Encrypt password
@@ -217,18 +217,18 @@ try {
     $activation_code = uniqid(); // Generate a unique id
     $user_bio = htmlspecialchars($_POST['user_bio']); // Extract and sanitize user bio
 
-    // Check if the email is unique
+    // Check if the Email is unique
     $stmt = $pdo->prepare("SELECT * FROM `users` WHERE `email` = ?");
     $stmt->execute([$email]);
     $userExists = $stmt->fetch();
 
     if ($userExists) {
-        // Email already exists, prompt the user to choose another
+        //Email already exists, prompt the user to choose another
         $_SESSION['messages'][] = "That email already exists. Please choose another or reset your password";
         header('Location: register.php');
         exit;
     } else {
-        // Email is unique, proceed with inserting the new user record
+        //Email is unique, proceed with inserting the new user record
         $insertStmt = $pdo->prepare("INSERT INTO `users`(`full_name`, `email`, `pass_hash`, `phone`, `sms`, `subscribe`, `activation_code`, `user_bio`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
         $insertStmt->execute([$full_name, $email, $password, $phone, $sms, $subscribe, $activation_code, $user_bio]);
     }
@@ -237,15 +237,13 @@ try {
     Here, we've added the processing for `user_bio`. We sanitize the input and include it in the database insertion query.
 
 
-By following these steps, you can successfully update the `register.php` page to include the `user_bio` field, allowing users to provide additional information during registration.
+Following these steps, you can successfully update the `register.php` page to include the `user_bio` field, allowing users to provide additional information during registration.
 
 ## Conclusion
 With the creation of the profile and profile update pages, users can now manage their profile details easily. By adding the `user_bio` field to the `users` table, we've expanded the functionality of our user management system, providing users with a more personalized experience. You have successfully implemented user profile management functionality in your web application.
 
 ## Stage, Commit and Push the Final Changes
-- **Objective**: Commit and push your completed project 02 changes
-
- to your repository.
+- **Objective**: Commit and push your completed project 02 changes to your repository.
 - **Steps**:
   1. Stage the changes: `git add *`.
   2. Commit the changes: `git commit -m "Added profile and profile update pages"`.
@@ -254,5 +252,5 @@ With the creation of the profile and profile update pages, users can now manage 
 ## Submitting the Project
 - **Objective**: Submit the URL to your completed project 02 folder.
 - **Topics**:
-  1. Submit the URL of your updated project `02` folder in the format: `https://github.com/[your-account-name]/[your-web3400-repo]/blob/main/projects/02/`. Replace `[your-account-name]` with your GitHub username and `[your-web3400-repo]` with your repo name.
+  1. Submit the URL of your updated project `02` folder in the format: `https://github.com/[your-account-name]/[your-web3400-repo]/blob/main/projects/02/`. Replace `[your account-name]` with your GitHub username and `[your-web3400-repo]` with your repo name.
 
