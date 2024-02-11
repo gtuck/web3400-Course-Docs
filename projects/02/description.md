@@ -210,30 +210,12 @@ try {
 
     ```php
     // Extract, sanitize user input and assign data to variables
-    $full_name = htmlspecialchars($_POST['full_name']);
-    $email = $_POST['email'];
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Encrypt password
-    $phone = htmlspecialchars($_POST['phone']);
-    $sms = $_POST['sms'] == 'on' ? 1 : 0;
-    $subscribe = $_POST['subscribe'] == 'on' ? 1 : 0;
-    $activation_code = uniqid(); // Generate a unique id
+    ...
     $user_bio = htmlspecialchars($_POST['user_bio']); // Extract and sanitize user bio
 
-    // Check if the Email is unique
-    $stmt = $pdo->prepare("SELECT * FROM `users` WHERE `email` = ?");
-    $stmt->execute([$email]);
-    $userExists = $stmt->fetch();
-
-    if ($userExists) {
-        //Email already exists, prompt the user to choose another
-        $_SESSION['messages'][] = "That email already exists. Please choose another or reset your password";
-        header('Location: register.php');
-        exit;
-    } else {
-        //Email is unique, proceed with inserting the new user record
-        $insertStmt = $pdo->prepare("INSERT INTO `users`(`full_name`, `email`, `pass_hash`, `phone`, `sms`, `subscribe`, `activation_code`, `user_bio`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-        $insertStmt->execute([$full_name, $email, $password, $phone, $sms, $subscribe, $activation_code, $user_bio]);
-    }
+    //Email is unique, proceed with inserting the new user record
+    $insertStmt = $pdo->prepare("INSERT INTO `users`(`full_name`, `email`, `pass_hash`, `phone`, `sms`, `subscribe`,`activation_code`, `user_bio`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $insertStmt->execute([$full_name, $email, $password, $phone, $sms, $subscribe, $activation_code, $user_bio]);
     ```
 
     Here, we've added the processing for `user_bio`. We sanitize the input and include it in the database insertion query.
