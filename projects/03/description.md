@@ -10,20 +10,9 @@ In this project, we will develop a user management system that allows an admin u
    2. Commit the Change: Type `git commit -m "Created project 03"`.
    3. Push the Change: Run `git push`.
 
-## Enhance the Users Table
+## Create a `users_manage.php` File in Your Project 03 Folder
 
-1. **Update the Database Schema**: Add a new field `user_bio` to the `users` table to store user biographies.
-   
-   ```sql
-   ALTER TABLE users
-   ADD COLUMN user_bio TEXT;
-   ```
-
-This modification allows us to store additional information about users in the database.
-
-## Create a `manage_users.php` File in Your Project 03 Folder
-
-1. **HTML Structure**: Add the following HTML structure to your `manage_users.php` file.
+1. **HTML Structure**: Add the following HTML structure to your `users_manage.php` file.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
@@ -31,7 +20,7 @@ This modification allows us to store additional information about users in the d
     <h1 class="title">Manage Users</h1>
     <!-- Add User Button -->
     <div class="buttons">
-        <a href="add_user.php" class="button is-link">Add User</a>
+        <a href="user_add.php" class="button is-link">Add User</a>
     </div>
     <!-- User Table -->
     <table class="table is-fullwidth">
@@ -54,9 +43,9 @@ This modification allows us to store additional information about users in the d
                     <td><?= $user['role'] ?></td>
                     <td>
                         <!-- Edit User Link -->
-                        <a href="edit_user.php?id=<?= $user['id'] ?>" class="button is-small is-link">Edit</a>
+                        <a href="user_edit.php?id=<?= $user['id'] ?>" class="button is-small is-link">Edit</a>
                         <!-- Delete User Form -->
-                        <form action="delete_user.php" method="post" style="display: inline;">
+                        <form action="user_delete.php" method="post" style="display: inline;">
                             <input type="hidden" name="id" value="<?= $user['id'] ?>">
                             <button type="submit" class="button is-small is-danger">Delete</button>
                         </form>
@@ -71,15 +60,15 @@ This modification allows us to store additional information about users in the d
 
 2. **PHP Processing**: Code the PHP to fetch users from the database and populate the user table dynamically.
 
-## Create an `add_user.php` File in Your Project 03 Folder
+## Create an `user_add.php` File in Your Project 03 Folder
 
-1. **HTML Form**: Add the following HTML form to your `add_user.php` file.
+1. **HTML Form**: Add the following HTML form to your `user_add.php` file.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
 <section class="section">
     <h1 class="title">Add User</h1>
-    <form action="process_add_user.php" method="post">
+    <form action="user_add.php" method="post">
         <div class="field">
             <label class="label">Full Name</label>
             <div class="control">
@@ -121,7 +110,7 @@ This modification allows us to store additional information about users in the d
                 <button type="submit" class="button is-link">Add User</button>
             </div>
             <div class="control">
-                <a href="manage_users.php" class="button is-link is-light">Cancel</a>
+                <a href="users_manage.php" class="button is-link is-light">Cancel</a>
             </div>
         </div>
     </form>
@@ -131,23 +120,21 @@ This modification allows us to store additional information about users in the d
 
 2. **PHP Processing**: Implement PHP code to process the form submission and insert a new user record into the database.
 
-## Create an `edit_user.php` File in Your Project 03 Folder
+## Create an `user_edit.php` File in Your Project 03 Folder
 
-1. **HTML Form**: Add the following HTML form to your `edit_user.php` file.
+1. **HTML Form**: Add the following HTML form to your `user_edit.php` file.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
 <section class="section">
     <h1 class="title">Edit User</h1>
-    <form action="process_edit_user.php" method="post">
+    <form action="user_edit.php" method="post">
         <!-- Populate Form Fields with User Data -->
         <input type="hidden" name="id" value="<?= $user['id'] ?>">
         <div class="field">
             <label class="label">Full Name</label>
             <div class="control">
-                <input class="input" type="text" name="full
-
-_name" value="<?= $user['full_name'] ?>" required>
+                <input class="input" type="text" name="full_name" value="<?= $user['full_name'] ?>" required>
             </div>
         </div>
         <div class="field">
@@ -179,7 +166,7 @@ _name" value="<?= $user['full_name'] ?>" required>
                 <button type="submit" class="button is-link">Update User</button>
             </div>
             <div class="control">
-                <a href="manage_users.php" class="button is-link is-light">Cancel</a>
+                <a href="users_manage.php" class="button is-link is-light">Cancel</a>
             </div>
         </div>
     </form>
@@ -189,7 +176,7 @@ _name" value="<?= $user['full_name'] ?>" required>
 
 2. **PHP Processing**: Implement PHP code to retrieve user data from the database and update the user record based on the form submission.
 
-## Create a `delete_user.php` File in Your Project 03 Folder
+## Create a `user_delete.php` File in Your Project 03 Folder
 
 1. **PHP Processing**: Add PHP code to delete a user record from the database when the delete form is submitted.
 
@@ -199,13 +186,7 @@ _name" value="<?= $user['full_name'] ?>" required>
    
 ```php
 <!-- BEGIN NAVIGATION -->
-<div class="navbar-start">
-    <a href="index.php" class="navbar-item">Home</a>
-    <!-- Add User Management Links -->
-    <?php if ($_SESSION['role'] === 'admin') : ?>
-        <a href="manage_users.php" class="navbar-item">Manage Users</a>
-    <?php endif; ?>
-</div>
+...
 <div class="navbar-end">
     <!-- User Authentication Links -->
     <?php if (isset($_SESSION['loggedin'])) : ?>
@@ -230,7 +211,7 @@ _name" value="<?= $user['full_name'] ?>" required>
 
 ## Conclusion
 
-This user management system provides essential functionalities for an admin user to manage user accounts efficiently. By following these steps, you'll be able to add, modify, and delete user accounts, including managing each user's role, effectively enhancing your web application's functionality and user management capabilities.
+This user management system provides essential functionalities for an admin user to manage user accounts efficiently. Following these steps, you can add, modify, and delete user accounts, including managing each user's role, effectively enhancing your web application's functionality and user management capabilities.
 
 ## Stage, Commit and Push the Final Changes
 
