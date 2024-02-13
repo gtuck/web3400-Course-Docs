@@ -218,13 +218,13 @@ try {
     $insertStmt->execute([$full_name, $email, $password, $phone, $sms, $subscribe, $activation_code, $user_bio]);
     ```
 
-    Here, we've added the processing for `user_bio`. We sanitize the input and include it in the database insertion query.
+    Here, you've added the processing for `user_bio`. You sanitize the input and include it in the database insertion query.
 
 
 Following these steps, you can successfully update the `register.php` page to include the `user_bio` field, allowing users to provide additional information during registration.
 
 ## Conclusion
-With the creation of the profile and profile update pages, users can now manage their profile details easily. By adding the `user_bio` field to the `users` table, we've expanded the functionality of our user management system, providing users with a more personalized experience. You have successfully implemented user profile management functionality in your web application.
+With the creation of the profile and profile update pages, users can now manage their profile details easily. By adding the `user_bio` field to the `users` table, you've expanded the functionality of your user management system, providing users with a more personalized experience. You have successfully implemented user profile management functionality in your web application.
 
 ## Stage, Commit and Push the Final Changes
 - **Objective**: Commit and push your completed project 02 changes to your repository.
