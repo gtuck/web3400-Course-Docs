@@ -1,6 +1,6 @@
 # Create and update user profile page (Project 02)
 
-In this **self-guided** project, you will expand your user management system to include a user profile page where users can view and update their profile details. You will add a new field, `user_bio,` to the `users` table to store additional information about the user. You will update the `register.php` page to include the new `user_bio` field.
+In this **self-guided** project, you will include a user profile page where users can view and edit their profile details. You will add a new field, `user_bio,` to the `users` table to store additional information about the user. You will update the `register.php` page to include the new `user_bio` field.
 
 ## Copy Project 01 to the Project 02 folder
 
