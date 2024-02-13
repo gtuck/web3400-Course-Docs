@@ -1,6 +1,6 @@
 # Create and update user profile page (Project 02)
 
-In this project, we will expand our user management system to include a user profile page where users can view and update their profile details. We will add a new field, `user_bio` to the `users` table to store additional information about the user. We will update the `register.php` page to include the new `user_bio` field.
+In this **self-guided** project, you will expand your user management system to include a user profile page where users can view and update their profile details. You will add a new field, `user_bio,` to the `users` table to store additional information about the user. You will update the `register.php` page to include the new `user_bio` field.
 
 ## Copy Project 01 to the Project 02 folder
 
@@ -30,8 +30,8 @@ This field will store additional information about the user's profile.
 include 'config.php';
 
 /*
-  Get a Gravatar URL for a specified email address or a placeholder image
-  the source code is at https://gravatar.com/site/implement/images/php/
+  Get a user's Gravatar URL for their email address or a placeholder image if they do not have one
+  This source code is from https://gravatar.com/site/implement/images/php/
 */
 function get_gravatar($email, $s = 128, $d = 'mp', $r = 'g', $img = false, $atts = array())
 {
