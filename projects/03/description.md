@@ -43,12 +43,13 @@ In this project, we will develop a user management system that allows an admin u
                     <td><?= $user['role'] ?></td>
                     <td>
                         <!-- Edit User Link -->
-                        <a href="user_edit.php?id=<?= $user['id'] ?>" class="button is-small is-link">Edit</a>
+                        <a href="user_edit.php?id=<?= $user['id'] ?>" class="button is-info">
+                            <i class="fas fa-edit"></i>
+                        </a>
                         <!-- Delete User Form -->
-                        <form action="user_delete.php" method="post" style="display: inline;">
-                            <input type="hidden" name="id" value="<?= $user['id'] ?>">
-                            <button type="submit" class="button is-small is-danger">Delete</button>
-                        </form>
+                        <a href="user_delete.php?id=<?= $user['id'] ?>" class="button is-danger">
+                            <i class="fas fa-trash"></i>
+                        </a>
                     </td>
                 </tr>
             <?php endforeach; ?>
