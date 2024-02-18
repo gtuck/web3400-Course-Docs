@@ -59,7 +59,27 @@ In this project, we will develop a user management system that allows an admin u
 <!-- END YOUR CONTENT -->
 ```
 
-2. **PHP Processing**: Code the PHP to fetch users from the database and populate the user table dynamically.
+1. **PHP Processing**: Complete each of the following coding steps by adding your code to the top of the `users_manage.php` file. Your finished file will fetch users from the database and populate the user table dynamically.
+
+```php
+<?php
+// Step 1: Include cinfig.php file
+
+// Step 2: Secure and only allow 'admin' users access this page
+
+// Step 3: Prepare the SQL query template to select all users from the database
+// ex. $stmt = $pdo->prepare('SQL GOES HERE...');
+
+// Step 4: Execute the query
+// ex. $stmt->execute();
+
+// Step 5: Fetch and store the results in the $users associative array
+// ex. $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Step 6: Check if the query returned any rows if not display the message: "There are no user records in the database."
+// ex. if (!$users) {...}
+?>
+```
 
 ## Create an `user_add.php` File in Your Project 03 Folder
 
@@ -120,6 +140,16 @@ In this project, we will develop a user management system that allows an admin u
 ```
 
 2. **PHP Processing**: Implement PHP code to process the form submission and insert a new user record into the database.
+
+```php
+<?php
+// Step 1: Include cinfig.php file
+
+// Step 2: Secure and only allow 'admin' users access this page
+
+// Step 3: You can use the register.php page for most of this code. However you will need to add a handler for the user role field.
+?>
+```
 
 ## Create an `user_edit.php` File in Your Project 03 Folder
 
