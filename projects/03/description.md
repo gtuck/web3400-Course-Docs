@@ -1,6 +1,6 @@
 # User Management System (Project 03)
 
-In this project, we will develop a user management system that allows an admin user to add, modify, and delete user accounts, including managing each user's role. We'll follow a structured approach, similar to previous projects, to ensure proper account management functionalities and user experience.
+In this project, you will develop a user management system that allows an admin user to add, modify, and delete user accounts, including managing each user's role. You'll follow a structured approach, similar to previous projects, to ensure proper account management functionalities and user experience. The HTML part of each page is complete and provided for you. For the PHP you will need to follow each step and lean on code from previous projects.
 
 ## Copy Project 02 to the Project 03 folder
 
@@ -281,17 +281,9 @@ In this project, we will develop a user management system that allows an admin u
 
 This user management system provides essential functionalities for an admin user to manage user accounts efficiently. Following these steps, you can add, modify, and delete user accounts, including managing each user's role, effectively enhancing your web application's functionality and user management capabilities.
 
-## Stage, Commit and Push the Final Changes
+## Final Steps
 
-- **Objective**: Commit and push your completed project 03 changes in a VS Code Terminal.
-- **Topics**:
-  1. Stage the Change: Run `git add *`.
-  2. Commit the Changes: Type `git commit -m "Final update for project 03"`.
-  3. Push the Changes: Run `git push`.
-  4. Confirm Changes on GitHub: Visit your forked repository on GitHub.
-
-## Submitting the Project
-
-- **Objective**: Submit the URL to your completed project 03 folder.
-- **Topics**:
-  1. Submit the URL of your updated project `03` folder in the format: `https://github.com/[your-account-name]/[your-web3400-repo]/blob/main/projects/03/`. Replace `[your-account-name]` with your GitHub username and `[your-web3400-repo]` with your repo name.
+- Follow the instructions provided in the project description to stage, commit, and push your final changes to GitHub.
+- Ensure all files are properly added and committed to your repository before pushing.
+- Test your application thoroughly to catch and fix any bugs or issues.
+- Submit your project URL as previously instructed, ensuring your GitHub repository is up to date so it can be accessed and evaluated.
