@@ -1,6 +1,6 @@
 # User Management System (Project 03)
 
-In this project, you will develop a user management system that allows an admin user to add, modify, and delete user accounts, including managing each user's role. You'll follow a structured approach, similar to previous projects, to ensure proper account management functionalities and user experience. The HTML part of each page is complete and provided for you. For the PHP you will need to follow each step and lean on code from previous projects.
+In this project, you will develop a user management system that allows an admin user to add, modify, and delete user accounts, including managing each user's role. You'll follow a structured approach, similar to previous projects, to ensure proper account management functionalities and user experience. The HTML part of each page is complete and provided for you. For the PHP, you will need to follow each step and lean on code from previous projects.
 
 ## Copy Project 02 to the Project 03 folder
 
@@ -65,7 +65,7 @@ In this project, you will develop a user management system that allows an admin 
 <?php
 // Step 1: Include config.php file
 
-// Step 2: Secure and only allow 'admin' users access this page
+// Step 2: Secure and only allow 'admin' users to access this page
 
 // Step 3: Prepare the SQL query template to select all users from the database
 // ex. $stmt = $pdo->prepare('SQL GOES HERE...');
@@ -76,7 +76,7 @@ In this project, you will develop a user management system that allows an admin 
 // Step 5: Fetch and store the results in the $users associative array
 // ex. $users = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Step 6: Check if the query returned any rows if not display the message: "There are no user records in the database."
+// Step 6: Check if the query returned any rows. If not, display the message: "There are no user records in the database."
 // ex. if (!$users) {...}
 ?>
 ```
@@ -145,9 +145,9 @@ In this project, you will develop a user management system that allows an admin 
 <?php
 // Step 1: Include config.php file
 
-// Step 2: Secure and only allow 'admin' users access this page
+// Step 2: Secure and only allow 'admin' users to access this page
 
-// Step 3: You can use the register.php page for most of this code. However you will need to add a handler for the user role field.
+// Step 3: You can use the register.php page for most of this code. However, you will need to add a handler for the user role field.
 ?>
 ```
 
@@ -211,11 +211,11 @@ In this project, you will develop a user management system that allows an admin 
 <?php
 // Step 1: Include config.php file
 
-// Step 2: Secure and only allow 'admin' users access this page
+// Step 2: Secure and only allow 'admin' users to access this page
 
-// Step 3: Check if the update form was submitted if so update user details. Similar steps as in user_add.php but with an UPDATE SQL query
+// Step 3: Check if the update form was submitted. If so, update user details. Similar steps as in user_add.php but with an UPDATE SQL query
 
-// Step 4: Else it's an initial page request, fetch user's current data from the database by preparing and executing a SQL statement that uses the user gets the user id from the querystring (ex. $_GET['id'])
+// Step 4: Else it's an initial page request, fetch the user's current data from the database by preparing and executing a SQL statement that uses the user gets the user id from the query string (ex. $_GET['id'])
 
 ?>
 ```
@@ -239,11 +239,11 @@ In this project, you will develop a user management system that allows an admin 
 <?php
 // Step 1: Include config.php file
 
-// Step 2: Secure and only allow 'admin' users access this page
+// Step 2: Secure and only allow 'admin' users to access this page
 
-// Step 3: Check if the $_GET['id'] exist, if it does get the user the record from the databse and store it in the associative array $user. If a user record with that id does not exist then display the message "A user with that id did not exist."
+// Step 3: Check if the $_GET['id'] exists; if it does, get the user the record from the database and store it in the associative array $user. If a user record with that ID does not exist, then display the message "A user with that ID did not exist."
 
-// Step 4: Check if $_GET['confirm'] == 'yes'. This means they clicked the 'yes' button to confirm removal of the record. Prepare and execute a SQL DELETE statement where the user id == the $_GET['id']. Else (meaning they clicked 'no') return them back to the users_manage.php page
+// Step 4: Check if $_GET['confirm'] == 'yes'. This means they clicked the 'yes' button to confirm the removal of the record. Prepare and execute a SQL DELETE statement where the user id == the $_GET['id']. Else (meaning they clicked 'no'), return them to the users_manage.php page.
 
 ?>
 ```
@@ -277,13 +277,13 @@ In this project, you will develop a user management system that allows an admin 
 <!-- END NAVIGATION -->
 ```
 
-## Conclusion
-
-This user management system provides essential functionalities for an admin user to manage user accounts efficiently. Following these steps, you can add, modify, and delete user accounts, including managing each user's role, effectively enhancing your web application's functionality and user management capabilities.
-
 ## Final Steps
 
 - Follow the instructions provided in the project description to stage, commit, and push your final changes to GitHub.
-- Ensure all files are properly added and committed to your repository before pushing.
+- Ensure all files are correctly added and committed to your repository before pushing.
 - Test your application thoroughly to catch and fix any bugs or issues.
 - Submit your project URL as previously instructed, ensuring your GitHub repository is up to date so it can be accessed and evaluated.
+
+## Conclusion
+
+This user management system provides essential functionalities for an admin user to manage user accounts efficiently. Following these steps, you can add, modify, and delete user accounts, including collecting each user's role, effectively enhancing your web application's functionality and user management capabilities.
