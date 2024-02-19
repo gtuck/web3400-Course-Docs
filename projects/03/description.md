@@ -63,7 +63,7 @@ In this project, we will develop a user management system that allows an admin u
 
 ```php
 <?php
-// Step 1: Include cinfig.php file
+// Step 1: Include config.php file
 
 // Step 2: Secure and only allow 'admin' users access this page
 
@@ -143,7 +143,7 @@ In this project, we will develop a user management system that allows an admin u
 
 ```php
 <?php
-// Step 1: Include cinfig.php file
+// Step 1: Include config.php file
 
 // Step 2: Secure and only allow 'admin' users access this page
 
