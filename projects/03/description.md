@@ -1,14 +1,34 @@
 # User Management System (Project 03)
 
-In this project, you will develop a user management system that allows an admin user to add, modify, and delete user accounts, including managing each user's role. You'll follow a structured approach, similar to previous projects, to ensure proper account management functionalities and user experience. The HTML part of each page is complete and provided for you. For the PHP, you will need to follow each step and lean on code from previous projects.
+In this project, you will develop a user management system that allows an admin user to add, modify, and delete user accounts, including managing each user's role. You'll follow a structured approach, similar to previous projects, to ensure proper account management functionalities and user experience. The HTML part of each page is complete and provided for you. You must complete each step described in the PHP Comments. Hint: Many code snippets from previous projects may be useful as starter code for this project.
 
 ## Copy Project 02 to the Project 03 folder
 
-1. Recursively copy your folder: Run `cp -r projects/02 projects/03`.
-2. Add, commit, and push the new project `03` folder to your repository.
-   1. Stage the Change: Execute `git add *`.
-   2. Commit the Change: Type `git commit -m "Created project 03"`.
-   3. Push the Change: Run `git push`.
+- Recursively copy the project folder.
+- Stage, commit, and push your new project to GitHub.
+
+## Create a `admin_dashboard.php` File in Your Project 03 Folder
+
+1. **HTML Structure**: Add the following HTML structure to your `admin_dashboard.php` file.
+
+```html
+<!-- BEGIN YOUR CONTENT -->
+<section class="section">
+    <h1 class="title">Admin Dashboard</h1>
+    <p>Admin dashboard content will be created in a future project...</p>
+</section>
+<!-- END YOUR CONTENT -->
+```
+
+1. **PHP Processing**: Complete the following coding steps by adding your code to the top of the `admin_dashboard.php` file. Your finished file will secure the page so only admin users can access it.
+
+```php
+<?php
+// Step 1: Include config.php file
+
+// Step 2: Secure and only allow 'admin' users to access this page
+?>
+```
 
 ## Create a `users_manage.php` File in Your Project 03 Folder
 
@@ -59,7 +79,7 @@ In this project, you will develop a user management system that allows an admin 
 <!-- END YOUR CONTENT -->
 ```
 
-1. **PHP Processing**: Complete each of the following coding steps by adding your code to the top of the `users_manage.php` file. Your finished file will fetch users from the database and populate the user table dynamically.
+1. **PHP Processing**: Complete the following coding steps by adding your code to the top of the `users_manage.php` file. Your finished file will fetch users from the database and populate the user table dynamically.
 
 ```php
 <?php
@@ -250,38 +270,40 @@ In this project, you will develop a user management system that allows an admin 
 
 ## Update the Navigation Template (`nav.php`)
 
-1. **nav.php**: Update the navigation menu to include links for managing users.
+1. **nav.php**: Update the navigation menu to include the `Admin` menu and the link for managing users. The code should be added to the `navbar-start` section of the main navbar after the `home` and `about` links.
    
 ```php
-<!-- BEGIN NAVIGATION -->
+<!-- BEGIN ADMIN MENU -->
+<?php if (isset($_SESSION['loggedin']) && $_SESSION['user_role'] == 'admin') : ?>
+   <div class="navbar-item has-dropdown is-hoverable">
+      <a class="navbar-link">
+         Admin
+      </a>
+      <div class="navbar-dropdown">
+         <a href="users_manage.php" class="navbar-item">
+            Manage Users
+         </a>
+      </div>
+   </div>
+<?php endif; ?>
+<!-- END ADMIN MENU -->
+```
+
+## Update the `profile.php` page
+
+1. **profile.php**: Update the page by adding a `tag` displacing the user's role (i.e., admin, editor, user) from the database.
+   
+```php
 ...
-<div class="navbar-end">
-    <!-- User Authentication Links -->
-    <?php if (isset($_SESSION['loggedin'])) : ?>
-        <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-                <span class="icon">
-                    <i class="fas fa-user"></i>
-                </span>
-            </a>
-            <div class="navbar-dropdown">
-                <a class="navbar-item">Profile</a>
-                <hr class="navbar-divider">
-                <a href="logout.php" class="navbar-item">Logout</a>
-            </div>
-        </div>
-    <?php else : ?>
-        <a href="login.php" class="navbar-item">Login</a>
-    <?php endif; ?>
-</div>
-<!-- END NAVIGATION -->
+<p class="title"><?= $user['full_name'] ?> | <span class="tag is-info is-medium"><?= $user['role'] ?></span></p>
+...
 ```
 
 ## Final Steps
 
-- Follow the instructions provided in the project description to stage, commit, and push your final changes to GitHub.
-- Ensure all files are correctly added and committed to your repository before pushing.
 - Test your application thoroughly to catch and fix any bugs or issues.
+- Ensure all files are correctly added and committed to your repository before pushing.
+- Stage, commit, and push your final changes to GitHub.
 - Submit your project URL as previously instructed, ensuring your GitHub repository is up to date so it can be accessed and evaluated.
 
 ## Conclusion
