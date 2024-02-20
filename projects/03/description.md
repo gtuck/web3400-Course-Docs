@@ -7,7 +7,7 @@ In this project, you will develop a user management system that allows an admin 
 - Recursively copy the project folder.
 - Stage, commit, and push your new project to GitHub.
 
-## Create a `admin_dashboard.php` File in Your Project 03 Folder
+## Create the `admin_dashboard.php` File in Your Project 03 Folder
 
 1. **HTML Structure**: Add the following HTML structure to your `admin_dashboard.php` file.
 
@@ -25,8 +25,15 @@ In this project, you will develop a user management system that allows an admin 
 ```php
 <?php
 // Step 1: Include config.php file
+include 'config.php';
 
 // Step 2: Secure and only allow 'admin' users to access this page
+if (!isset($_SESSION['loggedin']) || $_SESSION['role'] !== 'admin') {
+    // Redirect user to login page or display an error message
+    $_SESSION['messages'][] = "You must be an administrator to access that resource.";
+    header('Location: login.php');
+    exit;
+}
 ?>
 ```
 
