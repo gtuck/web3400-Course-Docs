@@ -1,6 +1,6 @@
 # User Management System (Project 03)
 
-In this project, you will develop a user management system that allows an admin user to add, modify, and delete user accounts, including managing each user's role. You'll follow a structured approach, similar to previous projects, to ensure proper account management functionalities and user experience. The HTML part of each page is complete and provided for you. You must complete each step described in the PHP Comments. Hint: Many code snippets from previous projects may be useful as starter code for this project.
+In this project, you will develop a user management system that allows an admin user to add, modify, and delete user accounts, including managing each user's role. You'll follow a structured approach, similar to previous projects, to ensure proper account management functionalities and user experience. The HTML part of each page is complete and provided for you. You must complete each step described in the PHP Comments. Hint: Many code snippets from previous projects may be helpful to use as starter code for this project.
 
 ## Copy Project 02 to the Project 03 folder
 
@@ -9,7 +9,7 @@ In this project, you will develop a user management system that allows an admin 
 
 ## Create the `admin_dashboard.php` file
 
-1. **HTML Structure**: Add the following HTML structure to your `admin_dashboard.php` file.
+**HTML Structure**: Add the following HTML structure to your `admin_dashboard.php` file.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
@@ -20,7 +20,7 @@ In this project, you will develop a user management system that allows an admin 
 <!-- END YOUR CONTENT -->
 ```
 
-1. **PHP Processing**: Complete the following coding steps by adding your code to the top of the `admin_dashboard.php` file. Your finished file will secure the page so only admin users can access it.
+**PHP Processing**: Complete the following coding steps by adding your code to the top of the `admin_dashboard.php` file. Your finished file will secure the page so only admin users can access it.
 
 ```php
 <?php
@@ -39,7 +39,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 
 ## Create the `users_manage.php` file
 
-1. **HTML Structure**: Add the following HTML structure to your `users_manage.php` file.
+**HTML Structure**: Add the following HTML structure to your `users_manage.php` file.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
@@ -86,7 +86,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 <!-- END YOUR CONTENT -->
 ```
 
-1. **PHP Processing**: Complete the following coding steps by adding your code to the top of the `users_manage.php` file. Your finished file will fetch users from the database and populate the user table dynamically.
+**PHP Processing**: Complete the following coding steps by adding your code to the top of the `users_manage.php` file. Your finished file will fetch users from the database and populate the user table dynamically.
 
 ```php
 <?php
@@ -110,7 +110,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 
 ## Create the `user_add.php` file
 
-1. **HTML Form**: Add the following HTML form to your `user_add.php` file.
+**HTML Form**: Add the following HTML form to your `user_add.php` file.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
@@ -172,7 +172,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 <!-- END YOUR CONTENT -->
 ```
 
-2. **PHP Processing**: Implement PHP code to process the form submission and insert a new user record into the database.
+**PHP Processing**: Implement PHP code to process the form submission and insert a new user record into the database.
 
 ```php
 <?php
@@ -187,7 +187,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 
 ## Create the `user_edit.php` file
 
-1. **HTML Form**: Add the following HTML form to your `user_edit.php` file.
+**HTML Form**: Add the following HTML form to your `user_edit.php` file.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
@@ -258,7 +258,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 <!-- END YOUR CONTENT -->
 ```
 
-2. **PHP Processing**: Implement PHP code to retrieve user data from the database and update the user record based on the form submission.
+**PHP Processing**: Implement PHP code to retrieve user data from the database and update the user record based on the form submission.
 
 ```php
 <?php
@@ -274,7 +274,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 ```
 
 ## Create the `user_delete.php` file
-1. **HTML Form**: Add the following HTML form to your `user_edit.php` file.
+**HTML Form**: Add the following HTML form to your `user_edit.php` file.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
@@ -288,7 +288,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 </section>
 <!-- END YOUR CONTENT -->
 ```
-1. **PHP Processing**: Add PHP code to delete a user record from the database when the delete form is submitted.
+**PHP Processing**: Add PHP code to delete a user record from the database when the delete form is submitted.
 
 ```php
 <?php
@@ -305,7 +305,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 
 ## Update the `nav.php` navigation template file
 
-1. **nav.php**: Update the navigation menu to include the `Admin` menu and the link for managing users. The code should be added to the `navbar-start` section of the main navbar after the `home` and `about` links.
+**nav.php**: Update the navigation menu to include the `Admin` menu and the link for managing users. The code should be added to the `navbar-start` section of the main navbar after the `home` and `about` links.
    
 ```php
 <!-- BEGIN ADMIN MENU -->
@@ -329,7 +329,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 
 ## Update the `profile.php` file
 
-1. **profile.php**: Update the page by adding a Bulma `tag` after the user's name that displays their role (i.e., admin, editor, user).
+**profile.php**: Update the page by adding a Bulma `tag` after the user's name that displays their role (i.e., admin, editor, user).
    
 ```php
 ...
