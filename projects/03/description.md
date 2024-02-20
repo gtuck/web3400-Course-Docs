@@ -329,7 +329,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 
 ## Update the `profile.php` page
 
-1. **profile.php**: Update the page by adding a `tag` displacing the user's role (i.e., admin, editor, user) from the database.
+1. **profile.php**: Update the page by adding a Bulma `tag` after the user's name that displays their role (i.e., admin, editor, user).
    
 ```php
 ...
