@@ -50,7 +50,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
         <a href="user_add.php" class="button is-link">Add User</a>
     </div>
     <!-- User Table -->
-    <table class="table is-fullwidth">
+    <table class="table is-bordered is-striped is-hoverable is-fullwidth">
         <thead>
             <tr>
                 <th>ID</th>
