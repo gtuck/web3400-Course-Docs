@@ -193,21 +193,45 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 <!-- BEGIN YOUR CONTENT -->
 <section class="section">
     <h1 class="title">Edit User</h1>
-    <form action="user_edit.php" method="post">
-        <!-- Populate Form Fields with User Data -->
+    <form action="" method="post">
+        <!-- ID -->
         <input type="hidden" name="id" value="<?= $user['id'] ?>">
+        <!-- Full Name -->
         <div class="field">
             <label class="label">Full Name</label>
             <div class="control">
                 <input class="input" type="text" name="full_name" value="<?= $user['full_name'] ?>" required>
             </div>
         </div>
+        <!-- Email -->
         <div class="field">
             <label class="label">Email</label>
             <div class="control">
-                <input class="input" type="email" name="email" value="<?= $user['email'] ?>" required>
+                <input class="input" type="email" name="email" value="<?= $user['email'] ?>" disabled>
             </div>
         </div>
+        <!-- Password -->
+        <div class="field">
+            <label class="label">Password</label>
+            <div class="control">
+                <input class="input" type="password" value="XXXXXXXX" name="password" disabled>
+            </div>
+        </div>
+        <!-- Phone -->
+        <div class="field">
+            <label class="label">Phone</label>
+            <div class="control">
+                <input class="input" type="tel" value="<?= $user['phone'] ?>" name="phone">
+            </div>
+        </div>
+        <!-- Bio -->
+        <div class="field">
+            <label class="label">User Bio</label>
+            <div class="control">
+                <textarea class="textarea" name="user_bio" disabled><?= $user['user_bio'] ?></textarea>
+            </div>
+        </div>
+        <!-- Role -->
         <div class="field">
             <label class="label">Role</label>
             <div class="control">
@@ -220,12 +244,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
                 </div>
             </div>
         </div>
-        <div class="field">
-            <label class="label">User Bio</label>
-            <div class="control">
-                <textarea class="textarea" name="user_bio"><?= $user['user_bio'] ?></textarea>
-            </div>
-        </div>
+        <!-- Submit -->
         <div class="field is-grouped">
             <div class="control">
                 <button type="submit" class="button is-link">Update User</button>
