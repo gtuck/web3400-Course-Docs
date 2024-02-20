@@ -7,7 +7,7 @@ In this project, you will develop a user management system that allows an admin 
 - Recursively copy the project folder.
 - Stage, commit, and push your new project to GitHub.
 
-## Create the `admin_dashboard.php` File in Your Project 03 Folder
+## Create the `admin_dashboard.php` file
 
 1. **HTML Structure**: Add the following HTML structure to your `admin_dashboard.php` file.
 
@@ -37,7 +37,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 ?>
 ```
 
-## Create a `users_manage.php` File in Your Project 03 Folder
+## Create the `users_manage.php` file
 
 1. **HTML Structure**: Add the following HTML structure to your `users_manage.php` file.
 
@@ -108,7 +108,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 ?>
 ```
 
-## Create an `user_add.php` File in Your Project 03 Folder
+## Create the `user_add.php` file
 
 1. **HTML Form**: Add the following HTML form to your `user_add.php` file.
 
@@ -185,7 +185,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 ?>
 ```
 
-## Create an `user_edit.php` File in Your Project 03 Folder
+## Create the `user_edit.php` file
 
 1. **HTML Form**: Add the following HTML form to your `user_edit.php` file.
 
@@ -273,7 +273,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 ?>
 ```
 
-## Create a `user_delete.php` File in Your Project 03 Folder
+## Create the `user_delete.php` file
 1. **HTML Form**: Add the following HTML form to your `user_edit.php` file.
 
 ```html
@@ -296,14 +296,14 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 
 // Step 2: Secure and only allow 'admin' users to access this page
 
-// Step 3: Check if the $_GET['id'] exists; if it does, get the user the record from the database and store it in the associative array $user. If a user record with that ID does not exist, then display the message "A user with that ID did not exist."
+// Step 3: Check if the $_GET['id'] exists; if it does, get the user the record from the database and store it in the associative array $user. If a user record with that ID does not exist, display the message "A user with that ID did not exist."
 
 // Step 4: Check if $_GET['confirm'] == 'yes'. This means they clicked the 'yes' button to confirm the removal of the record. Prepare and execute a SQL DELETE statement where the user id == the $_GET['id']. Else (meaning they clicked 'no'), return them to the users_manage.php page.
 
 ?>
 ```
 
-## Update the Navigation Template (`nav.php`)
+## Update the `nav.php` navigation template file
 
 1. **nav.php**: Update the navigation menu to include the `Admin` menu and the link for managing users. The code should be added to the `navbar-start` section of the main navbar after the `home` and `about` links.
    
@@ -327,13 +327,13 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 <!-- END ADMIN MENU -->
 ```
 
-## Update the `profile.php` page
+## Update the `profile.php` file
 
 1. **profile.php**: Update the page by adding a Bulma `tag` after the user's name that displays their role (i.e., admin, editor, user).
    
 ```php
 ...
-<p class="title"><?= $user['full_name'] ?> | <span class="tag is-info is-medium"><?= $user['role'] ?></span></p>
+<p class="title"><?= $user['full_name'] ?> **| <span class="tag is-info is-medium"><?= $user['role'] ?></span>**</p>
 ...
 ```
 
