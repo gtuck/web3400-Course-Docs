@@ -279,7 +279,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 ```html
 <!-- BEGIN YOUR CONTENT -->
 <section class="section">
-    <h1 class="title">User Delete</h1>
+    <h1 class="title">Delete User Account</h1>
     <p class="subtitle">Are you sure you want to delete the user: <?= $user['full_name'] ?></p>
     <div class="buttons">
         <a href="?id=<?= $user['id'] ?>&confirm=yes" class="button is-success">Yes</a>
