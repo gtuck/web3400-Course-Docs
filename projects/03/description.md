@@ -277,14 +277,16 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 1. **HTML Form**: Add the following HTML form to your `user_edit.php` file.
 
 ```html
+<!-- BEGIN YOUR CONTENT -->
 <section class="section">
     <h1 class="title">User Delete</h1>
-    <p class="subtitle">Are you sure you want to delete the user: <?= $user['full_name']?></p>
+    <p class="subtitle">Are you sure you want to delete the user: <?= $user['full_name'] ?></p>
     <div class="buttons">
         <a href="?id=<?= $user['id'] ?>&confirm=yes" class="button is-success">Yes</a>
         <a href="?id=<?= $user['id'] ?>&confirm=no" class="button is-danger">No</a>
     </div>
 </section>
+<!-- END YOUR CONTENT -->
 ```
 1. **PHP Processing**: Add PHP code to delete a user record from the database when the delete form is submitted.
 
