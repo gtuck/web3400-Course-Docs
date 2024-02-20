@@ -117,24 +117,35 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 <section class="section">
     <h1 class="title">Add User</h1>
     <form action="user_add.php" method="post">
+        <!-- Full Name -->
         <div class="field">
             <label class="label">Full Name</label>
             <div class="control">
                 <input class="input" type="text" name="full_name" required>
             </div>
         </div>
+        <!-- Email -->
         <div class="field">
             <label class="label">Email</label>
             <div class="control">
                 <input class="input" type="email" name="email" required>
             </div>
         </div>
+        <!-- Password -->
         <div class="field">
             <label class="label">Password</label>
             <div class="control">
                 <input class="input" type="password" name="password" required>
             </div>
         </div>
+        <!-- Phone -->
+        <div class="field">
+            <label class="label">Phone</label>
+            <div class="control">
+                <input class="input" type="tel" name="phone">
+            </div>
+        </div>
+        <!-- Role -->
         <div class="field">
             <label class="label">Role</label>
             <div class="control">
@@ -147,12 +158,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
                 </div>
             </div>
         </div>
-        <div class="field">
-            <label class="label">User Bio</label>
-            <div class="control">
-                <textarea class="textarea" name="user_bio"></textarea>
-            </div>
-        </div>
+        <!-- Submit -->
         <div class="field is-grouped">
             <div class="control">
                 <button type="submit" class="button is-link">Add User</button>
