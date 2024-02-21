@@ -7,14 +7,16 @@ In this project, you will develop a simple blog system that allows users to crea
 Before coding, you must set up the database table to store the blog posts. Use the following SQL statement to create the `blog_posts` table:
 
 ```sql
-CREATE TABLE IF NOT EXISTS `blog_posts` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `title` varchar(255) NOT NULL,
-  `content` text NOT NULL,
-  `author` varchar(255) NOT NULL,
-  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`)
+CREATE TABLE `blog_posts` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `user_id` INT(11) NOT NULL,
+  `title` VARCHAR(255) NOT NULL,
+  `content` TEXT NOT NULL,
+  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 ```
 
 This table includes columns for the post ID, title, content, author, and creation timestamp. Adjust the table structure as needed for your application. After creating the table, you can proceed with the rest of the project steps as outlined.
