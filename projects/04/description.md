@@ -34,7 +34,7 @@ This table includes columns for the post ID, title, content, author, and creatio
     <h1 class="title">Blog Posts</h1>
     <!-- Add Post Button -->
     <div class="buttons">
-        <a href="post_add.php" class="button is-link">Add Post</a>
+        <a href="blog_post_add.php" class="button is-link">Add Post</a>
     </div>
     <!-- Posts Table -->
     <table class="table is-bordered is-striped is-hoverable is-fullwidth">
@@ -57,11 +57,11 @@ This table includes columns for the post ID, title, content, author, and creatio
                     <td><?= $post['author'] ?></td>
                     <td>
                         <!-- Edit Post Link -->
-                        <a href="post_edit.php?id=<?= $post['id'] ?>" class="button is-info">
+                        <a href="blog_post_edit.php?id=<?= $post['id'] ?>" class="button is-info">
                             <i class="fas fa-edit"></i>
                         </a>
                         <!-- Delete Post Form -->
-                        <a href="post_delete.php?id=<?= $post['id'] ?>" class="button is-danger">
+                        <a href="blog_post_delete.php?id=<?= $post['id'] ?>" class="button is-danger">
                             <i class="fas fa-trash"></i>
                         </a>
                     </td>
@@ -97,15 +97,15 @@ This table includes columns for the post ID, title, content, author, and creatio
 ?>
 ```
 
-## Create the `post_add.php` file
+## Create the `blog_post_add.php` file
 
-**HTML Form**: Add the following HTML form to your `post_add.php` file.
+**HTML Form**: Add the following HTML form to your `blog_post_add.php` file.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
 <section class="section">
     <h1 class="title">Add Post</h1>
-    <form action="post_add.php" method="post">
+    <form action="blog_post_add.php" method="post">
         <!-- Title -->
         <div class="field">
             <label class="label">Title</label>
@@ -156,9 +156,9 @@ This table includes columns for the post ID, title, content, author, and creatio
 ?>
 ```
 
-## Create the `post_edit.php` file
+## Create the `blog_post_edit.php` file
 
-**HTML Form**: Add the following HTML form to your `post_edit.php` file.
+**HTML Form**: Add the following HTML form to your `blog_post_edit.php` file.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
@@ -217,9 +217,9 @@ This table includes columns for the post ID, title, content, author, and creatio
 ?>
 ```
 
-## Create the `post_delete.php` file
+## Create the `blog_post_delete.php` file
 
-**HTML Confirmation**: Add the following HTML confirmation to your `post_delete.php` file.
+**HTML Confirmation**: Add the following HTML confirmation to your `blog_post_delete.php` file.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
