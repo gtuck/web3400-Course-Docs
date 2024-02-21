@@ -4,7 +4,7 @@ In this project, you will develop a simple blog system that allows users to crea
 
 ## Set Up the Database
 
-Before you start coding, you must set up the database table to store the blog posts. Use the following SQL statement to create the `blog_posts` table:
+Before coding, you must set up the database table to store the blog posts. Use the following SQL statement to create the `blog_posts` table:
 
 ```sql
 CREATE TABLE IF NOT EXISTS `blog_posts` (
@@ -251,8 +251,6 @@ This table includes columns for the post ID, title, content, author, and creatio
 <!-- END ADMIN MENU -->
 ```
 
-Sure! Here's the added step for creating a public-facing page (`index.php`) to display the blog posts:
-
 ## Create the `index.php` file
 
 **HTML Structure**: Add the following HTML structure to your `index.php` file to display the blog posts.
@@ -308,6 +306,4 @@ if (!$posts) {
 
 ## Conclusion
 
-This simple blog system provides essential functionalities for users to manage their blog posts efficiently. By following these steps, you can create, read, update, and delete blog posts, providing a platform for users to share their thoughts and ideas through blogging.
-
-By adding the `index.php` page, your simple blog system now has a public-facing interface where visitors can view the latest blog posts. This enhances the functionality of your web application and provides a platform for sharing information with a broader audience.
+This simple blog system provides essential functionalities for users to manage their blog posts efficiently. By following these steps, you can create, read, update, and delete blog posts, providing a platform for users to share their thoughts and ideas through blogging. By adding the `index.php` page, your simple blog system now has a public-facing interface where visitors can view the latest blog posts. This enhances the functionality of your web application and provides a platform for sharing information with a broader audience.
