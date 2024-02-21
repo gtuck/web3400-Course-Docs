@@ -140,9 +140,7 @@ This table includes columns for the post ID, title, content, author, and creatio
 <?php
 // Step 1: Include config.php file
 
-// Step 2: Secure and only allow logged-in users
-
- to access this page
+// Step 2: Secure and only allow logged-in users to access this page
 
 /* Step 3: Implement form handling logic to insert the new post into the database. 
    You must update the SQL INSERT statement, and when the record is successfully created, 
