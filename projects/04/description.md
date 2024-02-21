@@ -117,7 +117,7 @@ This table includes columns for the post ID, title, content, author, and creatio
         <div class="field">
             <label class="label">Content</label>
             <div class="control">
-                <textarea class="textarea" name="content" required></textarea>
+                <textarea class="textarea" id="content" name="content" required></textarea>
             </div>
         </div>
         <!-- Submit -->
@@ -132,6 +132,13 @@ This table includes columns for the post ID, title, content, author, and creatio
     </form>
 </section>
 <!-- END YOUR CONTENT -->
+<!-- BEGIN SCRIPTS FOR WYSIWYG EDITOR -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/trumbowyg.min.js" integrity="sha512-YJgZG+6o3xSc0k5wv774GS+W1gx0vuSI/kr0E0UylL/Qg/noNspPtYwHPN9q6n59CTR/uhgXfjDXLTRI+uIryg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>$('#content').trumbowyg();</script>
+<!-- END SCRIPTS FOR WYSIWYG EDITOR -->
+
 ```
 
 **PHP Processing**: Implement PHP code to process the form submission and insert a new blog post record into the database.
@@ -171,7 +178,7 @@ This table includes columns for the post ID, title, content, author, and creatio
         <div class="field">
             <label class="label">Content</label>
             <div class="control">
-                <textarea class="textarea" name="content" required><?= $post['content'] ?></textarea>
+                <textarea class="textarea" id="content" name="content" required><?= $post['content'] ?></textarea>
             </div>
         </div>
         <!-- Submit -->
@@ -186,6 +193,13 @@ This table includes columns for the post ID, title, content, author, and creatio
     </form>
 </section>
 <!-- END YOUR CONTENT -->
+<!-- BEGIN SCRIPTS FOR WYSIWYG EDITOR -->
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/trumbowyg.min.js" integrity="sha512-YJgZG+6o3xSc0k5wv774GS+W1gx0vuSI/kr0E0UylL/Qg/noNspPtYwHPN9q6n59CTR/uhgXfjDXLTRI+uIryg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>$('#content').trumbowyg();</script>
+<!-- END SCRIPTS FOR WYSIWYG EDITOR -->
+
 ```
 
 **PHP Processing**: Implement PHP code to retrieve the post data from the database and update the post record based on the form submission.
