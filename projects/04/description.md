@@ -52,8 +52,8 @@ This table includes columns for the post ID, title, content, author, and creatio
             <?php foreach ($posts as $post) : ?>
                 <tr>
                     <td><?= $post['id'] ?></td>
-                    <td><?= $post['title'] ?></td>
-                    <td><?= $post['content'] ?></td>
+                    <td><?= mb_substr($post['title'], 0, 30) . (mb_strlen($post['title']) > 30 ? '...' : '') ?></td>
+                    <td><?= mb_substr($post['content'], 0, 50) . (mb_strlen($post['content']) > 50 ? '...' : '') ?></td>
                     <td><?= $post['author'] ?></td>
                     <td>
                         <!-- Edit Post Link -->
@@ -72,6 +72,8 @@ This table includes columns for the post ID, title, content, author, and creatio
 </section>
 <!-- END YOUR CONTENT -->
 ```
+
+**Note:** In this code, the `mb_substr` function is used to extract the first 30 characters of the title and the first 50 characters of the content. The ternary operator `(mb_strlen($post['title']) > 30 ? '...' : '')` is used to append an ellipsis (`...`) if the original string is longer than the specified length, indicating that the text has been truncated.
 
 **PHP Processing**: Complete the following coding steps by adding your code to the top of the `blog_posts.php` file. Your finished file will fetch posts from the database and populate the posts table dynamically.
 
