@@ -256,18 +256,44 @@ This table includes columns for the post ID, title, content, author, and creatio
 ```html
 <!-- BEGIN YOUR CONTENT -->
 <section class="section">
-    <h1 class="title">Blog Posts</h1>
-    <!-- Posts List -->
-    <div class="posts">
-        <?php foreach ($posts as $post) : ?>
-            <div class="post">
-                <h2 class="post-title"><?= $post['title'] ?></h2>
-                <p class="post-content"><?= $post['content'] ?></p>
-                <p class="post-author">Author: <?= $post['author'] ?></p>
-                <p class="post-date">Posted on: <?= date('F j, Y, g:i a', strtotime($post['created_at'])) ?></p>
-            </div>
-        <?php endforeach; ?>
-    </div>
+  <h1 class="title">Blog Posts</h1>
+  <!-- Posts List -->
+  <?php foreach ($posts as $post) : ?>
+  <div class="box">
+    <article class="media">
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong><?= $post['author'] ?></strong> | <small><?= time_ago($post['created_at']) ?></small>
+            <h4 class="title is-4"><?= $post['title'] ?></h4>
+            <br>
+            <?= $post['content'] ?>
+          </p>
+        </div>
+        <nav class="level is-mobile">
+          <div class="level-left">
+            <a class="level-item">
+              <span class="icon is-small">
+                <i class="fas fa-comment"></i>
+              </span>
+            </a>
+            <a class="level-item">
+              <span class="icon is-small">
+                <i class="fas fa-share-alt-square"></i>
+              </span>
+            </a>
+            <a class="level-item">
+              <span class="icon is-small">
+                <i class="fas fa-heart"></i>
+              </span>
+            </a>
+          </div>
+        </nav>
+      </div>
+    </article>
+  </div>
+  <?php endforeach; ?>
+</div>
 </section>
 <!-- END YOUR CONTENT -->
 ```
@@ -292,6 +318,35 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 if (!$posts) {
     echo "<p>No blog posts found.</p>";
 }
+
+// Function to calculate the time elapsed since a given datetime and return it in a human-readable format.
+function time_ago($datetime) {
+    // Convert the input datetime string to a Unix timestamp.
+    $time_ago = strtotime($datetime);
+    // Calculate the time difference between the current time and the input datetime.
+    $time_difference = time() - $time_ago;
+    // Define an array of time units and their corresponding values in seconds.
+    $units = [
+        ['second', 1], ['minute', 60], ['hour', 3600], ['day', 86400],
+        ['week', 604800], ['month', 2629440], ['year', 31553280]
+    ];
+
+    // Iterate through the time units to find the most appropriate unit to represent the time difference.
+    foreach ($units as [$unit, $value]) {
+        // Break the loop if the time difference is less than the current unit value, indicating the previous unit is more appropriate.
+        if ($time_difference < $value) break;
+        // Calculate the time in the current unit.
+        $time = round($time_difference / $value);
+        // Create a human-readable string representing the time difference in the current unit.
+        $result = $time . ' ' . $unit . ($time > 1 ? 's' : '') . ' ago';
+        // Update the time difference for the next iteration (if any).
+        $time_difference /= $value;
+    }
+
+    // Return the result if set; otherwise, return 'Just now' for differences less than 1 second.
+    return $result ?? 'Just now';
+}
+
 ?>
 ```
 
