@@ -249,7 +249,7 @@ This table includes columns for the post ID, title, content, author, and creatio
 <!-- END ADMIN MENU -->
 ```
 
-## Create the `index.php` file
+## Update the `index.php` file
 
 **HTML Structure**: Add the following HTML structure to your `index.php` file to display the blog posts.
 
