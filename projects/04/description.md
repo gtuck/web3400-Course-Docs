@@ -330,14 +330,14 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 // Check if the query returned any rows. If not, display a message.
 if (!$posts) {
-    echo "<p>No blog posts found.</p>";
+    $_SESSION['messages'][] = "There are no blog posts in the database.";
 }
 
 // Function to calculate the time elapsed since a given datetime and return it in a human-readable format.
 function time_ago($datetime) {
     // Convert the input datetime string to a Unix timestamp.
     $time_ago = strtotime($datetime);
-    // Calculate the time difference between the current time and the input datetime.
+    // Calculate the time difference between the current and input datetime.
     $time_difference = time() - $time_ago;
     // Define an array of time units and their corresponding values in seconds.
     $units = [
