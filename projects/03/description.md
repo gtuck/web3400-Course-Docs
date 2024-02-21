@@ -274,7 +274,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 ```
 
 ## Create the `user_delete.php` file
-**HTML Form**: Add the following HTML form to your `user_edit.php` file.
+**HTML Form**: Add the following HTML form to your `user_delete.php` file.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
