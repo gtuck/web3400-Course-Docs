@@ -12,6 +12,7 @@ CREATE TABLE `blog_posts` (
   `user_id` INT(11) NOT NULL,
   `title` VARCHAR(255) NOT NULL,
   `content` TEXT NOT NULL,
+  `is_published` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
