@@ -240,7 +240,7 @@ include 'config.php';
 ## Update the `nav.php` template
 
 1. **nav.php**: There are multiple updates to the nav bar:
-   1. Replace the `Log in` button with:
+   1. Replace the `Login` button with:
       ```html
       <!-- BEGIN USER MENU -->
          <?php if (isset($_SESSION['loggedin'])) : ?>
@@ -251,7 +251,7 @@ include 'config.php';
                   </span>
                </a>
                <div class="navbar-dropdown">
-                  <a class="navbar-item">Profile</a>
+                  <a href="profile.php" class="navbar-item">Profile</a>
                   <hr class="navbar-divider">
                   <a href="logout.php" class="navbar-item">Logout</a>
                </div>
