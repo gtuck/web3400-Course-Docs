@@ -332,7 +332,7 @@ This table includes columns for the post ID, title, content, author, and creatio
 // Include config.php file
 include 'config.php';
 
-// Prepare the SQL query to select all posts from the database
+// Prepare the SQL query to select all posts from the database that are published and sort them in reverse chronological order (DESC)
 $stmt = $pdo->prepare('SELECT blog_posts.*, users.full_name AS author FROM blog_posts JOIN users ON blog_posts.author_id = users.id WHERE is_published = 1 ORDER BY blog_posts.created_at DESC');
 
 // Execute the query
