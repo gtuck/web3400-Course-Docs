@@ -28,7 +28,7 @@ CREATE TABLE `blog_posts` (
 
 ## Update the `config.php` file
 
-**PHP Processing**: Open your `config.php` file and add the following function at the end of the file:
+**PHP**: Open your `config.php` file and add the following function at the end of the file:
 
 ```php
 function time_ago($datetime) {
