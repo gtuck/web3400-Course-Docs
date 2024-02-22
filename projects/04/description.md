@@ -28,7 +28,7 @@ This table includes columns for the post ID, title, content, author, and creatio
 - Recursively copy the project folder.
 - Stage, commit, and push your new project to GitHub.
 
-## Add this `Time Ago` Function to the `config.php` file
+## Update the `config.php` file
 
 **PHP Processing**: Open your `config.php` file and add the following function at the end of the file:
 
