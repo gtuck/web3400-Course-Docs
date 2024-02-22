@@ -241,13 +241,6 @@ echo time_ago($post['created_at']);
     </form>
 </section>
 <!-- END YOUR CONTENT -->
-<!-- BEGIN SCRIPTS FOR WYSIWYG EDITOR -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/trumbowyg.min.js" integrity="sha512-YJgZG+6o3xSc0k5wv774GS+W1gx0vuSI/kr0E0UylL/Qg/noNspPtYwHPN9q6n59CTR/uhgXfjDXLTRI+uIryg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>$('#content').trumbowyg();</script>
-<!-- END SCRIPTS FOR WYSIWYG EDITOR -->
-
 ```
 
 **PHP Processing**: Implement PHP code to process the form submission and insert a new blog post record into the database.
