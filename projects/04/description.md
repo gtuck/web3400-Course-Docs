@@ -26,8 +26,6 @@ CREATE TABLE `blog_posts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 ```
 
-This table includes columns for the post ID, title, content, author, and creation timestamp. Adjust the table structure as needed for your application. After creating the table, you can proceed with the rest of the project steps as outlined.
-
 ## Update the `config.php` file
 
 **PHP Processing**: Open your `config.php` file and add the following function at the end of the file:
