@@ -28,6 +28,69 @@ This table includes columns for the post ID, title, content, author, and creatio
 - Recursively copy the project folder.
 - Stage, commit, and push your new project to GitHub.
 
+## Create the `blog_post.php` file
+
+**HTML Structure**: Add the following HTML structure to your `blog_post.php` file.
+
+```html
+<!-- BEGIN YOUR CONTENT -->
+<section class="section">
+    <h1 class="title"><?= $post['title'] ?></h1>
+    <div class="box">
+        <article class="media">
+            <div class="media-content">
+                <div class="content">
+                    <p>
+                    <?= mb_substr($post['content'], 0, 200) . (mb_strlen($post['content']) > 200 ? "<a href=blog_post.php?id={$post['id']}> read more...</a>" : "") ?>
+                    </p>
+                    <p>
+                        <small><strong>Author: <?= $post['author'] ?></strong>
+                            | Published: <?= time_ago($post['created_at']) ?>
+                            <?php if ($post['modified_on'] !== NULL) : ?>
+                                | Updated: <?= time_ago($post['modified_on']) ?>
+                            <?php endif; ?>
+                        </small>
+                    </p>
+                </div>
+                <p class="buttons">
+                    <a class="button is-small is-rounded">
+                        <span class="icon is-small">
+                            <i class="fas fa-thumbs-up"></i>
+                        </span>
+                        <span><?= $post['likes_count'] ?></span>
+                    </a>
+                    <a class="button is-small is-rounded">
+                        <span class="icon is-small">
+                            <i class="fas fa-star"></i>
+                        </span>
+                        <span><?= $post['favs_count'] ?></span>
+                    </a>
+                    <a class="button is-small is-rounded">
+                        <span class="icon is-small">
+                            <i class="fas fa-comment"></i>
+                        </span>
+                        <span><?= $post['comments_count'] ?></span>
+                    </a>
+                </p>
+            </div>
+        </article>
+    </div>
+</section>
+<!-- END YOUR CONTENT -->
+```
+
+**PHP Processing**: Complete the following coding steps by adding your code to the top of the `blog_posts.php` file. Your finished file will fetch posts from the database and populate the posts table dynamically.
+
+```php
+<?php
+// Step 1: Include config.php file
+
+// Step 2: Check if the $_GET['id'] exists; if it does, get the blog post record from the database and store it in the associative array $post. If a user record with that ID does not exist, display the message "A blog post with that ID did not exist."
+
+// Step 3: Check if the post exists
+?>
+```
+
 ## Create the `blog_posts.php` file
 
 **HTML Structure**: Add the following HTML structure to your `blog_posts.php` file.
@@ -98,68 +161,6 @@ This table includes columns for the post ID, title, content, author, and creatio
 
 // Step 6: Check if the query returned any rows. If not, display the message: "There are no blog posts in the database."
 // ex. if (!$posts) {...}
-?>
-```
-## Create the `blog_post.php` file
-
-**HTML Structure**: Add the following HTML structure to your `blog_post.php` file.
-
-```html
-<!-- BEGIN YOUR CONTENT -->
-<section class="section">
-    <h1 class="title"><?= $post['title'] ?></h1>
-    <div class="box">
-        <article class="media">
-            <div class="media-content">
-                <div class="content">
-                    <p>
-                    <?= mb_substr($post['content'], 0, 200) . (mb_strlen($post['content']) > 200 ? "<a href=blog_post.php?id={$post['id']}> read more...</a>" : "") ?>
-                    </p>
-                    <p>
-                        <small><strong>Author: <?= $post['author'] ?></strong>
-                            | Published: <?= time_ago($post['created_at']) ?>
-                            <?php if ($post['modified_on'] !== NULL) : ?>
-                                | Updated: <?= time_ago($post['modified_on']) ?>
-                            <?php endif; ?>
-                        </small>
-                    </p>
-                </div>
-                <p class="buttons">
-                    <a class="button is-small is-rounded">
-                        <span class="icon is-small">
-                            <i class="fas fa-thumbs-up"></i>
-                        </span>
-                        <span><?= $post['likes_count'] ?></span>
-                    </a>
-                    <a class="button is-small is-rounded">
-                        <span class="icon is-small">
-                            <i class="fas fa-star"></i>
-                        </span>
-                        <span><?= $post['favs_count'] ?></span>
-                    </a>
-                    <a class="button is-small is-rounded">
-                        <span class="icon is-small">
-                            <i class="fas fa-comment"></i>
-                        </span>
-                        <span><?= $post['comments_count'] ?></span>
-                    </a>
-                </p>
-            </div>
-        </article>
-    </div>
-</section>
-<!-- END YOUR CONTENT -->
-```
-
-**PHP Processing**: Complete the following coding steps by adding your code to the top of the `blog_posts.php` file. Your finished file will fetch posts from the database and populate the posts table dynamically.
-
-```php
-<?php
-// Step 1: Include config.php file
-
-// Step 2: Check if the $_GET['id'] exists; if it does, get the blog post record from the database and store it in the associative array $post. If a user record with that ID does not exist, display the message "A blog post with that ID did not exist."
-
-// Step 3: Check if the post exists
 ?>
 ```
 
