@@ -88,7 +88,7 @@ This table includes columns for the post ID, title, content, author, and creatio
 // Step 2: Secure and only allow logged-in users to access this page
 
 // Step 3: Prepare the SQL query template to select all posts from the database
-// ex. $stmt = $pdo->prepare('SQL GOES HERE...');
+// ex. $stmt = $pdo->prepare('SELECT blog_posts.*, users.full_name AS author FROM blog_posts JOIN users ON blog_posts.user_id = users.id ORDER BY blog_posts.created_at DESC');
 
 // Step 4: Execute the query
 // ex. $stmt->execute();
