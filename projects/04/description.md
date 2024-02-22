@@ -8,19 +8,17 @@ Before coding, you must set up the database table to store the blog posts. Use t
 
 ```sql
 CREATE TABLE `blog_posts` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `author_id` INT(11) NOT NULL,
-  `title` VARCHAR(255) NOT NULL,
-  `content` TEXT NOT NULL,
-  `is_published` tinyint(1) NOT NULL DEFAULT '0',
-  `comments_count` MEDIUMINT() NOT NULL DEFAULT '0',
-  `likes_count` MEDIUMINT() NOT NULL DEFAULT '0',
-  `favs_count` MEDIUMINT() NOT NULL DEFAULT '0',
-  `created_at` DATETIME DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY (`id`),
-  FOREIGN KEY (`author_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
+  `id` int(11) NOT NULL,
+  `author_id` int(11) NOT NULL,
+  `title` varchar(255) NOT NULL,
+  `content` text NOT NULL,
+  `is_published` tinyint(1) NOT NULL DEFAULT 0,
+  `comments_count` mediumint(3) NOT NULL DEFAULT 0,
+  `likes_count` mediumint(3) NOT NULL DEFAULT 0,
+  `favs_count` mediumint(3) NOT NULL DEFAULT 0,
+  `modified_on` datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  `created_at` datetime DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
 ```
 
 This table includes columns for the post ID, title, content, author, and creation timestamp. Adjust the table structure as needed for your application. After creating the table, you can proceed with the rest of the project steps as outlined.
