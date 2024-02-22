@@ -276,44 +276,51 @@ This table includes columns for the post ID, title, content, author, and creatio
 ```html
 <!-- BEGIN YOUR CONTENT -->
 <section class="section">
-  <h1 class="title">Blog Posts</h1>
-  <!-- Posts List -->
-  <?php foreach ($posts as $post) : ?>
-  <div class="box">
-    <article class="media">
-      <div class="media-content">
-        <div class="content">
-          <p>
-            <strong><?= $post['author'] ?></strong> | <small><?= time_ago($post['created_at']) ?></small>
-            <h4 class="title is-4"><?= $post['title'] ?></h4>
-            <br>
-            <?= $post['content'] ?>
-          </p>
+    <h1 class="title">Blog Posts</h1>
+    <!-- Posts List -->
+    <?php foreach ($posts as $post) : ?>
+        <div class="box">
+            <article class="media">
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                        <h4 class="title is-4"><a href="blog_post.php?id=<?= $post['id']?>"><?= $post['title'] ?></a></h4>
+                        <?= mb_substr($post['content'], 0, 200) . (mb_strlen($post['content']) > 200 ? "<a href=blog_post.php?id={$post['id']}> read more...</a>": "") ?>
+                        </p>
+                        <p>
+                            <small><strong>Author: <?= $post['author'] ?></strong>
+                                | Published: <?= time_ago($post['created_at']) ?>
+                                <?php if ($post['modified_on'] !== NULL) : ?>
+                                    | Updated: <?= time_ago($post['modified_on']) ?>
+                                <?php endif; ?>
+                            </small>
+                        </p>
+                    </div>
+                    <p class="buttons">
+                        <a class="button is-small is-rounded">
+                            <span class="icon is-small">
+                                <i class="fas fa-thumbs-up"></i>
+                            </span>
+                            <span><?= $post['likes_count'] ?></span>
+                        </a>
+                        <a class="button is-small is-rounded">
+                            <span class="icon is-small">
+                                <i class="fas fa-star"></i>
+                            </span>
+                            <span><?= $post['favs_count'] ?></span>
+                        </a>
+                        <a class="button is-small is-rounded">
+                            <span class="icon is-small">
+                                <i class="fas fa-comment"></i>
+                            </span>
+                            <span><?= $post['comments_count'] ?></span>
+                        </a>
+                    </p>
+                </div>
+            </article>
         </div>
-        <nav class="level is-mobile">
-          <div class="level-left">
-            <a class="level-item">
-              <span class="icon is-small">
-                <i class="fas fa-comment"></i>
-              </span>
-            </a>
-            <a class="level-item">
-              <span class="icon is-small">
-                <i class="fas fa-share-alt-square"></i>
-              </span>
-            </a>
-            <a class="level-item">
-              <span class="icon is-small">
-                <i class="fas fa-heart"></i>
-              </span>
-            </a>
-          </div>
-        </nav>
-      </div>
-    </article>
-  </div>
-  <?php endforeach; ?>
-</div>
+    <?php endforeach; ?>
+    </div>
 </section>
 <!-- END YOUR CONTENT -->
 ```
@@ -326,7 +333,7 @@ This table includes columns for the post ID, title, content, author, and creatio
 include 'config.php';
 
 // Prepare the SQL query to select all posts from the database
-$stmt = $pdo->prepare('SELECT * FROM blog_posts ORDER BY created_at DESC');
+$stmt = $pdo->prepare('SELECT blog_posts.*, users.full_name AS author FROM blog_posts JOIN users ON blog_posts.author_id = users.id WHERE is_published = 1 ORDER BY blog_posts.created_at DESC');
 
 // Execute the query
 $stmt->execute();
@@ -338,35 +345,6 @@ $posts = $stmt->fetchAll(PDO::FETCH_ASSOC);
 if (!$posts) {
     $_SESSION['messages'][] = "There are no blog posts in the database.";
 }
-
-// Function to calculate the time elapsed since a given datetime and return it in a human-readable format.
-function time_ago($datetime) {
-    // Convert the input datetime string to a Unix timestamp.
-    $time_ago = strtotime($datetime);
-    // Calculate the time difference between the current and input datetime.
-    $time_difference = time() - $time_ago;
-    // Define an array of time units and their corresponding values in seconds.
-    $units = [
-        ['second', 1], ['minute', 60], ['hour', 3600], ['day', 86400],
-        ['week', 604800], ['month', 2629440], ['year', 31553280]
-    ];
-
-    // Iterate through the time units to find the most appropriate unit to represent the time difference.
-    foreach ($units as [$unit, $value]) {
-        // Break the loop if the time difference is less than the current unit value, indicating the previous unit is more appropriate.
-        if ($time_difference < $value) break;
-        // Calculate the time in the current unit.
-        $time = round($time_difference / $value);
-        // Create a human-readable string representing the time difference in the current unit.
-        $result = $time . ' ' . $unit . ($time > 1 ? 's' : '') . ' ago';
-        // Update the time difference for the next iteration (if any).
-        $time_difference /= $value;
-    }
-
-    // Return the result if set; otherwise, return 'Just now' for differences less than 1 second.
-    return $result ?? 'Just now';
-}
-
 ?>
 ```
 
