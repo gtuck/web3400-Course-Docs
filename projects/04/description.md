@@ -64,9 +64,7 @@ function time_ago($datetime) {
 
 This function calculates the time elapsed since a given datetime and returns a human-readable string such as "2 hours ago" or "yesterday".
 
-### Usage
-
-You can now use the `time_ago` function in any PHP file that includes `config.php`. For example, you can display the publication date of a blog post like this:
+**Usage**: You can now use the `time_ago` function in any PHP file that includes `config.php`. For example, you can display the publication date of a blog post like this:
 
 ```php
 echo time_ago($post['created_at']);
