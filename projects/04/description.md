@@ -121,15 +121,15 @@ echo time_ago($post['created_at']);
 <!-- END YOUR CONTENT -->
 ```
 
-**PHP Processing**: Complete the following coding steps by adding your code to the top of the `blog_posts.php` file. Your finished file will fetch posts from the database and populate the posts table dynamically.
+**PHP Processing**: Complete the following coding steps by adding your code to the top of the `blog_post.php` file. Your finished file will fetch posts from the database and populate the posts table dynamically.
 
 ```php
 <?php
 // Step 1: Include config.php file
 
-// Step 2: Check if the $_GET['id'] exists; if it does, get the blog post record from the database and store it in the associative array $post. If a user record with that ID does not exist, display the message "A blog post with that ID did not exist."
+// Step 2: Check if the $_GET['id'] exists; if it does, get the blog post record from the database and store it in the associative array named $post.
 
-// Step 3: Check if the post exists
+// Step 3: If a blog post with that ID does not exist, display the message "A blog post with that ID did not exist."
 ?>
 ```
 
