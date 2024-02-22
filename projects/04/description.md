@@ -2,6 +2,11 @@
 
 In this project, you will develop a simple blog system that allows users to create, read, update, and delete blog posts. The system will also include user authentication, allowing only logged-in users to create and manage their posts. You'll follow a structured approach to ensure the blog system functions correctly and provides a good user experience.
 
+## Copy Project 03 to the Project 04 folder
+
+- Recursively copy the project folder.
+- Stage, commit, and push your new project to GitHub.
+
 ## Set Up the Database
 
 Before coding, you must set up the database table to store the blog posts. Use the following SQL statement to create the `blog_posts` table:
@@ -22,11 +27,6 @@ CREATE TABLE `blog_posts` (
 ```
 
 This table includes columns for the post ID, title, content, author, and creation timestamp. Adjust the table structure as needed for your application. After creating the table, you can proceed with the rest of the project steps as outlined.
-
-## Copy Project 03 to the Project 04 folder
-
-- Recursively copy the project folder.
-- Stage, commit, and push your new project to GitHub.
 
 ## Update the `config.php` file
 
