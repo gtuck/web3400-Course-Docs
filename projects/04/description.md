@@ -94,10 +94,15 @@ echo time_ago($article['created_at']);
     <h1 class="title"><?= $article['title'] ?></h1>
     <div class="box">
         <article class="media">
+            <figure class="media-left">
+                <p class="image is-128x128">
+                    <img src="https://source.unsplash.com/random/128x128/?wellness">
+                </p>
+            </figure>
             <div class="media-content">
                 <div class="content">
                     <p>
-                    <?= mb_substr($article['content'], 0, 200) . (mb_strlen($article['content']) > 200 ? "<a href=article.php?id={$article['id']}> read more...</a>" : "") ?>
+                        <?= $article['content'] ?>
                     </p>
                     <p>
                         <small><strong>Author: <?= $article['author'] ?></strong>
@@ -108,6 +113,14 @@ echo time_ago($article['created_at']);
                         </small>
                     </p>
                 </div>
+                <p class="buttons">
+                    <a href="contact.php" class="button is-small is-info is-rounded">
+                        <span class="icon">
+                            <i class="fas fa-lg fa-hiking"></i>
+                        </span>
+                        <span><strong>Begin your journey now</strong></span>
+                    </a>
+                </p>
                 <p class="buttons">
                     <a class="button is-small is-rounded">
                         <span class="icon is-small">
