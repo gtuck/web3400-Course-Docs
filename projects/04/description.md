@@ -83,9 +83,7 @@ This function calculates the time elapsed since a given datetime and returns a h
 echo time_ago($article['created_at']);
 ```
 
-## Create the
-
- `article.php` file
+## Create the `article.php` file
 
 **HTML Structure**: Add the following HTML structure to your `article.php` file.
 
@@ -331,7 +329,7 @@ echo time_ago($article['created_at']);
 
 // Step 2: Secure and only allow logged-in users to access this page
 
-// Step 3: Check if the update form was submitted. If so, update article details using an UPDATE SQL query
+// Step 3: Check if the update form was submitted. If so, update article details using an UPDATE SQL query.
 
 // Step 4: Else it's an initial page request, fetch the article's current data from the database by preparing and executing a SQL statement that uses the article id from the query string (ex. $_GET['id'])
 
@@ -363,7 +361,7 @@ echo time_ago($article['created_at']);
 
 // Step 2: Secure and only allow logged-in users to access this page
 
-// Step 3: Check if the $_GET['id'] exists; if it does, get the article record from the database and store it in the associative array $article. If an article with that ID does not exist, display the message "An article with that ID did not exist."
+// Step 3: Check if the $_GET['id'] exists; if it does, get the article record from the database and store it in the associative array $article. If an article with that ID does not exist, display "An article with that ID did not exist."
 
 // Step 4: Check if $_GET['confirm'] == 'yes'. This means they clicked the 'yes' button to confirm the removal of the record. Prepare and execute a SQL DELETE statement where the article id == the $_GET['id']. Else (meaning they clicked 'no'), return them to the articles.php page.
 
@@ -386,7 +384,7 @@ echo time_ago($article['created_at']);
 
 ## Update the `index.php` file
 
-**HTML Structure**: Add the following HTML structure to your `index.php` file to display the articles.
+**HTML Structure**: To display the articles, add the following HTML structure to your index.php file.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
