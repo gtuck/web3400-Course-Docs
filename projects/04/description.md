@@ -14,7 +14,7 @@ Before coding, you must set up the database table to store the blog posts. Use t
 ```sql
 -- Table structure for table `articles`
 CREATE TABLE `articles` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL,
   `author_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
@@ -23,7 +23,7 @@ CREATE TABLE `articles` (
   `comments_count` mediumint(3) NOT NULL DEFAULT 0,
   `likes_count` mediumint(3) NOT NULL DEFAULT 0,
   `favs_count` mediumint(3) NOT NULL DEFAULT 0,
-  `modified_on` datetime DEFAULT NULL ON UPDATE current_timestamp(),
+  `modified_on` datetime DEFAULT NULL,
   `created_at` datetime DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -31,6 +31,12 @@ CREATE TABLE `articles` (
 ALTER TABLE `articles`
   ADD PRIMARY KEY (`id`),
   ADD KEY `author_id` (`author_id`);
+  
+-- AUTO_INCREMENT for table `articles`
+ALTER TABLE `articles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
+COMMIT;
+
 ```
 
 ## Update the `config.php` file
