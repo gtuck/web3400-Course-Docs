@@ -400,9 +400,9 @@ echo time_ago($article['created_at']);
 
 ## Update the `nav.php` navigation template file
 
-**nav.php**: Update the navigation menu to include the `Articles` menu and the link for managing articles. The code should be added to the `navbar-start` section of the main navbar after the `home` and `about` links.
+**nav.php**: Update the navigation menu to include the `Articles` menu and the link for managing articles. The code should be added to the `navbar-start` section of the main navbar after the `home` and `about` links. Also, update the hero section, replacing the placeholder text with content related to the theme of your site.
 
-```php
+```html
 <!-- BEGIN ADMIN MENU -->
 ...
   <a href="articles.php" class="navbar-item">
@@ -410,6 +410,25 @@ echo time_ago($article['created_at']);
   </a>
 ...
 <!-- END ADMIN MENU -->
+...
+<!-- BEGIN HERO -->
+  <section class="hero is-info">
+    <div class="hero-body">
+      <p class="title">
+        Your hook goes here
+      </p>
+      <p class="subtitle">
+        Your catchy subtitle goes here...
+      </p>
+      <a href="contact.php" class="button is-medium is-info is-light is-rounded">
+        <span class="icon is-large">
+          <i class="fab fa-2x fa-pagelines"></i>
+        </span>
+        <span>Your call to action goes here</span>
+      </a>
+    </div>
+  </section>
+<!-- END HERO -->
 ```
 
 ## Update the `index.php` file
