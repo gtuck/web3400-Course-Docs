@@ -155,6 +155,7 @@ echo time_ago($article['created_at']);
 // Step 1: Include config.php file
 
 // Step 2: Check if the $_GET['id'] exists; if it does, get the article record from the database and store it in the associative array named $article.
+// SQL example: SELECT articles.*, users.full_name AS author FROM articles JOIN users ON articles.author_id = users.id WHERE is_published = 1 AND articles.id = ?
 
 // Step 3: If an article with that ID does not exist, display the message "An article with that ID did not exist."
 ?>
@@ -239,10 +240,10 @@ echo time_ago($article['created_at']);
 <?php
 // Step 1: Include config.php file
 
-// Step 2: Secure and only allow logged-in users to access this page
+// Step 2: Secure and only allow 'admin' users to access this page
 
-// Step 3: Prepare the SQL query template to select all articles from the database
-// ex. $stmt = $pdo->prepare('SELECT articles.*, users.full_name AS author FROM articles JOIN users ON articles.user_id = users.id ORDER BY articles.created_at DESC');
+// Step 3: Prepare the SQL query template to select all posts from the database
+// ex. $stmt = $pdo->prepare('SQL GOES HERE...');
 
 // Step 4: Execute the query
 // ex. $stmt->execute();
@@ -252,6 +253,10 @@ echo time_ago($article['created_at']);
 
 // Step 6: Check if the query returned any rows. If not, display the message: "There are no articles in the database."
 // ex. if (!$articles) {...}
+
+// Step 7: If the 'is_published' control is clicked, toggle the status from 0 -> 1 for published or 1 -> 0 for unpublished
+
+// Step 8: If the 'is_featured' control is clicked, toggle the status from 0 -> 1 for featured or 1 -> 0 for unfeatured
 ?>
 ```
 
@@ -262,8 +267,8 @@ echo time_ago($article['created_at']);
 ```html
 <!-- BEGIN YOUR CONTENT -->
 <section class="section">
-    <h1 class="title">Add Article</h1>
-    <form action="article_add.php" method="post">
+    <h1 class="title">Write an article</h1>
+    <form action="" method="post">
         <!-- Title -->
         <div class="field">
             <label class="label">Title</label>
@@ -281,7 +286,7 @@ echo time_ago($article['created_at']);
         <!-- Submit -->
         <div class="field is-grouped">
             <div class="control">
-                <button type="submit" class="button is-link">Add Article</button>
+                <button type="submit" class="button is-link">Add Post</button>
             </div>
             <div class="control">
                 <a href="articles.php" class="button is-link is-light">Cancel</a>
@@ -344,15 +349,6 @@ echo time_ago($article['created_at']);
     </form>
 </section>
 <!-- END YOUR CONTENT -->
-<!-- BEGIN SCRIPTS FOR WYSIWYG EDITOR -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script>window.jQuery || document.write('<script src="js/vendor/jquery-3.3.1.min.js"><\/script>')</script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/trumbowyg.min.js" integrity="sha512-YJgZG+6o
-
-3xSc0k5wv774GS+W1gx0vuSI/kr0E0UylL/Qg/noNspPtYwHPN9q6n59CTR/uhgXfjDXLTRI+uIryg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>$('#content').trumbowyg();</script>
-<!-- END SCRIPTS FOR WYSIWYG EDITOR -->
-
 ```
 
 **PHP Processing**: Implement PHP code to retrieve the article data from the database and update the article record based on the form submission.
@@ -418,21 +414,26 @@ echo time_ago($article['created_at']);
 
 ## Update the `index.php` file
 
-**HTML Structure**: To display the articles, add the following HTML structure to your index.php file.
+**HTML Structure**: Add the following HTML structure to your index.php file to display the articles.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
 <section class="section">
-    <h1 class="title">Articles</h1>
-    <!-- Posts List -->
+    <h1 class="title">Featured Articles</h1>
+    <!-- articles List -->
     <?php foreach ($articles as $article) : ?>
         <div class="box">
             <article class="media">
+                <figure class="media-left">
+                    <p class="image is-128x128">
+                        <img class="is-rounded" src="https://source.unsplash.com/random/128x128/?sig=<?= $article['id'] ?>&wellness">
+                    </p>
+                </figure>
                 <div class="media-content">
                     <div class="content">
                         <p>
-                        <h4 class="title is-4"><a href="article.php?id=<?= $article['id']?>"><?= $article['title'] ?></a></h4>
-                        <?= mb_substr($article['content'], 0, 200) . (mb_strlen($article['content']) > 200 ? "<a href=article.php?id={$article['id']}> read more...</a>": "") ?>
+                        <h4 class="title is-4"><a href="article.php?id=<?= $article['id'] ?>"><?= $article['title'] ?></a></h4>
+                        <?= mb_substr($article['content'], 0, 200) . (mb_strlen($article['content']) > 200 ? "<a href=article.php?id={$article['id']}><strong> read more...</strong></a>" : "") ?>
                         </p>
                         <p>
                             <small><strong>Author: <?= $article['author'] ?></strong>
@@ -452,9 +453,7 @@ echo time_ago($article['created_at']);
                         </a>
                         <a class="button is-small is-rounded">
                             <span class="icon is-small">
-                                <i class="fas fa
-
--star"></i>
+                                <i class="fas fa-star"></i>
                             </span>
                             <span><?= $article['favs_count'] ?></span>
                         </a>
@@ -482,7 +481,7 @@ echo time_ago($article['created_at']);
 include 'config.php';
 
 // Prepare the SQL query to select all articles from the database that are published and sort them in reverse chronological order (DESC)
-$stmt = $pdo->prepare('SELECT articles.*, users.full_name AS author FROM articles JOIN users ON articles.author_id = users.id WHERE is_published = 1 ORDER BY articles.created_at DESC');
+$stmt = $pdo->prepare('SELECT articles.*, users.full_name AS author FROM articles JOIN users ON articles.author_id = users.id WHERE is_published = 1 AND is_featured = 1 ORDER BY articles.created_at DESC');
 
 // Execute the query
 $stmt->execute();
