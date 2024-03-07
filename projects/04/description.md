@@ -11,19 +11,55 @@ In this project, you will develop a simple blog system that allows users to crea
 
 Before coding, you must set up the database table to store the blog posts. Use the following SQL statement to create the `blog_posts` table:
 
-```sql
-CREATE TABLE `blog_posts` (
+```-- Table structure for table `articles`
+--
+
+CREATE TABLE `articles` (
   `id` int(11) NOT NULL,
   `author_id` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `content` text NOT NULL,
   `is_published` tinyint(1) NOT NULL DEFAULT 0,
+  `is_featured` tinyint(1) NOT NULL DEFAULT 0,
   `comments_count` mediumint(3) NOT NULL DEFAULT 0,
   `likes_count` mediumint(3) NOT NULL DEFAULT 0,
   `favs_count` mediumint(3) NOT NULL DEFAULT 0,
   `modified_on` datetime DEFAULT NULL ON UPDATE current_timestamp(),
   `created_at` datetime DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `articles`
+--
+
+INSERT INTO `articles` (`id`, `author_id`, `title`, `content`, `is_published`, `is_featured`, `comments_count`, `likes_count`, `favs_count`, `modified_on`, `created_at`) VALUES
+(1, 1, 'Harmonizing Life: The Art of Mental, Physical, and Spiritual Balance', 'Achieving a balance between mental, physical, and spiritual well-being is essential for a fulfilling life. It&#039;s about creating harmony within ourselves, where our thoughts, actions, and beliefs are aligned. This balance is not a one-time achievement but a continuous journey of self-discovery and growth. By prioritizing self-care, mindfulness, and healthy habits, we can cultivate a sense of inner peace and resilience that enhances our overall quality of life.', 1, 1, 0, 0, 0, '2024-02-24 04:41:41', '2024-02-23 15:24:38'),
+(2, 1, 'The Interconnectedness of Mind, Body, and Spirit in Well-being', 'The concept of interconnectedness between the mind, body, and spirit is central to holistic well-being. When one aspect is out of balance, it can affect the others, leading to a disruption in our overall health. By recognizing this interconnectedness, we can take a more integrated approach to our well-being, ensuring that we nurture all aspects of ourselves. This holistic perspective empowers us to lead more balanced and harmonious lives.', 1, 1, 0, 0, 0, '2024-02-24 03:55:14', '2024-02-23 15:25:03'),
+(3, 1, 'The Role of Mindfulness in Achieving Balance', 'Mindfulness is a powerful tool in achieving mental, physical, and spiritual balance. It involves being present in the moment, aware of our thoughts, feelings, and bodily sensations without judgment. By practicing mindfulness, we can cultivate a deeper sense of self-awareness and inner peace, allowing us to navigate life&#039;s challenges with greater clarity and calm. Incorporating mindfulness into our daily routine can be a transformative step towards a more balanced and centered life.', 1, 1, 0, 0, 0, '2024-02-24 05:22:07', '2024-02-23 15:25:22'),
+(4, 1, 'Physical Activity: A Pillar of Holistic Balance', 'Physical activity is not just about maintaining a healthy body; it&#039;s also a crucial component of mental and spiritual well-being. Regular exercise can reduce stress, boost mood, and enhance cognitive function, contributing to a more balanced and vibrant life. Whether it&#039;s yoga, walking, or any form of exercise that resonates with you, integrating physical activity into your routine is a vital step towards holistic health.', 1, 1, 0, 0, 0, '2024-02-24 05:22:06', '2024-02-23 15:25:44'),
+(5, 1, 'Nurturing Your Spiritual Health for a Balanced Life', 'Spiritual health is often overlooked in the pursuit of balance, yet it&#039;s a fundamental aspect of our well-being. It involves exploring our beliefs, values, and purpose, and connecting with something greater than ourselves. Whether through meditation, prayer, or spending time in nature, nurturing our spiritual health can provide a sense of meaning and tranquility. Embracing our spirituality can be a powerful way to achieve a deeper sense of balance and fulfillment in life.', 1, 1, 0, 0, 0, '2024-02-24 04:52:00', '2024-02-23 15:26:05');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `articles`
+--
+ALTER TABLE `articles`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `author_id` (`author_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `articles`
+--
+ALTER TABLE `articles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+COMMIT;
 ```
 
 ## Update the `config.php` file
