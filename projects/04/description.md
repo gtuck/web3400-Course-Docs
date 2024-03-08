@@ -243,7 +243,7 @@ echo time_ago($article['created_at']);
 // Step 2: Secure and only allow 'admin' users to access this page
 
 // Step 3: Prepare the SQL query template to select all posts from the database
-// ex. $stmt = $pdo->prepare('SQL GOES HERE...');
+// ex. $stmt = $pdo->prepare('SELECT articles.*, users.full_name AS author FROM articles JOIN users ON articles.author_id = users.id ORDER BY `created_at` DESC');
 
 // Step 4: Execute the query
 // ex. $stmt->execute();
