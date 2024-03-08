@@ -214,11 +214,11 @@ echo time_ago($article['created_at']);
                             </a>
                         <?php endif; ?>
                         <!-- Edit Post Link -->
-                        <a href="articles_edit.php?id=<?= $article['id'] ?>" class="button is-info">
+                        <a href="article_edit.php?id=<?= $article['id'] ?>" class="button is-info">
                             <i class="fas fa-lg fa-edit"></i>
                         </a>
                         <!-- Delete Post Form -->
-                        <a href="articles_delete.php?id=<?= $article['id'] ?>" class="button is-danger">
+                        <a href="article_delete.php?id=<?= $article['id'] ?>" class="button is-danger">
                             <i class="fas fa-lg fa-trash"></i>
                         </a>
                     </td>
