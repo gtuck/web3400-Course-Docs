@@ -303,7 +303,7 @@ echo time_ago($article['created_at']);
 <?php
 // Step 1: Include config.php file
 
-// Step 2: Secure and only allow logged-in users to access this page
+// Step 2: Secure and only allow 'admin' users to access this page
 
 /* Step 3: Implement form handling logic to insert the new article into the database. 
    You must update the SQL INSERT statement, and when the record is successfully created, 
@@ -357,7 +357,7 @@ echo time_ago($article['created_at']);
 <?php
 // Step 1: Include config.php file
 
-// Step 2: Secure and only allow logged-in users to access this page
+// Step 2: Secure and only allow 'admin' users to access this page
 
 // Step 3: Check if the update form was submitted. If so, update article details using an UPDATE SQL query.
 
@@ -389,7 +389,7 @@ echo time_ago($article['created_at']);
 <?php
 // Step 1: Include config.php file
 
-// Step 2: Secure and only allow logged-in users to access this page
+// Step 2: Secure and only allow 'admin' users to access this page
 
 // Step 3: Check if the $_GET['id'] exists; if it does, get the article record from the database and store it in the associative array $article. If an article with that ID does not exist, display "An article with that ID did not exist."
 
