@@ -500,7 +500,7 @@ echo time_ago($article['created_at']);
 include 'config.php';
 
 // Prepare the SQL query to select all articles from the database that are published and sort them in reverse chronological order (DESC)
-$stmt = $pdo->prepare('SELECT articles.*, users.full_name AS author FROM articles JOIN users ON articles.author_id = users.id WHERE is_published = 1 AND is_featured = 1 ORDER BY articles.created_at DESC');
+$stmt = $pdo->prepare('SELECT articles.*, users.full_name AS author FROM articles JOIN users ON articles.author_id = users.id WHERE is_published = 1 AND is_featured = 1 ORDER BY articles.created_at DESC LIMIT 10');
 
 // Execute the query
 $stmt->execute();
