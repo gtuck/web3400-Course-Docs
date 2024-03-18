@@ -125,7 +125,7 @@ In this modification, the `disabled` attribute is conditionally added to each bu
 
 At the bottom of the `article.php` file, add the following section to display comments and a form for adding comments:
 
-```php
+```html
 <!-- Comments Section -->
 <section id="comments" class="section">
     <h2 class="title is-4">Comments</h2>
@@ -173,9 +173,7 @@ At the top of the `article.php` file, add PHP code to fetch the comments for the
 ```php
 <?php
 // Fetch comments for the article
-$stmt = $pdo->prepare('SELECT user_interactions.comment, user_interactions.created_at, users.full_name AS user_name FROM user_interactions JOIN users ON user_interactions.user_id = users.id
-
- WHERE user_interactions.article_id = ? AND user_interactions.interaction_type = "comment" ORDER BY user_interactions.created_at DESC LIMIT 5');
+$stmt = $pdo->prepare('SELECT user_interactions.comment, user_interactions.created_at, users.full_name AS user_name FROM user_interactions JOIN users ON user_interactions.user_id = users.id WHERE user_interactions.article_id = ? AND user_interactions.interaction_type = "comment" ORDER BY user_interactions.created_at DESC LIMIT 5');
 $stmt->execute([$article['id']]);
 $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
