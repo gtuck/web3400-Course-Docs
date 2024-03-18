@@ -166,7 +166,7 @@ At the bottom of the `article.php` file, add the following section to display co
 </section>
 ```
 
-### PHP Processing for Comments
+### PHP for getting the comments
 
 At the top of the `article.php` file, add PHP code to fetch the comments for the article from the database in the same `if` statment (but after) where you are getting the article record:
 
