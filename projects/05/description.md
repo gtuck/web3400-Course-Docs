@@ -382,4 +382,11 @@ The `is-static` attribute makes the buttons appear static (non-clickable) and is
 
 ## Conclusion
 
-With these enhancements, your simple content management system now supports more interactive features, allowing users to like articles, mark them as favorites, and leave comments. Additionally, all user interactions are recorded and displayed on the user's profile page, providing a more engaging and personalized experience for users of your system.
+With the completion of this enhanced content management system, users now have a more interactive and engaging platform. Key features and enhancements include:
+
+- **User Interaction Limitations:** Users can now only like and favorite an article once, and comment on an article a maximum of three times, ensuring fair and meaningful interactions.
+- **Dynamic Article Interaction Display:** The `article.php` page has been updated to dynamically display the interaction buttons, enabling or disabling them based on the user's login status. This provides a more intuitive user experience.
+- **Improved Profile Page:** The `profile.php` page now displays user interactions with article titles, making it easier for users to navigate and review their activity. Additionally, comments are now linked to their respective articles, providing a seamless way for users to revisit content they have engaged with.
+- **Static Interaction Buttons on Home Page:** The `index.php` page features static interaction buttons for likes, favorites, and comments, providing a snapshot of the article's popularity without enabling direct interaction from the home page.
+
+Overall, these enhancements make the content management system more robust, user-friendly, and conducive to community engagement. Users can now interact with articles in a controlled manner, easily navigate their own activity, and get a quick overview of article popularity, all contributing to a richer online experience.
