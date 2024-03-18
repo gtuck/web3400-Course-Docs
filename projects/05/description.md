@@ -9,7 +9,7 @@ In this project, you will enhance the features of your simple content management
 
 ## Update the Database
 
-Add a new table to record user interactions with articles:
+Add a new table to record user interactions with articles and create SQL triggers that increment the `comments_count`, `likes_count`, and `favs_count` fields in the `articles` table when an insert event occurs in the `user_interactions` table, you can use the following SQL statements:
 
 ```sql
 -- Table structure for table `user_interactions`
@@ -32,7 +32,60 @@ ALTER TABLE `user_interactions`
 ALTER TABLE `user_interactions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT;
+
+-- Trigger to increment comments_count
+DELIMITER //
+CREATE TRIGGER increment_comments_count
+AFTER INSERT ON user_interactions
+FOR EACH ROW
+BEGIN
+    IF NEW.interaction_type = 'comment' THEN
+        UPDATE articles
+        SET comments_count = comments_count + 1
+        WHERE id = NEW.article_id;
+    END IF;
+END;
+//
+DELIMITER ;
+
+-- Trigger to increment likes_count
+DELIMITER //
+CREATE TRIGGER increment_likes_count
+AFTER INSERT ON user_interactions
+FOR EACH ROW
+BEGIN
+    IF NEW.interaction_type = 'like' THEN
+        UPDATE articles
+        SET likes_count = likes_count + 1
+        WHERE id = NEW.article_id;
+    END IF;
+END;
+//
+DELIMITER ;
+
+-- Trigger to increment favs_count
+DELIMITER //
+CREATE TRIGGER increment_favs_count
+AFTER INSERT ON user_interactions
+FOR EACH ROW
+BEGIN
+    IF NEW.interaction_type = 'favorite' THEN
+        UPDATE articles
+        SET favs_count = favs_count + 1
+        WHERE id = NEW.article_id;
+    END IF;
+END;
+//
+DELIMITER ;
 ```
+
+The triggers are created with the following logic:
+
+- `increment_comments_count` trigger: After a new row is inserted into the `user_interactions` table, if the `interaction_type` is 'comment', the trigger will increment the `comments_count` field for the corresponding article in the `articles` table.
+- `increment_likes_count` trigger: Similarly, if the `interaction_type` is 'like', the trigger will increment the `likes_count` field for the corresponding article.
+- `increment_favs_count` trigger: If the `interaction_type` is 'favorite', the trigger will increment the `favs_count` field for the corresponding article.
+
+You can execute these SQL statements in your database management tool to create the table and triggers. Once the triggers are set up, they will automatically update the count fields in the `articles` table whenever a new interaction is recorded in the `user_interactions` table.
 
 ## Update the `article.php` file
 
@@ -40,32 +93,38 @@ COMMIT;
 
 Wrap the buttons for likes, favorites, and comments with a PHP conditional to check if the user is logged in:
 
-```php
-<?php if (isset($_SESSION['user_id'])): ?>
-    <p class="buttons">
-        <!-- Like Button -->
-        <a href="article_like.php?id=<?= $article['id'] ?>" class="button is-small is-rounded">
-            <span class="icon is-small">
-                <i class="fas fa-thumbs-up"></i>
-            </span>
-            <span><?= $article['likes_count'] ?></span>
-        </a>
-        <!-- Favorite Button -->
-        <a href="article_favorite.php?id=<?= $article['id'] ?>" class="button is-small is-rounded">
-            <span class="icon is-small">
-                <i class="fas fa-star"></i>
-            </span>
-            <span><?= $article['favs_count'] ?></span>
-        </a>
-        <!-- Comments Count -->
-        <a href="#comments" class="button is-small is-rounded">
-            <span class="icon is-small">
-                <i class="fas fa-comment"></i>
-            </span>
-            <span><?= $article['comments_count'] ?></span>
-        </a>
-    </p>
-<?php endif; ?>
+```html
+<p class="buttons">
+  <a href="contact.php" class="button is-small is-info is-rounded">
+    <span class="icon">
+      <i class="fas fa-lg fa-hiking"></i>
+    </span>
+    <span><strong>Begin your journey now</strong></span>
+  </a>
+</p>
+<p class="buttons">
+  <!-- Like Button -->
+  <a href="article_like.php?id=<?= $article['id'] ?>" class="button is-small is-rounded" <?= !isset($_SESSION['loggedin']) ? 'disabled' : '' ?>>
+    <span class="icon is-small">
+      <i class="fas fa-thumbs-up"></i>
+    </span>
+    <span><?= $article['likes_count'] ?></span>
+  </a>
+  <!-- Favorite Button -->
+  <a href="article_favorite.php?id=<?= $article['id'] ?>" class="button is-small is-rounded" <?= !isset($_SESSION['loggedin']) ? 'disabled' : '' ?>>
+    <span class="icon is-small">
+      <i class="fas fa-star"></i>
+    </span>
+    <span><?= $article['favs_count'] ?></span>
+  </a>
+  <!-- Comments Count -->
+  <a href="#comments" class="button is-small is-rounded" <?= !isset($_SESSION['loggedin']) ? 'disabled' : '' ?>>
+    <span class="icon is-small">
+      <i class="fas fa-comment"></i>
+    </span>
+    <span><?= $article['comments_count'] ?></span>
+  </a>
+</p>
 ```
 
 ### Display Comments and Add Comment Form
