@@ -302,44 +302,74 @@ In this `article_comment.php`, the script first counts the number of comments th
 
 ## Update the User Profile Page
 
-On the user profile page (`profile.php`), add a section to display the user's interactions:
+At the bottom of the user profile page (`profile.php`), add a section to display the user's interactions:
 
-```php
+```html
+<!-- My interactions section -->
 <section class="section">
-    <h2 class="title is-4">My Interactions</h2>
-    <?php foreach ($interactions as $interaction): ?>
-        <div class="box">
-            <article class="media">
-                <div class="media-content">
-                    <div class="content">
-                        <p>
-                            <strong><?= ucfirst($interaction['interaction_type']) ?>:</strong>
-                            <?php if ($interaction['interaction_type'] === 'comment'): ?>
-                                <?= $interaction['comment'] ?>
-                            <?php else: ?>
-                                <a href="article.php?id=<?= $interaction['article_id'] ?>">Article #<?= $interaction['article_id'] ?></a>
-                            <?php endif; ?>
-                            <br>
-                            <small><?= time_ago($interaction['created_at']) ?></small>
-                        </p>
-                    </div>
-                </div>
-            </article>
+  <h2 class="title is-4">My Interactions</h2>
+  <?php foreach ($interactions as $interaction) : ?>
+  <div class="box">
+    <article class="media">
+      <div class="media-content">
+        <div class="content">
+          <p>
+            <strong><?= ucfirst($interaction['interaction_type']) ?>:</strong>
+            <?php if ($interaction['interaction_type'] === 'comment') : ?>
+            <a href="article.php?id=<?= $interaction['article_id'] ?>"><?= $interaction['article_title'] ?></a>
+            <?php else : ?>
+            <a href="article.php?id=<?= $interaction['article_id'] ?>"><?= $interaction['article_title'] ?></a>
+            <?php endif; ?>
+            <br>
+            <small><?= time_ago($interaction['created_at']) ?></small>
+          </p>
         </div>
-    <?php endforeach; ?>
+      </div>
+    </article>
+  </div>
+  <?php endforeach; ?>
 </section>
 ```
 
-Add PHP code at the top of the `profile.php` file to fetch the user's interactions from the database:
+Add PHP code at the top of the `profile.php` file to fetch the user's interactions from the database in the `try` statment (but after) where you are getting the users record:
 
 ```php
-<?php
-// Fetch user interactions
-$stmt = $pdo->prepare('SELECT * FROM user_interactions WHERE user_id = ? ORDER BY created_at DESC');
-$stmt->execute([$_SESSION['user_id']]);
-$interactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
-?>
+// Fetch user interactions along with article titles
+    $stmt = $pdo->prepare('SELECT user_interactions.*, articles.title AS article_title FROM user_interactions JOIN articles ON user_interactions.article_id = articles.id WHERE user_id = ? ORDER BY user_interactions.created_at DESC');
+    $stmt->execute([$_SESSION['user_id']]);
+    $interactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ```
+
+## Update the index.php Page
+
+To update the `index.php` page add the `is-static` attribute to the interaction buttons, you can modify the section where the buttons are defined as follows:
+
+```html
+...
+<p class="buttons">
+  <a class="button is-small is-rounded is-static">
+    <span class="icon is-small">
+      <i class="fas fa-thumbs-up"></i>
+    </span>
+    <span><?= $article['likes_count'] ?></span>
+  </a>
+  <a class="button is-small is-rounded is-static">
+    <span class="icon is-small">
+      <i class="fas fa-star"></i>
+    </span>
+    <span><?= $article['favs_count'] ?></span>
+  </a>
+  <a class="button is-small is-rounded is-static">
+    <span class="icon is-small">
+      <i class="fas fa-comment"></i>
+    </span>
+    <span><?= $article['comments_count'] ?></span>
+  </a>
+</p>
+...
+```
+
+The `is-static` attribute makes the buttons appear static (non-clickable) and is useful for displaying information that does not require interaction, such as the count of likes, favorites, and comments for each article on the `index.php` page.
 
 ## Final Steps
 
