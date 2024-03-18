@@ -1,4 +1,4 @@
-# Simple Content Management System with Enhanced Features (Project 05)
+# CMS with Enhanced Features (Project 05)
 
 In this project, you will enhance the features of your simple content management system by adding functionality to disable interaction buttons unless the user is logged in, allowing users to like articles, favorite articles, and comment on articles. You will also create a table to record all user interactions and display them on the user's profile page.
 
