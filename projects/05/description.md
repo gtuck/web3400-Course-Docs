@@ -91,41 +91,35 @@ You can execute these SQL statements in your database management tool to create 
 
 ### Disable Interaction Buttons Unless User is Logged In
 
-Wrap the buttons for likes, favorites, and comments with a PHP conditional to check if the user is logged in:
+Toggle the HTML `disabled` attribute for the buttons on the `article.php` page, modify the buttons section:
 
 ```html
 <p class="buttons">
-  <a href="contact.php" class="button is-small is-info is-rounded">
-    <span class="icon">
-      <i class="fas fa-lg fa-hiking"></i>
-    </span>
-    <span><strong>Begin your journey now</strong></span>
-  </a>
-</p>
-<p class="buttons">
-  <!-- Like Button -->
-  <a href="article_like.php?id=<?= $article['id'] ?>" class="button is-small is-rounded" <?= !isset($_SESSION['loggedin']) ? 'disabled' : '' ?>>
-    <span class="icon is-small">
-      <i class="fas fa-thumbs-up"></i>
-    </span>
-    <span><?= $article['likes_count'] ?></span>
-  </a>
-  <!-- Favorite Button -->
-  <a href="article_favorite.php?id=<?= $article['id'] ?>" class="button is-small is-rounded" <?= !isset($_SESSION['loggedin']) ? 'disabled' : '' ?>>
-    <span class="icon is-small">
-      <i class="fas fa-star"></i>
-    </span>
-    <span><?= $article['favs_count'] ?></span>
-  </a>
-  <!-- Comments Count -->
-  <a href="#comments" class="button is-small is-rounded" <?= !isset($_SESSION['loggedin']) ? 'disabled' : '' ?>>
-    <span class="icon is-small">
-      <i class="fas fa-comment"></i>
-    </span>
-    <span><?= $article['comments_count'] ?></span>
-  </a>
+    <!-- Like Button -->
+    <a href="article_like.php?id=<?= $article['id'] ?>" class="button is-small is-rounded" <?= !isset($_SESSION['loggedin']) ? 'disabled' : '' ?>>
+        <span class="icon is-small">
+            <i class="fas fa-thumbs-up"></i>
+        </span>
+        <span><?= $article['likes_count'] ?></span>
+    </a>
+    <!-- Favorite Button -->
+    <a href="article_favorite.php?id=<?= $article['id'] ?>" class="button is-small is-rounded" <?= !isset($_SESSION['loggedin']) ? 'disabled' : '' ?>>
+        <span class="icon is-small">
+            <i class="fas fa-star"></i>
+        </span>
+        <span><?= $article['favs_count'] ?></span>
+    </a>
+    <!-- Comments Count -->
+    <a href="#comments" class="button is-small is-rounded" <?= !isset($_SESSION['loggedin']) ? 'disabled' : '' ?>>
+        <span class="icon is-small">
+            <i class="fas fa-comment"></i>
+        </span>
+        <span><?= $article['comments_count'] ?></span>
+    </a>
 </p>
 ```
+
+In this modification, the `disabled` attribute is conditionally added to each button based on whether the user is logged in or not. The PHP ternary operator `!isset($_SESSION['loggedin']) ? 'disabled' : ''` is used to check if the `loggedin` session variable is set. If the user is not logged in (`!isset($_SESSION['loggedin'])` evaluates to `true`), the `disabled` attribute is added to the button, making it non-interactive. If the user is logged in, the `disabled` attribute is omitted, allowing the button to be clicked.
 
 ### Display Comments and Add Comment Form
 
