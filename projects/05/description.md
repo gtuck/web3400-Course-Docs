@@ -1,6 +1,6 @@
 # CMS with Enhanced Features (Project 05)
 
-In this project, you will enhance the features of your simple content management system by adding functionality to disable interaction buttons unless the user is logged in, allowing users to like articles, favorite articles, and comment on articles. You will also create a table to record all user interactions and display them on the user's profile page.
+In this project, you will enhance the features of your simple content management system by adding functionality to disable interaction buttons unless the user is logged in. You will also allow users to like articles, favorite articles, and comment on articles. You will also create a table to record and display all user interactions on the user's profile page.
 
 ## Copy Project 04 to the Project 05 folder
 
@@ -9,7 +9,7 @@ In this project, you will enhance the features of your simple content management
 
 ## Update the Database
 
-Add a new table to record user interactions with articles and create SQL triggers that increment the `comments_count`, `likes_count`, and `favs_count` fields in the `articles` table when an insert event occurs in the `user_interactions` table, you can use the following SQL statements:
+Add a new table to record user interactions with articles and create SQL triggers that increment the `comments_count`, `likes_count`, and `favs_count` fields in the `articles` table when an insert event occurs in the `user_interactions` table; you can use the following SQL statements:
 
 ```sql
 -- Table structure for table `user_interactions`
@@ -331,7 +331,7 @@ At the bottom of the user profile page (`profile.php`), add a section to display
 </section>
 ```
 
-Add PHP code at the top of the `profile.php` file to fetch the user's interactions from the database in the `try` statment (but after) where you are getting the users record:
+Add PHP code at the top of the `profile.php` file to fetch the user's interactions from the database in the `try` statement (but after) where you are getting the user record:
 
 ```php
 // Fetch user interactions along with article titles
@@ -342,7 +342,7 @@ Add PHP code at the top of the `profile.php` file to fetch the user's interactio
 
 ## Update the index.php Page
 
-To update the `index.php` page add the `is-static` attribute to the interaction buttons, you can modify the section where the buttons are defined as follows:
+To update the `index.php` page, add the `is-static` attribute to the interaction buttons; you can modify the section where the buttons are defined as follows:
 
 ```html
 ...
@@ -369,7 +369,7 @@ To update the `index.php` page add the `is-static` attribute to the interaction 
 ...
 ```
 
-The `is-static` attribute makes the buttons appear static (non-clickable) and is useful for displaying information that does not require interaction, such as the count of likes, favorites, and comments for each article on the `index.php` page.
+The `is-static` attribute makes the buttons appear static (non-clickable). It is useful for displaying information that does not require interaction, such as the count of likes, favorites, and comments for each article on the `index.php` page.
 
 ## Final Steps
 
@@ -378,15 +378,15 @@ The `is-static` attribute makes the buttons appear static (non-clickable) and is
 - Stage, commit, and push your final changes to GitHub.
 - Submit your project URL as previously instructed
 
-, ensuring your GitHub repository is up to date so it can be accessed and evaluated.
+Ensure your GitHub repository is current so it can be accessed and evaluated.
 
 ## Conclusion
 
 With the completion of this enhanced content management system, users now have a more interactive and engaging platform. Key features and enhancements include:
 
-- **User Interaction Limitations:** Users can now only like and favorite an article once, and comment on an article a maximum of three times, ensuring fair and meaningful interactions.
-- **Dynamic Article Interaction Display:** The `article.php` page has been updated to dynamically display the interaction buttons, enabling or disabling them based on the user's login status. This provides a more intuitive user experience.
+- **User Interaction Limitations:** Users can now only like and favorite an article once and comment on it a maximum of three times, ensuring fair and meaningful interactions.
+- **Dynamic Article Interaction Display:** The `article.php` page has been updated to dynamically display the interaction buttons, deactivating or activating them based on the user's login status. This provides a more intuitive user experience.
 - **Improved Profile Page:** The `profile.php` page now displays user interactions with article titles, making it easier for users to navigate and review their activity. Additionally, comments are now linked to their respective articles, providing a seamless way for users to revisit content they have engaged with.
 - **Static Interaction Buttons on Home Page:** The `index.php` page features static interaction buttons for likes, favorites, and comments, providing a snapshot of the article's popularity without enabling direct interaction from the home page.
 
-Overall, these enhancements make the content management system more robust, user-friendly, and conducive to community engagement. Users can now interact with articles in a controlled manner, easily navigate their own activity, and get a quick overview of article popularity, all contributing to a richer online experience.
+These enhancements make the content management system more robust, user-friendly, and conducive to community engagement. Users can now interact with articles in a controlled manner, easily navigate their activity, and get a quick overview of article popularity, all contributing to a richer online experience.
