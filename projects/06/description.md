@@ -63,8 +63,8 @@ INSERT INTO `tickets` (`user_id`, `title`, `description`, `status`, `priority`, 
 
 -- Sample data for table `ticket_comments`
 INSERT INTO `ticket_comments` (`ticket_id`, `user_id`, `comment`, `created_at`) VALUES
-(1, 2, 'User has tried resetting the password, the issue persists.', NOW()),
-(1, 3, 'Issue escalated to the IT team for further investigation.', NOW()),
+(1, 1, 'User has tried resetting the password, the issue persists.', NOW()),
+(1, 1, 'Issue escalated to the IT team for further investigation.', NOW()),
 (2, 2, 'Confirmed that SMTP settings are correct.', NOW()),
 (2, 3, 'Temporary workaround implemented, working on a permanent fix.', NOW()),
 (3, 2, 'User reported issue with specific pages, need more details.', NOW()),
