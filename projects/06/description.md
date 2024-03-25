@@ -52,6 +52,27 @@ ALTER TABLE `ticket_comments`
 ALTER TABLE `ticket_comments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT;
+
+-- Sample data for table `ticket`
+INSERT INTO `tickets` (`user_id`, `title`, `description`, `status`, `priority`, `created_at`, `updated_at`) VALUES
+(1, 'Login Issue', 'User unable to login to the system', 'Open', 'High', NOW(), NULL),
+(1, 'Email Notification Failure', 'Email notifications are not being sent', 'In Progress', 'Medium', NOW(), NULL),
+(1, 'Page Loading Error', 'Some pages are loading slowly or not at all', 'Open', 'Low', NOW(), NULL),
+(1, 'Database Backup', 'Automated database backup failed last night', 'Closed', 'High', NOW(), NULL),
+(1, 'User Interface Bug', 'Dropdown menu not displaying properly on mobile devices', 'Open', 'Medium', NOW(), NULL);
+
+-- Sample data for table `ticket_comments`
+INSERT INTO `ticket_comments` (`ticket_id`, `user_id`, `comment`, `created_at`) VALUES
+(1, 2, 'User has tried resetting the password, the issue persists.', NOW()),
+(1, 3, 'Issue escalated to the IT team for further investigation.', NOW()),
+(2, 2, 'Confirmed that SMTP settings are correct.', NOW()),
+(2, 3, 'Temporary workaround implemented, working on a permanent fix.', NOW()),
+(3, 2, 'User reported issue with specific pages, need more details.', NOW()),
+(3, 3, 'Optimizing database queries to improve page load times.', NOW()),
+(4, 2, 'Backup process failed due to insufficient disk space.', NOW()),
+(4, 3, 'Disk space issue resolved, backup process running smoothly now.', NOW()),
+(5, 2, 'UI bug confirmed on several mobile devices.', NOW()),
+(5, 3, 'CSS adjustments made, awaiting user confirmation.', NOW());
 ```
 
 ## Create the PHP files
