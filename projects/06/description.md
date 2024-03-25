@@ -103,7 +103,7 @@ Create the following PHP files to handle various functionalities of the ticketin
                 <div class="card">
                     <header class="card-header">
                         <p class="card-header-title">
-                            <?= htmlspecialchars(substr($ticket['title'], 0, 30), ENT_QUOTES) ?>
+                            <?= htmlspecialchars_decode(substr($ticket['title'], 0, 30), ENT_QUOTES) ?>
                             &nbsp;
                             <?php if ($ticket['priority'] == 'Low') : ?>
                                 <span class="tag"><?= $ticket['priority'] ?></span>
@@ -119,7 +119,7 @@ Create the following PHP files to handle various functionalities of the ticketin
                                     <?php if ($ticket['status'] == 'Open') : ?>
                                         <i class="far fa-clock fa-2x"></i>
                                     <?php elseif ($ticket['status'] == 'In Progress') : ?>
-                                        <i class="fas fa-check fa-2x"></i>
+                                        <i class="fas fa-tasks fa-2x"></i>
                                     <?php elseif ($ticket['status'] == 'Closed') : ?>
                                         <i class="fas fa-times fa-2x"></i>
                                     <?php endif; ?>
@@ -131,7 +131,7 @@ Create the following PHP files to handle various functionalities of the ticketin
                         <div class="content">
                             <time datetime="2016-1-1">Created: <?= time_ago($ticket['created_at']) ?></time>
                             <br>
-                            <p><?= htmlspecialchars(substr($ticket['description'], 0, 40), ENT_QUOTES) ?>...</p>
+                            <p><?= htmlspecialchars_decode(substr($ticket['description'], 0, 40), ENT_QUOTES) ?>...</p>
                         </div>
                     </div>
                     <footer class="card-footer">
@@ -166,7 +166,7 @@ Create the following PHP files to handle various functionalities of the ticketin
 ?>
 ```
 
-## Create the `ticket-create.php` file
+## Create the `ticket_create.php` file
 
 **HTML Structure**: Add the following HTML structure to your `ticket-create.php` file.
 
@@ -225,14 +225,95 @@ Create the following PHP files to handle various functionalities of the ticketin
 ?>
 ```
 
-## Create the `ticket-detail.php` file
+## Create the `ticket_detail.php` file
 
 **HTML Structure**: Add the following HTML structure to your `ticket-detail.php` file.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
 <section class="section">
-   
+    <h1 class="title">Ticket Detail</h1>
+    <p class="subtitle">
+        <a href="tickets.php">View all tickets</a>
+    </p>
+    <div class="card">
+        <header class="card-header">
+            <p class="card-header-title">
+                <?= htmlspecialchars($ticket['title'], ENT_QUOTES) ?>
+                &nbsp;
+                <?php if ($ticket['priority'] == 'Low') : ?>
+                    <span class="tag"><?= $ticket['priority'] ?></span>
+                <?php elseif ($ticket['priority'] == 'Medium') : ?>
+                    <span class="tag is-warning"><?= $ticket['priority'] ?></span>
+                <?php elseif ($ticket['priority'] == 'High') : ?>
+                    <span class="tag is-danger"><?= $ticket['priority'] ?></span>
+                <?php endif; ?>
+            </p>
+            <button class="card-header-icon">
+                <a href="ticket_detail.php?id=<?= $ticket['id'] ?>">
+                    <span class="icon">
+                        <?php if ($ticket['status'] == 'Open') : ?>
+                            <i class="far fa-clock fa-2x"></i>
+                        <?php elseif ($ticket['status'] == 'In Progress') : ?>
+                            <i class="fas fa-tasks fa-2x"></i>
+                        <?php elseif ($ticket['status'] == 'Closed') : ?>
+                            <i class="fas fa-times fa-2x"></i>
+                        <?php endif; ?>
+                    </span>
+                </a>
+            </button>
+        </header>
+        <div class="card-content">
+            <div class="content">
+                <time datetime="2016-1-1">Created: <?= date('F dS, G:ia', strtotime($ticket['created_at'])) ?></time>
+                <br>
+                <p><?= htmlspecialchars($ticket['description'], ENT_QUOTES) ?></p>
+            </div>
+        </div>
+        <footer class="card-footer">
+            <a href="ticket_detail.php?id=<?= $ticket['id'] ?>&status=Closed" class="card-footer-item">
+                <span class="icon"><i class="fas fa-times fa-2x"></i></span>
+                <span>&nbsp;Close</span>
+            </a>
+            <a href="ticket_detail.php?id=<?= $ticket['id'] ?>&status=In Progress" class="card-footer-item">
+                <span><i class="fas fa-tasks fa_2x"></i></i></span>
+                <span>&nbsp;In Progress</span>
+            </a>
+            <a href="ticket_detail.php?id=<?= $ticket['id'] ?>&status=Open" class="card-footer-item">
+                <span><i class="far fa-clock fa-2x"></i></span>
+                <span>&nbsp;Re-Open</span>
+            </a>
+        </footer>
+    </div>
+    <hr>
+    <div class="block">
+        <form action="" method="post">
+            <div class="field">
+                <label class="label"></label>
+                <div class="control">
+                    <textarea name="msg" class="textarea" placeholder="Enter your comment here..." required></textarea>
+                </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <button class="button is-link">Post Comment</button>
+                </div>
+            </div>
+        </form>
+        <hr>
+        <div class="content">
+            <h3 class="title is-4">Comments</h3>
+            <?php foreach ($comments as $comment) : ?>
+                <p class="box">
+                    <span><i class="fas fa-comment"></i></span>
+                    <?= date('F dS, G:ia', strtotime($comment['created_at'])) ?>
+                    <br>
+                    <?= nl2br(htmlspecialchars($comment['comment'], ENT_QUOTES)) ?>
+                    <br>
+                </p>
+            <?php endforeach; ?>
+        </div>
+    </div>
 </section>
 <!-- END YOUR CONTENT -->
 ```
@@ -241,18 +322,62 @@ Create the following PHP files to handle various functionalities of the ticketin
 
 ```php
 <?php
+// Include config.php file
 
+// Secure and only allow 'admin' users to access this page
+
+// Check if the $_GET['id'] exists; if it does, get the ticket record from the database and store it in the associative array named $ticket.
+
+// Fetch comments for the ticket
+
+// Update ticket status when the user clicks the status link
+
+// Check if the comment form has been submitted. If true, then INSERT the ticket comment
 ?>
 ```
 
-## Create the `ticket-edit.php` file
+## Create the `ticket_edit.php` file
 
 **HTML Structure**: Add the following HTML structure to your `ticket-edit.php` file.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
 <section class="section">
-   
+    <h1 class="title">Edit Ticket</h1>
+    <form action="" method="post">
+        <div class="field">
+            <label class="label">Title</label>
+            <div class="control">
+                <input class="input" type="text" name="title" value="<?= htmlspecialchars_decode($ticket['title']) ?>" required>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Description</label>
+            <div class="control">
+                <textarea class="textarea" name="description" required><?= htmlspecialchars_decode($ticket['description']) ?></textarea>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Priority</label>
+            <div class="control">
+                <div class="select">
+                    <select name="priority">
+                        <option value="Low" <?= ($ticket['priority'] == 'Low') ? 'selected' : '' ?>>Low</option>
+                        <option value="Medium" <?= ($ticket['priority'] == 'Medium') ? 'selected' : '' ?>>Medium</option>
+                        <option value="High" <?= ($ticket['priority'] == 'High') ? 'selected' : '' ?>>High</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="field is-grouped">
+            <div class="control">
+                <button type="submit" class="button is-link">Update Ticket</button>
+            </div>
+            <div class="control">
+                <a href="tickets.php" class="button is-link is-light">Cancel</a>
+            </div>
+        </div>
+    </form>
 </section>
 <!-- END YOUR CONTENT -->
 ```
@@ -261,18 +386,29 @@ Create the following PHP files to handle various functionalities of the ticketin
 
 ```php
 <?php
+// Include config.php file
 
+// Secure and only allow 'admin' users to access this page
+
+// Check if the update form was submitted. If so, UPDATE the ticket details.
+
+// Else, it's an initial page request; fetch the ticket record from the database where the ticket = $_GET['id']
 ?>
 ```
 
-## Create the `ticket-delete.php` file
+## Create the `ticket_delete.php` file
 
 **HTML Structure**: Add the following HTML structure to your `ticket-delete.php` file.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
 <section class="section">
-   
+    <h1 class="title">Delete Ticket</h1>
+    <p class="subtitle">Are you sure you want to delete ticket: <?= htmlspecialchars_decode($ticket['title']) ?></p>
+    <div class="buttons">
+        <a href="?id=<?= $ticket['id'] ?>&confirm=yes" class="button is-success">Yes</a>
+        <a href="tickets.php" class="button is-danger">No</a>
+    </div>
 </section>
 <!-- END YOUR CONTENT -->
 ```
@@ -281,7 +417,16 @@ Create the following PHP files to handle various functionalities of the ticketin
 
 ```php
 <?php
+// Include config.php file
 
+// Secure and only allow 'admin' users to access this page
+
+// Check if the $_GET['id'] exists; if it does, get the ticket record from the database and store it in the associative array $ticket. If a ticket with that ID does not exist, display the message "A ticket with that ID did not exist."
+
+// Check if $_GET['confirm'] == 'yes'. This means they clicked the 'yes' button to confirm the removal of the record.
+// If yes, prepare and execute an SQL DELETE statement to remove the ticket where id == the $_GET['id'].
+// Also, delete all comments associated with that ticket.
+// Else (meaning they clicked 'no'), return them to the tickets.php page.
 ?>
 ```
 
