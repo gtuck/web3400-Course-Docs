@@ -1,6 +1,6 @@
 # Simple Ticketing System (Project 06)
 
-In this project, you will develop a simple ticketing system that allows users to create, read, update, and delete tickets. The system will also include functionalities for adding comments to tickets and user authentication, ensuring only logged-in users can manage tickets and comments. This structured approach will ensure the ticketing system functions correctly and provides a good user experience.
+In this project, you will develop a simple ticketing system that allows users to create, read, update, and delete tickets. The system will also include functionalities for adding ticket comments and user authentication, ensuring only logged-in users can manage tickets and comments. This structured approach will ensure the ticketing system functions correctly and provides a good user experience.
 
 ## Copy Project 05 to the Project 06 folder
 
@@ -64,9 +64,105 @@ Create the following PHP files to handle various functionalities of the ticketin
 - `ticket-edit.php`: To handle the editing of ticket details.
 - `ticket-delete.php`: To handle the deletion of tickets.
 
-## Implementing the Ticketing System
+## Create the `tickets.php` file
 
-For each PHP file, you will need to implement the necessary HTML structure and PHP logic to support the functionalities mentioned above. This will include forms for creating and editing tickets, displaying ticket details and comments, and buttons for deleting tickets.
+**HTML Structure**: Add the following HTML structure to your `tickets.php` file.
+
+```html
+<!-- BEGIN YOUR CONTENT -->
+<section class="section">
+   
+</section>
+<!-- END YOUR CONTENT -->
+```
+
+**PHP Processing**: Complete the following coding steps by adding your code to the top of the `tickets.php` file. Your finished file displays the list of tickets.
+
+```php
+<?php
+
+?>
+```
+
+## Create the `ticket-create.php` file
+
+**HTML Structure**: Add the following HTML structure to your `ticket-create.php` file.
+
+```html
+<!-- BEGIN YOUR CONTENT -->
+<section class="section">
+   
+</section>
+<!-- END YOUR CONTENT -->
+```
+
+**PHP Processing**: Complete the following coding steps by adding your code to the top of the `ticket-create.php` file. Your finished file handles the creation of new tickets.
+
+```php
+<?php
+
+?>
+```
+
+## Create the `ticket-detail.php` file
+
+**HTML Structure**: Add the following HTML structure to your `ticket-detail.php` file.
+
+```html
+<!-- BEGIN YOUR CONTENT -->
+<section class="section">
+   
+</section>
+<!-- END YOUR CONTENT -->
+```
+
+**PHP Processing**: Complete the following coding steps by adding your code to the top of the `ticket-detail.php` file. Your finished file displays the details of a specific ticket, including comments.
+
+```php
+<?php
+
+?>
+```
+
+## Create the `ticket-edit.php` file
+
+**HTML Structure**: Add the following HTML structure to your `ticket-edit.php` file.
+
+```html
+<!-- BEGIN YOUR CONTENT -->
+<section class="section">
+   
+</section>
+<!-- END YOUR CONTENT -->
+```
+
+**PHP Processing**: Complete the following coding steps by adding your code to the top of the `ticket-edit.php` file. Your finished file handles the editing of ticket details.
+
+```php
+<?php
+
+?>
+```
+
+## Create the `ticket-delete.php` file
+
+**HTML Structure**: Add the following HTML structure to your `ticket-delete.php` file.
+
+```html
+<!-- BEGIN YOUR CONTENT -->
+<section class="section">
+   
+</section>
+<!-- END YOUR CONTENT -->
+```
+
+**PHP Processing**: Complete the following coding steps by adding your code to the top of the `ticket-delete.php` file. Your finished file handles ticket deletion.
+
+```php
+<?php
+
+?>
+```
 
 ## Final Steps
 
