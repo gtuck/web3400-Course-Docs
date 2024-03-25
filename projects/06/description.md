@@ -85,22 +85,22 @@ Create the following PHP files to handle various functionalities of the ticketin
 						<?= htmlspecialchars(substr($ticket['title'], 0, 30), ENT_QUOTES) ?>
 						&nbsp;
 						<?php if ($ticket['priority'] == 'Low') : ?>
-						<span class="tag"><?= $ticket['priority'] ?></span>
+							<span class="tag"><?= $ticket['priority'] ?></span>
 						<?php elseif ($ticket['priority'] == 'Medium') : ?>
-						<span class="tag is-warning"><?= $ticket['priority'] ?></span>
+							<span class="tag is-warning"><?= $ticket['priority'] ?></span>
 						<?php elseif ($ticket['priority'] == 'High') : ?>
-						<span class="tag is-danger"><?= $ticket['priority'] ?></span>
+							<span class="tag is-danger"><?= $ticket['priority'] ?></span>
 						<?php endif; ?>
 					</p>
 					<button class="card-header-icon">
 						<a href="ticket-detail.php?id=<?= $ticket['id'] ?>">
 							<span class="icon">
 								<?php if ($ticket['status'] == 'Open') : ?>
-								<i class="far fa-clock fa-2x"></i>
+									<i class="far fa-clock fa-2x"></i>
 								<?php elseif ($ticket['status'] == 'In Progress') : ?>
-								<i class="fas fa-check fa-2x"></i>
+									<i class="fas fa-check fa-2x"></i>
 								<?php elseif ($ticket['status'] == 'Closed') : ?>
-								<i class="fas fa-times fa-2x"></i>
+									<i class="fas fa-times fa-2x"></i>
 								<?php endif; ?>
 							</span>
 						</a>
