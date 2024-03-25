@@ -156,6 +156,13 @@ Create the following PHP files to handle various functionalities of the ticketin
 // Secure and only allow 'admin' users to access this page
 
 // Prepared statement that retrieves all the tickets in descending order by creation date from the tickets table
+
+// Execute the query
+
+// Fetch and store the results in the $tickets associative array
+
+// Check if the query returned any rows. If not, display the message: "There are no tickets in the database."
+
 ?>
 ```
 
