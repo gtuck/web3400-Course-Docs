@@ -430,6 +430,26 @@ Create the following PHP files to handle various functionalities of the ticketin
 ?>
 ```
 
+## Update the `nav.php` navigation template file
+
+**nav.php**: Update the navigation menu to include the `Manage Tickets` link to the tickets.php page. The code should be added to the `navbar-start` section of the main navbar. Also, after the 'Contact Us' link, add a new `navbar-end` item for the 'Support' link that sends the user to the ticket_create.php page.
+
+```html
+<!-- BEGIN ADMIN MENU -->
+...
+  <a href="tickets.php" class="navbar-item">
+    Manage Tickets
+  </a>
+<!-- END ADMIN MENU -->
+
+...
+<?php if (isset($_SESSION['loggedin'])) : ?>
+  <a class="button is-light" href="ticket_create.php">
+    <strong>Support</strong>
+  </a>
+<?php endif; ?>
+```
+
 ## Final Steps
 
 - Test your application thoroughly to catch and fix any bugs or issues.
