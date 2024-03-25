@@ -80,10 +80,10 @@ INSERT INTO `ticket_comments` (`ticket_id`, `user_id`, `comment`, `created_at`) 
 Create the following PHP files to handle various functionalities of the ticketing system:
 
 - `tickets.php`: To display the list of tickets.
-- `ticket-create.php`: To handle the creation of new tickets.
-- `ticket-detail.php`: To display the details of a specific ticket, including comments.
-- `ticket-edit.php`: To handle the editing of ticket details.
-- `ticket-delete.php`: To handle the deletion of tickets.
+- `ticket_create.php`: To handle the creation of new tickets.
+- `ticket_detail.php`: To display the details of a specific ticket, including comments.
+- `ticket_edit.php`: To handle the editing of ticket details.
+- `ticket_delete.php`: To handle the deletion of tickets.
 
 ## Create the `tickets.php` file
 
@@ -95,7 +95,7 @@ Create the following PHP files to handle various functionalities of the ticketin
     <h1 class="title">Manage Tickets</h1>
     <!-- Add Ticket Button -->
     <div class="buttons">
-        <a href="ticket-create.php" class="button is-link">Create a new ticket</a>
+        <a href="ticket_create.php" class="button is-link">Create a new ticket</a>
     </div>
     <div class="row columns is-multiline">
         <?php foreach ($tickets as $ticket) : ?>
@@ -114,7 +114,7 @@ Create the following PHP files to handle various functionalities of the ticketin
                             <?php endif; ?>
                         </p>
                         <button class="card-header-icon">
-                            <a href="ticket-detail.php?id=<?= $ticket['id'] ?>">
+                            <a href="ticket_detail.php?id=<?= $ticket['id'] ?>">
                                 <span class="icon">
                                     <?php if ($ticket['status'] == 'Open') : ?>
                                         <i class="far fa-clock fa-2x"></i>
@@ -129,15 +129,15 @@ Create the following PHP files to handle various functionalities of the ticketin
                     </header>
                     <div class="card-content">
                         <div class="content">
-                            <time datetime="2016-1-1">Created: <?= date('F dS, G:ia', strtotime($ticket['created_at'])) ?></time>
+                            <time datetime="2016-1-1">Created: <?= time_ago($ticket['created_at']) ?></time>
                             <br>
                             <p><?= htmlspecialchars(substr($ticket['description'], 0, 40), ENT_QUOTES) ?>...</p>
                         </div>
                     </div>
                     <footer class="card-footer">
-                        <a href="ticket-detail.php?id=<?= $ticket['id'] ?>" class="card-footer-item">View</a>
-                        <a href="ticket-edit.php?id=<?= $ticket['id'] ?>" class="card-footer-item">Edit</a>
-                        <a href="ticket-delete.php?id=<?= $ticket['id'] ?>" class="card-footer-item">Delete</a>
+                        <a href="ticket_detail.php?id=<?= $ticket['id'] ?>" class="card-footer-item">View</a>
+                        <a href="ticket_edit.php?id=<?= $ticket['id'] ?>" class="card-footer-item">Edit</a>
+                        <a href="ticket_delete.php?id=<?= $ticket['id'] ?>" class="card-footer-item">Delete</a>
                     </footer>
                 </div>
             </div>
@@ -174,7 +174,7 @@ Create the following PHP files to handle various functionalities of the ticketin
 <!-- BEGIN YOUR CONTENT -->
 <section class="section">
     <h1 class="title">Create Ticket</h1>
-    <form action="ticket-create.php" method="post">
+    <form action="" method="post">
         <div class="field">
             <label class="label">Title</label>
             <div class="control">
