@@ -75,15 +75,11 @@ INSERT INTO `ticket_comments` (`ticket_id`, `user_id`, `comment`, `created_at`) 
 (5, 3, 'CSS adjustments made, awaiting user confirmation.', NOW());
 ```
 
-## Create the PHP files
+## Create the PHP files from the terminal
 
-Create the following PHP files to handle various functionalities of the ticketing system:
-
-- `tickets.php`: To display the list of tickets.
-- `ticket_create.php`: To handle the creation of new tickets.
-- `ticket_detail.php`: To display the details of a specific ticket, including comments.
-- `ticket_edit.php`: To handle the editing of ticket details.
-- `ticket_delete.php`: To handle the deletion of tickets.
+```console
+touch tickets.php ticket_create.php ticket_detail.php ticket_edit.php ticket_delete.php
+```
 
 ## Create the `tickets.php` file
 
