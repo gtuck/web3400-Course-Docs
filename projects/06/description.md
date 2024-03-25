@@ -53,7 +53,7 @@ ALTER TABLE `ticket_comments`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
 COMMIT;
 
--- Sample data for table `ticket`
+-- Sample data for `tickets` table
 INSERT INTO `tickets` (`user_id`, `title`, `description`, `status`, `priority`, `created_at`, `updated_at`) VALUES
 (1, 'Login Issue', 'User unable to login to the system', 'Open', 'High', NOW(), NULL),
 (1, 'Email Notification Failure', 'Email notifications are not being sent', 'In Progress', 'Medium', NOW(), NULL),
@@ -61,7 +61,7 @@ INSERT INTO `tickets` (`user_id`, `title`, `description`, `status`, `priority`, 
 (1, 'Database Backup', 'Automated database backup failed last night', 'Closed', 'High', NOW(), NULL),
 (1, 'User Interface Bug', 'Dropdown menu not displaying properly on mobile devices', 'Open', 'Medium', NOW(), NULL);
 
--- Sample data for table `ticket_comments`
+-- Sample data for `ticket_comments` table
 INSERT INTO `ticket_comments` (`ticket_id`, `user_id`, `comment`, `created_at`) VALUES
 (1, 1, 'User has tried resetting the password, the issue persists.', NOW()),
 (1, 1, 'Issue escalated to the IT team for further investigation.', NOW()),
