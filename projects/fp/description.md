@@ -105,10 +105,10 @@ foreach ($kpiQueries as $kpi => $query) {
 
 ### Display KPIs in the Dashboard
 
-Bulma CSS classes display KPIs in the HTML content section in a visually appealing layout. See an example finished admin_dashboard.php page at: 
-https://garthtuck.com/web3400/fp/admin_dashboard.php 
-Username: admin@admin.com and 
-Password: password
+Bulma CSS classes display KPIs in the HTML content section in a visually appealing layout. See an example finished admin_dashboard.php page at **(please do not add, modify, or delete any site data)**:
+- https://garthtuck.com/web3400/fp/admin_dashboard.php 
+- Username: admin@admin.com and 
+- Password: password
 
 ```html
 <section class="section">
