@@ -114,31 +114,31 @@ Bulma CSS classes display KPIs in the HTML content section in a visually appeali
 <section class="section">
     <div class="columns is-multiline">
         <div class="column">
-                <div class="box">
-                    <div class="heading"><a href="articles.php">Articles</a></div>
-                    <div class="title">Count: <?= $kpiResults["total_articles_count"] ?></div>
-                    <div class="level">
-                        <div class="level-item">
-                            <div class="">
-                                <div class="heading">Unublished</div>
-                                <div class="title is-5"><?= $kpiResults["unpublished_articles_count"] ?></div>
-                            </div>
+            <div class="box">
+                <div class="heading"><a href="articles.php">Articles</a></div>
+                <div class="title">Count: <?= $kpiResults["total_articles_count"] ?></div>
+                <div class="level">
+                    <div class="level-item">
+                        <div class="">
+                            <div class="heading">Unublished</div>
+                            <div class="title is-5"><?= $kpiResults["unpublished_articles_count"] ?></div>
                         </div>
-                        <div class="level-item">
-                            <div class="">
-                                <div class="heading">Published</div>
-                                <div class="title is-5"><?= $kpiResults["published_articles_count"] ?></div>
-                            </div>
+                    </div>
+                    <div class="level-item">
+                        <div class="">
+                            <div class="heading">Published</div>
+                            <div class="title is-5"><?= $kpiResults["published_articles_count"] ?></div>
                         </div>
-                        <div class="level-item">
-                            <div class="">
-                                <div class="heading">Featured</div>
-                                <div class="title is-5"><?= $kpiResults["featured_articles_count"] ?></div>
-                            </div>
+                    </div>
+                    <div class="level-item">
+                        <div class="">
+                            <div class="heading">Featured</div>
+                            <div class="title is-5"><?= $kpiResults["featured_articles_count"] ?></div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
         <!-- Add more KPI boxes here -->
     </div>
 </section>
