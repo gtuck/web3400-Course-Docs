@@ -1,6 +1,23 @@
-# Administrator Dashboard Enhancement (Final Project)
+# Comprehensive Final Project: Administrator Dashboard Enhancement
 
-In this project, you will enhance the Administrator Dashboard in your WEB 3400 Server Side Programming Class. You will add Key Performance Indicators (KPIs), a quick article and ticket creation form, and a display of recent contact messages. This project will help you develop skills in SQL queries, PHP data handling, and dynamic content generation in HTML.
+The final project for the WEB 3400 Server Side Programming Class is designed to be a comprehensive culmination of all the skills and knowledge you've acquired throughout the course. This project involves enhancing the Administrator Dashboard with new features and ensuring that all functionalities from previous projects are integrated and functioning correctly.
+
+## Key Aspects of the Final Project:
+
+### 1. Integration of Previous Features:
+Your final project should seamlessly incorporate all the features you've developed in previous projects. This includes user authentication, article management, ticketing systems, and other functionalities you've implemented. These features must work together harmoniously in the enhanced dashboard.
+
+### 2. New Features and Enhancements:
+In addition to the existing features, you'll add new functionalities such as Key Performance Indicators (KPIs) for articles, tickets, and users, quick creation forms for articles and tickets, and a section to display recent contact messages. These enhancements should provide a more comprehensive and user-friendly experience for administrators.
+
+### 3. Comprehensive Functionality:
+The final project is not just about adding new features but ensuring that the entire dashboard operates as a cohesive unit. All features, both old and new, must function correctly and efficiently. This includes proper data retrieval and display, error handling, security measures, and user interaction.
+
+### 4. Quality Assurance:
+Thorough testing is essential to ensure that every dashboard aspect works as intended. This includes testing individual features, their integration, and the overall user experience. Any bugs or issues should be identified and resolved before the final submission.
+
+### 5. Professional Presentation:
+The presentation of your final project should reflect the professionalism expected in a real-world application. This includes a clean and intuitive user interface, consistent styling, and clear documentation of your code and functionalities.
 
 ## Copy Project 06 to the Final Project (fp) folder
 
@@ -43,7 +60,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
 Your completed file will include several enhancements:
 
 - SQL queries to fetch KPIs related to articles, tickets, and users.
-- Display of KPIs in a visually appealing manner using Bulma CSS framework.
+- Display KPIs in a visually appealing manner using the Bulma CSS framework.
 - Forms for quick addition of articles and tickets.
 - A section to display the most recent contact messages.
 
@@ -88,7 +105,7 @@ foreach ($kpiQueries as $kpi => $query) {
 
 ### Display KPIs in the Dashboard
 
-In the HTML content section, Bulma CSS classes display KPIs in a visually appealing layout. See an example finished admin_dashboard.php page at: 
+Bulma CSS classes display KPIs in the HTML content section in a visually appealing layout. See an example finished admin_dashboard.php page at: 
 https://garthtuck.com/web3400/fp/admin_dashboard.php 
 Username: admin@admin.com and 
 Password: password
@@ -168,6 +185,6 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
 - Test your dashboard thoroughly to catch and fix any bugs or issues.
 - Push your final changes to GitHub and submit your project URL as instructed.
 
-## Conclusion
+## Conclusion:
 
-By completing this project, you will have enhanced your Administrator Dashboard with useful KPIs and added functionality for quick article and ticket creation. This will provide a more comprehensive overview of your
+The final project is an opportunity to showcase your full range of skills in server-side programming. It's a testament to your ability to create a comprehensive, functional, professional web application. Ensuring that all features from previous projects function correctly in conjunction with the new enhancements is key to the success of your final dashboard.
