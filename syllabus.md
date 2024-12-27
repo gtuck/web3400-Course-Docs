@@ -69,7 +69,7 @@ By the end of the course, you will be able to:
 - **Points Distribution:** Based on attendance, participation, assignments, and a final project.  
 
 ---
-### **Course Summary**
+### **Course Timeline**
 
 #### **Week 01**
 - **Meetings:**
