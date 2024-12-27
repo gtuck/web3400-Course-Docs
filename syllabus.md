@@ -69,5 +69,161 @@ By the end of the course, you will be able to:
 - **Points Distribution:** Based on attendance, participation, assignments, and a final project.  
 
 ---
+### **Course Summary**
 
-This streamlined syllabus ensures clarity and professionalism while retaining all critical information for students. Let me know if further adjustments are needed!
+#### **Week 01**
+- **Meetings:**
+  - Monday: Virtual Class, 9:30–10:20 AM
+  - Wednesday: Virtual Class, 9:30–10:20 AM
+  - Friday: Virtual Class, 9:30–10:20 AM
+- **Assignments Due:**
+  - Developer Environment Setup & Configuration (Thursday, 11:59 PM)
+  - Syllabus Quiz (Thursday, 11:59 PM)
+
+---
+
+#### **Week 02**
+- **Meetings:**
+  - Wednesday: Virtual Class, 9:30–10:20 AM
+  - Friday: Virtual Class, 9:30–10:20 AM
+- **Assignments Due:**
+  - Verify Development Environment and Workflow (Tuesday, 11:59 PM)
+
+---
+
+#### **Week 03**
+- **Meetings:**
+  - Monday: Virtual Class, 9:30–10:20 AM
+  - Wednesday: Virtual Class, 9:30–10:20 AM
+  - Friday: Virtual Class, 9:30–10:20 AM
+- **Assignments Due:**
+  - Introduction to HTML (Sunday, 11:59 PM)
+
+---
+
+#### **Week 04**
+- **Meetings:**
+  - Monday: Virtual Class, 9:30–10:20 AM
+  - Wednesday: Virtual Class, 9:30–10:20 AM
+  - Friday: Virtual Class, 9:30–10:20 AM
+- **Assignments Due:**
+  - Introduction to CSS (Sunday, 11:59 PM)
+
+---
+
+#### **Week 05**
+- **Meetings:**
+  - Monday: Virtual Class, 9:30–10:20 AM
+  - Wednesday: Virtual Class, 9:30–10:20 AM
+  - Friday: Virtual Class, 9:30–10:20 AM
+- **Assignments Due:**
+  - Introduction to Bulma (Thursday, 11:59 PM)
+
+---
+
+#### **Week 06**
+- **Meetings:**
+  - Monday: Virtual Class, 9:30–10:20 AM
+  - Wednesday: Virtual Class, 9:30–10:20 AM
+  - Friday: Virtual Class, 9:30–10:20 AM
+- **Assignments Due:**
+  - Introduction to PHP Templates (Sunday, 11:59 PM)
+
+---
+
+#### **Week 07**
+- **Meetings:**
+  - Monday: Virtual Class, 9:30–10:20 AM
+  - Wednesday: Virtual Class, 9:30–10:20 AM
+  - Friday: Virtual Class, 9:30–10:20 AM
+- **Assignments Due:**
+  - Project Configuration, Security, HTML Form Processing & Database Connections (Thursday, 11:59 PM)
+
+---
+
+#### **Week 08**
+- **Meetings:**
+  - Monday: Virtual Class, 9:30–10:20 AM
+  - Wednesday: Virtual Class, 9:30–10:20 AM
+  - Friday: Virtual Class, 9:30–10:20 AM
+- **Assignments Due:**
+  - User Account Creation (Thursday, 11:59 PM)
+
+---
+
+#### **Week 09**
+- **Meetings:**
+  - Monday: Virtual Class, 9:30–10:20 AM
+  - Wednesday: Virtual Class, 9:30–10:20 AM
+  - Friday: Virtual Class, 9:30–10:20 AM
+- **Assignments Due:**
+  - Create & Update User Profile Page (Sunday, 11:59 PM)
+
+---
+
+#### **Week 10**
+- **Meetings:**
+  - Monday: Virtual Class, 9:30–10:20 AM
+  - Wednesday: Virtual Class, 9:30–10:20 AM
+- **Assignments Due:**
+  - Midterm: User Management System (Sunday, 11:59 PM)
+
+---
+
+#### **Week 11**
+- **Meetings:**
+  - Monday: Virtual Class, 9:30–10:20 AM
+  - Wednesday: Virtual Class, 9:30–10:20 AM
+  - Friday: Virtual Class, 9:30–10:20 AM
+- **Assignments Due:**
+  - Simple Content Management System (Sunday, 11:59 PM)
+
+---
+
+#### **Week 12**
+- **Meetings:**
+  - Monday: Virtual Class, 9:30–10:20 AM
+  - Wednesday: Virtual Class, 9:30–10:20 AM
+  - Friday: Virtual Class, 9:30–10:20 AM
+- **Assignments Due:**
+  - CMS with Enhanced Features (Sunday, 11:59 PM)
+
+---
+
+#### **Week 13**
+- **Meetings:**
+  - Monday: Virtual Class, 9:30–10:20 AM
+  - Wednesday: Virtual Class, 9:30–10:20 AM
+  - Friday: Virtual Class, 9:30–10:20 AM
+- **Assignments Due:**
+  - Mandatory Project Status Review Interview (Wednesday, 11:30 AM)
+
+---
+
+#### **Week 14**
+- **Meetings:**
+  - Monday: Virtual Class, 9:30–10:20 AM
+  - Wednesday: Virtual Class, 9:30–10:20 AM
+  - Friday: Virtual Class, 9:30–10:20 AM
+- **Assignments Due:**
+  - Simple Ticketing System (Thursday, 11:59 PM)
+  - Mandatory Project 06 Review Interview (Monday, 11:30 AM)
+
+---
+
+#### **Week 15**
+- **Meetings:**
+  - Monday: Virtual Class, 9:30–10:20 AM
+  - Wednesday: Virtual Class, 9:30–10:20 AM
+  - Friday: Virtual Class, 9:30–10:20 AM
+
+---
+
+#### **Week 16**
+- **Meetings:**
+  - Monday: Virtual Class, 9:30–10:20 AM
+- **Assignments Due:**
+  - Comprehensive Final Project: Administrator Dashboard Enhancement (Tuesday, 11:59 PM)
+  - Final Project: Mandatory Status Review Interview (Friday, 11:30 AM)
+
+---
