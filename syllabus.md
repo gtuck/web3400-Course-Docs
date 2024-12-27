@@ -1,5 +1,3 @@
-### Syllabus: WEB 3400
-
 #### **Instructor Information**
 - **Name:** Garth Tuck  
 - **Department:** School of Computing  
