@@ -1,3 +1,5 @@
+##Syllabus
+
 #### **Instructor Information**
 - **Name:** Garth Tuck  
 - **Department:** School of Computing  
