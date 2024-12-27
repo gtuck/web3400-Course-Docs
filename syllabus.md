@@ -1,4 +1,4 @@
-##Syllabus
+## **Syllabus**
 
 #### **Instructor Information**
 - **Name:** Garth Tuck  
