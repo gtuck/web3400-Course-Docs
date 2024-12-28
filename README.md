@@ -1,6 +1,3 @@
-Here is a suggested content for your repository's README.md file:
-
-```markdown
 # WEB 3400 - Course Docs
 
 ## Overview
@@ -45,6 +42,3 @@ Contributions to the course materials are welcome. Please submit a pull request 
 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-```
-
-Feel free to modify the content to better fit your course structure and requirements.
