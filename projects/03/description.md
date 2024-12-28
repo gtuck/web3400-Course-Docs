@@ -1,4 +1,4 @@
-# User Management System (Midterm Project)
+# User Management System
 
 In this project, you will develop a user management system that allows an admin user to add, modify, and delete user accounts, including managing each user's role. You'll follow a structured approach, similar to previous projects, to ensure proper account management functionalities and user experience. The HTML part of each page is complete and provided for you. You must complete each step described in the PHP Comments. Hint: Many code snippets from previous projects may be helpful to use as starter code for this project.
 
