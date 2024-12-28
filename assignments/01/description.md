@@ -1,27 +1,50 @@
-# Introduction to HTML (Assignment 01)
+## Introduction to HTML
 
-## Create an HTML file 
-- **Objective**: Understand how to use VS Code to create a new HTML file and push updates to your web3400 GitHub repo.
-- **Topics**:
-  1. In your web3400 Docker Container: create a new folder named `01` in your `assignments` folder
-  2. In your newly created `01` folder, create a new HTML file named `index.html`.
-  3. Add, commit, and push the file to your repo.
-     1. In a VS Code Terminal `cd` to your `01` folder
-     2. Stage the Change: Execute `git add index.html`.
-     3. Commit the Change: Type `git commit -m "Created index.html"`.
-     4. Push the Change: Run `git push`.
+#### Create an HTML File
+
+- **Objective**: Use VS Code to create a new HTML file and push updates to your `web3400-Spr2025` GitHub repository.
+- **Steps**:
+  1. Open the VS Code terminal and run:
+     ```bash
+     rm -r assignments/*
+     ```
+  2. In your `web3400` Docker Container:
+     - Create a folder named `01` inside the `assignments` folder.
+     - In the `01` folder, create a file named `index.html`.
+  3. Add, commit, and push the file:
+     - Navigate to the `01` folder:
+       ```bash
+       cd assignments/01
+       ```
+     - Stage the file:
+       ```bash
+       git add index.html
+       ```
+     - Commit the changes:
+       ```bash
+       git commit -m "Created index.html"
+       ```
+     - Push to GitHub:
+       ```bash
+       git push
+       ```
+
 - **Project**: Create an empty HTML file in the correct folder.
 
-## Introduction to HTML
-- **Objective**: Understand HTML and its role in web development.
+---
+
+#### Introduction to HTML
+
+- **Objective**: Understand HTML's role in web development.
 - **Topics**:
-  1. History and Evolution of HTML.
-  2. Basic Structure of an HTML Document (DOCTYPE, html, head, body).
-  3. Introduction to Tags and Elements.
-  4. Using Basic Tags: `<h1>`, `<p>`, `<a>`.
+  - History and Evolution of HTML.
+  - Basic structure of an HTML document: `<!DOCTYPE html>`, `<html>`, `<head>`, `<body>`.
+  - Introduction to HTML tags and elements.
+  - Using basic tags: `<h1>`, `<p>`, `<a>`.
+
 - **Project**: Create a simple HTML page with a heading and a paragraph.
 
-### Example
+**Example**:
 ```html
 <!DOCTYPE html>
 <html>
@@ -35,15 +58,19 @@
 </html>
 ```
 
-## Exploring Text Formatting and Lists
-- **Objective**: Learn how to format text and create lists in HTML.
-- **Topics**:
-  1. Text Formatting Tags: `<b>`, `<i>`, `<strong>`, `<em>`.
-  2. Creating Ordered (`<ol>`) and Unordered (`<ul>`) Lists.
-  3. List Items (`<li>`).
-- **Project Update**: Add a section with formatted text and both types of lists to the HTML page.
+---
 
-### Example
+#### Exploring Text Formatting and Lists
+
+- **Objective**: Learn to format text and create lists in HTML.
+- **Topics**:
+  - Text formatting tags: `<b>`, `<i>`, `<strong>`, `<em>`.
+  - Creating ordered (`<ol>`) and unordered (`<ul>`) lists.
+  - List items (`<li>`).
+
+- **Project**: Add formatted text and both types of lists to your HTML page.
+
+**Example**:
 ```html
 <b>Bold Text</b><br>
 <i>Italic Text</i><br>
@@ -61,39 +88,43 @@
 </ul>
 ```
 
-## Understanding Hyperlinks and Images
-- **Objective**: Add hyperlinks and images to a webpage.
-- **Topics**:
-  1. Anchor Tag `<a>` and Attributes (href, target).
-  2. Image Tag `<img>` and Attributes (src, alt).
-  3. Relative vs Absolute URLs.
-- **Project Update**: Include hyperlinks and images in the existing HTML page.
+---
 
-### Example
+#### Understanding Hyperlinks and Images
+
+- **Objective**: Add hyperlinks and images to your webpage.
+- **Topics**:
+  - Anchor tag `<a>`: attributes `href`, `target`.
+  - Image tag `<img>`: attributes `src`, `alt`.
+  - Relative vs absolute URLs.
+
+- **Project**: Include hyperlinks and images in your HTML page.
+
+**Example**:
 ```html
 <a href="https://weber.edu" target="_blank">Visit weber.edu</a>
 <hr>
 <img width="320" src="https://source.unsplash.com/random/900x700/?fruit" alt="Descriptive text for the image">
 ```
 
-## Structuring Content with HTML5 Semantic Tags
-- **Objective**: Understand and utilize HTML5 semantic tags for better structure.
-- **Topics**:
-  1. Header (`<header>`), Footer (`<footer>`), Main (`<main>`).
-  2. Article (`<article>`), Section (`<section>`), Aside (`<aside>`).
-  3. Navigation (`<nav>`).
-- **Project Update**: Refactor the HTML page to include these semantic tags.
+---
 
-### Example
+#### Structuring Content with HTML5 Semantic Tags
+
+- **Objective**: Use semantic tags for better webpage structure.
+- **Topics**:
+  - Semantic tags: `<header>`, `<footer>`, `<main>`, `<article>`, `<section>`, `<aside>`, `<nav>`.
+
+- **Project**: Refactor your HTML page using semantic tags.
+
+**Example**:
 ```html
 <header>
     <h1>My Website Header</h1>
 </header>
-
 <nav>
     <a href="#">Home</a> | <a href="#">About</a>
 </nav>
-
 <main>
     <article>
         <h2>Article Title</h2>
@@ -104,21 +135,24 @@
         <a href="#">Link 1</a>
     </aside>
 </main>
-
 <footer>
-    <p>Copyright © 2024</p>
+    <p>Copyright &copy; 2024</p>
 </footer>
 ```
 
-## Tables and Forms
-- **Objective**: Learn how to create tables and simple forms.
-- **Topics**:
-  1. Creating Tables: `<table>`, `<tr>`, `<th>`, `<td>`.
-  2. Basic Forms: `<form>`, `<input>`, `<label>`, `<textarea>`, `<button>`.
-  3. Form Attributes: action, method.
-- **Project Update**: Add a table and a simple form to the webpage.
+---
 
-### Example
+#### Tables and Forms
+
+- **Objective**: Learn to create tables and simple forms.
+- **Topics**:
+  - Tables: `<table>`, `<tr>`, `<th>`, `<td>`.
+  - Forms: `<form>`, `<input>`, `<label>`, `<textarea>`, `<button>`.
+  - Form attributes: `action`, `method`.
+
+- **Project**: Add a table and a form to your webpage.
+
+**Example**:
 ```html
 <table>
     <tr>
@@ -140,12 +174,15 @@
 </form>
 ```
 
-## Embedded Audio and Video
-- **Objective**: Explore additional HTML5 features and APIs.
+---
+
+#### Embedded Audio and Video
+
+- **Objective**: Explore HTML5 features for multimedia.
 - **Topics**:
-  1. HTML5 Audio and Video Tags.
-   
-### Example
+  - Audio and video tags.
+
+**Example**:
 ```html
 <audio controls>
     <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
@@ -158,17 +195,30 @@
 </video>
 ```
 
-## Project Completion and Review
-At this point, you have a complete HTML page with all the elements and structures learned. The final code combines all the above snippets and is organized into a coherent webpage (index.html).
+---
 
-## Commit and Push the Final Changes
-- **Objective**: Commit and push your completed index.html file in a VS Code Terminal.
-- **Topics**:
-  1. Commit the Change: Type `git commit -m "Update index.html"`.
-  2. Push the Change: Run `git push`.
-  3. Confirm Changes on GitHub: Visit your forked repository on GitHub.
+#### Commit and Push Final Changes
 
-## Submitting the Assignment
-- **Objective**: Submit the URL to your completed index.html file.
-- **Topics**:
-  1. Submit the URL of your updated `index.html` file in the format: `https://github.com/[your-account-name]/[your-web3400-repo]/blob/main/assignments/01/index.html`. Replace `[your-account-name]` with your GitHub username and `[your-web3400-repo]` with your repo name.
+- **Objective**: Finalize your work and push it to GitHub.
+- **Steps**:
+  1. Commit your changes:
+     ```bash
+     git commit -m "Update index.html"
+     ```
+  2. Push to GitHub:
+     ```bash
+     git push
+     ```
+  3. Confirm changes by visiting your GitHub repository.
+
+---
+
+#### Submitting the Assignment
+
+- **Objective**: Submit the URL to your completed HTML file.
+- **Steps**:
+  1. Submit the file URL in the format:
+     ```
+     https://github.com/[your-account-name]/[your-web3400-Spr2025-repo]/blob/main/assignments/01/index.html
+     ```
+     Replace `[your-account-name]` with your GitHub username and `[your-web3400-Spr2025-repo]` with your repository name.
