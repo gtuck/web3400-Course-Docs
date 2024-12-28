@@ -1,4 +1,4 @@
-# Introduction to CSS (Assignment 02)
+# Introduction to CSS
 
 Basics of CSS alongside your HTML project (assignment 01) to enhance the webpage. Here's how you can incorporate CSS into the existing HTML page (index.html):
 
