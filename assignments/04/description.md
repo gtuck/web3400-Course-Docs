@@ -1,6 +1,6 @@
 # Introduction to PHP Template System
 
-Creating a basic PHP template system is a great way to structure your web application for easier maintenance and scalability. By splitting your HTML into reusable components, you can manage your code more effectively. This assignment guides you through creating a simple PHP template system with `head.php`, `nav.php`, and `footer.php`, using the `index.html` file from the previous assignment as a starting point.
+A basic PHP template system is a great way to structure your web application for easier maintenance and scalability. Splitting your HTML into reusable components allows you to manage your code more effectively. This assignment guides you through creating a simple PHP template system with `head.php`, `nav.php`, and `footer.php`, using the `index.html` file from the previous assignment as a starting point.
 
 ---
 
@@ -30,7 +30,7 @@ Creating a basic PHP template system is a great way to structure your web applic
 ---
 
 ## Step 2: Set Up Assignment 04
-1. In the `04` directory, create a `templates` folder.
+1. Create a 'templates' folder in the `04` directory.
 2. Inside `templates`, create three files: `head.php`, `nav.php`, and `footer.php`.
 
 ---
@@ -84,7 +84,7 @@ Example:
 ---
 
 ### `footer.php`
-Extract the `<footer>` section and include it in this file.
+Include the `<footer>` section in this file.
 
 Example:
 ```php
@@ -115,6 +115,7 @@ Example:
 
    <?php include 'templates/footer.php'; ?>
    ```
+3. I recommend creating a VS Code Snippet [Read more...](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets) with this code, making it easy to access in the future. 
 
 ---
 
