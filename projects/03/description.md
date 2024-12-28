@@ -1,4 +1,4 @@
-# User Management System (Project 03)
+# User Management System (Midterm Project)
 
 In this project, you will develop a user management system that allows an admin user to add, modify, and delete user accounts, including managing each user's role. You'll follow a structured approach, similar to previous projects, to ensure proper account management functionalities and user experience. The HTML part of each page is complete and provided for you. You must complete each step described in the PHP Comments. Hint: Many code snippets from previous projects may be helpful to use as starter code for this project.
 
@@ -333,7 +333,7 @@ if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
    
 ```php
 ...
-<p class="title"><?= $user['full_name'] ?> **| <span class="tag is-info is-medium"><?= $user['role'] ?></span>**</p>
+<p class="title"><?= $user['full_name'] ?> | <span class="tag is-info is-medium"><?= $user['role'] ?></span></p>
 ...
 ```
 
