@@ -5,7 +5,7 @@
 - **Department:** School of Computing  
 - **Office Location:** Elizabeth Hall 371  
 - **Virtual Office:** [Zoom Link](https://weber.zoom.us/j/8013088825)  
-- **Virtual Office Hours:** Monday & Wednesday, 11:30 AM–2:00 PM ([Appointment Required](https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2ZxOHd88y9dR5ZmI1YgcfcnhVGj2lfXlknmyVUPbRtVoTjHj3OJbIADiaxM2RC9pGFkeTWF6CK?gv=true))  
+- **Virtual Office Hours:** Monday & Wednesday, 11:30 AM–2:00 PM ([Appointment Required](https://calendar.app.google/grXYvRYJeMUtz9si7))  
 - **Contact:**  
    - **Phone (Voice & Text):** 801-308-8251  
    - **Email:** [gtuck@weber.edu](mailto:gtuck@weber.edu)  
@@ -34,7 +34,7 @@ By the end of the course, you will be able to:
 
 #### **Resources**
 - **Reference Materials:**  
-  - [PHP Syntax Examples](https://github.com/gtuck/web3400/blob/main/php-code-examples.md)  
+  - [PHP Syntax Examples](https://github.com/gtuck/web3400-Course-Docs/blob/main/PHP-Code-Examples.md)  
   - [PHP Documentation](https://www.codecademy.com/resources/docs/php)  
   - [PHP: The Right Way](https://phptherightway.com)  
   - [Bulma CSS Framework](https://bulma.io)  
@@ -48,7 +48,7 @@ By the end of the course, you will be able to:
 
 #### **Policies**
 1. **Attendance:** Regular attendance in synchronous sessions is crucial. Be present and engaged.  
-2. **Communication:** Questions? Use [Google Appointment Calendar](https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2ZxOHd88y9dR5ZmI1YgcfcnhVGj2lfXlknmyVUPbRtVoTjHj3OJbIADiaxM2RC9pGFkeTWF6CK?gv=true) or email anytime.  
+2. **Communication:** Questions? Use [Google Appointment Calendar](https://calendar.app.google/grXYvRYJeMUtz9si7) or email anytime.  
 3. **Late Work:** 10% deduction per day late, with a minimum score of 0.  
 4. **Extra Credit:** Not available.  
 5. **Class Recording:** Recording is prohibited without instructor authorization.  
@@ -57,7 +57,6 @@ By the end of the course, you will be able to:
 
 #### **Campus Policies**
 - **Academic Integrity:** Violations result in failure of the course and a report to the Dean of Students. Academic dishonesty includes unauthorized use of AI tools, plagiarism, and cheating.  
-- **Inclusivity:** WSU values diversity and strives to create a supportive and respectful campus.  
 - **ADA Accommodations:** Contact [Disability Services](https://www.weber.edu/disabilityservices/default.html) for assistance.  
 - **FERPA:** Protect your privacy rights. For details, visit [FERPA Information](https://www.weber.edu/registrar/FERPA.html).  
 - **Student Conduct:** Follow appropriate behavior standards per the [Student Code](https://www.weber.edu/ppm/Policies/6-22_StudentCode.html).  
