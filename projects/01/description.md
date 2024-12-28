@@ -1,19 +1,19 @@
-# User Account Creation (Project 01)
+# User Account Creation
 
 In this project, we will create systems for users to register an account, log in/out, and update the site navigation template. We'll follow the same structured approach, mirroring previous projects' design patterns and instructional style.
 
 ## Copy Project 00 to the Project 01 folder.
 
-1. Recursively copy your folder: Run `cp -r projects/00 projects/01`.
-2. Add, commit, and push the new project `01` folder to your repo.
-   1. Stage the Change: Execute `git add *`.
-   2. Commit the Change: Type `git commit -m "Created project 01"`.
-   3. Push the Change: Run `git push`.
+1.  Recursively copy your folder: Run `cp -r projects/00 projects/01`.
+2.  Add, commit, and push the new project `01` folder to your repo.
+    1.  Stage the Change: Execute `git add *`.
+    2.  Commit the Change: Type `git commit -m "Created project 01"`.
+    3.  Push the Change: Run `git push`.
 
 ## Create the Users Table
 
-1. **Log in to phpMyAdmin** using your credentials.
-2. **Run the following SQL command** to create the user's table in your web3400 database:
+1.  **Log in to phpMyAdmin** using your credentials.
+2.  **Run the following SQL command** to create the user's table in your web3400 database:
 
 ```sql
 CREATE TABLE users(
@@ -36,7 +36,7 @@ This table includes fields needed to support user account management, including 
 
 ## Create a `register.php` file in your Project 01 folder
 
-1. **Form HTML**: Add the following HTML to your `register.php` file.
+1.  **Form HTML**: Add the following HTML to your `register.php` file.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
@@ -103,7 +103,7 @@ This table includes fields needed to support user account management, including 
 <!-- END YOUR CONTENT -->
 ```
 
-2. **PHP Processing**: Add the following PHP code to the top of your `register.php` file; this code will process the form data, check if the email is unique, insert data into the database, generate an activation link, and complete the account activation.
+1.  **PHP Processing**: Add the following PHP code to the top of your `register.php` file; this code will process the form data, check if the email is unique, insert data into the database, generate an activation link, and complete the account activation.
 
 ```php
 <?php
@@ -181,7 +181,7 @@ if (isset($_GET['code'])) {
 
 ## Create a `login.php` file in your Project 01 folder
 
-1. **Form HTML**: Add the following HTML to your `login.php` file.
+1.  **Form HTML**: Add the following HTML to your `login.php` file.
 
 ```html
 <!-- BEGIN YOUR CONTENT -->
@@ -214,7 +214,7 @@ if (isset($_GET['code'])) {
 <!-- END YOUR CONTENT -->
 ```
 
-1. **PHP Processing**: We will code the PHP code for the `login.php` file together in class.
+1.  **PHP Processing**: We will code the PHP code for the `login.php` file together in class.
 
 ```php
 <?php
@@ -225,9 +225,9 @@ include 'config.php';
 ?>
 ```
 
-## Create a `logout.php` file in your project 01 folder
+## Create a `logout.php` file in your Project 01 folder
 
-1. **PHP Processing**: Add the following PHP to your `logout.php` file.
+1.  **PHP Processing**: Add the following PHP to your `logout.php` file.
 
 ```php
 <?php
@@ -239,59 +239,66 @@ include 'config.php';
 
 ## Update the `nav.php` template
 
-1. **nav.php**: There are multiple updates to the nav bar:
-   1. Replace the `Login` button with:
-      ```html
-      <!-- BEGIN USER MENU -->
-         <?php if (isset($_SESSION['loggedin'])) : ?>
-            <div class="navbar-item has-dropdown is-hoverable">
-               <a class="button navbar-link">
-                  <span class="icon">
-                     <i class="fas fa-user"></i>
-                  </span>
-               </a>
-               <div class="navbar-dropdown">
-                  <a href="profile.php" class="navbar-item">Profile</a>
-                  <hr class="navbar-divider">
-                  <a href="logout.php" class="navbar-item">Logout</a>
-               </div>
-            </div>
-         <?php else : ?>
-            <a href="login.php" class="button is-link">Login</a>
-         <?php endif; ?>
-      <!-- END USER MENU -->
-      ```
-
-   3. Replace the `HERO` with the following code.
-   ```php
-    <?php if ($_SERVER['PHP_SELF'] == '/index.php') : ?>
-        <!-- BEGIN HERO -->
-        <section class="hero is-link">
-            <div class="hero-body">
-                <p class="title">
-                    Hero title
-                </p>
-                <p class="subtitle">
-                    Hero subtitle
-                </p>
-            </div>
-        </section>
-        <!-- END HERO -->
-    <?php endif; ?>
-   ```
+1.  **nav.php**: There are multiple updates to the nav bar:
+    
+    1.  Replace the `Log in` Button with:
+        
+        ```html
+        <!-- BEGIN USER MENU -->
+           <?php if (isset($_SESSION['loggedin'])) : ?>
+              <div class="navbar-item has-dropdown is-hoverable">
+                 <a class="button navbar-link">
+                    <span class="icon">
+                       <i class="fas fa-user"></i>
+                    </span>
+                 </a>
+                 <div class="navbar-dropdown">
+                    <a href="profile.php" class="navbar-item">Profile</a>
+                    <hr class="navbar-divider">
+                    <a href="logout.php" class="navbar-item">Logout</a>
+                 </div>
+              </div>
+           <?php else : ?>
+              <a href="login.php" class="button is-link">Login</a>
+           <?php endif; ?>
+        <!-- END USER MENU -->
+        ```
+        
+    2.  Replace the `HERO` with the following code.
+        
+        ```html
+        <?php if ($_SERVER['PHP_SELF'] == '/index.php') : ?>
+          <!-- BEGIN HERO -->
+          <section class="hero is-link">
+              <div class="hero-body">
+                  <p class="title">
+                      Hero title
+                  </p>
+                  <p class="subtitle">
+                      Hero subtitle
+                  </p>
+              </div>
+          </section>
+          <!-- END HERO -->
+        <?php endif; ?>
+        ```
+        
 
 ## Conclusion
+
 This setup not only enhances your application's security but also improves the user experience by providing clear feedback and easy-to-follow steps for account management and allows users to register a new account and login/out.
 
-## Stage, Commit and Push the Final Changes
-- **Objective**: Commit and push your completed project 01 changes in a VS Code Terminal.
-- **Topics**:
-  1. Stage the Change: Run `git add *`.
-  2. Commit the Changes: Type `git commit -m "Final update for project 01"`.
-  3. Push the Changes: Run `git push`.
-  4. Confirm Changes on GitHub: Visit your forked repository on GitHub.
+## Stage, Commit, and Push the Final Changes
+
+*   **Objective**: Commit and push your completed project 01 changes in a VS Code Terminal.
+*   **Topics**:
+    1.  Stage the Change: Run `git add *`.
+    2.  Commit the Changes: Type `git commit -m "Final update for project 01"`.
+    3.  Push the Changes: Run `git push`.
+    4.  Confirm Changes on GitHub: Visit your forked repository on GitHub.
 
 ## Submitting the Project
-- **Objective**: Submit the URL to your completed project 01 folder.
-- **Topics**:
-  1. Submit the URL of your updated project `01` folder in the format: `https://github.com/[your-account-name]/[your-web3400-repo]/blob/main/projects/01/`. Replace `[your-account-name]` with your GitHub username and `[your-web3400-repo]` with your repo name.
+
+*   **Objective**: Submit the URL to your completed Project 01 folder.
+*   **Topics**:
+    1.  Submit the URL of your updated project `01` folder in the format: `https://github.com/[your-account-name]/[your-web3400-repo]/blob/main/projects/01/`. Replace `[your-account-name]` with your GitHub username and `[your-web3400-repo]` with your repo name.
