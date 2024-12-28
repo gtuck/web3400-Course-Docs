@@ -3,7 +3,7 @@
 #### **Introduction**
 I will conduct individual five-minute project review interviews to ensure everyone is on track before we start the first Project. These reviews will be held in my [**Office Hours Zoom Room**:](https://weber.zoom.us/j/8013088825).
 
-Please schedule your appointment on my [**Google Appointment Schedule**](https://calendar.app.google/3vPCRWodiuWML1HZ6).
+Please schedule your appointment on my [**Google Appointment Schedule**](https://calendar.app.google/AgmwbWiMHsVLH6yRA).
 
 So that you know, the meeting is only five minutes long and is not meant to be a troubleshooting session but a simple demonstration of your progress. If something doesn't work correctly, move on to the next agenda item. For additional help, sign up for a separate appointment during my office hours.
 
