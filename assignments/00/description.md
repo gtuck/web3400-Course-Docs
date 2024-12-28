@@ -1,46 +1,64 @@
-## Verify your Development Environment and Workflow
+## Verify Your Development Environment and Workflow
 
-Verify the development environment and workflow that will be used in the course. Topics should include Forking the web3400 GitHub repo, adding the instructor as a collaborator to your forked repo, Cloning the repo to your local computer and running the .devcontainer, or running it as a GitHub Codespace. Open your repository in Visual Studio Code, open the index.php file, and add the comment "//Function to display files in the website root folder as a link tree" on line 2. Then add, commit, and push the change to your forked web3400 repo.
+Ensure your development environment and workflow are properly set up for this course. The steps include creating the `web3400-Spr2025` GitHub repository from the template, adding the instructor as a collaborator, cloning the repository to your local computer, and running the `.devcontainer` locally or as a GitHub Codespace. You will also modify the `index.php` file and push the changes to your forked repository.
 
-**Please Note:** You may have completed some of these steps in a previous assignment. It's not meant for you to repeat the steps but to verify that you have completed all the steps in creating your dev environment and understand how to push changes and updates back to your repo so I can access them for grading.
+**Note**: If you have completed some steps in a previous assignment, you do not need to repeat them. Instead, verify that all steps are complete and that you understand how to push changes to your repository so the instructor can access them for grading.
 
-### 1. Forking the web3400 GitHub Repository
-- **Navigate to the Repository**: Open your web browser and go to [https://github.com/gtuck/web3400.git](https://github.com/gtuck/web3400.git).
-- **Fork the Repository**: Click on the "Fork" button at the top right of the page to create a copy of the repository in your GitHub account.
+### 1. Creating Your `web3400-Spr2025` GitHub Repository
+- **Navigate to the Template Repository**: Open [https://github.com/gtuck/web3400.git](https://github.com/gtuck/web3400.git).
+- **Use the Template**: Click the "Use this template" button to create a copy in your GitHub account.
+- **Verify the Template**: Ensure your new repository displays "generated from `gtuck/web3400`". If it doesn’t, repeat this step.
 
 ### 2. Adding the Instructor as a Collaborator
-- **Access Your Forked Repository**: Visit your GitHub account and open the forked `web3400` repository.
-- **Go to Settings**: Click on your repository's "Settings" tab.
-- **Invite Collaborator**: Select "Manage access" from the sidebar, then "Invite a collaborator", and enter your instructor's GitHub username (gtuck@weber.edu). Send the invitation.
+- **Access Your Repository**: Open your `web3400-Spr2025` repository on GitHub.
+- **Go to Settings**: Click on the "Settings" tab.
+- **Invite the Instructor**: Under "Manage access," click "Invite a collaborator," enter the instructor's GitHub username (`gtuck@weber.edu`), and send the invitation.
 
-### 3. Cloning the Repository
-- **Open Terminal/Command Prompt**: Open a terminal or command prompt depending on your OS.
-- **Clone the Repository**: Type `git clone [URL-of-your-forked-repo]`. Replace `[URL-of-your-forked-repo]` with the actual URL of your forked repository.
+### 3. Cloning Your Repository
+- **Clone Locally**: In your repository, click the "Code" button, select the "Local" tab, and use "Open with GitHub Desktop" to clone the repository to your computer.
 
-### 4. Running the .devcontainer locally or in a GitHub Codespace
-- **For your local computer**:
-  - Ensure Docker Desktop is installed and running.
-  - Open the cloned repo in Visual Studio Code.
-  - Reopen in a container if prompted by VS Code.
-  
-- **For GitHub Codespace**:
-  - Go to your forked repository on GitHub.
-  - Click "Code" and select "Open with Codespaces", then create a new codespace.
-  - **Note**: There may be costs associated with using GitHub Codespaces.
+### 4. Running the `.devcontainer` Locally or in a GitHub Codespace
+#### For Local Development:
+- Ensure Docker Desktop is installed and running.
+- Open the cloned repository in Visual Studio Code.
+- If prompted, reopen the project in a container.
 
-### 5. Modifying `index.php` File
-- **Open the Repository in Visual Studio Code**.
-- **Find `index.php`**: Locate and open the `index.php` file.
-- **Add the Comment**: On line 2, insert `// Function to display files in the website root folder as a link tree`.
-- **Save the File**: Press `Ctrl + S` (Windows/Linux) or `Cmd + S` (Mac).
+#### For GitHub Codespace:
+- Open your forked repository on GitHub.
+- Click "Code" and choose "Open with Codespaces." Create a new Codespace if needed.
+- **Note**: There may be costs associated with using GitHub Codespaces.
+
+### 5. Modifying the `index.php` File
+- Open the repository in Visual Studio Code.
+- Create a new file named `index.php` (if it doesn’t exist).
+- Add the following code:
+  ```php
+  // Function to display files in the website root folder as a link tree
+  <?php echo "Hello from PHP"; ?>
+  ```
+- Save the file.
 
 ### 6. Adding, Committing, and Pushing the Changes
-- **Open Terminal in VS Code**: Use Terminal -> New Terminal from the top menu.
-- **Stage the Change**: Execute `git add index.php`.
-- **Commit the Change**: Type `git commit -m "Add comment to index.php"`.
-- **Push the Change**: Run `git push origin main`.
+- Open the terminal in Visual Studio Code (`Terminal -> New Terminal`).
+- Stage the changes:
+  ```bash
+  git add index.php
+  ```
+- Commit the changes:
+  ```bash
+  git commit -m "Add comment to index.php"
+  ```
+- Push the changes:
+  ```bash
+  git push origin main
+  ```
 
 ### 7. Submitting the Assignment
-- **Confirm Changes on GitHub**: Visit your forked `web3400` repository on GitHub.
-- **Locate the Updated `index.php` File**: Ensure your changes are visible.
-- **Submit the Assignment**: Provide the URL of your updated `index.php` file in the format: `https://github.com/[your-account-name]/web3400/blob/main/index.php`. Replace `[your-account-name]` with your GitHub username.
+- Verify the changes in your `web3400-Spr2025` repository on GitHub.
+- Ensure the `index.php` file contains your updates.
+- Submit the assignment by providing the URL to your updated `index.php` file. Use the format:
+  ```
+  https://github.com/[your-account-name]/web3400-Spr2025/blob/main/index.php
+  ```
+  Replace `[your-account-name]` with your GitHub username.
+```
