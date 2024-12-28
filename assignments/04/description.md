@@ -1,4 +1,4 @@
-# PHP Template System Assignment
+# Introduction to PHP Template System
 
 Creating a basic PHP template system is a great way to structure your web application for easier maintenance and scalability. By splitting your HTML into reusable components, you can manage your code more effectively. This assignment guides you through creating a simple PHP template system with `head.php`, `nav.php`, and `footer.php`, using the `index.html` file from the previous assignment as a starting point.
 
