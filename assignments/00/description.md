@@ -60,5 +60,4 @@ Ensure your development environment and workflow are properly set up for this co
   ```
   https://github.com/[your-account-name]/web3400-Spr2025/blob/main/index.php
   ```
-  Replace `[your-account-name]` with your GitHub username.
-```
+- Replace `[your-account-name]` with your GitHub username.
