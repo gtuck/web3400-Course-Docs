@@ -1,4 +1,4 @@
-##Developer Environment Setup & Configuration
+## Developer Environment Setup & Configuration
 
 ### Overview
 This assignment introduces the essential tools and technologies needed for server-side web development. You will set up a development environment that includes a GitHub account, GitHub Desktop, Docker Desktop, and Visual Studio Code. Additionally, you will learn to work with repositories and containers—key skills for modern web development.
