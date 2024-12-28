@@ -1,4 +1,4 @@
-# Simple Content Management System (Project 04)
+# Simple Content Management System
 
 In this project, you will develop a simple content management system that allows users to create, read, update, and delete articles. The system will also include user authentication, allowing only logged-in users to create and manage their articles. You'll follow a structured approach to ensure the content management system functions correctly and provides a good user experience.
 
