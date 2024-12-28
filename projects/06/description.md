@@ -1,4 +1,4 @@
-# Simple Ticketing System (Project 06)
+# Simple Ticketing System
 
 In this project, you will develop a simple ticketing system that allows users to create, read, update, and delete tickets. The system will also include functionalities for adding ticket comments and user authentication, ensuring only logged-in users can manage tickets and comments. This structured approach will ensure the ticketing system functions correctly and provides a good user experience.
 
