@@ -46,7 +46,7 @@ Ensure your development environment and workflow are properly set up for this co
   ```
 - Commit the changes:
   ```bash
-  git commit -m "Add comment to index.php"
+  git commit -m "Created index.php"
   ```
 - Push the changes:
   ```bash
