@@ -25,7 +25,7 @@ This assignment introduces the essential tools and technologies needed for serve
    - Click **Use this template**, select **Create a new repository**.
    - Name your repository **`web3400-Spr25`**.
       - For example:
-     ![Example image](https://github.com/gtuck/web3400-Course-Docs/blob/6f9140f1a64af0f84622c55d175c1799955c7d71/images/create-repo-from-template.png)
+     ![Example image](images/create-repo-from-template.png)
    - Add `gtuck@weber.edu` as a collaborator to your new repository: Go to **Settings → Collaborators → Add people**.
 
 4. **Install Docker Desktop**
@@ -47,7 +47,7 @@ This assignment introduces the essential tools and technologies needed for serve
 
 ### Deliverables
 - A screenshot of Visual Studio Code with the `web3400` repository open and the Docker `.devcontainer` running (locally or in Codespaces).
-![Example image](https://github.com/gtuck/web3400-Course-Docs/blob/6f9140f1a64af0f84622c55d175c1799955c7d71/images/upload-example.png)
+![Example image](images/upload-example.png)
 
 ### Submission Guidelines
 - Submit a `.jpg` or `.png` screenshot via the course submission link before the deadline.
