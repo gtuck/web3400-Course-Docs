@@ -50,7 +50,7 @@ This assignment introduces the essential tools and technologies needed for serve
 ### Deliverables
 - A screenshot of Visual Studio Code with the `web3400` repository open and the Docker `.devcontainer` running (locally or in Codespaces).
 <kbd>
-![Sample Screenshot](https://github.com/gtuck/web3400-Course-Docs/blob/6f9140f1a64af0f84622c55d175c1799955c7d71/images/upload-example.png)
+<img src="[https://github.com/gtuck/web3400-Course-Docs/blob/6f9140f1a64af0f84622c55d175c1799955c7d71/images/create-repo-from-template.png](https://github.com/gtuck/web3400-Course-Docs/blob/6f9140f1a64af0f84622c55d175c1799955c7d71/images/upload-example.png)" alt="Example submission" style="width:400px;"/>
 <kbd>
 
 ### Submission Guidelines
