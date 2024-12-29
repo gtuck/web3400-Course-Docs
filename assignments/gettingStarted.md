@@ -22,9 +22,7 @@ This assignment introduces the essential tools and technologies needed for serve
 3. **Create a `web3400` Repository**
    - Accept the collaboration invitation sent to your `@mail.weber.edu` email.
    - Visit the [web3400 repository template](https://github.com/gtuck/web3400.git).
-   - Click **Use this template**, select **Create a new repository**, **Create repository from template**
-      - [Read more about Creating a repository from a template](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template).
-   - **Name your repository `web3400-Spr25`**
+   - Click **Use this template**, select **Create a new repository**, **Create repository from template**, **Name your repository `web3400-Spr25`**, See example image below:
    - ![Screen shot](https://github.com/gtuck/web3400-Course-Docs/blob/6f9140f1a64af0f84622c55d175c1799955c7d71/images/create-repo-from-template.png)
    - Add `gtuck@weber.edu` as a collaborator to your new repository: Go to **Settings → Collaborators → Add people**.
 
