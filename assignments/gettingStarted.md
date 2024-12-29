@@ -23,7 +23,7 @@ This assignment introduces the essential tools and technologies needed for serve
    - Accept the collaboration invitation sent to your `@mail.weber.edu` email.
    - Visit the [web3400 repository template](https://github.com/gtuck/web3400.git).
    - Click **Use this template**, select **Create a new repository**.
-   - Name your repository **`web3400-Spr25`**,
+   - Name your repository **`web3400-Spr25`**.
       - For example:
      <kbd>
      <img src="https://github.com/gtuck/web3400-Course-Docs/blob/6f9140f1a64af0f84622c55d175c1799955c7d71/images/create-repo-from-template.png" alt="Create repo from template example image" style="width:400px;"/>
@@ -49,8 +49,9 @@ This assignment introduces the essential tools and technologies needed for serve
 
 ### Deliverables
 - A screenshot of Visual Studio Code with the `web3400` repository open and the Docker `.devcontainer` running (locally or in Codespaces).
-
+<kbd>
 ![Sample Screenshot](https://github.com/gtuck/web3400-Course-Docs/blob/6f9140f1a64af0f84622c55d175c1799955c7d71/images/upload-example.png)
+<kbd>
 
 ### Submission Guidelines
 - Submit a `.jpg` or `.png` screenshot via the course submission link before the deadline.
