@@ -41,7 +41,7 @@ This assignment introduces the essential tools and technologies needed for serve
    - Open the cloned repository in Visual Studio Code.
    - Build and run the container when prompted by the `.devcontainer` file.
 
-7. **Alternative Workspace (Optional)**
+7. **Alternative Workspace (Optional not free)**
    - Use **GitHub Codespaces** instead of local containers.
    - Start a new Codespace for your `web3400-Spr25` repository directly from GitHub.
 
