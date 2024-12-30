@@ -19,7 +19,7 @@ This assignment introduces the essential tools and technologies needed for serve
    - [Download GitHub Desktop](https://desktop.github.com/) and install it.
    - Connect GitHub Desktop to your GitHub account.
 
-3. **Create a `web3400` Repository**
+3. **Create a `web3400-Spr25` Repository**
    - Accept the collaboration invitation sent to your `@mail.weber.edu` email.
    - Visit the [web3400 repository template](https://github.com/gtuck/web3400.git).
    - Click **Use this template**, select **Create a new repository**.
@@ -36,16 +36,16 @@ This assignment introduces the essential tools and technologies needed for serve
    - Familiarize yourself with its interface and extensions.
 
 6. **Set Up the Repository in VS Code**
-   - Clone your `web3400` repository using GitHub Desktop.
+   - Clone your `web3400-Spr25` repository using GitHub Desktop.
    - Open the cloned repository in Visual Studio Code.
    - Build and run the container when prompted by the `.devcontainer` file.
 
 7. **Alternative Workspace (Optional)**
    - Use **GitHub Codespaces** instead of local containers.
-   - Start a new Codespace for your `web3400` repository directly from GitHub.
+   - Start a new Codespace for your `web3400-Spr25` repository directly from GitHub.
 
 ### Deliverables
-- A screenshot of Visual Studio Code with the `web3400` repository open and the Docker `.devcontainer` running (locally or in Codespaces).
+- A screenshot of Visual Studio Code with the `web3400-Spr25` repository open and the Docker `.devcontainer` running (locally or in Codespaces).
 ![Example image](../images/upload-example.png)
 
 ### Submission Guidelines
