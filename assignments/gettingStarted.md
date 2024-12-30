@@ -24,7 +24,7 @@ This assignment introduces the essential tools and technologies needed for serve
    - Visit the [web3400 repository template](https://github.com/gtuck/web3400.git).
    - Click **Use this template**, select **Create a new repository**.
    - Name your repository **`web3400-Spr25`**. For example:
-     ![Example image](../images/create-repo-from-template.png)
+     ![Example image](../images/create-repo-from-template-dark.png)
    - Add `gtuck@weber.edu` as a collaborator to your new repository: Go to **Settings → Collaborators → Add people**.
 
 4. **Install Docker Desktop**
