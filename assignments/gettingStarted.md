@@ -19,11 +19,11 @@ This assignment introduces the essential tools and technologies needed for serve
    - [Download GitHub Desktop](https://desktop.github.com/) and install it.
    - Connect GitHub Desktop to your GitHub account.
 
-3. **Create a `web3400-Spr25` Repository**
+3. **Create a private `web3400-Spr25` Repository**
    - Accept the collaboration invitation sent to your `@mail.weber.edu` email.
    - Visit the [web3400 repository template](https://github.com/gtuck/web3400.git).
    - Click **Use this template**, select **Create a new repository**.
-   - Name your repository **`web3400-Spr25`**. For example:
+   - Name your repository **`web3400-Spr25`**. Example settings:
      ![Example image](../images/create-repo-from-template-dark.png)
    - Add `gtuck@weber.edu` as a collaborator to your new repository: Go to **Settings → Collaborators → Add people**.
 
