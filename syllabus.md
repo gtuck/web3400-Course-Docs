@@ -34,7 +34,7 @@ By the end of the course, you will be able to:
 
 #### **Resources**
 - **Reference Materials:**  
-  - [PHP Syntax Examples](/courses/596837/pages/php-syntax-and-code-examples)
+  - [PHP Syntax Examples](https://weber.instructure.com/courses/596837/pages/php-syntax-and-code-examples)
   - [PHP Documentation](https://www.codecademy.com/resources/docs/php)
   - [PHP: The Right Way](https://phptherightway.com)
   - [Bulma CSS Framework](https://bulma.io)
