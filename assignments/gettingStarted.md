@@ -34,7 +34,7 @@ This assignment introduces the essential tools and technologies needed for serve
   - Click on the "Settings" tab.
   - Select "Collaborators" from the sidebar.
   - Enter `gtuck@weber.edu` and send an invitation.
-- Example settings:
+- Example new repo from template settings:
      ![Example image](../images/create-repo-from-template-dark.png)
 
 **4. Install Docker Desktop**
