@@ -1,4 +1,4 @@
-## **Syllabus - WEB 3400 - Spring 2025**
+## **WEB 3400: Syllabus - Spring 2025**
 
 #### **Instructor Information**
 - **Name:** Garth Tuck  
