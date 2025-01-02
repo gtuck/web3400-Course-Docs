@@ -1,6 +1,6 @@
-## **Syllabus**
+# **Syllabus**
 
-#### **Instructor Information**
+## **Instructor Information**
 - **Name:** Garth Tuck  
 - **Department:** School of Computing  
 - **Office Location:** Elizabeth Hall 371  
@@ -12,7 +12,7 @@
 
 ---
 
-#### **Course Details**
+## **Course Details**
 - **Meeting Format:** Synchronous Virtual via Zoom  
    - **Days/Times:** Monday, Wednesday, Friday, 9:30–10:20 AM  
    - **Access:** Click "Zoom" in Canvas navigation.  
@@ -21,7 +21,7 @@
 
 ---
 
-#### **Learning Outcomes**
+## **Learning Outcomes**
 By the end of the course, you will be able to:  
 - Utilize Git repositories and Docker Development Containers  
 - Create HTML/CSS documents  
@@ -32,7 +32,7 @@ By the end of the course, you will be able to:
 
 ---
 
-#### **Resources**
+## **Resources**
 - **Reference Materials:**  
   - [PHP Syntax Examples](https://weber.instructure.com/courses/596837/pages/php-syntax-and-code-examples)
   - [PHP Documentation](https://www.codecademy.com/resources/docs/php)
@@ -46,23 +46,97 @@ By the end of the course, you will be able to:
 
 ---
 
-#### **Policies**
+## **Course Policies**
 1. **Attendance:** Regular attendance in synchronous sessions is crucial. Be present and engaged.  
 2. **Communication:** Questions? Use [Google Appointment Calendar](https://calendar.app.google/grXYvRYJeMUtz9si7) or email anytime.  
 3. **Late Work:** 10% deduction per day late, with a minimum score of 0.  
 4. **Extra Credit:** Not available.  
-5. **Class Recording:** Recording is prohibited without instructor authorization.  
+5. **Class Recording:** Recording is prohibited without instructor authorization.
+6. **Grading:** Based on attendance, participation, assignments, and a final project.
 
 ---
 
-#### **Campus Policies**
-- **Academic Integrity:** Violations result in failure of the course and a report to the Dean of Students. Academic dishonesty includes unauthorized use of AI tools, plagiarism, and cheating.  
-- **ADA Accommodations:** Contact [Disability Services](https://www.weber.edu/disabilityservices/default.html) for assistance.  
-- **FERPA:** Protect your privacy rights. For details, visit [FERPA Information](https://www.weber.edu/registrar/FERPA.html).  
-- **Student Conduct:** Follow appropriate behavior standards per the [Student Code](https://www.weber.edu/ppm/Policies/6-22_StudentCode.html).  
-- **Threatening Behavior:** Any hostile conduct will not be tolerated and will be reported to the Dean of Students.  
+## **Campus Policies**
 
----
+### Course Fees
+Course fees are designed to cover the costs of lab equipment maintenance and replacement, including desktop and server computer systems and software; consumable materials and supplies; and support for lab aides, student tutors, and online instructional resources.
 
-#### **Grading**
-- **Points Distribution:** Based on attendance, participation, assignments, and a final project.  
+### Academic Integrity
+School of Computing policy dictates that any verifiable evidence of student academic misconduct, as defined and determined by the instructor, will result in:
+1. An automatic failing grade for the class.
+2. A report to the Dean of Students that will include the student's name and a description of the student's dishonest conduct.
+
+As part of the student code (PPM 6-22), you are expected to be academically honest and ethical. Academic dishonesty includes:
+- Cheating.
+- Plagiarizing.
+- Colluding with others to be dishonest.
+- Falsifying information.
+- Giving, selling, or receiving unauthorized course or test information.
+- Using a tool or other aid not explicitly permitted by your instructor, such as generative AI (e.g., ChatGPT), to complete assignments or exams.
+- Infringing on others' copyrights and intellectual property.
+
+Academic dishonesty can have serious consequences in the class and/or at WSU. If you borrow an idea, express it in your own language and cite the source.
+
+### Creating a Supportive Campus
+At Weber State University, we celebrate and value all individuals, regardless of race, ethnicity, gender identity, sexual orientation, religion, marital or parental status, age, disability, veteran or military status, or other identifiers. We nurture a supportive campus and balance freedom of expression with respect for others. Together, we strive for mutual concern, goodwill, and respect.
+
+### Professionalism & Respect
+The sense of human dignity and belonging is vital to a healthy learning environment. Students should:
+- Practice civil behavior.
+- Avoid demeaning or derisive actions.
+- Welcome diverse viewpoints and express them respectfully.
+
+Mutual respect is essential for a productive classroom and workplace.
+
+### Core Beliefs
+According to the student code (PPM 6-22), you must determine before the last day to drop courses without penalty if any course requirements conflict with your core beliefs. If a conflict exists:
+1. Consider withdrawing from the class.
+2. Request a resolution from the instructor in writing and copy the department chair.
+
+The instructor is not obligated to grant your request unless a denial would be arbitrary, capricious, or illegal. If dissatisfied, you may use the student petition, complaints, and grievances process.
+
+### Harassment, Discrimination & Sexual Misconduct
+Weber State University is committed to an environment free from harassment and discrimination based on race, color, national origin, pregnancy, genetics, disability, religion, sex, sexual orientation, gender identity/expression, veteran or military status, age, and other protected classifications. Contact the Office of Equal Opportunity at [801-626-7537](tel:801-626-7537) or visit [Equal Opportunity Website](https://weber.edu/equal-opportunity).
+
+### Americans with Disabilities Act
+If you require accommodations due to a disability, contact Disability Services:
+- Ogden Campus: Student Services Center, Room 181
+- Davis Campus: Building D2, Room 262
+
+Disability Services can provide course materials in alternative formats upon request.
+
+### FERPA Rights
+Under FERPA, you have the right to:
+1. Inspect and review your educational record.
+2. Request an amendment if the record is inaccurate or misleading.
+3. Consent to the disclosure of personal information, except as authorized by FERPA.
+
+Public directory items include:
+- Name
+- Address
+- Telephone Number
+- Dates of attendance
+- Major (program of study)
+- Degrees and honors received
+- Full-time/Part-time status
+- Educational videos
+
+For more details, visit [FERPA Information](https://www.weber.edu/registrar/FERPA.html).
+
+### Student Responsibilities
+As a Weber State University student, you are expected to:
+- Act responsibly and appropriately.
+- Adhere to the standards outlined in the student code (PPM 6-22).
+
+Failure to meet these responsibilities could result in disciplinary actions.
+
+### Threatening Behaviors
+Threatening behavior includes actions such as:
+- Yelling, kicking, or bullying.
+- Intimidating messages or remarks.
+- Physical aggression like slamming doors or cornering someone.
+
+Such behaviors will not be tolerated. If exposed to threatening behavior, contact the Dean of Students.
+
+### Recording
+Students may not record class lectures without explicit permission from the faculty member (PPM 6-22.6.6). Recorded lectures provided through Canvas or email are for the exclusive use of enrolled students and may not be shared without authorization. Violations will be referred to the Dean of Students.
