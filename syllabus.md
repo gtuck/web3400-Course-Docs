@@ -88,13 +88,6 @@ The sense of human dignity and belonging is vital to a healthy learning environm
 
 Mutual respect is essential for a productive classroom and workplace.
 
-### Core Beliefs
-According to the student code (PPM 6-22), you must determine before the last day to drop courses without penalty if any course requirements conflict with your core beliefs. If a conflict exists:
-1. Consider withdrawing from the class.
-2. Request a resolution from the instructor in writing and copy the department chair.
-
-The instructor is not obligated to grant your request unless a denial would be arbitrary, capricious, or illegal. If dissatisfied, you may use the student petition, complaints, and grievances process.
-
 ### Harassment, Discrimination & Sexual Misconduct
 Weber State University is committed to an environment free from harassment and discrimination based on race, color, national origin, pregnancy, genetics, disability, religion, sex, sexual orientation, gender identity/expression, veteran or military status, age, and other protected classifications. Contact the Office of Equal Opportunity at [801-626-7537](tel:801-626-7537) or visit [Equal Opportunity Website](https://weber.edu/equal-opportunity).
 
