@@ -20,7 +20,7 @@ We’ll follow a pattern similar to previous HTML and CSS sections to introduce 
    ```
 4. Download the `starter.html` file:
    ```bash
-   wget "https://raw.githubusercontent.com/gtuck/web3400-Spr2025-Course-Docs/refs/heads/main/assignments/03/starter.html"
+   wget "https://raw.githubusercontent.com/gtuck/web3400-Course-Docs/refs/heads/main/assignments/03/starter.html"
    ```
 5. Create an `index.html` file from the starter file:
    ```bash
