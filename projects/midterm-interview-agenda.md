@@ -4,7 +4,7 @@
 
 To ensure all students are progressing appropriately before the midterm, I will conduct individual five-minute project review interviews. These sessions will take place in my **Office Hours Zoom Room**: [https://weber.zoom.us/j/8013088825](https://weber.zoom.us/j/8013088825).
 
-Please schedule your appointment through my **Google Appointment Schedule**.
+Please schedule your appointment through my **Google Appointment Schedule**: [https://calendar.app.google/1CeVqU8e2xfCpB9PA](https://calendar.app.google/1CeVqU8e2xfCpB9PA)
 
 Each meeting is strictly five minutes and is intended for a brief demonstration of your progress. If an issue arises during your demonstration, please proceed to the next agenda item. For further assistance, schedule a separate appointment during my regular office hours.
 
