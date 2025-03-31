@@ -54,8 +54,8 @@ This page will:
 ```php
 <?php
 include 'config.php';
+
 // Only allow access for admin users
-// if (!is_admin()) { header('Location: login.php'); exit; }
 
 $stmt = $pdo->query("SELECT * FROM contact_us ORDER BY submitted_at DESC");
 $messages = $stmt->fetchAll();
