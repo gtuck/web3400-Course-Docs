@@ -65,6 +65,7 @@ $messages = $stmt->fetchAll();
 ### 🖼️ HTML structure
 
 ```html
+<!-- BEGIN YOUR CONTENT -->
 <section class="section">
   <h1 class="title">Manage Messages</h1>
   <table class="table is-fullwidth is-striped">
@@ -93,6 +94,7 @@ $messages = $stmt->fetchAll();
     </tbody>
   </table>
 </section>
+<!-- END YOUR CONTENT -->
 ```
 
 ---
@@ -129,6 +131,7 @@ if (isset($_GET['confirm']) && $_GET['confirm'] === 'yes') {
 ### 🖼️ HTML structure
 
 ```html
+<!-- BEGIN YOUR CONTENT -->
 <section class="section">
   <h1 class="title">Delete Message</h1>
   <p>Are you sure you want to delete this message?</p>
@@ -137,6 +140,7 @@ if (isset($_GET['confirm']) && $_GET['confirm'] === 'yes') {
     <a class="button is-danger" href="messages_manage.php">No</a>
   </div>
 </section>
+<!-- END YOUR CONTENT -->
 ```
 
 ---
@@ -228,6 +232,7 @@ Update your `nav.php`:
 
 ```html
 <!-- BEGIN ADMIN MENU -->
+...
 <a href="messages_manage.php" class="navbar-item">Manage Messages</a>
 <!-- END ADMIN MENU -->
 ```
