@@ -1,7 +1,3 @@
-Here is the updated **Project 07 description**, now including the database modification to track message replies:
-
----
-
 # 📬 Project 07: Contact Message Management System
 
 In this project, you will expand your existing contact system to include **message management tools** for site administrators. You’ll create a simple backend interface that allows admins to:
@@ -52,9 +48,52 @@ touch messages_manage.php message_delete.php message_reply.php
 This page will:
 - Display all contact messages in a table
 - Include a **Reply** and **Delete** button in the "Action" column
-- Optionally highlight whether a message has been replied to
 
-(See original description above for full PHP logic and HTML structure.)
+### ✅ PHP logic (top of `messages_manage.php`)
+
+```php
+<?php
+include 'config.php';
+// Only allow access for admin users
+// if (!is_admin()) { header('Location: login.php'); exit; }
+
+$stmt = $pdo->query("SELECT * FROM contact_us ORDER BY submitted_at DESC");
+$messages = $stmt->fetchAll();
+?>
+```
+
+### 🖼️ HTML structure
+
+```html
+<section class="section">
+  <h1 class="title">Manage Messages</h1>
+  <table class="table is-fullwidth is-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Message</th>
+        <th>Submitted</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($messages as $msg) : ?>
+        <tr>
+          <td><?= htmlspecialchars($msg['name']) ?></td>
+          <td><?= htmlspecialchars($msg['email']) ?></td>
+          <td><?= nl2br(htmlspecialchars($msg['message'])) ?></td>
+          <td><?= $msg['submitted_at'] ?></td>
+          <td>
+            <a class="button is-small is-link" href="message_reply.php?id=<?= $msg['id'] ?>">Reply</a>
+            <a class="button is-small is-danger" href="message_delete.php?id=<?= $msg['id'] ?>">Delete</a>
+          </td>
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
+</section>
+```
 
 ---
 
@@ -62,7 +101,41 @@ This page will:
 
 This file handles deletion confirmation and the actual delete operation.
 
-(See original description above for logic and layout.)
+### ✅ PHP logic (top of `message_delete.php`)
+
+```php
+<?php
+include 'config.php';
+// if (!is_admin()) { header('Location: login.php'); exit; }
+
+if (!isset($_GET['id'])) {
+  header('Location: messages_manage.php');
+  exit;
+}
+
+$id = $_GET['id'];
+
+// Confirm deletion
+if (isset($_GET['confirm']) && $_GET['confirm'] === 'yes') {
+  $stmt = $pdo->prepare("DELETE FROM contact_us WHERE id = ?");
+  $stmt->execute([$id]);
+  header('Location: messages_manage.php');
+  exit;
+}
+```
+
+### 🖼️ HTML structure
+
+```html
+<section class="section">
+  <h1 class="title">Delete Message</h1>
+  <p>Are you sure you want to delete this message?</p>
+  <div class="buttons">
+    <a class="button is-success" href="message_delete.php?id=<?= $id ?>&confirm=yes">Yes</a>
+    <a class="button is-danger" href="messages_manage.php">No</a>
+  </div>
+</section>
+```
 
 ---
 
@@ -74,15 +147,76 @@ This file will:
 - Send the reply using `mail()`
 - Save the reply content and `replied_at` timestamp into the database
 
-### ✅ Updated PHP logic for reply tracking:
+### ✅ PHP logic (top of `message_reply.php`)
 
 ```php
-// Save reply to database
-$stmt = $pdo->prepare("UPDATE contact_us SET reply = ?, replied_at = NOW() WHERE id = ?");
-$stmt->execute([$body, $id]);
+<?php
+// Include config.php file
+
+// Secure and only allow 'admin' users to access this page
+
+if (!isset($_GET['id'])) {
+  header('Location: messages_manage.php');
+  exit;
+}
+
+$id = $_GET['id'];
+$stmt = $pdo->prepare("SELECT * FROM contact_us WHERE id = ?");
+$stmt->execute([$id]);
+$message = $stmt->fetch();
+
+if (!$message) {
+  $_SESSION['messages'][] = "Message not found.";
+  exit;
+}
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  $to = $message['email'];
+  $subject = "Reply to your message";
+  $body = $_POST['reply'];
+  $headers = "From: admin@example.com"; // Replace with your own email address
+
+  // Send the email...not rerally our server can't send emails...
+  //mail($to, $subject, $body, $headers);
+
+  // Save reply to database
+  $stmt = $pdo->prepare("UPDATE contact_us SET reply = ?, replied_at = NOW() WHERE id = ?");
+  $stmt->execute([$body, $id]);
+
+  // You can also `echo` the result for testing instead of sending
+  $_SESSION['messages'][] = 'Reply sent successfully!';
+  header('Location: messages_manage.php');
+  exit;
+}
+?>
 ```
 
-(Full logic and form layout are already provided above.)
+### 🖼️ HTML structure
+
+```html
+<!-- BEGIN YOUR CONTENT -->
+<section class="section">
+  <h1 class="title">Reply to Message</h1>
+  <p><strong>To:</strong> <?= htmlspecialchars($message['email']) ?></p>
+  <p><strong>Original Message:</strong><br><?= nl2br(htmlspecialchars($message['message'])) ?></p>
+  <form method="post">
+    <div class="field">
+      <label class="label">Your Reply</label>
+      <div class="control">
+        <textarea class="textarea" name="reply" required></textarea>
+      </div>
+    </div>
+    <div class="field">
+      <div class="control">
+        <button class="button is-link">Send Reply</button>
+        <a class="button is-light" href="messages_manage.php">Cancel</a>
+      </div>
+    </div>
+  </form>
+</section>
+<!-- END YOUR CONTENT -->
+```
 
 ---
 
