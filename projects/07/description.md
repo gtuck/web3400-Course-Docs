@@ -1,4 +1,4 @@
-# 📬 Project 07: Contact Message Management System
+# 📬 Contact Message Management System
 
 In this project, you will expand your existing contact system to include **message management tools** for site administrators. You’ll create a simple backend interface that allows admins to:
 - View submitted contact messages
