@@ -244,5 +244,3 @@ Update your `nav.php`:
 ## 🎯 Summary
 
 This project upgrades your contact form system with full message management features. By adding reply tracking, you’ll practice real-world patterns used in customer support systems and admin dashboards.
-
-Let me know if you’d like to extend this project further with filters, search, or pagination!
