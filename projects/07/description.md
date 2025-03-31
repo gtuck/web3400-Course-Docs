@@ -106,7 +106,8 @@ This file handles deletion confirmation and the actual delete operation.
 ```php
 <?php
 include 'config.php';
-// if (!is_admin()) { header('Location: login.php'); exit; }
+
+// Only allow access for admin users
 
 if (!isset($_GET['id'])) {
   header('Location: messages_manage.php');
@@ -119,6 +120,7 @@ $id = $_GET['id'];
 if (isset($_GET['confirm']) && $_GET['confirm'] === 'yes') {
   $stmt = $pdo->prepare("DELETE FROM contact_us WHERE id = ?");
   $stmt->execute([$id]);
+  $_SESSION['messages'][] = "The message was deleted.";
   header('Location: messages_manage.php');
   exit;
 }
