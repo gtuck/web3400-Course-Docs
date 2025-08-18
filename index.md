@@ -14,10 +14,10 @@
 
 ## **Course Details**
 - **Meeting Format:** Synchronous Virtual via Zoom  
-   - **Days/Times:** Monday, Wednesday, Friday, 10:30–11:20 AM  
+   - **Meeting Days/Times:** Monday, Wednesday, Friday, 10:30–11:20 AM  
    - **Access:** Click "Zoom" in Canvas navigation.  
 - **Course Description:**  
-  Explore server-side web frameworks and content management systems, with a focus on developing dynamic web applications with an emphasis on client-side web design, databases, usability, and visual design.
+  Explore server-side web frameworks and content management systems, with a focus on developing dynamic web applications with an emphasis on client-side web design, databases, usability, and visual design.  
 
 ---
 
