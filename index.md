@@ -7,7 +7,7 @@
 - **Virtual Office:** [Zoom Link](https://weber.zoom.us/j/8013088825)  
 - **Virtual Office Hours:** Monday & Wednesday, 11:30 AM–2:00 PM ([Appointment Required](https://calendar.app.google/grXYvRYJeMUtz9si7))  
 - **Contact:**  
-   - **Phone (Voice & Text):** 801-308-8251  
+   - **Phone (Voicemail & Text Message):** 801-308-8251  
    - **Email:** [gtuck@weber.edu](mailto:gtuck@weber.edu)  
 
 ---
@@ -17,7 +17,7 @@
    - **Days/Times:** Monday, Wednesday, Friday, 10:30–11:20 AM  
    - **Access:** Click "Zoom" in Canvas navigation.  
 - **Course Description:**  
-  Explore server-side web frameworks and content management systems, focusing on dynamic web applications. Emphasis on client-side web design, databases, usability, and visual design.
+  Explore server-side web frameworks and content management systems, with a focus on developing dynamic web applications with an emphasis on client-side web design, databases, usability, and visual design.
 
 ---
 
@@ -59,7 +59,7 @@ By the end of the course, you will be able to:
 ## **Campus Policies**
 
 ### Course Fees
-Course fees are designed to cover the costs of lab equipment maintenance and replacement, including desktop and server computer systems and software; consumable materials and supplies; and support for lab aides, student tutors, and online instructional resources.
+Course fees are designed to cover the costs of lab equipment maintenance and replacement, including desktop and server computer systems and software, as well as consumable materials and supplies. Additionally, the fees support lab aides, student tutors, and online instructional resources.
 
 ### Academic Integrity
 School of Computing policy dictates that any verifiable evidence of student academic misconduct, as defined and determined by the instructor, will result in:
@@ -75,10 +75,10 @@ As part of the student code (PPM 6-22), you are expected to be academically hone
 - Using a tool or other aid not explicitly permitted by your instructor, such as generative AI (e.g., ChatGPT), to complete assignments or exams.
 - Infringing on others' copyrights and intellectual property.
 
-Academic dishonesty can have serious consequences in the class and/or at WSU. If you borrow an idea, express it in your own language and cite the source.
+Academic dishonesty can have serious consequences in the class and/or at WSU. If you borrow an idea, express it in your language and cite the source.
 
 ### Creating a Supportive Campus
-At Weber State University, we celebrate and value all individuals, regardless of race, ethnicity, gender identity, sexual orientation, religion, marital or parental status, age, disability, veteran or military status, or other identifiers. We nurture a supportive campus and balance freedom of expression with respect for others. Together, we strive for mutual concern, goodwill, and respect.
+At Weber State University, we celebrate and value all individuals, regardless of their race, ethnicity, gender identity, sexual orientation, religion, marital or parental status, age, disability, veteran or military status, or any other identifier. We foster a supportive campus environment that balances freedom of expression with respect for others. Together, we strive for mutual concern, goodwill, and respect.
 
 ### Professionalism & Respect
 The sense of human dignity and belonging is vital to a healthy learning environment. Students should:
@@ -127,9 +127,9 @@ Failure to meet these responsibilities could result in disciplinary actions.
 Threatening behavior includes actions such as:
 - Yelling, kicking, or bullying.
 - Intimidating messages or remarks.
-- Physical aggression like slamming doors or cornering someone.
+- Physical aggression, like slamming doors or cornering someone.
 
-Such behaviors will not be tolerated. If exposed to threatening behavior, contact the Dean of Students.
+Such behaviors will not be tolerated. If you are exposed to threatening behavior, please don't hesitate to contact the Dean of Students.
 
 ### Recording
 Students may not record class lectures without explicit permission from the faculty member (PPM 6-22.6.6). Recorded lectures provided through Canvas or email are for the exclusive use of enrolled students and may not be shared without authorization. Violations will be referred to the Dean of Students.
