@@ -23,12 +23,12 @@ This assignment introduces the essential tools and technologies needed for serve
 - **Installation**: Run the downloaded installer and follow the on-screen instructions to install GitHub Desktop.
 - **Sign In**: Open GitHub Desktop and sign in with your GitHub credentials.
 
-**3. Create a Private `web3400-Spr25` Repository**
+**3. Create a Private `web3400-Fall25` Repository**
 
 - **Accept Invitation**: Check your university email for a collaboration invitation and accept it.
 - **Access Template**: Navigate to the [web3400 repository template](https://github.com/gtuck/web3400).
 - **Create Repository**: Click on the "Use this template" button and select "Create a new repository."
-- **Repository Name**: Name your repository `web3400-Spr25`.
+- **Repository Name**: Name your repository `web3400-Fall25`.
 - **Add Collaborator**:
   - Go to your repository's page.
   - Click on the "Settings" tab.
@@ -48,11 +48,11 @@ This assignment introduces the essential tools and technologies needed for serve
 - **Download**: Go to [Visual Studio Code's Website](https://code.visualstudio.com/) and download the installer for your operating system.
 - **Installation**: Run the installer and follow the on-screen instructions to install VS Code.
 
-**6. Clone Your `web3400-Spr25` Repository Locally**
+**6. Clone Your `web3400-Fall25` Repository Locally**
 
 - **Open GitHub Desktop**:
   - Click on "File" > "Clone Repository."
-  - Select the `web3400-Spr25` repository from the list.
+  - Select the `web3400-Fall25` repository from the list.
   - Choose a local path on your computer to store the repository.
   - Click "Clone."
 
@@ -81,7 +81,7 @@ This assignment introduces the essential tools and technologies needed for serve
   - Click "Push origin" to upload your changes to GitHub.
  
 ##10 Deliverables and Submission Guidelines
-- A screenshot of Visual Studio Code with the `web3400-Spr25` repository open and the Docker `.devcontainer` running (locally or in Codespaces).
+- A screenshot of Visual Studio Code with the `web3400-Fall25` repository open and the Docker `.devcontainer` running (locally or in Codespaces).
 ![Example image](../images/upload-example.png)
 - Submit a `.jpg` or `.png` screenshot via the course submission link before the deadline.
 
