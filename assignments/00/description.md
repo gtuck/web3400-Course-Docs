@@ -111,13 +111,8 @@ Open it in an incognito/private window to ensure instructor visibility (collabor
 - Editing but not committing/pushing.
 - Leaving PHP outside `<?php ... ?>` tags.
 
-## Rubric (10 pts)
-- 2 pts: Correct repo name + template linkage.
-- 2 pts: Instructor collaborator invited.
-- 2 pts: `index.php` present at root with valid PHP syntax.
-- 2 pts: Commit & push complete (file on `main`).
-- 1 pt: Correct PHP output (simple greeting).
-- 1 pt: Proper submission URL format.
+## Rubric (30 pts)
+- Complete/Incomplete
 
 Late policy: See syllabus.
 

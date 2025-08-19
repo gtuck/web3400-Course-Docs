@@ -224,26 +224,8 @@ Open it in a private/incognito window to ensure access (instructor must have col
 
 ---
 
-## Rubric (20 pts)
-- 2 pts: Correct location (`assignments/01/index.html`)
-- 2 pts: Proper HTML5 boilerplate (doctype, lang, meta charset, viewport, title)
-- 3 pts: Semantic layout (header, nav, main, at least two sections, footer) used appropriately
-- 2 pts: Text content (headings hierarchy, paragraphs, emphasis elements used meaningfully)
-- 2 pts: Lists (both ordered + unordered, valid structure)
-- 2 pts: Link and image (image includes descriptive alt)
-- 2 pts: Table (thead or header row + body rows)
-- 2 pts: Form (labels associated via for/id; at least text, email, textarea, button)
-- 2 pts: Media (audio + video embedded with fallback text)
-- 1 pt: Aside present with relevant supplementary info
-- 0 pts deduction avoidance: No destructive commands / repository damage
-(Partial credit awarded if element present but incorrectly structured.)
-
----
-
-## Optional Enhancements (Not Required)
-- Add internal anchor links back to top.
-- Use `<figure>` / `<figcaption>` for media consistently.
-- Add basic inline styles (will cover CSS later—keep minimal).
+## Rubric (30 pts)
+- Complete/Incomplete
 
 ---
 

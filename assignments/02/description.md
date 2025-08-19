@@ -397,19 +397,8 @@ Open in private/incognito window to verify access (instructor collaborator must 
 
 ---
 
-## Rubric (20 pts)
-- 2 pts: Correct folder & file structure (`assignments/02/`, external `styles.css` linked)
-- 2 pts: Head metadata (charset, viewport, description, title, link tag)
-- 3 pts: Layout implementation (Flexbox or Grid) organizing main content + aside
-- 2 pts: Base typography & color variables (readable contrast)
-- 2 pts: Navigation & link states (hover/focus visible)
-- 2 pts: Text, lists, media styling (responsive images/video)
-- 2 pts: Table styling (structural clarity + alternating or header styling)
-- 2 pts: Form styling (labels, focus states, consistent controls)
-- 2 pts: Responsive adaptation (breakpoint functions; no horizontal scroll)
-- 1 pt: Commit quality (incremental, descriptive messages)
-
-(Partial credit if present but flawed. Severe structural errors may reduce multiple categories.)
+## Rubric (30 pts)
+- Complete/Incomplete
 
 ---
 

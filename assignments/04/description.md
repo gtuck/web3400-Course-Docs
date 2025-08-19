@@ -289,27 +289,8 @@ Open in a private/incognito window to confirm accessibility.
 
 ---
 
-## Rubric (20 pts)
-- 2 pts: Correct folder & file structure (04 with templates directory; old `index.html` removed)
-- 2 pts: head.php contains valid metadata, assets, opens `<body>`
-- 2 pts: nav.php properly encapsulates navigation (and optional hero) without extra `<html>` fragments
-- 2 pts: footer.php closes layout & document correctly (footer + closing tags)
-- 3 pts: index.php assembles page via includes; no duplicated skeleton; dynamic `$pageTitle` works
-- 2 pts: Original A03 content meaningfully integrated (not empty placeholder only)
-- 2 pts: Semantic & accessibility retained (alt text, proper landmarks)
-- 2 pts: Clean separation (no stray closing tags, no DOCTYPE duplication)
-- 2 pts: Commit quality (logical messages; not a single monolithic final commit)
-- 1 pt: Correct submission URL
-
-(Partial credit if structure present but with minor tag/order issues.)
-
----
-
-## Optional Enhancements (Not Required)
-- Create a `config.php` for global variables (site name, year).
-- Add a simple function to render active nav state.
-- Add a `partials/` subfolder for reusable cards / alerts.
-- Implement a rudimentary router (query string selects content file).
+## Rubric (30 pts)
+- Complete/Incomplete
 
 ---
 

@@ -207,25 +207,8 @@ Open in a private/incognito window to verify visibility.
 
 ---
 
-## Rubric (20 pts)
-- 2 pts: Correct folder & file setup (`assignments/03/index.html` + preserved `starter.html`)
-- 2 pts: Bulma + Font Awesome properly linked
-- 3 pts: Layout with Bulma columns / container (responsive behavior)
-- 3 pts: Components (≥5 distinct Bulma elements: hero, navbar, card, table, form, buttons, notification, etc.)
-- 2 pts: Form styled with Bulma controls & accessible labels
-- 2 pts: Table styled (Bulma table classes applied)
-- 2 pts: Icons integrated appropriately
-- 2 pts: Semantic & accessibility considerations retained (proper tags, alt text, roles)
-- 2 pts: Commit quality (incremental, descriptive)
-(Partial credit if component present but misused.)
-
----
-
-## Optional Enhancements (Not Required)
-- Add Bulma modifiers (color schemes) consistently.
-- Add a responsive navbar burger toggle (BulmaJS or minimal custom JS).
-- Use Bulma helpers (`is-hidden-mobile`, spacing helpers like `mt-5`).
-- Introduce a dark mode switch (class toggling).
+## Rubric (30 pts)
+- Complete/Incomplete
 
 ---
 
