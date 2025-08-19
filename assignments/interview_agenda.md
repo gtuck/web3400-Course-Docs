@@ -130,7 +130,7 @@ Instructor Notes: (leave brief comment)
 ---
 
 ### After Interview (If Revisions Needed)
-Student fixes → pushes changes → notifies via LMS/Email/Discussion (as instructed). No second live demo unless requested.
+Student fixes → pushes changes → notifies via Canvas (WSU Online)/Email/Discussion (as instructed). No second live demo unless requested.
 
 ---
 

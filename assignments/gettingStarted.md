@@ -124,7 +124,7 @@ Save as `.png` or `.jpg`.
 ---
 
 ## Submission (This Setup Module)
-Submit the screenshot via LMS (only the image). No URL yet required here unless instructed. Assignment 00 will ask for a direct GitHub file URL.
+Submit the screenshot via Canvas (WSU Online) (only the image). No URL yet required here unless instructed. Assignment 00 will ask for a direct GitHub file URL.
 
 ---
 
