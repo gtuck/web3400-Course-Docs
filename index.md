@@ -7,17 +7,16 @@
 - **Virtual Office:** [Zoom Link](https://weber.zoom.us/j/8013088825)  
 - **Virtual Office Hours:** Monday & Wednesday, 11:30 AM–2:00 PM ([Appointment Required](https://calendar.app.google/grXYvRYJeMUtz9si7))  
 - **Contact:**  
-   - **Phone (Voicemail & Text Message):** 801-308-8251  
+   - **Office Phone (Accepts Voicemail & Text Message):** 801-308-8251  
    - **Email:** [gtuck@weber.edu](mailto:gtuck@weber.edu)  
 
 ---
 
-## **Course Details**
+## **Class Details, Meeting Format and Times**
+- **Course Description:** Explore server-side web frameworks and content management systems, with a focus on developing dynamic web applications with an emphasis on client-side web design, databases, usability, and visual design.  
 - **Meeting Format:** Synchronous Virtual via Zoom  
-   - **Meeting Days/Times:** Monday, Wednesday, Friday, 10:30–11:20 AM  
-   - **Access:** Click "Zoom" in Canvas navigation.  
-- **Course Description:**  
-  Explore server-side web frameworks and content management systems, with a focus on developing dynamic web applications with an emphasis on client-side web design, databases, usability, and visual design.  
+- **Meeting Days/Times:** Monday, Wednesday, Friday, 10:30–11:20 AM  
+- **Access:** Click "Zoom" in Canvas navigation.  
 
 ---
 
@@ -25,7 +24,7 @@
 By the end of the course, you will be able to:  
 - Utilize Git repositories and Docker Development Containers  
 - Create HTML/CSS documents  
-- Implement PHP using Zend Framework (scripts, syntax, variables, functions, forms)  
+- Implement server-side PHP with PDO (database access), session handling, reusable template structures, and MVC framework. 
 - Apply common programming techniques  
 - Use SQL with MySQL, including PHP-based database connections and manipulations  
 - Control program flow and information effectively  
@@ -37,7 +36,7 @@ By the end of the course, you will be able to:
   - [PHP Syntax Examples](https://gtuck.me/web3400-Course-Docs/PHP-Code-Examples.html)
   - [PHP Documentation](https://www.codecademy.com/resources/docs/php)
   - [PHP: The Right Way](https://phptherightway.com)
-  - [Bulma CSS Framework](https://bulma.io)
+  - [Bulma CSS Framework (used in assignments and projects)](https://bulma.io)
 
 - **Development Tools:**  
   - [Visual Studio Code](https://code.visualstudio.com)
@@ -49,10 +48,10 @@ By the end of the course, you will be able to:
 ## **Course Policies**
 1. **Attendance:** Regular attendance in synchronous sessions is crucial. Be present and engaged.  
 2. **Communication:** Questions? Use [Google Appointment Calendar](https://calendar.app.google/grXYvRYJeMUtz9si7) or email anytime.  
-3. **Late Work:** 10% deduction per day late, with a minimum score of 0.  
+3. **Late Work:** Late work accepted up to 5 days after due date with a 10% per day penalty; after 5 days, assignments earn 0.  
 4. **Extra Credit:** Not available.  
 5. **Class Recording:** Recording is prohibited without instructor authorization.
-6. **Grading:** Based on attendance, participation, assignments, and a final project.
+6. **Grading:** Based on assignments, projects, and a final project (Assignments	30%, Projects	50%, Final Project	20%).
 
 ---
 
@@ -72,7 +71,7 @@ As part of the student code (PPM 6-22), you are expected to be academically hone
 - Colluding with others to be dishonest.
 - Falsifying information.
 - Giving, selling, or receiving unauthorized course or test information.
-- Using a tool or other aid not explicitly permitted by your instructor, such as generative AI (e.g., ChatGPT), to complete assignments or exams.
+- Unless explicitly permitted for a given assignment, the use of generative AI (e.g., ChatGPT) to complete coursework is considered academic misconduct. If permitted, proper disclosure and citation are required.
 - Infringing on others' copyrights and intellectual property.
 
 Academic dishonesty can have serious consequences in the class and/or at WSU. If you borrow an idea, express it in your language and cite the source.
