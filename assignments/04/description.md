@@ -1,99 +1,156 @@
-# Introduction to PHP Template System
+# Assignment 04: PHP Template System (Head / Nav / Footer Includes)
 
-A basic PHP template system is a great way to structure your web application for easier maintenance and scalability. Splitting your HTML into reusable components allows you to manage your code more effectively. This assignment guides you through creating a simple PHP template system with `head.php`, `nav.php`, and `footer.php`, using the `index.html` file from the previous assignment as a starting point.
+Purpose: Introduce a lightweight PHP templating approach that reduces repetition, improves maintainability, and sets the stage for future dynamic pages.
+
+## Why a Template System?
+As pages grow, repeating boilerplate (doctype, head tags, navigation, footer) increases risk of:
+- Inconsistency (forgetting to update every page)
+- Larger diffs / merge conflicts
+- Slower iteration
+
+A simple include-based template system:
+- Centralizes shared markup (one change updates all pages)
+- Encourages semantic, modular structure
+- Low cognitive load (pure PHP includes; no framework required)
+- Scales into more advanced patterns later (layouts, partials, components)
+
+Common industry practice: Even full frameworks (Laravel, Rails, Django) formalize this idea with layout and partial templates. You are building the minimal foundation manually to understand the concept.
+
+## Learning Objectives
+You can:
+1. Copy prior assignment (A03) into a new folder `assignments/04`.
+2. Create a `templates/` directory with `head.php`, `nav.php`, and `footer.php`.
+3. Extract and relocate shared markup cleanly (no duplication, correct tag balance).
+4. Use `include` / `require` to assemble `index.php`.
+5. Pass a per-page title variable into the head template.
+6. Remove the old `index.html` and rely on `index.php`.
+7. Commit and push changes; submit the correct file URL.
+
+## Prerequisites
+- Repository: `web3400-fall25`
+- A00–A03 complete
+- Dev Container or Codespace running (PHP available)
+- Instructor collaborator (`gtuck`) already invited
 
 ---
 
-## Step 1: Copy Assignment 03 to Assignment 04
-1. In a VS Code Terminal, navigate to your `assignments` folder:
-   ```bash
-   cd assignments
-   ```
-2. Recursively copy the folder:
-   ```bash
-   cp -r 03 04
-   ```
-3. Add, commit, and push the new folder:
-   - Stage: 
-     ```bash
-     git add 04
-     ```
-   - Commit:
-     ```bash
-     git commit -m "Created assignment 04 folder"
-     ```
-   - Push:
-     ```bash
-     git push
-     ```
+## Step 0. Copy Assignment 03 to 04
+From repository root:
+
+```bash
+cd assignments
+cp -R 03 04   # Recursive copy of prior assignment
+```
+
+Stage & commit the new folder:
+
+```bash
+git add assignments/04
+git commit -m "A04: copy A03 to start PHP templating assignment"
+git push
+```
+
+Do NOT edit A03; treat 04 as the working copy.
 
 ---
 
-## Step 2: Set Up Assignment 04
-1. Create a 'templates' folder in the `04` directory.
-2. Inside `templates`, create three files: `head.php`, `nav.php`, and `footer.php`.
+## Step 1. Create Template Directory & Files
+Inside `assignments/04`:
+
+```bash
+cd assignments/04
+mkdir templates
+touch templates/head.php templates/nav.php templates/footer.php
+```
+
+Delete `index.html` (it will be replaced):
+
+```bash
+rm index.html
+```
 
 ---
 
-## Step 3: Create the Template Files
+## Step 2. Build `head.php`
+Purpose: Provide the document start, metadata, linked CSS/JS, open `<body>`.
 
-### `head.php`
-Extract the `<head>` section from your `index.html` and include:
-- Meta tags
-- Stylesheets
-- Scripts
+Add a dynamic page title variable fallback:
 
-Example content:
 ```php
+<?php
+// filepath: assignments/04/templates/head.php
+$pageTitle = $pageTitle ?? 'Site Title';
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.4/css/bulma.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/@vizuaalog/bulmajs@0/dist/bulma.min.js"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js"></script>
-    <title>My Webpage with Bulma</title>
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Assignment 04 - PHP templating practice">
+  <title><?= htmlspecialchars($pageTitle) ?></title>
 
+  <!-- Bulma & Assets (same versions used in A03 for consistency) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+  <!-- Optional (if you used BulmaJS previously) -->
+  <script src="https://cdn.jsdelivr.net/npm/@vizuaalog/bulmajs@0.12/dist/bulma.min.js" defer></script>
+</head>
 <body class="has-navbar-fixed-top">
 ```
 
+Notes:
+- No closing `</body>` or `</html>` here (footer closes them).
+- Use `htmlspecialchars` to avoid accidental HTML injection in title.
+
 ---
 
-### `nav.php`
-Extract the navigation and hero sections (e.g., `<nav>` and `<section class="hero">`) and include them in this file.
+## Step 3. Build `nav.php`
+Extract ONLY navigation / hero (if used). Keep semantics; add brand or simple links:
 
-Example:
 ```php
-<nav class="navbar is-fixed-top is-spaced has-shadow is-light">
-    <div class="navbar-brand">
-        <a class="navbar-item" href="#">
-            <span class="icon-text">
-                <span class="icon">
-                    <i class="fas fa-2x fa-yin-yang"></i>
-                </span>
-                &nbsp;The Brand
-            </span>
-        </a>
+<?php
+// filepath: assignments/04/templates/nav.php
+?>
+<nav class="navbar is-light is-fixed-top" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/assignments/04/index.php">
+      <span class="icon"><i class="fas fa-code"></i></span>&nbsp;A04 Demo
+    </a>
+    <!-- (Optional) burger for mobile toggle if JS logic added later -->
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="/assignments/04/index.php">Home</a>
+      <a class="navbar-item" href="/assignments/04/about.php">About</a>
     </div>
+  </div>
 </nav>
+
+<section class="hero is-primary">
+  <div class="hero-body">
+    <p class="title">Reusable Templates</p>
+    <p class="subtitle">PHP includes centralize shared UI</p>
+  </div>
+</section>
 ```
 
+(Adjust links if you add more pages.)
+
 ---
 
-### `footer.php`
-Include the `<footer>` section in this file.
+## Step 4. Build `footer.php`
+Close structural tags and document:
 
-Example:
 ```php
+<?php
+// filepath: assignments/04/templates/footer.php
+$year = date('Y');
+?>
 <footer class="footer">
-    <div class="content has-text-centered">
-        <p>
-            <strong>My Webpage</strong> by <a href="#">Your Name</a>. The source code is licensed under MIT.
-        </p>
-    </div>
+  <div class="content has-text-centered">
+    <p>&copy; <?= $year ?> Your Name. Built with Bulma & PHP includes.</p>
+  </div>
 </footer>
 </body>
 </html>
@@ -101,43 +158,164 @@ Example:
 
 ---
 
-## Step 4: Use the Template Files
-1. Delete the `index.html` file in the `04` folder.
-2. Create a new `index.php` file and include the template files:
-   ```php
-   <?php include 'templates/head.php'; ?>
-   <?php include 'templates/nav.php'; ?>
+## Step 5. Create `index.php`
+Reassemble page using includes. Keep your main content (tables, form, columns, cards) inside `<main>` or appropriate Bulma sections.
 
-   <!-- BEGIN YOUR CONTENT -->
-   <h1 class="title">This a title.</h1>
-   <h2 class="subtitle">This is a subtitle</h2>
-   <!-- END YOUR CONTENT -->
+```php
+<?php
+// filepath: assignments/04/index.php
+$pageTitle = 'Home - A04 Templates';
+include 'templates/head.php';
+include 'templates/nav.php';
+?>
 
-   <?php include 'templates/footer.php'; ?>
-   ```
-3. I recommend creating a VS Code Snippet [Read more...](https://code.visualstudio.com/docs/editor/userdefinedsnippets#_create-your-own-snippets) with this code, making it easy to access in the future. 
+<main class="section">
+  <div class="container">
+    <div class="columns">
+      <div class="column is-two-thirds">
+        <div class="card">
+          <header class="card-header">
+            <p class="card-header-title">Overview</p>
+          </header>
+          <div class="card-content">
+            <div class="content">
+              <p>This page demonstrates splitting shared markup into reusable PHP includes.</p>
+              <ul>
+                <li>head.php: Document start + metadata</li>
+                <li>nav.php: Navigation & hero banner</li>
+                <li>footer.php: Footer + closing tags</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- (Reuse adapted content from A03: table, form, media, etc.) -->
+      </div>
+
+      <aside class="column">
+        <div class="notification is-info">
+          <strong>Tip:</strong> Changes to navigation instantly affect all pages using nav.php.
+        </div>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<?php include 'templates/footer.php'; ?>
+```
 
 ---
 
-## Step 5: Stage, Commit, and Push Your Changes
-1. Stage:
-   ```bash
-   git add 04
-   ```
-2. Commit:
-   ```bash
-   git commit -m "Updated assignment 04"
-   ```
-3. Push:
-   ```bash
-   git push
-   ```
+## (Optional) Step 6. Add a Second Page (e.g., about.php)
+Demonstrates reusability.
+
+```php
+<?php
+// filepath: assignments/04/about.php
+$pageTitle = 'About - A04 Templates';
+include 'templates/head.php';
+include 'templates/nav.php';
+?>
+<section class="section">
+  <div class="container content">
+    <h1>About This Demo</h1>
+    <p>Additional pages reuse the same head, navigation, and footer.</p>
+  </div>
+</section>
+<?php include 'templates/footer.php'; ?>
+```
+
+Commit only if added (not required for rubric unless you decide to extend).
 
 ---
 
-## Step 6: Submit the Assignment
-1. Submit the URL to your `04` folder in the following format:
-   ```
-   https://github.com/[your-account-name]/[your-web3400-repo]/blob/main/assignments/04/
-   ```
-   Replace `[your-account-name]` with your GitHub username and `[your-web3400-repo]` with your repo name.
+## Step 7. Test Locally (Optional Built-in Server)
+From repository root:
+
+```bash
+php -S 0.0.0.0:8080
+```
+
+Browse: http://localhost:8080/assignments/04/index.php  
+(Or use forwarded port in Codespaces / Dev Container.)
+
+---
+
+## Step 8. Stage, Commit, Push
+```bash
+git add assignments/04
+git commit -m "A04: implement PHP template includes (head, nav, footer)"
+git push origin main
+```
+
+---
+
+## Submission
+Submit direct URL (replace YOUR-USER):
+
+```
+https://github.com/YOUR-USER/web3400-fall25/blob/main/assignments/04/index.php
+```
+
+Open in a private/incognito window to confirm accessibility.
+
+---
+
+## Self-Checklist
+- Folder: `assignments/04/`
+- Deleted old `index.html`
+- Files present:
+  - `index.php`
+  - `templates/head.php`
+  - `templates/nav.php`
+  - `templates/footer.php`
+- No duplicate DOCTYPE or `<html>` tags
+- `$pageTitle` used (dynamic title renders)
+- Includes in correct order (head → nav → content → footer)
+- Content from A03 adapted into main area
+- Semantic structure preserved
+- Commit pushed; URL correct
+
+---
+
+## Common Mistakes
+- Leaving `index.html` (confusing which page to load)
+- Duplicating closing `</html>` in multiple templates
+- Forgetting to set `$pageTitle` before including `head.php`
+- Using wrong relative paths (all includes are relative to the executing script)
+- Editing Bulma CDN version inconsistently
+- Large single “finished A04” commit instead of meaningful steps
+- Not escaping dynamic values (title) (we used `htmlspecialchars`)
+
+---
+
+## Rubric (20 pts)
+- 2 pts: Correct folder & file structure (04 with templates directory; old `index.html` removed)
+- 2 pts: head.php contains valid metadata, assets, opens `<body>`
+- 2 pts: nav.php properly encapsulates navigation (and optional hero) without extra `<html>` fragments
+- 2 pts: footer.php closes layout & document correctly (footer + closing tags)
+- 3 pts: index.php assembles page via includes; no duplicated skeleton; dynamic `$pageTitle` works
+- 2 pts: Original A03 content meaningfully integrated (not empty placeholder only)
+- 2 pts: Semantic & accessibility retained (alt text, proper landmarks)
+- 2 pts: Clean separation (no stray closing tags, no DOCTYPE duplication)
+- 2 pts: Commit quality (logical messages; not a single monolithic final commit)
+- 1 pt: Correct submission URL
+
+(Partial credit if structure present but with minor tag/order issues.)
+
+---
+
+## Optional Enhancements (Not Required)
+- Create a `config.php` for global variables (site name, year).
+- Add a simple function to render active nav state.
+- Add a `partials/` subfolder for reusable cards / alerts.
+- Implement a rudimentary router (query string selects content file).
+
+---
+
+## Support
+Questions: tag [A04]. Include screenshot + error message (if any).  
+Office hours: see syllabus.
+
+## Academic Integrity
+Write your own template extraction. Discuss approach with peers; do not copy someone else’s repository

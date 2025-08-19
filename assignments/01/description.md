@@ -1,224 +1,254 @@
-## Introduction to HTML
+# Assignment 01: Intro to HTML Fundamentals
 
-#### Create an HTML File
+Purpose: Build a single HTML page using core HTML elements while practicing repository organization and Git workflow consistent with Assignment 00.
 
-- **Objective**: Use VS Code to create a new HTML file and push updates to your `web3400-Spr2025` GitHub repository.
-- **Steps**:
-  1. Open the VS Code terminal and run:
-     ```bash
-     rm -r assignments/*
-     ```
-  2. In your `web3400` Docker Container:
-     - Create a folder named `01` inside the `assignments` folder.
-     - In the `01` folder, create a file named `index.html`.
-  3. Add, commit, and push the file:
-     - Navigate to the `01` folder:
-       ```bash
-       cd assignments/01
-       ```
-     - Stage the file:
-       ```bash
-       git add index.html
-       ```
-     - Commit the changes:
-       ```bash
-       git commit -m "Created index.html"
-       ```
-     - Push to GitHub:
-       ```bash
-       git push
-       ```
+## Learning Objectives
+You can:
+1. Create the required assignment folder and file (`assignments/01/index.html`).
+2. Use valid HTML5 document structure with semantic elements.
+3. Add headings, paragraphs, emphasis, links, images (with alt), lists, a table, a form, and embedded media.
+4. Organize content with HTML5 semantic tags (`header`, `nav`, `main`, `section`, `article`, `aside`, `footer`).
+5. Commit and push changes following a clear incremental workflow.
+6. Submit the correct GitHub file URL.
 
-- **Project**: Create an empty HTML file in the correct folder.
+## Prerequisites
+- Repository `web3400-fall25` already created from the template (Assignment 00).
+- Instructor (`gtuck`) added as collaborator.
+- Dev Container or Codespace running (PHP not required for this assignment, but environment should already work).
 
 ---
 
-#### Introduction to HTML
+## Step 1. Create Assignment Folder & File
+Inside the repository root (NOT deleting anything):
 
-- **Objective**: Understand HTML's role in web development.
-- **Topics**:
-  - History and Evolution of HTML.
-  - Basic structure of an HTML document: `<!DOCTYPE html>`, `<html>`, `<head>`, `<body>`.
-  - Introduction to HTML tags and elements.
-  - Using basic tags: `<h1>`, `<p>`, `<a>`.
+```bash
+mkdir -p assignments/01
+code assignments/01/index.html
+```
 
-- **Project**: Create a simple HTML page with a heading and a paragraph.
+Do NOT remove other assignment folders. (Avoid destructive commands like `rm -r assignments/*`.)
 
-**Example**:
+---
+
+## Step 2. Add Base HTML5 Structure
+Paste this starter (adjust title and content as you go):
+
 ```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>My First Webpage</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Assignment 01 – Your Name</title>
 </head>
 <body>
-    <h1>Welcome to HTML!</h1>
-    <p>This is a paragraph on my first webpage.</p>
+  <header>
+    <h1>Assignment 01: Intro to HTML</h1>
+    <nav>
+      <a href="#about">About</a> |
+      <a href="#lists">Lists</a> |
+      <a href="#media">Media</a> |
+      <a href="#form">Contact Form</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="about">
+      <h2>About This Page</h2>
+      <p>This page demonstrates fundamental HTML elements and semantic structure.</p>
+      <p><strong>Goal:</strong> Practice clean markup and organization.</p>
+    </section>
+
+    <section id="text">
+      <h2>Text & Emphasis</h2>
+      <p>You can emphasize text with <em>em</em>, strengthen meaning with <strong>strong</strong>, or use <b>bold (visual)</b> and <i>italic (visual)</i>.</p>
+    </section>
+
+    <section id="lists">
+      <h2>Lists</h2>
+      <article>
+        <h3>Ordered List</h3>
+        <ol>
+          <li>Plan content</li>
+          <li>Write markup</li>
+          <li>Validate and refine</li>
+        </ol>
+      </article>
+      <article>
+        <h3>Unordered List</h3>
+        <ul>
+          <li>Semantic tags</li>
+          <li>Accessibility</li>
+          <li>Clean structure</li>
+        </ul>
+      </article>
+    </section>
+
+    <section id="links-images">
+      <h2>Links & Image</h2>
+      <p>Visit the <a href="https://www.w3.org/" target="_blank" rel="noopener">W3C</a> for standards info.</p>
+      <figure>
+        <img src="https://source.unsplash.com/random/640x360/?web" alt="Random themed placeholder image">
+        <figcaption>Example externally sourced placeholder image.</figcaption>
+      </figure>
+    </section>
+
+    <section id="table">
+      <h2>Sample Table</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Tag</th>
+            <th>Purpose</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>&lt;header&gt;</td>
+            <td>Introductory or navigational content</td>
+          </tr>
+          <tr>
+            <td>&lt;main&gt;</td>
+            <td>Primary unique content of the page</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="media">
+      <h2>Embedded Media</h2>
+      <h3>Audio</h3>
+      <audio controls>
+        <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <h3>Video</h3>
+      <video width="400" controls>
+        <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </section>
+
+    <section id="form">
+      <h2>Contact Form (Static)</h2>
+      <form>
+        <div>
+          <label for="name">Name:</label>
+          <input id="name" name="name" type="text" required>
+        </div>
+        <div>
+          <label for="email">Email:</label>
+          <input id="email" name="email" type="email" required>
+        </div>
+        <div>
+          <label for="message">Message:</label><br>
+          <textarea id="message" name="message" rows="4" cols="40"></textarea>
+        </div>
+        <button type="submit">Send</button>
+      </form>
+      <p><em>Note:</em> Form is not wired to a backend yet.</p>
+    </section>
+
+    <aside>
+      <h2>Aside</h2>
+      <p>Supplementary tips appear here.</p>
+    </aside>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Your Name. All rights reserved.</p>
+  </footer>
 </body>
 </html>
 ```
 
 ---
 
-#### Exploring Text Formatting and Lists
+## Step 3. Incremental Commits
+Suggested commit flow (small, logical steps):
 
-- **Objective**: Learn to format text and create lists in HTML.
-- **Topics**:
-  - Text formatting tags: `<b>`, `<i>`, `<strong>`, `<em>`.
-  - Creating ordered (`<ol>`) and unordered (`<ul>`) lists.
-  - List items (`<li>`).
-
-- **Project**: Add formatted text and both types of lists to your HTML page.
-
-**Example**:
-```html
-<b>Bold Text</b><br>
-<i>Italic Text</i><br>
-<strong>Strong Text</strong><br>
-<em>Emphasized Text</em>
-
-<ol>
-    <li>First Item</li>
-    <li>Second Item</li>
-</ol>
-
-<ul>
-    <li>Bullet Item</li>
-    <li>Another Bullet Item</li>
-</ul>
+```bash
+git add assignments/01/index.html
+git commit -m "A01: base HTML skeleton"
+# add lists
+git add assignments/01/index.html
+git commit -m "A01: add lists and text formatting"
+# add media, table, form
+git add assignments/01/index.html
+git commit -m "A01: add table, media, and form"
+git push origin main
 ```
 
+You may combine steps, but smaller commits help feedback and rollback.
+
 ---
 
-#### Understanding Hyperlinks and Images
+## Step 4. Validate & Review
+Manual checks:
+- HTML opens in browser (right-click → Open with Live Server if extension installed, or just open file).
+- All elements properly nested.
+- Image has meaningful alt text (update from placeholder if you change the image).
 
-- **Objective**: Add hyperlinks and images to your webpage.
-- **Topics**:
-  - Anchor tag `<a>`: attributes `href`, `target`.
-  - Image tag `<img>`: attributes `src`, `alt`.
-  - Relative vs absolute URLs.
+(Optional) Quick validation (online HTML validator) for structural warnings.
 
-- **Project**: Include hyperlinks and images in your HTML page.
+---
 
-**Example**:
-```html
-<a href="https://weber.edu" target="_blank">Visit weber.edu</a>
-<hr>
-<img width="320" src="https://source.unsplash.com/random/900x700/?fruit" alt="Descriptive text for the image">
+## Step 5. Submission
+Submit this URL (replace YOUR-USER):
+
+```
+https://github.com/YOUR-USER/web3400-fall25/blob/main/assignments/01/index.html
 ```
 
----
-
-#### Structuring Content with HTML5 Semantic Tags
-
-- **Objective**: Use semantic tags for better webpage structure.
-- **Topics**:
-  - Semantic tags: `<header>`, `<footer>`, `<main>`, `<article>`, `<section>`, `<aside>`, `<nav>`.
-
-- **Project**: Refactor your HTML page using semantic tags.
-
-**Example**:
-```html
-<header>
-    <h1>My Website Header</h1>
-</header>
-<nav>
-    <a href="#">Home</a> | <a href="#">About</a>
-</nav>
-<main>
-    <article>
-        <h2>Article Title</h2>
-        <p>Article content...</p>
-    </article>
-    <aside>
-        <h2>Related Links</h2>
-        <a href="#">Link 1</a>
-    </aside>
-</main>
-<footer>
-    <p>Copyright &copy; 2024</p>
-</footer>
-```
+Open it in a private/incognito window to ensure access (instructor must have collaborator rights).
 
 ---
 
-#### Tables and Forms
-
-- **Objective**: Learn to create tables and simple forms.
-- **Topics**:
-  - Tables: `<table>`, `<tr>`, `<th>`, `<td>`.
-  - Forms: `<form>`, `<input>`, `<label>`, `<textarea>`, `<button>`.
-  - Form attributes: `action`, `method`.
-
-- **Project**: Add a table and a form to your webpage.
-
-**Example**:
-```html
-<table>
-    <tr>
-        <th>Header 1</th>
-        <th>Header 2</th>
-    </tr>
-    <tr>
-        <td>Data 1</td>
-        <td>Data 2</td>
-    </tr>
-</table>
-<hr>
-<form>
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name"><br>
-    <label for="message">Message:</label>
-    <textarea id="message" name="message"></textarea><br>
-    <button type="submit">Submit</button>
-</form>
-```
+## Self-Checklist
+- Folder: `assignments/01/`
+- File: `index.html`
+- Valid `<!DOCTYPE html>` and `<html lang="en">`
+- Semantic structure: header, nav, main, section(s), footer
+- Includes: headings, paragraphs, emphasis, lists (ol + ul), link, image with alt, table, form, audio, video, aside
+- Pushed to `main`
+- Submission URL correct format
 
 ---
 
-#### Embedded Audio and Video
-
-- **Objective**: Explore HTML5 features for multimedia.
-- **Topics**:
-  - Audio and video tags.
-
-**Example**:
-```html
-<audio controls>
-    <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
-    Your browser does not support the audio element.
-</audio>
-<hr>
-<video controls>
-    <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
-```
+## Common Mistakes
+- Wrong path (e.g., `assignment/01` vs `assignments/01`)
+- Forgetting to add semantic tags (using only divs)
+- No alt text on image
+- One giant commit after all changes
+- Using destructive shell commands that remove other assignments
 
 ---
 
-#### Commit and Push Final Changes
-
-- **Objective**: Finalize your work and push it to GitHub.
-- **Steps**:
-  1. Commit your changes:
-     ```bash
-     git commit -m "Update index.html"
-     ```
-  2. Push to GitHub:
-     ```bash
-     git push
-     ```
-  3. Confirm changes by visiting your GitHub repository.
+## Rubric (20 pts)
+- 2 pts: Correct location (`assignments/01/index.html`)
+- 2 pts: Proper HTML5 boilerplate (doctype, lang, meta charset, viewport, title)
+- 3 pts: Semantic layout (header, nav, main, at least two sections, footer) used appropriately
+- 2 pts: Text content (headings hierarchy, paragraphs, emphasis elements used meaningfully)
+- 2 pts: Lists (both ordered + unordered, valid structure)
+- 2 pts: Link and image (image includes descriptive alt)
+- 2 pts: Table (thead or header row + body rows)
+- 2 pts: Form (labels associated via for/id; at least text, email, textarea, button)
+- 2 pts: Media (audio + video embedded with fallback text)
+- 1 pt: Aside present with relevant supplementary info
+- 0 pts deduction avoidance: No destructive commands / repository damage
+(Partial credit awarded if element present but incorrectly structured.)
 
 ---
 
-#### Submitting the Assignment
+## Optional Enhancements (Not Required)
+- Add internal anchor links back to top.
+- Use `<figure>` / `<figcaption>` for media consistently.
+- Add basic inline styles (will cover CSS later—keep minimal).
 
-- **Objective**: Submit the URL to your completed HTML file.
-- **Steps**:
-  1. Submit the file URL in the format:
-     ```
-     https://github.com/[your-account-name]/[your-web3400-Spr2025-repo]/blob/main/assignments/01/index.html
-     ```
-     Replace `[your-account-name]` with your GitHub username and `[your-web3400-Spr2025-repo]` with your repository name.
+---
+
+## Support
+Tag questions with [A01]. Provide screenshot + specific issue. Use office hours for deeper review.
+
+## Academic Integrity
+Original work required; you may reference docs. Do not copy another student
