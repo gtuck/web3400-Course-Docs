@@ -1,63 +1,131 @@
-## Verify Your Development Environment and Workflow
+# Assignment 00: Verify Your Development Environment & Workflow
 
-Ensure your development environment and workflow are properly set up for this course. The steps include creating the `web3400-Spr2025` GitHub repository from the template, adding the instructor as a collaborator, cloning the repository to your local computer, and running the `.devcontainer` locally or as a GitHub Codespace. You will also modify the `index.php` file and push the changes to your forked repository.
+Purpose: Confirm you can (1) create the course repository from the template, (2) add the instructor, (3) run the dev container locally or in a Codespace, (4) create / commit / push a file, (5) submit a correct URL.
 
-**Note**: If you have completed some steps in a previous assignment, you do not need to repeat them. Instead, verify that all steps are complete and that you understand how to push changes to your repository so the instructor can access them for grading.
+## Learning Objectives
+You can:
+1. Generate a repo from a template (not a fork).
+2. Add a collaborator by GitHub username.
+3. Launch the provided `.devcontainer`.
+4. Create, commit, and push `index.php`.
+5. Verify the file on GitHub via a direct URL.
 
-### 1. Creating Your `web3400-Spr2025` GitHub Repository
-- **Navigate to the Template Repository**: Open [https://github.com/gtuck/web3400.git](https://github.com/gtuck/web3400.git).
-- **Use the Template**: Click the "Use this template" button to create a copy in your GitHub account.
-- **Verify the Template**: Ensure your new repository displays "generated from `gtuck/web3400`". If it doesn’t, repeat this step.
+## Prerequisites
+- GitHub account (logged in).
+- Git installed (if working locally).
+- Docker Desktop running (local container option).
+- VS Code + Dev Containers extension (local option).
 
-### 2. Adding the Instructor as a Collaborator
-- **Access Your Repository**: Open your `web3400-Spr2025` repository on GitHub.
-- **Go to Settings**: Click on the "Settings" tab.
-- **Invite the Instructor**: Under "Manage access," click "Invite a collaborator," enter the instructor's GitHub username (`gtuck@weber.edu`), and send the invitation.
+## Note About Previously Completed Steps
+If you already did any step correctly, just verify it and continue. Do not duplicate repos.
 
-### 3. Cloning Your Repository
-- **Clone Locally**: In your repository, click the "Code" button, select the "Local" tab, and use "Open with GitHub Desktop" to clone the repository to your computer.
+---
 
-### 4. Running the `.devcontainer` Locally or in a GitHub Codespace
-#### For Local Development:
-- Ensure Docker Desktop is installed and running.
-- Open the cloned repository in Visual Studio Code.
-- If prompted, reopen the project in a container.
+## Step 1. Create Your Repository
+1. Open the template: https://github.com/gtuck/web3400
+2. Click: Use this template → Create a new repository.
+3. Repository name (exact): `web3400-fall25`
+4. Recommended visibility: Private (unless told otherwise).
+5. After creation, the top should show: generated from gtuck/web3400  
+   If it does NOT, delete the repo (Settings → Danger Zone) and redo. Do NOT click Fork.
 
-#### For GitHub Codespace:
-- Open your forked repository on GitHub.
-- Click "Code" and choose "Open with Codespaces." Create a new Codespace if needed.
-- **Note**: There may be costs associated with using GitHub Codespaces.
+## Step 2. Add Instructor as Collaborator
+1. Repo → Settings → Collaborators & teams (Manage access).
+2. Click: Add people (Invite a collaborator).
+3. Enter GitHub username: `gtuck` (do not use an email).
+4. Send invitation (status: pending until accepted).
 
-### 5. Modifying the `index.php` File
-- Open the repository in Visual Studio Code.
-- Create a new file named `index.php` (if it doesn’t exist).
-- Add the following code:
-  ```php
-  // Function to display files in the website root folder as a link tree
-  <?php echo "Hello from PHP"; ?>
-  ```
-- Save the file.
+## Step 3. Clone (Local Workflow) OR Use Codespace
+Choose ONE:
 
-### 6. Adding, Committing, and Pushing the Changes
-- Open the terminal in Visual Studio Code (`Terminal -> New Terminal`).
-- Stage the changes:
+A. Local:
+- Click Code → Local → Open with GitHub Desktop (or copy HTTPS URL and `git clone`).
+- Open the folder in VS Code.
+
+B. Codespace:
+- Click Code → Codespaces → Create codespace on `main`.
+- First build may take several minutes.
+
+## Step 4. Open / Build Dev Container (If Local)
+- VS Code should prompt: Reopen in Container → Accept.
+- Wait for build to finish (green remote indicator in lower-left).
+- Optional check: Open terminal and run:
   ```bash
-  git add index.php
-  ```
-- Commit the changes:
-  ```bash
-  git commit -m "Created index.php"
-  ```
-- Push the changes:
-  ```bash
-  git push origin main
+  php -v
   ```
 
-### 7. Submitting the Assignment
-- Verify the changes in your `web3400-Spr2025` repository on GitHub.
-- Ensure the `index.php` file contains your updates.
-- Submit the assignment by providing the URL to your updated `index.php` file. Use the format:
-  ```
-  https://github.com/[your-account-name]/web3400-Spr2025/blob/main/index.php
-  ```
-- Replace `[your-account-name]` with your GitHub username.
+## Step 5. Create `index.php`
+Place at repository root (same level as README).
+
+```php
+<?php
+echo "Hello from PHP";
+```
+
+Save the file.
+
+## Step 6. Commit and Push
+In VS Code terminal (or GitHub Desktop):
+
+```bash
+git status
+git add index.php
+git commit -m "Add index.php greeting"
+git push origin main
+```
+
+Verify no pending changes:
+
+```bash
+git status   # should show: nothing to commit
+```
+
+## (Optional) Run in Container
+If a web server is included and a port is forwarded (e.g., 8080), open the forwarded URL. You should see: Hello from PHP
+
+## Step 7. Submit
+Submit this URL (replace YOUR-USER):
+
+```
+https://github.com/YOUR-USER/web3400-fall25/blob/main/index.php
+```
+
+Open it in an incognito/private window to ensure instructor visibility (collaborator invite must be accepted).
+
+---
+
+## Self-Checklist
+- Repo name exactly `web3400-fall25`
+- Shows “generated from gtuck/web3400”
+- Instructor collaborator added (invite sent)
+- `index.php` at repo root
+- File outputs “Hello from PHP”
+- File visible on `main` branch
+- Submission URL correct
+
+## Common Mistakes
+- Forking instead of using the template.
+- Misspelling `web3400-fall25`.
+- Adding email instead of GitHub username.
+- Putting `index.php` inside a subfolder.
+- Editing but not committing/pushing.
+- Leaving PHP outside `<?php ... ?>` tags.
+
+## Rubric (10 pts)
+- 2 pts: Correct repo name + template linkage.
+- 2 pts: Instructor collaborator invited.
+- 2 pts: `index.php` present at root with valid PHP syntax.
+- 2 pts: Commit & push complete (file on `main`).
+- 1 pt: Correct PHP output (simple greeting).
+- 1 pt: Proper submission URL format.
+
+Late policy: See syllabus.
+
+## Support
+Use course discussion board with tag [A00] or visit office hours.
+
+## Academic Integrity
+Collaboration on setup is allowed. Do not share passwords or tokens.
+
+## If Reusing Prior Work
+Validate each checklist item; fix any
