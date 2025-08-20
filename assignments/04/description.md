@@ -92,8 +92,6 @@ $pageTitle = $pageTitle ?? 'Site Title';
   <!-- Bulma & Assets (same versions used in A03 for consistency) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-
-  <!-- Optional (if you used BulmaJS previously) -->
   <script src="https://cdn.jsdelivr.net/npm/@vizuaalog/bulmajs@0.12/dist/bulma.min.js" defer></script>
 </head>
 <body class="has-navbar-fixed-top">
