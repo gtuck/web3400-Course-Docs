@@ -13,7 +13,8 @@
 ---
 
 ## **Class Details, Meeting Format and Times**
-- **Course Description:** Explore server-side web frameworks and content management systems, with a focus on developing dynamic web applications with an emphasis on client-side web design, databases, usability, and visual design.  
+- **Course Description:** This course explores the Linux-Apache-MySQL-PHP, or LAMP Web development framework to build applications that solve common business problems. The course begins with an exploration of the LAMP architecture, then covers fundamentals of the PHP programming language before introducing a PHP framework like Laravel. Additional coverage focuses on database concepts and how to interact with a MySQL database.  
+- **Pre-requisite(s):** WEB 3200 or CYBR 2210.  
 - **Meeting Format:** Synchronous Virtual via Zoom  
 - **Meeting Days/Times:** Monday, Wednesday, Friday, 10:30–11:20 AM  
 - **Access:** Click "Zoom" in Canvas navigation.  
