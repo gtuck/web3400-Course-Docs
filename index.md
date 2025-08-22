@@ -58,9 +58,6 @@ By the end of the course, you will be able to:
 
 ## **Campus Policies**
 
-### Course Fees
-Course fees are designed to cover the costs of lab equipment maintenance and replacement, including desktop and server computer systems and software, as well as consumable materials and supplies. Additionally, the fees support lab aides, student tutors, and online instructional resources.
-
 ### Academic Integrity
 School of Computing policy dictates that any verifiable evidence of student academic misconduct, as defined and determined by the instructor, will result in:
 1. An automatic failing grade for the class.
