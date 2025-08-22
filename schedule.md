@@ -64,4 +64,3 @@
 | Wed Dec 3, 2025 | Assignment: Fifty Points of Extra Credit Available | due 11:59pm |
 | Thu Dec 4, 2025 | Assignment: Comprehensive Final Project: Administrator Dashboard Enhancement | due 11:59pm |
 | Fri Dec 5, 2025 | Assignment: Final Project - Mandatory Status Review Interview | due 10:30am |
-| Sun Dec 7, 2025 | Calendar Event WEB 3400 VTL Fall 2025 23082
