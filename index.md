@@ -133,3 +133,6 @@ Such behaviors will not be tolerated. If you are exposed to threatening behavior
 
 ### Recording
 Students may not record class lectures without explicit permission from the faculty member (PPM 6-22.6.6). Recorded lectures provided through Canvas or email are for the exclusive use of enrolled students and may not be shared without authorization. Violations will be referred to the Dean of Students.
+
+
+
