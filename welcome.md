@@ -1,27 +1,27 @@
-Dear Students,  
+# Welcome to WEB 3400
 
-Welcome to WEB 3400! I’m excited to have you in this virtual course and look forward to a fantastic semester together.  
+Live sessions: **Mon / Wed / Fri • 9:30–10:20 a.m. (MT) • Zoom**
 
-### Class Details  
-Our Zoom sessions will take place on **Mondays, Wednesdays, and Fridays from 9:30 a.m. to 10:20 a.m.** To participate, you’ll need access to Zoom, a webcam, and a microphone. If you’re new to Zoom, I recommend checking out their tutorial videos for a smooth start.  
+**Join Zoom:** (Use the Zoom link posted in Canvas — avoid bookmarking long ICS links)  
+**Meeting ID:** 918 6186 5754  
+Sign in with your **@mail.weber.edu** / **@weber.edu** account.
 
-### Virtual Classroom Expectations  
-To ensure a productive and engaging learning environment, please follow these guidelines:  
-- **Log in early:** Join the session at least 5 minutes before start time.  
-- **Use proper Zoom profiles:** Display your first name and last initial only.  
-- **Camera and mic:** Keep your camera on during class and mute your mic unless speaking.  
-- **Engage respectfully:**  
-  - Pause between speakers to avoid interruptions.  
-  - Use the hand-raising feature to indicate you’d like to speak.  
-  - Dress as you would for an in-person class.  
-- **Taking a break?** Turn off your video and mute your mic.  
+## Day 1 Checklist
+- Verify Zoom works (camera + mic).
+- Join 5 minutes early.
+- Open Canvas Module 0.
+- Skim syllabus (policies, grading, late work).
+- Post your intro (if the discussion is published).
 
-### Zoom Details  
-- **Join the Meeting:** [Meeting Link](https://weber.zoom.us/meeting/tJUlceigqD4tH9Dr1qXE-TY-in2cCuH5Pa_v/ics?icsToken=DD3_0Pklg7gY3UQbWgAALAAAAOcFgZiZvOXLd6HCMYf0SyWRPIv5UZjU8bQ5iTLHQntKSb26sJRua_yp8jZuUTbYKd1peaByNp2JVvRfwjAwMDAwMQ)
-- **Meeting ID:** 918 6186 5754  
-- Log in with your **@mail.weber.edu** or **@weber.edu** credentials to access the session.  
+## In-Session Norms (Light)
+- Camera on (reasonable exceptions allowed—just let me know).
+- Mic muted unless speaking; use hand raise / chat.
+- Be respectful; one voice at a time.
+- Stepping away briefly? Mute + optional camera off.
 
-Thank you for your attention to these details. I’m here to support you, so don’t hesitate to reach out if you have questions. Let’s make this semester a rewarding experience!  
+## Need Help?
+Message me in Canvas or email (see syllabus) if you hit access issues.
 
-Best regards,  
-Garth Tuck
+Let’s have a solid start—see you in class.
+
+–Garth
