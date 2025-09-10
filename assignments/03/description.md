@@ -86,8 +86,8 @@ git commit -m "A03: link Bulma, Font Awesome, BulmaJS"
 
 ---
 
-## Step 2. Transform Structure with Bulma Classes
-Apply (example set—adjust to your content):
+## Step 2. Transform Structure with Bulma Classes (Copilot use encouraged)
+Apply BULMA CSS Classes to the HTML elements:
 - Overall wrapper: `<section class="section"><div class="container">...</div></section>`
 - Hero: `<section class="hero is-primary">`
 - Navigation: `<nav class="navbar" role="navigation" aria-label="main navigation">`
