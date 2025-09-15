@@ -60,7 +60,8 @@ Inside `assignments/04`:
 ```bash
 cd assignments/04
 mkdir templates
-touch templates/head.php templates/nav.php templates/footer.php
+cd templates
+touch head.php nav.php footer.php
 ```
 
 Delete `index.html` (it will be replaced):
@@ -90,7 +91,7 @@ $pageTitle = $pageTitle ?? 'Site Title';
   <title><?= htmlspecialchars($pageTitle) ?></title>
 
   <!-- Bulma & Assets (same versions used in A03 for consistency) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.0/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
   <script src="https://cdn.jsdelivr.net/npm/@vizuaalog/bulmajs@0.12/dist/bulma.min.js" defer></script>
 </head>
@@ -110,27 +111,54 @@ Extract ONLY navigation / hero (if used). Keep semantics; add brand or simple li
 <?php
 // filepath: assignments/04/templates/nav.php
 ?>
-<nav class="navbar is-light is-fixed-top" role="navigation" aria-label="main navigation">
-  <div class="navbar-brand">
-    <a class="navbar-item" href="/assignments/04/index.php">
-      <span class="icon"><i class="fas fa-code"></i></span>&nbsp;A04 Demo
-    </a>
-    <!-- (Optional) burger for mobile toggle if JS logic added later -->
-  </div>
-  <div class="navbar-menu">
-    <div class="navbar-start">
-      <a class="navbar-item" href="/assignments/04/index.php">Home</a>
-      <a class="navbar-item" href="/assignments/04/about.php">About</a>
-    </div>
-  </div>
-</nav>
+<!-- BEGIN PAGE HEADER -->
+<header class="container">
 
-<section class="hero is-primary">
-  <div class="hero-body">
-    <p class="title">Reusable Templates</p>
-    <p class="subtitle">PHP includes centralize shared UI</p>
-  </div>
-</section>
+    <!-- BEGIN MAIN NAV -->
+    <nav class="navbar is-fixed-top is-spaced has-shadow is-light" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a class="navbar-item" href="index.php">
+                <span class="icon-text">
+                    <span class="icon">
+                        <i class="fas fa-code"></i>
+                    </span>
+                    <span>Tractors</span>
+                </span>
+            </a>
+            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+        <div class="navbar-menu">
+            <div class="navbar-start">
+                <!-- Admin menu will go here in the future -->
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        <a class="button">Contact us</a>
+                        <a class="button">Log in</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <!-- END MAIN NAV -->
+    <section class="block">&nbsp;</section>
+    <!-- BEGIN HERO -->
+    <section class="hero is-primary">
+        <div class="hero-body">
+            <p class="title">Hero title</p>
+            <p class="subtitle">Hero subtitle</p>
+        </div>
+    </section>
+    <!-- END HERO -->
+</header>
+<!-- END PAGE HEADER -->
+<!-- BEGIN MAIN PAGE CONTENT -->
+<main class="container">
 ```
 
 (Adjust links if you add more pages.)
@@ -145,11 +173,17 @@ Close structural tags and document:
 // filepath: assignments/04/templates/footer.php
 $year = date('Y');
 ?>
-<footer class="footer">
-  <div class="content has-text-centered">
-    <p>&copy; <?= $year ?> Your Name. Built with Bulma & PHP includes.</p>
-  </div>
-</footer>
+  </main>
+    <!-- END MAIN PAGE CONTENT -->
+    <!-- BEGIN PAGE FOOTER -->
+    <footer class="footer">
+       <div class="content has-text-centered">
+           <p>
+              <p>&copy; <?= $year ?> Your Name. Built with Bulma & PHP.</p>
+           </p>
+       </div>
+   </footer>
+ <!-- END PAGE FOOTER -->
 </body>
 </html>
 ```
@@ -163,71 +197,21 @@ Reassemble page using includes. Keep your main content (tables, form, columns, c
 <?php
 // filepath: assignments/04/index.php
 $pageTitle = 'Home - A04 Templates';
-include 'templates/head.php';
-include 'templates/nav.php';
 ?>
+<?php include 'templates/head.php'; ?>
+<?php include 'templates/nav.php'; ?>
 
-<main class="section">
-  <div class="container">
-    <div class="columns">
-      <div class="column is-two-thirds">
-        <div class="card">
-          <header class="card-header">
-            <p class="card-header-title">Overview</p>
-          </header>
-          <div class="card-content">
-            <div class="content">
-              <p>This page demonstrates splitting shared markup into reusable PHP includes.</p>
-              <ul>
-                <li>head.php: Document start + metadata</li>
-                <li>nav.php: Navigation & hero banner</li>
-                <li>footer.php: Footer + closing tags</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- (Reuse adapted content from A03: table, form, media, etc.) -->
-      </div>
-
-      <aside class="column">
-        <div class="notification is-info">
-          <strong>Tip:</strong> Changes to navigation instantly affect all pages using nav.php.
-        </div>
-      </aside>
-    </div>
-  </div>
-</main>
+<!-- BEGIN YOUR CONTENT -->
+<h1 class="title">This a title.</h1>
+<h2 class="subtitle">This is a subtitle</h2>
+<!-- END YOUR CONTENT -->
 
 <?php include 'templates/footer.php'; ?>
 ```
 
 ---
 
-## (Optional) Step 6. Add a Second Page (e.g., about.php)
-Demonstrates reusability.
-
-```php
-<?php
-// filepath: assignments/04/about.php
-$pageTitle = 'About - A04 Templates';
-include 'templates/head.php';
-include 'templates/nav.php';
-?>
-<section class="section">
-  <div class="container content">
-    <h1>About This Demo</h1>
-    <p>Additional pages reuse the same head, navigation, and footer.</p>
-  </div>
-</section>
-<?php include 'templates/footer.php'; ?>
-```
-
-Commit only if added (not required for rubric unless you decide to extend).
-
----
-
-## Step 7. Test Locally (Optional Built-in Server)
+## Step 6. Test Locally (Optional Built-in Server)
 From repository root:
 
 ```bash
@@ -239,7 +223,7 @@ Browse: http://localhost:8080/assignments/04/index.php
 
 ---
 
-## Step 8. Stage, Commit, Push
+## Step 7. Stage, Commit, Push
 ```bash
 git add assignments/04
 git commit -m "A04: implement PHP template includes (head, nav, footer)"
@@ -284,11 +268,6 @@ Open in a private/incognito window to confirm accessibility.
 - Editing Bulma CDN version inconsistently
 - Large single “finished A04” commit instead of meaningful steps
 - Not escaping dynamic values (title) (we used `htmlspecialchars`)
-
----
-
-## Rubric (30 pts)
-- Complete/Incomplete
 
 ---
 
