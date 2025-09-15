@@ -254,7 +254,6 @@ Open in a private/incognito window to confirm accessibility.
 - No duplicate DOCTYPE or `<html>` tags
 - `$pageTitle` used (dynamic title renders)
 - Includes in correct order (head → nav → content → footer)
-- Content from A03 adapted into main area
 - Semantic structure preserved
 - Commit pushed; URL correct
 
