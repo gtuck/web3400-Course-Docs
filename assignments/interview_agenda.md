@@ -48,7 +48,7 @@ If something breaks during the demo, move to the next item. For help, schedule a
 - head.php:
   - [ ] DOCTYPE + opening `<html lang="en">`
   - [ ] `<head>` with meta charset, viewport, description, `<title>` using `<?= htmlspecialchars($pageTitle) ?>`
-  - [ ] Bulma + Font Awesome links (consistent versions)
+  - [ ] Bulma + Font Awesome & BulmaJS links (consistent versions)
   - [ ] Opens `<body>` (no closing tags here)
 - nav.php:
   - [ ] `<nav>` markup only + (optional) hero section
@@ -60,12 +60,11 @@ If something breaks during the demo, move to the next item. For help, schedule a
 #### 4. Page Assembly (index.php)
 - [ ] Sets `$pageTitle` before including head
 - [ ] Includes in order: head → nav → main content → footer
-- [ ] Main content adapted from A03 (not empty placeholder)
 - [ ] Semantic structure (`<main>`, proper headings) intact
 
 #### 5. Functionality
 - [ ] Page loads without PHP warnings/errors
-- [ ] Dynamic year or title renders
+- [ ] Dynamic year and title renders
 - [ ] Navigation links resolve (or gracefully 404 if extra pages not implemented)
 
 #### 6. Git Hygiene
@@ -131,10 +130,3 @@ Instructor Notes: (leave brief comment)
 
 ### After Interview (If Revisions Needed)
 Student fixes → pushes changes → notifies via Canvas (WSU Online)/Email/Discussion (as instructed). No second live demo unless requested.
-
----
-
-### Academic Integrity Reminder
-All template extraction must be your own work. Peer discussion OK; copying another repository verbatim is not.
-
----
