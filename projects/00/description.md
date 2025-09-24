@@ -8,9 +8,7 @@ This project sets up a basic PHP web project using **PDO** for database access a
 
 ### **1. Copy Assignment 04 to the `projects/00` Folder**
 ```bash
-cd your-repo-root
-mkdir -p projects/00
-cp -R assignments/04/* projects/00/
+cp -R assignments/04/ projects/00/
 ```
 Commit and push changes:
 ```bash
