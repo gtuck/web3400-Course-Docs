@@ -100,13 +100,11 @@ require __DIR__ . '/config.php';
 
 $pageTitle = 'Contact - ' . ($siteName ?? 'Site');
 
-$old = ['name' => '', 'email' => '', 'message' => ''];
-
+// PHP to process the contact form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name    = trim($_POST['name'] ?? '');
     $email   = trim($_POST['email'] ?? '');
     $message = trim($_POST['message'] ?? '');
-    $old = ['name' => $name, 'email' => $email, 'message' => $message];
 
     $errors = [];
     if ($name === '' || mb_strlen($name) > 255) $errors[] = "Please provide your name.";
@@ -151,19 +149,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="field">
       <label class="label">Your Name</label>
       <div class="control">
-        <input class="input" type="text" name="name" value="<?= htmlspecialchars($old['name'], ENT_QUOTES) ?>" required>
+        <input class="input" type="text" name="name" value="" required>
       </div>
     </div>
     <div class="field">
       <label class="label">Your Email</label>
       <div class="control">
-        <input class="input" type="email" name="email" value="<?= htmlspecialchars($old['email'], ENT_QUOTES) ?>" required>
+        <input class="input" type="email" name="email" value="" required>
       </div>
     </div>
     <div class="field">
       <label class="label">Your Message</label>
       <div class="control">
-        <textarea class="textarea" name="message" required><?= htmlspecialchars($old['message'], ENT_QUOTES) ?></textarea>
+        <textarea class="textarea" name="message" required></textarea>
       </div>
     </div>
     <div class="field">
