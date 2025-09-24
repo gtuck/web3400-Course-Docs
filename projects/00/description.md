@@ -304,7 +304,7 @@ $year = date('Y');
   <!-- BEGIN PAGE FOOTER -->
   <footer class="footer">
     <div class="content has-text-centered">
-      <p>&copy; <?= $year ?> <?= htmlspecialchars($siteName ?? 'My PHP Site', ENT_QUOTES) ?>. Built with Bulma & PHP.</p>
+      <p>&copy; <?= $year ?> - Your name - <?= htmlspecialchars($siteName ?? 'My PHP Site', ENT_QUOTES) ?>.</p>
     </div>
   </footer>
   <!-- END PAGE FOOTER -->
