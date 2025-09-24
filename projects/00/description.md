@@ -96,6 +96,10 @@ CREATE TABLE IF NOT EXISTS contact_us (
 <?php
 require __DIR__ . '/config.php';
 
+// filepath: projects/00/contact.php
+
+$pageTitle = 'Contact - ' . ($siteName ?? 'Site');
+
 $old = ['name' => '', 'email' => '', 'message' => ''];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -126,10 +130,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 #### B) Page Shell with Templates
 ```php
-<?php
-// filepath: projects/00/contact.php
-$pageTitle = 'Contact - ' . ($siteName ?? 'Site');
-?>
 <?php require __DIR__ . '/templates/head.php'; ?>
 <?php require __DIR__ . '/templates/nav.php'; ?>
 <?php require __DIR__ . '/templates/flash.php'; ?>
