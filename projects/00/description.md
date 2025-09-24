@@ -128,14 +128,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ```php
 <?php
 // filepath: projects/00/contact.php
-require __DIR__ . '/config.php';
 $pageTitle = 'Contact - ' . ($siteName ?? 'Site');
 ?>
 <?php require __DIR__ . '/templates/head.php'; ?>
 <?php require __DIR__ . '/templates/nav.php'; ?>
 <?php require __DIR__ . '/templates/flash.php'; ?>
 
+<!-- BEGIN YOUR CONTENT -->
+
 <!-- Contact Form (see HTML below) -->
+
+<!-- END YOUR CONTENT -->
 
 <?php require __DIR__ . '/templates/footer.php'; ?>
 ```
@@ -193,7 +196,6 @@ $pageTitle = 'Home - ' . ($siteName ?? 'Site');
 <section class="section">
   <h1 class="title">Welcome to <?= htmlspecialchars($siteName ?? 'My PHP Site', ENT_QUOTES) ?></h1>
   <h2 class="subtitle">This is a subtitle</h2>
-  <p><a class="button is-link" href="contact.php">Go to Contact</a></p>
   </section>
 <!-- END YOUR CONTENT -->
 
