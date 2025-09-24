@@ -126,7 +126,6 @@ CREATE INDEX idx_posts_updated_at ON posts (updated_at DESC);
 
 ## Notes for Students
 - Apply /sql/schema.sql then /sql/seed.sql to your DB.
-- Configure DB credentials in config.php (or via .env).
 - After each successful POST (create/update/delete), you’ll be redirected to the Admin list and see a flash message.
 - Keep using Bulma + shared templates for consistent UI.
 
