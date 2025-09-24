@@ -43,13 +43,17 @@ Extend Project 00 into a working mini-CMS. Students will implement **CRUD** for 
 
 **Table: `posts`**
 ```sql
-id INT PK AI
-title VARCHAR(160) NOT NULL
-slug VARCHAR(180) UNIQUE NOT NULL
-body MEDIUMTEXT NOT NULL
-created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-updated_at DATETIME NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-```
+CREATE TABLE IF NOT EXISTS posts (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  title VARCHAR(255) NOT NULL,
+  slug VARCHAR(100) NOT NULL UNIQUE,
+  body MEDIUMTEXT NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at DATETIME NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_posts_created_at ON posts (created_at DESC);
+CREATE INDEX idx_posts_updated_at ON posts (updated_at DESC);```
 ---
 
 ## Page Requirements
