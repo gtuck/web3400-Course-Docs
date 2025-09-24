@@ -21,21 +21,21 @@ Extend Project 00 into a working mini-CMS. Students will implement **CRUD** for 
 
 ```text
 / (Project 01 Root)
-├─ config.php
-├─ index.php              # List of posts
-├─ blog_post.php          # Single post view by post_id
 ├─ admin_blog.php         # Admin list + Create button
 ├─ blog_create.php        # Create form + handler
-├─ blog_edit.php          # Edit form + handler
 ├─ blog_delete.php        # Confirm + handler
-├─ /templates
-│   ├─ head.php
-│   ├─ nav.php            # add Admin → Blog Admin
-│   ├─ flash.php
-│   └─ footer.php
-└─ /sql
-    ├─ schema.sql
-    └─ seed.sql
+├─ blog_edit.php          # Edit form + handler
+├─ blog_post.php          # Single post view by post_id
+├─ config.php
+├─ index.php              # Homepage and list of posts
+├─ /sql
+│   ├─ schema.sql
+│   └─ seed.sql
+└─ /templates
+    ├─ flash.php
+    ├─ footer.php
+    ├─ head.php
+    └─ nav.php            # add Admin → Manage Posts
 ```
 ---
 
