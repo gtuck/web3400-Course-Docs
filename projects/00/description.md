@@ -190,6 +190,15 @@ $pageTitle = 'Home - ' . ($siteName ?? 'Site');
 <?php require __DIR__ . '/templates/nav.php'; ?>
 <?php require __DIR__ . '/templates/flash.php'; ?>
 
+<!-- BEGIN HERO -->
+<section class="hero is-primary">
+  <div class="hero-body">
+    <p class="title">Hero title</p>
+    <p class="subtitle">Hero subtitle</p>
+  </div>
+</section>
+<!-- END HERO -->
+
 <!-- BEGIN YOUR CONTENT -->
 <section class="section">
   <h1 class="title">Welcome to <?= htmlspecialchars($siteName ?? 'My PHP Site', ENT_QUOTES) ?></h1>
@@ -255,17 +264,7 @@ $pageTitle = $pageTitle ?? ($siteName ?? 'Site Title');
     </div>
   </nav>
   <!-- END MAIN NAV -->
-
   <section class="block">&nbsp;</section>
-
-  <!-- BEGIN HERO -->
-  <section class="hero is-primary">
-    <div class="hero-body">
-      <p class="title">Hero title</p>
-      <p class="subtitle">Hero subtitle</p>
-    </div>
-  </section>
-  <!-- END HERO -->
 </header>
 <!-- END PAGE HEADER -->
 
