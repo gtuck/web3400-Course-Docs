@@ -32,6 +32,7 @@ $contactPhone = "123-456-7890";
 
 // ---------- Session & Flash Messages ----------
 session_start();
+
 if (!isset($_SESSION['messages'])) {
     $_SESSION['messages'] = [];
 }
