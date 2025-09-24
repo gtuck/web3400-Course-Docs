@@ -53,7 +53,8 @@ CREATE TABLE IF NOT EXISTS posts (
 );
 
 CREATE INDEX idx_posts_created_at ON posts (created_at DESC);
-CREATE INDEX idx_posts_updated_at ON posts (updated_at DESC);```
+CREATE INDEX idx_posts_updated_at ON posts (updated_at DESC);
+```
 ---
 
 ## Page Requirements
