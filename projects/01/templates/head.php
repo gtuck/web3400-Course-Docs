@@ -1,11 +1,18 @@
 <?php
-// filepath: templates/head.php
-?><!DOCTYPE html>
+// filepath: projects/00/templates/head.php
+$pageTitle = $pageTitle ?? ($siteName ?? 'Site Title');
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title><?= htmlspecialchars($pageTitle ?? ($siteName ?? 'Site')) ?></title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <meta name="description" content="Project 00 - Template system, PDO, contact form">
+  <title><?= htmlspecialchars($pageTitle, ENT_QUOTES) ?></title>
+
+  <!-- Bulma & Assets (match A04 versions) -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  <script src="https://cdn.jsdelivr.net/npm/@vizuaalog/bulmajs@0.12/dist/bulma.min.js" defer></script>
 </head>
-<body>
+<body class="has-navbar-fixed-top">

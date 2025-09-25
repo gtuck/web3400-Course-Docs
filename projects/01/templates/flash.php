@@ -1,12 +1,13 @@
 <?php
-// filepath: templates/flash.php
-$flashes = function_exists('get_flashes') ? get_flashes() : [];
-if (!empty($flashes)): ?>
-  <div class="container my-4">
-    <?php foreach ($flashes as $f): ?>
-      <div class="notification is-<?= htmlspecialchars($f['type']) ?>">
-        <?= htmlspecialchars($f['msg']) ?>
+// filepath: projects/00/templates/flash.php
+if (!empty($_SESSION['messages'])):
+?>
+  <section class="section">
+    <?php foreach ($_SESSION['messages'] as $m): ?>
+      <div class="notification <?= htmlspecialchars($m['type'], ENT_QUOTES) ?>">
+        <button class="delete" data-bulma="notification"></button>
+        <?= htmlspecialchars($m['text'], ENT_QUOTES) ?>
       </div>
-    <?php endforeach; ?>
-  </div>
+    <?php endforeach; $_SESSION['messages'] = []; ?>
+  </section>
 <?php endif; ?>
