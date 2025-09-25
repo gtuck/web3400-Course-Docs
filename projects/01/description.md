@@ -63,6 +63,7 @@ CREATE INDEX idx_posts_updated_at ON posts (updated_at DESC);
 * Query the latest posts (e.g., 10 newest).
 * Show the **title**, **created date**, and a **short excerpt**.
 * The title links to `blog_post.php?post_id=ID`.
+* [index.php](index.php)
 
 ---
 
