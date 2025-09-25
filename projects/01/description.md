@@ -63,7 +63,7 @@ CREATE INDEX idx_posts_updated_at ON posts (updated_at DESC);
 * Query the latest posts (e.g., 10 newest).
 * Show the **title**, **created date**, and a **short excerpt**.
 * The title links to `blog_post.php?post_id=ID`.
-* [index.php](index.php)
+* Source file: [index.php](index.php)
 
 ---
 
@@ -71,6 +71,7 @@ CREATE INDEX idx_posts_updated_at ON posts (updated_at DESC);
 * Accept `post_id` (integer) in the query string.
 * If invalid or missing, redirect to `index.php` with an error flash message.
 * Show the **title**, **created/updated timestamps**, and **full body**.
+* Source file: [blog_post.php](blog_post.php)
 
 ---
 
@@ -84,6 +85,7 @@ CREATE INDEX idx_posts_updated_at ON posts (updated_at DESC);
     * **Updated**
     * **Actions** (Edit/Delete)
 * Flash messages appear under the heading.
+* Source file: [admin_blog.php](admin_blog.php)
 
 ---
 
@@ -99,6 +101,7 @@ CREATE INDEX idx_posts_updated_at ON posts (updated_at DESC);
     * Redirect to `admin_blog.php`.
 * **On error**:
     * Re-render the form, showing errors and retaining previous user inputs.
+* Source file: [blog_create.php](blog_create.php) 
 
 ---
 
@@ -112,6 +115,7 @@ CREATE INDEX idx_posts_updated_at ON posts (updated_at DESC);
 * **On success**:
     * Display a flash message: "Post updated."
     * Redirect to `admin_blog.php`.
+* Source file: [blog_edit.php](blog_edit.php)
 
 ---
 
@@ -122,6 +126,7 @@ CREATE INDEX idx_posts_updated_at ON posts (updated_at DESC);
     * `DELETE` the post from the database.
     * Display a flash message: "Post deleted."
     * Redirect to `admin_blog.php`.
+* Source file: [blog_delete.php](blog_delete.php) 
 
 ---
 
