@@ -5,16 +5,11 @@ Extend Project 00 into a working mini‑CMS. You will implement CRUD for a `post
 
 ## Starting Point (Assumes Project 00)
 - Project 00 is complete and working locally (config, templates, flash messages, contact form).
-- Copy ALL files and functionality from Project 00 into Project 01 — including `contact.php`, templates, assets, and `.htaccess`.
-- `config.php` initializes session/flash and connects to MySQL via PDO; keep the same behavior here.
-- `.htaccess` must deny direct access to `config.php` in Project 01.
+- Copy ALL files and functionality from Project 00 into Project 01.
 
-Suggested copy (adjust if your repo is structured differently):
 ```bash
-cp -R projects/00/* projects/01/
+cp -R projects/00/ projects/01/
 ```
-Do not remove `contact.php`; it is part of Project 01 and should remain functional.
-
 ---
 
 ## What You Will Build
@@ -37,6 +32,7 @@ Do not remove `contact.php`; it is part of Project 01 and should remain function
 ├─ index.php              # Homepage and list of posts
 ├─ contact.php            # Carried forward from Project 00 (kept)
 ├─ /sql
+│   ├─ contact_us.sql  
 │   ├─ schema.sql         # Create `posts` table
 │   └─ seed.sql           # Optional seed data
 └─ /templates
@@ -59,12 +55,7 @@ Do not remove `contact.php`; it is part of Project 01 and should remain function
 - New: `sql/seed.sql` — optional seed data for testing.
 - New: `sql/contact_us.sql` — creates `contact_us` table for the Contact form.
 - Update: `config.php` — keep PDO + flash; add `slugify()` helper.
-- Update: `templates/nav.php` — add Admin → Blog Admin link; use `href="admin_blog.php"` (relative); keep the Contact link.
-- Carry over: `contact.php` — Contact form from P00 works in P01.
-- Carry over: `templates/head.php`, `templates/flash.php`, `templates/footer.php` — reuse from Project 00 unchanged.
-- Carry over: `.htaccess` — ensure it denies direct access to `config.php` in this folder.
-
-Tip: you may add additional pages later, but keep all P00 functionality (including Contact) available in P01.
+- Update: `templates/nav.php` — add Admin → Blog Admin link; use `admin_blog.php"` (relative).
 
 ---
 
@@ -88,29 +79,17 @@ CREATE INDEX idx_posts_updated_at ON posts (updated_at DESC);
 Steps
 - Log in to phpMyAdmin and run the SQL from `/sql/schema.sql`.
 - Optionally run `/sql/seed.sql` to add example posts.
-- If your DB does not already have the Contact form table from Project 00, also run `/sql/contact_us.sql`.
 
 ---
 
 ## Navigation Updates
 - In `templates/nav.php`, add an Admin menu with a link to `admin_blog.php`.
-- Use relative links (e.g., `href="admin_blog.php"`), not root `/admin_blog.php`.
-- Keep the Contact link pointing to `contact.php` (Contact is required in Project 01).
+- Use relative links (e.g., `href="admin_blog.php"`).
 
 ---
 
 ## Config & Helpers
 - Keep your Project 00 `config.php` and extend it with a small `slugify()` helper for generating URL‑friendly slugs from titles.
-- Ensure sessions and flash messages are initialized.
-- Keep `.htaccess` in this folder to deny direct access to `config.php`.
-
-Example `.htaccess` (Apache 2.4+):
-```apache
-php_flag display_errors on
-<Files "config.php">
-  Require all denied
-</Files>
-```
 
 ---
 
@@ -163,9 +142,6 @@ From repository root:
 php -S 0.0.0.0:8080
 ```
 Visit (adjust port as needed):
-- http://localhost:8080/projects/01/index.php
-- http://localhost:8080/projects/01/admin_blog.php
-- http://localhost:8080/projects/01/contact.php
 - Create, edit, and delete a post; verify flashes and redirects.
 - Click a post title on the home page; verify `blog_post.php` renders.
 
@@ -194,4 +170,3 @@ Submit the direct URL to your Project 01 folder (replace YOUR‑USER and repo na
 ```
 https://github.com/YOUR-USER/YOUR-REPO/blob/main/projects/01/
 ```
-Open in a private/incognito window to confirm accessibility.
