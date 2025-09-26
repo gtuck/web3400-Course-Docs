@@ -1,5 +1,7 @@
 <?php
-// filepath: projects/00/templates/nav.php
+// Template: Top navigation bar + page header shell
+// - Provides site branding, Admin dropdown, and Contact link
+// - Keep links relative to the current project folder
 ?>
 <!-- BEGIN PAGE HEADER -->
 <header class="container">
@@ -24,7 +26,7 @@
         <div class="navbar-item has-dropdown is-hoverable">
         <a class="navbar-link">Admin</a>
         <div class="navbar-dropdown">
-          <a class="navbar-item" href="/admin_blog.php">Blog Admin</a>
+          <a class="navbar-item" href="admin_blog.php">Blog Admin</a>
         </div>
       </div>
       </div>

@@ -1,16 +1,24 @@
 <?php
-// filepath: blog_create.php
+/*
+  Admin: Create Post
+  - Validates input and creates a post with a unique slug
+  - Uses PRG: on success, redirect to admin list with a flash message
+*/
+
 require __DIR__ . '/config.php';
 $pageTitle = 'Create Post - ' . ($siteName ?? 'Site');
 
+// Track temporary form state and validation errors for re-rendering
 $errors = [];
 $title = '';
 $body  = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  // Normalize incoming values
   $title = trim($_POST['title'] ?? '');
   $body  = trim($_POST['body'] ?? '');
 
+  // Server-side validation rules
   if ($title === '' || mb_strlen($title) < 3) {
     $errors['title'] = 'Title is required (min 3 chars).';
   }
@@ -19,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   if (!$errors) {
-    // Unique slug
+    // Compute a URL-friendly base slug from the title, then ensure uniqueness
     $base = slugify($title);
     $slug = $base;
     $i = 2;
@@ -30,10 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $slug = $base . '-' . $i++;
     }
 
+    // Insert the post using a prepared statement
     $stmt = $pdo->prepare("INSERT INTO posts (title, slug, body) VALUES (?, ?, ?)");
     $stmt->execute([$title, $slug, $body]);
 
-    flash('Post created.');
+    flash('Post created.', 'is-success');
     header('Location: admin_blog.php'); exit;
   }
 }

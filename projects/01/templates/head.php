@@ -1,5 +1,7 @@
 <?php
-// filepath: projects/00/templates/head.php
+// Template: <head> and opening <body>
+// - Sets the page <title> using $pageTitle if provided by the page
+// - Loads Bulma, FontAwesome, and BulmaJS for UI styling and flash dismissal
 $pageTitle = $pageTitle ?? ($siteName ?? 'Site Title');
 ?>
 <!DOCTYPE html>

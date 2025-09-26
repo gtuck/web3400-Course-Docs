@@ -1,25 +1,34 @@
 <?php
-// filepath: blog_edit.php
+/*
+  Admin: Edit Post
+  - Loads a post by `post_id`, validates edits, and saves changes
+  - If the title is changed, regenerate a unique slug
+*/
+
 require __DIR__ . '/config.php';
 
+// Validate and load the target post
 $post_id = (int)($_GET['post_id'] ?? 0);
-if ($post_id <= 0) { flash('Invalid post id.', 'danger'); header('Location: admin_blog.php'); exit; }
+if ($post_id <= 0) { flash('Invalid post id.', 'is-danger'); header('Location: admin_blog.php'); exit; }
 
 $stmt = $pdo->prepare("SELECT * FROM posts WHERE id = ? LIMIT 1");
 $stmt->execute([$post_id]);
 $post = $stmt->fetch();
-if (!$post) { flash('Post not found.', 'danger'); header('Location: admin_blog.php'); exit; }
+if (!$post) { flash('Post not found.', 'is-danger'); header('Location: admin_blog.php'); exit; }
 
 $pageTitle = 'Edit: ' . $post['title'] . ' - ' . ($siteName ?? 'Site');
 
+// Initialize form state
 $errors = [];
 $title = $post['title'];
 $body  = $post['body'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  // Normalize inputs
   $title = trim($_POST['title'] ?? '');
   $body  = trim($_POST['body'] ?? '');
 
+  // Validation rules
   if ($title === '' || mb_strlen($title) < 3) {
     $errors['title'] = 'Title is required (min 3 chars).';
   }
@@ -28,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   if (!$errors) {
-    // If title changed, update slug uniquely
+    // If title changed, recompute a slug and ensure uniqueness, excluding this record
     $slug = $post['slug'];
     if ($title !== $post['title']) {
       $base = slugify($title);
@@ -42,10 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
     }
 
+    // Persist the changes
     $upd = $pdo->prepare("UPDATE posts SET title = ?, slug = ?, body = ? WHERE id = ?");
     $upd->execute([$title, $slug, $body, $post_id]);
 
-    flash('Post updated.');
+    flash('Post updated.', 'is-success');
     header('Location: admin_blog.php'); exit;
   }
 }

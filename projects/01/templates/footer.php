@@ -1,5 +1,6 @@
 <?php
-// filepath: projects/00/templates/footer.php
+// Template: Footer + closing tags
+// - Closes main container and renders a simple footer
 $year = date('Y');
 ?>
   </main>

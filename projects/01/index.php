@@ -1,8 +1,14 @@
 <?php
-// filepath: index.php
+/*
+  Home Page (Public list of posts)
+  - Reads the latest posts and shows title, date, and excerpt
+  - Titles link to the single post view via `blog_post.php?post_id=ID`
+*/
+
 require __DIR__ . '/config.php';
 $pageTitle = 'Home - ' . ($siteName ?? 'Site');
 
+// Simple read-only query for the 10 newest posts
 $stmt = $pdo->query("SELECT id, title, slug, body, created_at FROM posts ORDER BY created_at DESC LIMIT 10");
 $posts = $stmt->fetchAll();
 ?>
@@ -27,6 +33,7 @@ $posts = $stmt->fetchAll();
             <p class="is-size-7 has-text-grey">
               <?= htmlspecialchars(date('M j, Y g:ia', strtotime($p['created_at']))) ?>
             </p>
+            <!-- Create a short, safe preview by stripping tags, limiting length, and escaping -->
             <p><?= htmlspecialchars(mb_strimwidth(strip_tags($p['body']), 0, 240, '…')) ?></p>
           </article>
         <?php endforeach; ?>

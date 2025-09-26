@@ -5,15 +5,15 @@ Extend Project 00 into a working mini‑CMS. You will implement CRUD for a `post
 
 ## Starting Point (Assumes Project 00)
 - Project 00 is complete and working locally (config, templates, flash messages, contact form).
-- `config.php` initializes session/flash and connects to MySQL via PDO.
-- `.htaccess` exists and denies direct access to `config.php` (keep this in Project 01).
+- Copy ALL files and functionality from Project 00 into Project 01 — including `contact.php`, templates, assets, and `.htaccess`.
+- `config.php` initializes session/flash and connects to MySQL via PDO; keep the same behavior here.
+- `.htaccess` must deny direct access to `config.php` in Project 01.
 
-If you do not have these in Project 01 yet, copy them forward from Project 00.
-
+Suggested copy (adjust if your repo is structured differently):
 ```bash
-cp -R projects/00 projects/01
+cp -R projects/00/* projects/01/
 ```
-Then remove anything not needed and proceed with the tasks below.
+Do not remove `contact.php`; it is part of Project 01 and should remain functional.
 
 ---
 
@@ -35,6 +35,7 @@ Then remove anything not needed and proceed with the tasks below.
 ├─ blog_post.php          # Single post view by post_id
 ├─ config.php             # Project config, PDO, flash, helpers
 ├─ index.php              # Homepage and list of posts
+├─ contact.php            # Carried forward from Project 00 (kept)
 ├─ /sql
 │   ├─ schema.sql         # Create `posts` table
 │   └─ seed.sql           # Optional seed data
@@ -42,8 +43,28 @@ Then remove anything not needed and proceed with the tasks below.
     ├─ flash.php
     ├─ footer.php
     ├─ head.php
-    └─ nav.php            # Add Admin → Blog Admin (relative link)
+    └─ nav.php            # Add Admin → Blog Admin (relative link), keep Contact
 ```
+
+---
+
+## Files To Add/Update From Project 00
+- New: `index.php` — replace P00 landing content with latest posts list.
+- New: `blog_post.php` — render single post by `post_id` with timestamps.
+- New: `admin_blog.php` — admin table of posts with Create/Edit/Delete actions.
+- New: `blog_create.php` — create form + handler; validates; PRG on success.
+- New: `blog_edit.php` — edit form + handler; validates; updates slug if title changed.
+- New: `blog_delete.php` — delete confirmation + handler; PRG on success.
+- New: `sql/schema.sql` — creates `posts` table (see script below).
+- New: `sql/seed.sql` — optional seed data for testing.
+- New: `sql/contact_us.sql` — creates `contact_us` table for the Contact form.
+- Update: `config.php` — keep PDO + flash; add `slugify()` helper.
+- Update: `templates/nav.php` — add Admin → Blog Admin link; use `href="admin_blog.php"` (relative); keep the Contact link.
+- Carry over: `contact.php` — Contact form from P00 works in P01.
+- Carry over: `templates/head.php`, `templates/flash.php`, `templates/footer.php` — reuse from Project 00 unchanged.
+- Carry over: `.htaccess` — ensure it denies direct access to `config.php` in this folder.
+
+Tip: you may add additional pages later, but keep all P00 functionality (including Contact) available in P01.
 
 ---
 
@@ -67,13 +88,14 @@ CREATE INDEX idx_posts_updated_at ON posts (updated_at DESC);
 Steps
 - Log in to phpMyAdmin and run the SQL from `/sql/schema.sql`.
 - Optionally run `/sql/seed.sql` to add example posts.
+- If your DB does not already have the Contact form table from Project 00, also run `/sql/contact_us.sql`.
 
 ---
 
 ## Navigation Updates
 - In `templates/nav.php`, add an Admin menu with a link to `admin_blog.php`.
 - Use relative links (e.g., `href="admin_blog.php"`), not root `/admin_blog.php`.
-- If you kept your Project 00 `contact.php`, keep the Contact link; otherwise remove or update it.
+- Keep the Contact link pointing to `contact.php` (Contact is required in Project 01).
 
 ---
 
@@ -143,6 +165,7 @@ php -S 0.0.0.0:8080
 Visit (adjust port as needed):
 - http://localhost:8080/projects/01/index.php
 - http://localhost:8080/projects/01/admin_blog.php
+- http://localhost:8080/projects/01/contact.php
 - Create, edit, and delete a post; verify flashes and redirects.
 - Click a post title on the home page; verify `blog_post.php` renders.
 
@@ -153,7 +176,7 @@ Visit (adjust port as needed):
 - [ ] `config.php` loads; session + PDO configured; `.htaccess` denies access to `config.php`.
 - [ ] `/sql/schema.sql` applied (and optional `/sql/seed.sql`).
 - [ ] `templates/` reused; include order correct; Bulma + BulmaJS present.
-- [ ] `nav.php` has an Admin → Blog Admin link (relative path), Contact link handled appropriately.
+- [ ] `nav.php` has an Admin → Blog Admin link (relative path), and a Contact link.
 - [ ] `index.php` lists newest posts with excerpts; titles link to single view.
 - [ ] `blog_post.php` validates `post_id` and renders title/body with timestamps.
 - [ ] `admin_blog.php` lists posts with Edit/Delete links and Create button.
@@ -161,6 +184,8 @@ Visit (adjust port as needed):
 - [ ] `blog_edit.php` validates and updates; slug regenerates if title changes.
 - [ ] `blog_delete.php` confirms then deletes; PRG with success flash.
 - [ ] All DB access uses prepared statements; all output is escaped.
+- [ ] `contact.php` is present and works (form validates, flashes, and persists to DB as in Project 00).
+- [ ] `contact_us` table exists (created via `/sql/contact_us.sql` if needed).
 
 ---
 

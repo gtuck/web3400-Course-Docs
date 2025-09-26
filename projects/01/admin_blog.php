@@ -1,8 +1,14 @@
 <?php
-// filepath: admin_blog.php
+/*
+  Admin: Posts List
+  - Read-only listing with actions to Create, Edit, and Delete
+  - Links to the public single view for quick preview
+*/
+
 require __DIR__ . '/config.php';
 $pageTitle = 'Blog Admin - ' . ($siteName ?? 'Site');
 
+// Grab all posts ordered by newest first for the admin table
 $stmt = $pdo->query("SELECT id, title, slug, created_at, updated_at FROM posts ORDER BY created_at DESC");
 $rows = $stmt->fetchAll();
 ?>
@@ -40,6 +46,7 @@ $rows = $stmt->fetchAll();
               <td><?= htmlspecialchars(date('Y-m-d H:i', strtotime($r['created_at']))) ?></td>
               <td><?= $r['updated_at'] ? htmlspecialchars(date('Y-m-d H:i', strtotime($r['updated_at']))) : '—' ?></td>
               <td class="has-text-right">
+                <!-- Admin actions link to edit and delete workflows (both use PRG) -->
                 <a class="button is-small is-info" href="blog_edit.php?post_id=<?= (int)$r['id'] ?>">Edit</a>
                 <a class="button is-small is-danger" href="blog_delete.php?post_id=<?= (int)$r['id'] ?>">Delete</a>
               </td>

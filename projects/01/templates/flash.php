@@ -1,5 +1,6 @@
 <?php
-// filepath: projects/00/templates/flash.php
+// Template: Flash notifications
+// - Renders any queued flash() messages and then clears them
 if (!empty($_SESSION['messages'])):
 ?>
   <section class="section">
