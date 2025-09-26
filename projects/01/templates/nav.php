@@ -21,7 +21,12 @@
     </div>
     <div id="navbarMenu" class="navbar-menu">
       <div class="navbar-start">
-        <!-- Admin menu will go here in the future -->
+        <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">Admin</a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="/admin_blog.php">Blog Admin</a>
+        </div>
+      </div>
       </div>
       <div class="navbar-end">
         <a class="navbar-item" href="contact.php">Contact</a>
