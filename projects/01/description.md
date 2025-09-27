@@ -66,7 +66,7 @@ Create the `posts` table and optional seed data.
 CREATE TABLE IF NOT EXISTS posts (
   id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
-  slug VARCHAR(100) NOT NULL UNIQUE,
+  slug VARCHAR(100) NOT NULL UNIQUE
   body MEDIUMTEXT NOT NULL,
   created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
@@ -135,6 +135,115 @@ Steps
 - Keep consistent Bulma styles and components; use BulmaJS to dismiss flash notifications.
 
 ---
+
+## Key PHP Examples
+
+Prepared SELECT (read)
+```php
+// Load one post safely by id
+$stmt = $pdo->prepare('SELECT * FROM posts WHERE id = ? LIMIT 1');
+$stmt->execute([(int)$post_id]);
+$post = $stmt->fetch();
+```
+
+- Why: Prevents SQL injection and keeps SQL/data separate.
+- Used in: [blog_post.php](blog_post.php), [blog_edit.php](blog_edit.php), [blog_delete.php](blog_delete.php)
+
+Prepared INSERT (create)
+```php
+$stmt = $pdo->prepare('INSERT INTO posts (title, slug, body) VALUES (?, ?, ?)');
+$stmt->execute([$title, $slug, $body]);
+```
+
+- Why: Safely writes user-submitted data using placeholders.
+- Used in: [blog_create.php](blog_create.php), [contact.php](contact.php)
+
+Prepared UPDATE (edit)
+```php
+$stmt = $pdo->prepare('UPDATE posts SET title = ?, slug = ?, body = ? WHERE id = ?');
+$stmt->execute([$title, $slug, $body, (int)$post_id]);
+```
+
+- Why: Updates only intended columns; parameters are bound at execution.
+- Used in: [blog_edit.php](blog_edit.php)
+
+Prepared DELETE (remove)
+```php
+$stmt = $pdo->prepare('DELETE FROM posts WHERE id = ?');
+$stmt->execute([(int)$post_id]);
+```
+
+- Why: Removes a specific record by id with safe binding.
+- Used in: [blog_delete.php](blog_delete.php)
+
+PRG pattern (Post → Redirect → Get)
+```php
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  // ... validate + perform DB work ...
+  flash('Action completed.', 'is-success');
+  header('Location: admin_blog.php');
+  exit; // Always exit after header redirect
+}
+```
+
+- Why: Prevents duplicate form resubmissions; results in shareable URLs.
+- Used in: [blog_create.php](blog_create.php), [blog_edit.php](blog_edit.php), [blog_delete.php](blog_delete.php), [contact.php](contact.php)
+
+Validation and sanitization
+```php
+$errors = [];
+if ($title === '' || mb_strlen($title) < 3) {
+  $errors['title'] = 'Title is required (min 3 chars).';
+}
+if ($body === '' || mb_strlen($body) < 10) {
+  $errors['body'] = 'Body is required (min 10 chars).';
+}
+```
+
+- Why: Enforces server-side rules for reliability and security.
+- Used in: [blog_create.php](blog_create.php), [blog_edit.php](blog_edit.php), [contact.php](contact.php)
+
+Unique slug generation
+```php
+$base = slugify($title);
+$slug = $base;
+$i = 2;
+$check = $pdo->prepare('SELECT COUNT(*) FROM posts WHERE slug = ?' . ($excludeId ? ' AND id <> ?' : ''));
+while (true) {
+  $params = $excludeId ? [$slug, (int)$excludeId] : [$slug];
+  $check->execute($params);
+  if ($check->fetchColumn() == 0) break;
+  $slug = $base . '-' . $i++;
+}
+```
+
+- Why: Ensures human-readable, unique slugs for each post.
+- Used in: [blog_create.php](blog_create.php) (no exclude), [blog_edit.php](blog_edit.php) (exclude current id)
+
+Reading and validating query params
+```php
+$post_id = (int)($_GET['post_id'] ?? 0);
+if ($post_id <= 0) {
+  flash('Invalid post id.', 'is-danger');
+  header('Location: index.php');
+  exit;
+}
+```
+
+- Why: Query strings are strings; cast and validate before DB usage.
+- Used in: [blog_post.php](blog_post.php), [blog_edit.php](blog_edit.php), [blog_delete.php](blog_delete.php)
+
+Escaping output safely
+```php
+// Title in an attribute or text node
+<?= htmlspecialchars($post['title'], ENT_QUOTES) ?>
+
+// Preserve newlines for plain text bodies
+<?= nl2br(htmlspecialchars($post['body'], ENT_QUOTES)) ?>
+```
+
+- Why: Prevents XSS by escaping untrusted content in HTML output.
+- Used in: All pages and templates that output user content
 
 ## Test Locally
 From repository root:

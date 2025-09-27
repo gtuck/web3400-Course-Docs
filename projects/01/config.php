@@ -45,7 +45,7 @@ try {
 }
 
 /**
- * Convert a string to a URL-friendly slug.
+ * EXAMPLE: SLUGIFY — Convert a string to a URL-friendly slug.
  * Example: "Hello World!" → "hello-world"
  */
 function slugify(string $text): string {

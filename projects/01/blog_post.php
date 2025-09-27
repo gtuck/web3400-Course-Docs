@@ -7,7 +7,7 @@
 
 require __DIR__ . '/config.php';
 
-// Sanitize and validate the required `post_id` parameter
+// EXAMPLE: QUERY_PARAM — Sanitize and validate the required `post_id` parameter
 $post_id = (int)($_GET['post_id'] ?? 0);
 if ($post_id <= 0) {
   // Use Bulma style classes (e.g., is-danger). Keep message short and helpful.
@@ -16,7 +16,7 @@ if ($post_id <= 0) {
   exit;
 }
 
-// Fetch the post with a prepared statement
+// EXAMPLE: PREPARED_SELECT — Fetch the post with a prepared statement
 $stmt = $pdo->prepare("SELECT * FROM posts WHERE id = ? LIMIT 1");
 $stmt->execute([$post_id]);
 $post = $stmt->fetch();
@@ -39,7 +39,7 @@ $pageTitle = ($post ? $post['title'] : 'Post Not Found') . ' - ' . ($siteName ??
         Created <?= htmlspecialchars(date('M j, Y g:ia', strtotime($post['created_at']))) ?>
         <?php if ($post['updated_at']): ?> · Updated <?= htmlspecialchars(date('M j, Y g:ia', strtotime($post['updated_at']))) ?><?php endif; ?>
       </p>
-      <!-- Escape and convert line breaks so plain text bodies render nicely -->
+      <!-- EXAMPLE: ESCAPING_OUTPUT — Escape and convert line breaks so plain text bodies render nicely -->
       <div class="content"><?= nl2br(htmlspecialchars($post['body'])) ?></div>
     <?php endif; ?>
   </div>

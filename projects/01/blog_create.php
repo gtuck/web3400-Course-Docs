@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $title = trim($_POST['title'] ?? '');
   $body  = trim($_POST['body'] ?? '');
 
-  // Server-side validation rules
+  // EXAMPLE: VALIDATION — Server-side validation rules
   if ($title === '' || mb_strlen($title) < 3) {
     $errors['title'] = 'Title is required (min 3 chars).';
   }
@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   if (!$errors) {
-    // Compute a URL-friendly base slug from the title, then ensure uniqueness
+    // EXAMPLE: UNIQUE_SLUG — Compute a URL-friendly base slug from the title, then ensure uniqueness
     $base = slugify($title);
     $slug = $base;
     $i = 2;
@@ -38,10 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       $slug = $base . '-' . $i++;
     }
 
-    // Insert the post using a prepared statement
+    // EXAMPLE: PREPARED_INSERT — Insert the post using a prepared statement
     $stmt = $pdo->prepare("INSERT INTO posts (title, slug, body) VALUES (?, ?, ?)");
     $stmt->execute([$title, $slug, $body]);
 
+    // EXAMPLE: PRG — Flash a message and redirect to avoid form resubmission
     flash('Post created.', 'is-success');
     header('Location: admin_blog.php'); exit;
   }

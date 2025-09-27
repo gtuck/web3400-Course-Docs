@@ -7,7 +7,7 @@
 
 require __DIR__ . '/config.php';
 
-// Validate and load the target post
+// EXAMPLE: QUERY_PARAM — Validate and load the target post
 $post_id = (int)($_GET['post_id'] ?? 0);
 if ($post_id <= 0) { flash('Invalid post id.', 'is-danger'); header('Location: admin_blog.php'); exit; }
 
@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $title = trim($_POST['title'] ?? '');
   $body  = trim($_POST['body'] ?? '');
 
-  // Validation rules
+  // EXAMPLE: VALIDATION — Enforce simple server-side rules
   if ($title === '' || mb_strlen($title) < 3) {
     $errors['title'] = 'Title is required (min 3 chars).';
   }
@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
 
   if (!$errors) {
-    // If title changed, recompute a slug and ensure uniqueness, excluding this record
+    // EXAMPLE: UNIQUE_SLUG — If title changed, recompute a slug and ensure uniqueness (exclude this id)
     $slug = $post['slug'];
     if ($title !== $post['title']) {
       $base = slugify($title);
@@ -51,10 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }
     }
 
-    // Persist the changes
+    // EXAMPLE: PREPARED_UPDATE — Persist the changes using a prepared statement
     $upd = $pdo->prepare("UPDATE posts SET title = ?, slug = ?, body = ? WHERE id = ?");
     $upd->execute([$title, $slug, $body, $post_id]);
 
+    // EXAMPLE: PRG — Flash and redirect to avoid resubmission
     flash('Post updated.', 'is-success');
     header('Location: admin_blog.php'); exit;
   }

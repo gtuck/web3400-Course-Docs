@@ -7,11 +7,11 @@
 
 require __DIR__ . '/config.php';
 
-// Accept `post_id` from GET (first load) or POST (confirm submit)
+// EXAMPLE: QUERY_PARAM — Accept `post_id` from GET (first load) or POST (confirm submit)
 $post_id = (int)($_GET['post_id'] ?? ($_POST['post_id'] ?? 0));
 if ($post_id <= 0) { flash('Invalid post id.', 'is-danger'); header('Location: admin_blog.php'); exit; }
 
-// Load minimal post info for confirmation UI
+// EXAMPLE: PREPARED_SELECT — Load minimal post info for confirmation UI
 $stmt = $pdo->prepare("SELECT id, title, created_at FROM posts WHERE id = ? LIMIT 1");
 $stmt->execute([$post_id]);
 $post = $stmt->fetch();
@@ -19,8 +19,10 @@ if (!$post) { flash('Post not found.', 'is-danger'); header('Location: admin_blo
 
 // If confirmed via POST, delete and redirect back to admin list
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+  // EXAMPLE: PREPARED_DELETE — Delete with a prepared statement
   $del = $pdo->prepare("DELETE FROM posts WHERE id = ?");
   $del->execute([$post_id]);
+  // EXAMPLE: PRG — Flash and redirect after mutating
   flash('Post deleted.', 'is-success');
   header('Location: admin_blog.php'); exit;
 }
