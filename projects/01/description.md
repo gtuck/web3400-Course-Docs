@@ -55,7 +55,7 @@ touch schema.sql, seed.sql, contact_us.sql
 ---
 
 ## Files To Add/Update From Project 00
-- New: `index.php` — replace P00 landing content with latest posts list.
+- Update: `index.php` — replace P00 landing content with latest posts list.
 - New: `blog_post.php` — render single post by `post_id` with timestamps.
 - New: `admin_blog.php` — admin table of posts with Create/Edit/Delete actions.
 - New: `blog_create.php` — create form + handler; validates; PRG on success.
