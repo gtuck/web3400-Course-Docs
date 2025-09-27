@@ -73,17 +73,7 @@ touch schema.sql, seed.sql, contact_us.sql
 Create the `posts` table and optional seed data.
 
 ```sql
-CREATE TABLE IF NOT EXISTS posts (
-  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  title VARCHAR(255) NOT NULL,
-  slug VARCHAR(100) NOT NULL UNIQUE
-  body MEDIUMTEXT NOT NULL,
-  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
-);
-
-CREATE INDEX idx_posts_created_at ON posts (created_at DESC);
-CREATE INDEX idx_posts_updated_at ON posts (updated_at DESC);
+Seed SQL code in sql/schema.sql and sql/seed.sql files
 ```
 
 Steps
