@@ -18,6 +18,16 @@ cp -R projects/00/ projects/01/
 - Admin pages: `admin_blog.php` (list + create button), `blog_create.php`, `blog_edit.php`, `blog_delete.php`.
 - Shared templates used on every page: `templates/head.php`, `templates/nav.php`, `templates/flash.php`, `templates/footer.php`.
 
+Quick scaffold (optional)
+```bash
+# From repo root
+cd projects/01
+touch admin_blog.php, blog_create.php, blog_delete.php, blog_edit.php, blog_post.php
+mkdir sql
+cd sql
+touch schema.sql, seed.sql, contact_us.sql
+```
+
 ---
 
 ## Folder Structure
@@ -30,7 +40,7 @@ cp -R projects/00/ projects/01/
 ├─ blog_post.php          # Single post view by post_id
 ├─ config.php             # Project config, PDO, flash, helpers
 ├─ index.php              # Homepage and list of posts
-├─ contact.php            # Carried forward from Project 00 (kept)
+├─ contact.php            
 ├─ /sql
 │   ├─ contact_us.sql  
 │   ├─ schema.sql         # Create `posts` table
