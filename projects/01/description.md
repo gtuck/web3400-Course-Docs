@@ -73,7 +73,7 @@ touch schema.sql, seed.sql, contact_us.sql
 Create the `posts` table and optional seed data.
 
 ```sql
-Seed SQL code in sql/schema.sql and sql/seed.sql files
+-See SQL code in sql/schema.sql and sql/seed.sql files
 ```
 
 Steps
