@@ -71,7 +71,6 @@ touch schema.sql seed.sql contact_us.sql
 
 ## Database Setup
 Create the `posts` table and optional seed data.  
-[blog_post.php](blog_post.php)
 
 -See SQL code in [sql/schema.sql](sql/schema.sql) and [sql/seed.sql](sql/seed.sql) files
 
