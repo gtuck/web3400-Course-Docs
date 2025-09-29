@@ -22,10 +22,10 @@ Quick scaffold (optional)
 ```bash
 # From repo root
 cd projects/01
-touch admin_blog.php, blog_create.php, blog_delete.php, blog_edit.php, blog_post.php
+touch admin_blog.php blog_create.php blog_delete.php blog_edit.php blog_post.php
 mkdir sql
 cd sql
-touch schema.sql, seed.sql, contact_us.sql
+touch schema.sql seed.sql contact_us.sql
 ```
 
 ---
@@ -70,11 +70,11 @@ touch schema.sql, seed.sql, contact_us.sql
 ---
 
 ## Database Setup
-Create the `posts` table and optional seed data.
+Create the `posts` table and optional seed data.  
+[blog_post.php](blog_post.php)
 
-```sql
--See SQL code in sql/schema.sql and sql/seed.sql files
-```
+-See SQL code in [sql/schema.sql](sql/schema.sql) and [sql/seed.sql](sql/seed.sql) files
+
 
 Steps
 - Log in to phpMyAdmin and run the SQL from `/sql/schema.sql`.
@@ -86,11 +86,39 @@ Steps
 - In `templates/nav.php`, add an Admin menu with a link to `admin_blog.php`.
 - Use relative links (e.g., `href="admin_blog.php"`).
 
+```html
+<div class="navbar-item has-dropdown is-hoverable">
+    <a class="navbar-link">Admin</a>
+        <div class="navbar-dropdown">
+            <a class="navbar-item" href="admin_blog.php">Blog Admin</a>
+        </div>
+</div>
+```
+
 ---
 
 ## Config & Helpers
 - Keep your Project 00 `config.php` and extend it with a small `slugify()` helper for generating URL‑friendly slugs from titles.
 
+```php
+/**
+ * EXAMPLE: SLUGIFY — Convert a string to a URL-friendly slug.
+ * Example: "Hello World!" → "hello-world"
+ */
+function slugify(string $text): string {
+  $text = trim($text);
+  if (function_exists('iconv')) {
+    $text = iconv('UTF-8', 'ASCII//TRANSLIT', $text);
+  }
+  // Replace non letters/digits with hyphens
+  $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+  $text = trim($text, '-');
+  $text = strtolower($text);
+  // Remove any remaining invalid chars
+  $text = preg_replace('~[^-a-z0-9]+~', '', $text);
+  return $text ?: 'post';
+}
+```
 ---
 
 ## Page Requirements
