@@ -17,6 +17,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: _lectures   # 👈 run steps inside your Slidev folder
 
     steps:
       - uses: actions/checkout@v4
@@ -24,22 +27,30 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
+          cache: 'npm'
+          cache-dependency-path: _lectures/package-lock.json  # adjust if you use pnpm/yarn
+
+      - name: Enable corepack (for pnpm/yarn users)
+        run: corepack enable
 
       - name: Setup @antfu/ni
         run: npm i -g @antfu/ni
 
       - name: Install dependencies
-        run: nci
+        run: nci   # ni/ci picks the right package manager based on your lockfile
 
+      # If your package.json has "build": "slidev build"
+      # we'll pass the correct base for GitHub Pages.
       - name: Build
-        run: nr build --base /${{github.event.repository.name}}/
+        run: nr build --base /${{ github.event.repository.name }}/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
-      - uses: actions/upload-pages-artifact@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          path: _lectures/dist   # 👈 artifact path from the subfolder
 
   deploy:
     environment:
