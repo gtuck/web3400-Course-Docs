@@ -58,7 +58,7 @@ The **Model-View-Controller** pattern separates an application into three interc
 
 ### Flow of Execution
 ```
-User Request  ➡️ Controller  ➡️ Model (fetch data)  ➡️ Controller  ➡️ View (display)  ➡️ Response
+User Request ➡️ Controller ➡️ Model (fetch data) ➡️ Controller ➡️ View (display) ➡️ Response
 ```
 
 ---
@@ -421,7 +421,7 @@ http://localhost:8080/projects/02/index.php
 6. Follow **PSR standards**: StudlyCaps for classes, camelCase for methods
 7. Same output + better organized code = **successful refactoring**
 
-**Start simple  ➡️ Refactor to MVC  ➡️ Scale confidently**
+**Start simple ➡️ Refactor to MVC ➡️ Scale confidently**
 
 ---
 
@@ -437,5 +437,4 @@ https://github.com/YOUR-USER/YOUR-REPO/blob/main/projects/02/
 ## Additional Resources
 
 - [PHP-FIG PSR Standards](https://www.php-fig.org/psr/)
-- [Lecture Slides](files/slides.md)
 - [MVC Pattern Documentation](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller)
