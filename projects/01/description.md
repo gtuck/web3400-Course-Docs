@@ -122,7 +122,7 @@ function slugify(string $text): string {
 
 ## Page Requirements
 
-### [`index.php` (Read)](index.php)
+### `index.php` (Read)
 - Query the latest posts (e.g., 10 newest).
 - Show title (links to `blog_post.php?post_id=ID`), created date, and a short excerpt.
 
