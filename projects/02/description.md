@@ -278,12 +278,12 @@ Original monolithic script (your starting point).
 
 ### PSR Naming Standards
 - **Classes:** `StudlyCaps` - First letter of each word capitalized
-  -  `Model`, `Controller`, `PostModel`
-  -  `model`, `CONTROLLER`, `post_model`
+  - `Model`, `Controller`, `PostModel`
+  - `model`, `CONTROLLER`, `post_model`
 
 - **Methods:** `camelCase` - First word lowercase, subsequent words capitalized
-  -  `getData()`, `findById()`, `updatePost()`
-  -  `get_data()`, `GetData()`, `UPDATE_POST()`
+  - `getData()`, `findById()`, `updatePost()`
+  - `get_data()`, `GetData()`, `UPDATE_POST()`
 
 ### Security Best Practices
 - Always use `htmlspecialchars()` when outputting user data
@@ -338,48 +338,48 @@ Easy to find and fix issues - you know exactly where to look:
 
 ## Grading Checklist
 
-- [ ] **Project 02 exists** at `projects/02/` and runs without errors
-  - [ ] **`model.php` created** with a `Model` class
-  - [ ] Class name uses StudlyCaps (`Model`, not `model`)
-  - [ ] Contains `getData()` method that returns an array
-  - [ ] Method uses camelCase naming
-  - [ ] Database connection code is inside `getData()`
-  - [ ] Query retrieves all posts from database
-  - [ ] Returns data using `fetchAll(PDO::FETCH_ASSOC)`
+- **Project 02 exists** at `projects/02/` and runs without errors
+  - **`model.php` created** with a `Model` class
+  - Class name uses StudlyCaps (`Model`, not `model`)
+  - Contains `getData()` method that returns an array
+  - Method uses camelCase naming
+  - Database connection code is inside `getData()`
+  - Query retrieves all posts from database
+  - Returns data using `fetchAll(PDO::FETCH_ASSOC)`
 
-- [ ] **`view.php` created** with HTML template only
-  - [ ] Contains complete HTML document structure
-  - [ ] Has `foreach` loop to display posts
-  - [ ] Uses `htmlspecialchars()` to escape output
-  - [ ] No database logic present
-  - [ ] Uses `$posts` variable from Controller
+- **`view.php` created** with HTML template only
+  - Contains complete HTML document structure
+  - Has `foreach` loop to display posts
+  - Uses `htmlspecialchars()` to escape output
+  - No database logic present
+  - Uses `$posts` variable from Controller
 
-- [ ] **`controller.php` created** with a `Controller` class
-  - [ ] Class name uses StudlyCaps
-  - [ ] Contains `index()` method (camelCase)
-  - [ ] Requires `model.php`
-  - [ ] Creates Model instance
-  - [ ] Calls `getData()` and stores result
-  - [ ] Requires `view.php` after getting data
+- **`controller.php` created** with a `Controller` class
+  - Class name uses StudlyCaps
+  - Contains `index()` method (camelCase)
+  - Requires `model.php`
+  - Creates Model instance
+  - Calls `getData()` and stores result
+  - Requires `view.php` after getting data
 
-- [ ] **`index.php` simplified** to entry point only
-  - [ ] Requires `controller.php`
-  - [ ] Creates Controller instance
-  - [ ] Calls `index()` method
-  - [ ] Contains no database or HTML code
-  - [ ] Is clean and simple (about 5 lines total)
+- **`index.php` simplified** to entry point only
+  - Requires `controller.php`
+  - Creates Controller instance
+  - Calls `index()` method
+  - Contains no database or HTML code
+  - Is clean and simple (about 5 lines total)
 
-- [ ] **Functionality preserved**
-  - [ ] Page displays same output as original script
-  - [ ] Posts display with title and body
-  - [ ] No errors when loading the page
-  - [ ] Browser output is identical to starting point
+- **Functionality preserved**
+  - Page displays same output as original script
+  - Posts display with title and body
+  - No errors when loading the page
+  - Browser output is identical to starting point
 
-- [ ] **Code quality**
-  - [ ] Follows PSR naming conventions
-  - [ ] Proper indentation and formatting
-  - [ ] Comments are clear (if included)
-  - [ ] No unused code or files
+- **Code quality**
+  - Follows PSR naming conventions
+  - Proper indentation and formatting
+  - Comments are clear (if included)
+  - No unused code or files
 
 ---
 
