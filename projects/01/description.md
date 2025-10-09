@@ -125,6 +125,7 @@ function slugify(string $text): string {
 ### `index.php` (Read)
 - Query the latest posts (e.g., 10 newest).
 - Show title (links to `blog_post.php?post_id=ID`), created date, and a short excerpt.
+- [index.php](index.php)
 
 ### `blog_post.php` (Read single)
 - Accept `post_id` (integer) in the query string.
