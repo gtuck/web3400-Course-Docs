@@ -1,18 +1,24 @@
 ---
 theme: default
-title: WEB 3400
+title: Course Name
 ---
 
-# WEB 3400
+# Course Title
 
-Welcome to LAMP stack!
+Welcome to the WEB 3400!
 
 ---
 
 ## Table of Contents
 
-1. [Lecture 2: PRG to MVC](#prg-to-mvc)
+1. [Lecture 1: Introduction](#lecture-01)
+2. [Lecture 2: PRG to MVC](#prg-to-mvc)
+
+---
+src: ./decks/lecture-01.md
+---
 
 ---
 src: ./decks/prg-to-mvc.md
 ---
+

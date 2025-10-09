@@ -74,20 +74,42 @@ It also introduced a basic request–response flow, which becomes crucial for un
 ---
 
 ## The PRG Flow (Visually)
-<br><br><br>
-```mermaid
-%%{init: {'theme':'dark', 'themeVariables': { 'primaryColor':'#1E3A8A','primaryTextColor':'#F9FAFB','primaryBorderColor':'#4B5563','lineColor':'#9CA3AF','secondaryColor':'#065F46','tertiaryColor':'#9A3412'}}}%%
-graph LR
-    A[Form<br/>User Input] -->|POST| B[POST<br/>Process Data]
-    B -->|Redirect| C[GET<br/>Fetch Data]
-    C -->|Render| D[Render Page<br/>Display]
-    D -.->|User sees result| A
-    
-    style A fill:#374151,stroke:#4B5563,color:#F9FAFB
-    style B fill:#1E3A8A,stroke:#4B5563,color:#F9FAFB
-    style C fill:#065F46,stroke:#4B5563,color:#F9FAFB
-    style D fill:#9A3412,stroke:#4B5563,color:#F9FAFB
-```
+
+<div class="grid place-items-center">
+<svg width="900" height="360" viewBox="0 0 900 360" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6B7280"/>
+    </marker>
+    <filter id="shadow"><feDropShadow dx="0" dy="2" stdDeviation="4" flood-opacity="0.15"/></filter>
+    <style>
+      .box { rx: 14; ry: 14; stroke: #1a1a1a; stroke-opacity: .1; filter: url(#shadow);}
+      .label { font: 600 16px/1.2 ui-sans-serif; fill: #111827; }
+      .sub { font: 12px ui-sans-serif; fill: #374151; }
+      .arrow { stroke: #6B7280; stroke-width: 2.5; marker-end: url(#arrowhead); fill:none; }
+    </style>
+  </defs>
+
+  <rect x="40" y="140" width="140" height="80" class="box" fill="#E5E7EB"/>
+  <text x="110" y="175" text-anchor="middle" class="label">Form</text>
+  <text x="110" y="195" text-anchor="middle" class="sub">User Input</text>
+
+  <rect x="260" y="40" width="180" height="80" class="box" fill="#DBEAFE"/>
+  <text x="350" y="75" text-anchor="middle" class="label">POST</text>
+
+  <rect x="260" y="240" width="180" height="80" class="box" fill="#D1FAE5"/>
+  <text x="350" y="275" text-anchor="middle" class="label">GET</text>
+
+  <rect x="500" y="140" width="180" height="80" class="box" fill="#FFEDD5"/>
+  <text x="590" y="175" text-anchor="middle" class="label">Render Page</text>
+
+  <path d="M180 180 L260 80" class="arrow"/>
+  <path d="M440 80 L590 140" class="arrow"/>
+  <path d="M590 220 L440 280" class="arrow"/>
+  <path d="M260 280 L180 180" class="arrow"/>
+
+</svg>
+</div>
 
 ---
 
@@ -143,25 +165,48 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 ## Transitioning the Flow – PRG → MVC
 
-<br><br><br>
 <v-clicks>
 
-```mermaid
-%%{init: {'theme':'dark', 'themeVariables': { 'primaryColor':'#1E3A8A','primaryTextColor':'#F9FAFB','primaryBorderColor':'#4B5563','lineColor':'#9CA3AF','secondaryColor':'#065F46','tertiaryColor':'#9A3412'}}}%%
-graph LR
-    User[User<br/>Form / Click] -->|Request| Controller[Controller<br/>Handles POST / routes]
-    Controller -->|Query| Model[Model<br/>Database logic]
-    Model -->|Data| Controller
-    Controller -->|Render| View[View<br/>Displays HTML]
-    View -->|HTML| Response[Response]
-    Response -.->|Display| User
-    
-    style User fill:#374151,stroke:#4B5563,color:#F9FAFB
-    style Controller fill:#1E3A8A,stroke:#4B5563,color:#F9FAFB
-    style Model fill:#065F46,stroke:#4B5563,color:#F9FAFB
-    style View fill:#9A3412,stroke:#4B5563,color:#F9FAFB
-    style Response fill:#374151,stroke:#4B5563,color:#F9FAFB
-```
+<div class="grid place-items-center">
+<svg width="900" height="420" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#6B7280"/>
+    </marker>
+    <style>
+      .box { rx: 14; ry: 14; stroke: #1a1a1a; stroke-opacity:.1; }
+      .label { font: 600 16px/1.2 ui-sans-serif; fill:#111827;}
+      .sub { font:12px ui-sans-serif; fill:#374151;}
+      .arrow { stroke:#6B7280; stroke-width:2.5; marker-end:url(#arrowhead); fill:none;}
+    </style>
+  </defs>
+
+  <rect x="60" y="170" width="120" height="80" class="box" fill="#E5E7EB"/>
+  <text x="120" y="205" text-anchor="middle" class="label">User</text>
+  <text x="120" y="225" text-anchor="middle" class="sub">Form / Click</text>
+
+  <rect x="260" y="70" width="160" height="80" class="box" fill="#DBEAFE"/>
+  <text x="340" y="105" text-anchor="middle" class="label">Controller</text>
+  <text x="340" y="125" text-anchor="middle" class="sub">Handles POST / routes</text>
+
+  <rect x="260" y="270" width="160" height="80" class="box" fill="#FFEDD5"/>
+  <text x="340" y="305" text-anchor="middle" class="label">View</text>
+  <text x="340" y="325" text-anchor="middle" class="sub">Displays HTML</text>
+
+  <rect x="500" y="170" width="160" height="80" class="box" fill="#D1FAE5"/>
+  <text x="580" y="205" text-anchor="middle" class="label">Model</text>
+  <text x="580" y="225" text-anchor="middle" class="sub">Database logic</text>
+
+  <rect x="740" y="170" width="120" height="80" class="box" fill="#E5E7EB"/>
+  <text x="800" y="205" text-anchor="middle" class="label">Response</text>
+
+  <path d="M180 210 L260 110" class="arrow"/>
+  <path d="M420 110 L500 210" class="arrow"/>
+  <path d="M500 210 L420 310" class="arrow"/>
+  <path d="M260 310 L180 210" class="arrow"/>
+  <path d="M660 210 L740 210" class="arrow"/>
+</svg>
+</div>
 
 </v-clicks>
 
@@ -299,23 +344,55 @@ public function create() {
 
 ## Full MVC Flow
 
-<br><br><br>
-```mermaid
-%%{init: {'theme':'dark', 'themeVariables': { 'primaryColor':'#1E3A8A','primaryTextColor':'#F9FAFB','primaryBorderColor':'#4B5563','lineColor':'#9CA3AF','secondaryColor':'#065F46','tertiaryColor':'#9A3412'}}}%%
-graph RL
-    User[User<br/>Click / Submit] -->|1. Request| Controller[Controller<br/>Request handling & routing]
-    Controller -->|2. Query| Model[Model<br/>Data & business logic PDO]
-    Model -->|3. Return Data| Controller
-    Controller -->|4. Pass Data| View[View<br/>HTML rendering / templates]
-    View -->|5. Generate HTML| Response[Response<br/>HTML / Redirect]
-    Response -->|6. Display| User
-    
-    style User fill:#374151,stroke:#4B5563,color:#F9FAFB,stroke-width:2px
-    style Controller fill:#1E3A8A,stroke:#4B5563,color:#F9FAFB,stroke-width:2px
-    style Model fill:#065F46,stroke:#4B5563,color:#F9FAFB,stroke-width:2px
-    style View fill:#9A3412,stroke:#4B5563,color:#F9FAFB,stroke-width:2px
-    style Response fill:#374151,stroke:#4B5563,color:#F9FAFB,stroke-width:2px
+```text
+User → Controller → Model → Controller → View → Response
 ```
+
+<div class="grid place-items-center">
+  <svg width="900" height="420" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="3" stdDeviation="6" flood-opacity="0.15"/>
+      </filter>
+      <style>
+        .box { rx: 14; ry: 14; stroke: #1a1a1a; stroke-opacity: .1; filter: url(#shadow); }
+        .label { font: 600 16px/1.2 ui-sans-serif, system-ui; fill: #111827; }
+        .sub { font: 12px ui-sans-serif; fill: #374151; }
+        .arrow { stroke: #6B7280; stroke-width: 2.5; marker-end: url(#arrowhead); fill: none; }
+      </style>
+      <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+        <polygon points="0 0, 10 3.5, 0 7" fill="#6B7280"/>
+      </marker>
+    </defs>
+
+    <rect x="40" y="165" width="120" height="90" class="box" fill="#E5E7EB"/>
+    <text x="100" y="200" text-anchor="middle" class="label">User</text>
+    <text x="100" y="222" text-anchor="middle" class="sub">Click / Submit</text>
+
+    <rect x="220" y="60" width="200" height="110" class="box" fill="#DBEAFE"/>
+    <text x="320" y="100" text-anchor="middle" class="label">Controller</text>
+    <text x="320" y="122" text-anchor="middle" class="sub">Request handling & routing</text>
+
+    <rect x="500" y="60" width="200" height="110" class="box" fill="#D1FAE5"/>
+    <text x="600" y="100" text-anchor="middle" class="label">Model</text>
+    <text x="600" y="122" text-anchor="middle" class="sub">Data & business logic (PDO)</text>
+
+    <rect x="500" y="250" width="200" height="110" class="box" fill="#FFEDD5"/>
+    <text x="600" y="290" text-anchor="middle" class="label">View</text>
+    <text x="600" y="312" text-anchor="middle" class="sub">HTML rendering / templates</text>
+
+    <rect x="770" y="165" width="120" height="90" class="box" fill="#E5E7EB"/>
+    <text x="830" y="200" text-anchor="middle" class="label">Response</text>
+    <text x="830" y="222" text-anchor="middle" class="sub">HTML / Redirect</text>
+
+    <path d="M160 210 L220 115" class="arrow"/>
+    <path d="M420 115 L500 115" class="arrow"/>
+    <path d="M700 115 L770 210" class="arrow"/>
+    <path d="M770 210 L700 305" class="arrow"/>
+    <path d="M500 305 L420 115" class="arrow" />
+    <path d="M220 115 L160 210" class="arrow" stroke-dasharray="6 6"/>
+  </svg>
+</div>
 
 ---
 
@@ -433,7 +510,7 @@ if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 **B)** View  
 **C)** Controller  
 
-**Answer:** Could be A or C! 
+**Answer:** Could be either! 
 - **Basic format validation** → **Controller** (sanitizing input)
 - **Business rules** → **Model** (e.g., "email must be unique in database")
 
@@ -538,12 +615,41 @@ You'll **build YOUR OWN MVC framework** from scratch:
 **Project 03** → Add authentication (Users, sessions, login/logout)  
 **Project 04** → Enhance with middleware (Auth guards, CSRF protection)  
 **Project 05** → Refine models (Relationships, query builders)  
+**Project 06** → Add file uploads (Image handling, validation)  
+**Project 07** → Optimize performance (Caching, pagination)  
 **Final Project** → Your framework at its best!
 
 Each project adds features to YOUR framework.  
 Each improvement makes YOUR next project easier.
 
 **Comparison point:** Laravel took years to evolve. You'll do it in one semester.
+
+</v-clicks>
+
+---
+
+## Homework Before Next Class
+
+**Action Items:**
+
+<v-clicks>
+
+**1. Identify Code Smells** in your Project 01:
+   - Find your longest function (>30 lines?)
+   - Spot repeated database queries
+   - Notice HTML mixed with SQL
+
+**2. Mark Three Sections** in one file (print or screenshot):
+   - 🟦 **Blue** = Controller logic (if statements, redirects)
+   - 🟩 **Green** = Model logic (database, validation)
+   - 🟧 **Orange** = View logic (HTML, echo statements)
+
+**3. Bring Questions:**
+   - Which file confused you most?
+   - What pattern do you see repeated?
+   - Where would YOU put the validation?
+
+📸 *Screenshot your marked-up code to share in class*
 
 </v-clicks>
 
@@ -607,13 +713,13 @@ Before the next project:
 
 Before leaving today, make sure you can:
 
-- Explain what each MVC layer does in one sentence
-- Identify which layer handles database queries
-- Identify which layer handles user input
-- Identify which layer handles HTML output
-- Sketch the MVC flow from memory
-- Explain why separation of concerns matters
-- Mark up one of your files with colored layers
+- [ ] Explain what each MVC layer does in one sentence
+- [ ] Identify which layer handles database queries
+- [ ] Identify which layer handles user input
+- [ ] Identify which layer handles HTML output
+- [ ] Sketch the MVC flow from memory
+- [ ] Explain why separation of concerns matters
+- [ ] Mark up one of your files with colored layers
 
 💡 **If you can't check all boxes, ask now!**
 
@@ -621,7 +727,8 @@ Before leaving today, make sure you can:
 
 ## Next Steps
 
-**Before Next Class:**
+**Before Next Class (Due: [Date]):**
+1. ✅ Complete the code-marking homework
 2. ✅ Review the PRG→MVC mapping table
 3. ✅ Prepare questions about your messiest file
 4. ✅ Install any needed tools (we'll confirm in class)
@@ -634,11 +741,24 @@ Before leaving today, make sure you can:
 
 **By End of Project 02:**
 🚀 You'll have built **YOUR reusable PHP MVC framework**!  
-🚀 You'll use it for **Projects 03, 04, 05, and the Final**!  
+🚀 You'll use it for **Projects 03, 04, 05, 06, 07, and the Final**!  
 🚀 You'll **never write spaghetti code** again!
 
 **This semester = Building, using, and refining YOUR framework**
 
+---
+
+## Questions?
+
+💬 **Discussion Prompts:**
+- What excites you most about MVC?
+- What concerns you about the transition?
+- Which part of your Project 01 will be easiest to refactor?
+- Which part will be hardest?
+
+**Office Hours:** [Link to calendar]  
+**Resources:** [Link to supplementary materials]  
+**Discussion Board:** [Link for async questions]
 
 ---
 layout: center
@@ -649,5 +769,7 @@ layout: center
 *MVC isn't just a pattern—it's a mindset*
 
 **Your framework. Your code. Your journey.**
+
+**See you next class with your marked-up code!**
 
 ---
