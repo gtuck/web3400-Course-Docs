@@ -78,7 +78,7 @@ It also introduced a basic request–response flow, which becomes crucial for un
 ```mermaid
 %%{init: {'theme':'dark', 'themeVariables': { 'primaryColor':'#1E3A8A','primaryTextColor':'#F9FAFB','primaryBorderColor':'#4B5563','lineColor':'#9CA3AF','secondaryColor':'#065F46','tertiaryColor':'#9A3412'}}}%%
 graph LR
-    A[Form<br/>👤 User Input] -->|POST| B[POST<br/>Process Data]
+    A[Form<br/>User Input] -->|POST| B[POST<br/>Process Data]
     B -->|Redirect| C[GET<br/>Fetch Data]
     C -->|Render| D[Render Page<br/>Display]
     D -.->|User sees result| A
@@ -149,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ```mermaid
 %%{init: {'theme':'dark', 'themeVariables': { 'primaryColor':'#1E3A8A','primaryTextColor':'#F9FAFB','primaryBorderColor':'#4B5563','lineColor':'#9CA3AF','secondaryColor':'#065F46','tertiaryColor':'#9A3412'}}}%%
 graph LR
-    User[👤 User<br/>Form / Click] -->|Request| Controller[Controller<br/>Handles POST / routes]
+    User[User<br/>Form / Click] -->|Request| Controller[Controller<br/>Handles POST / routes]
     Controller -->|Query| Model[Model<br/>Database logic]
     Model -->|Data| Controller
     Controller -->|Render| View[View<br/>Displays HTML]
@@ -302,31 +302,19 @@ public function create() {
 <br><br><br>
 ```mermaid
 %%{init: {'theme':'dark', 'themeVariables': { 'primaryColor':'#1E3A8A','primaryTextColor':'#F9FAFB','primaryBorderColor':'#4B5563','lineColor':'#9CA3AF','secondaryColor':'#065F46','tertiaryColor':'#9A3412'}}}%%
-flowchart LR
-    %% Define elements
-    U["👤 User
-    (Client)"]
-    C[Controller]
-    M[(Model)]
-    D[(Database)]
-    V[[View]]
+graph RL
+    User[User<br/>Click / Submit] -->|1. Request| Controller[Controller<br/>Request handling & routing]
+    Controller -->|2. Query| Model[Model<br/>Data & business logic PDO]
+    Model -->|3. Return Data| Controller
+    Controller -->|4. Pass Data| View[View<br/>HTML rendering / templates]
+    View -->|5. Generate HTML| Response[Response<br/>HTML / Redirect]
+    Response -->|6. Display| User
     
-    %% Arrows and labels
-    U -->|Request| C
-    C -->|Response| U
-    C -->|Data| V
-    V -->|Data| C
-    C -->|Data| M
-    M -->|Data| C
-    M -->|Data| D
-    D -->|Data| M
-    
-    %% Styling
-    style C fill:#f6b26b,stroke:#cc7722,stroke-width:2px,color:#000
-    style M fill:#93c47d,stroke:#38761d,stroke-width:2px,color:#000
-    style V fill:#9fc5e8,stroke:#134f84,stroke-width:2px,color:#000
-    style U fill:#f6a960,stroke:#b45f06,stroke-width:2px,color:#000
-    style D fill:#d9d9d9,stroke:#666,stroke-width:2px,color:#000
+    style User fill:#374151,stroke:#4B5563,color:#F9FAFB,stroke-width:2px
+    style Controller fill:#1E3A8A,stroke:#4B5563,color:#F9FAFB,stroke-width:2px
+    style Model fill:#065F46,stroke:#4B5563,color:#F9FAFB,stroke-width:2px
+    style View fill:#9A3412,stroke:#4B5563,color:#F9FAFB,stroke-width:2px
+    style Response fill:#374151,stroke:#4B5563,color:#F9FAFB,stroke-width:2px
 ```
 
 ---
