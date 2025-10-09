@@ -5,36 +5,8 @@
 - Describe the MVC pattern and responsibilities of Model, View, Controller.
 - Trace the request lifecycle in a front‑controller MVC.
 - Build core pieces of a micro MVC: router, controller base, view renderer.
-- Implement a simple homepage through Controller → View → Layout.
-- Understand how existing PRG scripts map to MVC for future refactors.
-
----
-
-## Vocabulary
-- Concern: A single, well‑defined responsibility (e.g., routing, rendering, data access).
-- Bootstrap: Minimal startup code that prepares the app (autoload, session) before handling requests.
-- Orchestrate: What controllers do — coordinate request data, business logic, and view rendering.
-- Routing: Mapping an HTTP method + path (e.g., GET /) to a controller action.
-- Front Controller: One entry point (`public/index.php`) that receives all requests.
-- Controller Action: A specific method on a controller that handles a matched route.
-- View: Template that renders HTML; receives data but avoids business logic and DB calls.
-- Layout: Base HTML wrapper applied around view content (includes `<head>`, global structure).
-- Partial: Reusable view snippet (e.g., nav, footer) included inside other views.
-- Request: Representation of the incoming HTTP message (method, path, query, form data).
-- Response: Status, headers, and body that the server sends back to the client.
-- Redirect: A Response that instructs the browser to fetch a different URL (commonly 302).
-- PRG: Post‑Redirect‑Get — redirect after handling a POST to prevent resubmission on refresh.
-- Autoloading: Loading class files on demand based on their namespace/class name.
-- Namespace: Logical grouping of classes (e.g., `App\Core`) to avoid naming conflicts.
-- Dispatch: Invoking the controller action associated with the matched route.
-- Render: Convert a view + data into HTML string placed inside the layout.
-- 200 OK: Success status for normal responses.
-- 302 Found: Status for temporary redirects (used in PRG).
-- 404 Not Found: Status when no route matches the request.
-- Idempotent: Safe to repeat without additional side‑effects (GET should be idempotent).
-- State‑Changing: Operations that modify data or server state (POST/PUT/DELETE).
-- Cohesion/Coupling: Cohesion is focus of a module’s responsibility; coupling is how much modules depend on each other.
-- Flash Message: Short‑lived session message shown once after a redirect (introduced in a later project).
+- Apply PRG inside controllers with redirects and flash messages.
+- Map an existing PRG app into MVC routes, controllers, views, and models.
 
 ---
 
@@ -75,9 +47,9 @@ Key benefits:
 
 ## Request Lifecycle (Micro MVC)
 1. Browser sends HTTP request to `public/index.php` (front controller)
-2. Index bootstraps autoloading and session
-3. Router matches method + path to a controller action (e.g., `HomeController@index`)
-4. Controller orchestrates work (optionally call a model in later projects)
+2. Index bootstraps autoloading, config, session
+3. Router matches method + path to a controller action (e.g., `UsersController@store`)
+4. Controller reads input, calls models; on success for POST, redirects (PRG)
 5. Controller returns a view (GET) or a redirect response (POST)
 6. View templates render HTML using a base layout and sections
 
@@ -90,24 +62,34 @@ Request -> public/index.php -> Router -> Controller -> Model -> View -> Response
 
 ---
 
-## Minimal Project Structure (this project)
-Keep it framework‑free and focused on a homepage, inside `projects/02/php-micro-mvc`.
+## Minimal Project Structure
+This structure is small, explicit, and framework‑free.
 
 ```
-php-micro-mvc/
+project-root/
   public/
-    index.php                # front controller (composer autoload)
-  src/
-    Router.php               # method+path routing (GET/POST)
-    Controller.php           # base controller render() → layout
-    Routes/
-      index.php              # defines routes and dispatches
+    index.php                # front controller
+  app/
+    Core/
+      Router.php            # method+path routing
+      Request.php           # wraps globals (GET/POST/SESSION)
+      Response.php          # send headers/body, redirects
+      Controller.php        # base controller with view()/redirect()
+      View.php              # simple layout + partial rendering
+      Database.php          # returns configured PDO
+      Flash.php             # PRG-friendly session flash messages
     Controllers/
       HomeController.php
+      UsersController.php
+    Models/
+      User.php
     Views/
-      layout.php             # head/body/footer (Bulma, FA, BulmaJS)
-      index.php              # simple homepage view
-  composer.json              # PSR-4 autoload: App\\ → src/
+      layout.php
+      home/index.php
+      users/index.php
+      users/create.php
+  config.php                 # DB + app config
+  bootstrap.php              # autoload, session_start(), error settings
 ```
 
 ---
@@ -118,87 +100,156 @@ php-micro-mvc/
 
 ```php
 // public/index.php
-<?php
-require '../vendor/autoload.php';
-// Defer to the routes file (register + dispatch)
-$router = require '../src/Routes/index.php';
+require __DIR__ . '/../bootstrap.php';
+
+use App\Core\{Router, Request, Response};
+
+$router = new Router();
+
+$router->get('/', 'HomeController@index');
+$router->get('/users', 'UsersController@index');
+$router->get('/users/create', 'UsersController@create');
+$router->post('/users', 'UsersController@store');
+
+$request = Request::capture();
+$response = $router->dispatch($request);
+$response->send();
 ```
 
-2) Controller implements orchestration
+2) Controllers implement orchestration and PRG
 
 ```php
-// src/Controllers/HomeController.php
+// app/Controllers/UsersController.php
 namespace App\Controllers;
-use App\Controller;
-class HomeController extends Controller
+
+use App\Core\{Controller, Request, Response, Flash};
+use App\Models\User;
+
+class UsersController extends Controller
 {
-  public function index()
-  {
-    $this->render('index', ['title' => 'Home - Micro MVC']);
-  }
+    public function index(Request $request): Response
+    {
+        $users = User::all();
+        return $this->view('users/index', ['users' => $users]);
+    }
+
+    public function create(Request $request): Response
+    {
+        return $this->view('users/create');
+    }
+
+    public function store(Request $request): Response
+    {
+        $data = $request->only(['full_name','email','phone']);
+        // TODO: validate $data
+        User::create($data);
+
+        Flash::set('success', 'User created');
+        return $this->redirect('/users'); // PRG: POST -> Redirect -> GET
+    }
 }
 ```
 
 3) Views render data (templates + layout)
 
 ```php
-<!-- src/Views/layout.php -->
-<?php $pageTitle = $pageTitle ?? ($title ?? 'Site Title'); ?>
-<!DOCTYPE html>
-<html lang="en">
+<!-- app/Views/layout.php -->
+<!doctype html>
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Project 02 - Micro MVC">
-  <title><?= htmlspecialchars($pageTitle, ENT_QUOTES) ?></title>
-
-  <!-- Bulma & Assets (match Projects 00/01) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-  <script src="https://cdn.jsdelivr.net/npm/@vizuaalog/bulmajs@0.12/dist/bulma.min.js" defer></script>
+  <meta charset="utf-8">
+  <title><?= $title ?? 'App' ?></title>
+  <link rel="stylesheet" href="/bulma.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style> body { max-width: 900px; margin: 2rem auto; } </style>
+  <?php if (function_exists('section') && section('head')) echo section('head'); ?>
+  <?php unset($GLOBALS['__sections']['head']); ?>
+  <?php $msg = App\Core\Flash::get('success'); if ($msg): ?>
+    <script>console.log('flash: <?= htmlspecialchars($msg, ENT_QUOTES) ?>');</script>
+  <?php endif; ?>
 </head>
-<body class="has-navbar-fixed-top">
-  <main class="container">
+<body>
+  <nav><a href="/">Home</a> · <a href="/users">Users</a></nav>
+  <main>
     <?= $content ?? '' ?>
   </main>
-  <footer class="footer">
-    <div class="content has-text-centered">
-      <p>&copy; <?= date('Y') ?> — <?= htmlspecialchars(($siteName ?? 'My PHP Site'), ENT_QUOTES) ?></p>
-    </div>
-  </footer>
 </body>
 </html>
 ```
 
 ```php
-<!-- src/Views/index.php -->
-<?php $title = 'Home - Micro MVC'; ?>
+<!-- app/Views/users/index.php -->
+<?php $title = 'Users'; ?>
+<h1 class="title">Users</h1>
+<p><a class="button is-link" href="/users/create">New User</a></p>
+<ul>
+  <?php foreach ($users as $u): ?>
+    <li><?= htmlspecialchars($u['full_name']) ?> (<?= htmlspecialchars($u['email']) ?>)</li>
+  <?php endforeach; ?>
+  <?php if (empty($users)): ?><li>No users yet.</li><?php endif; ?>
+</ul>
+```
 
-<section class="hero is-primary">
-  <div class="hero-body">
-    <p class="title">Hero title</p>
-    <p class="subtitle">Hero subtitle</p>
-  </div>
-</section>
+4) Models encapsulate data access
 
-<section class="section">
-  <h1 class="title">Welcome to Micro MVC</h1>
-  <h2 class="subtitle">Homepage rendered via Controller → View → Layout</h2>
-  </section>
+```php
+// app/Core/Database.php
+namespace App\Core;
+use PDO;
+
+class Database {
+    public static function pdo(): PDO {
+        static $pdo;
+        if (!$pdo) {
+            $cfg = require __DIR__ . '/../../config.php';
+            $pdo = new PDO($cfg['dsn'], $cfg['user'], $cfg['pass'], [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            ]);
+        }
+        return $pdo;
+    }
+}
+```
+
+```php
+// app/Models/User.php
+namespace App\Models;
+use App\Core\Database;
+
+class User {
+    public static function all(): array {
+        return Database::pdo()->query('SELECT * FROM users ORDER BY id DESC')->fetchAll();
+    }
+    public static function create(array $data): void {
+        $stmt = Database::pdo()->prepare('INSERT INTO users (full_name,email,phone) VALUES (?,?,?)');
+        $stmt->execute([$data['full_name'],$data['email'],$data['phone']]);
+    }
+}
 ```
 
 ---
 
-## PRG Inside MVC (Concept)
-- Treat POST handlers as state‑changing actions that end with a redirect.
-- Redirect back to a GET page that can be safely refreshed.
-- In a future project, add flash messages to show success/errors after redirect.
+## PRG Inside MVC (Key Talking Points)
+- Treat every form POST as a state‑changing action that ends with a redirect.
+- After redirect, show a GET page that can be safely refreshed.
+- Use a flash message (session) to surface success/errors after redirect.
+- Validate input in the controller (or a dedicated validator), not in the view.
 
-Redirect example (no flash yet):
+Redirect example:
 
 ```php
-// In a POST action
-return $this->redirect('/');
+// After successful POST
+Flash::set('success', 'Profile updated');
+return $this->redirect('/profile');
+```
+
+View reads and clears flash:
+
+```php
+<?php if ($msg = App\Core\Flash::get('success')): ?>
+  <div class="notification is-success"><?= htmlspecialchars($msg) ?></div>
+<?php endif; ?>
 ```
 
 ---
@@ -213,8 +264,8 @@ Checklist to complete the migration:
 - [ ] Create front controller + router
 - [ ] Add controllers and move logic out of page scripts
 - [ ] Add views and migrate HTML into templates
-- [ ] Later: Extract DB code to models (PDO)
-- [ ] Later: Implement PRG + flash messages in POST actions
+- [ ] Extract DB code to models (PDO)
+- [ ] Implement PRG + flash messages in POST actions
 
 ---
 
@@ -227,6 +278,7 @@ Checklist to complete the migration:
 ---
 
 ## What’s Next
-- Labs walk you through building the micro MVC and a homepage using the `php-micro-mvc` folder.
-- Optional enhancements: 404 view, simple nav partial.
-- Later we will add models, validation, PRG flash, and compare to Laravel.
+- Lab 1–4 walk you through building the micro MVC from scratch.
+- Optional enhancements: CSRF tokens, validation helpers, middleware pattern.
+- Later we will compare our micro MVC to a full framework (e.g., Laravel).
+
