@@ -35,11 +35,6 @@ class: text-center
   font-weight: 600;
   color: #475569;
 }
-
-.slidev-layout {
-  overflow-y: auto !important;
-  height: 100%;
-}
 </style>
 
 # From PRG to MVC  
@@ -510,7 +505,7 @@ if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
 **B)** View  
 **C)** Controller  
 
-**Answer:** Could be either! 
+**Answer:** Could be either A or C! 
 - **Basic format validation** → **Controller** (sanitizing input)
 - **Business rules** → **Model** (e.g., "email must be unique in database")
 
