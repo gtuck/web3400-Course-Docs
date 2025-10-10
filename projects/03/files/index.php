@@ -1,7 +1,7 @@
 <?php
 
-require "src/controllers/products.php";
+require "src/controllers/posts.php";
 
-$controller = new Products;
+$controller = new Posts;
 
 $controller->index();

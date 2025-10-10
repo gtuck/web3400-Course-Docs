@@ -4,11 +4,11 @@ class Home
 {
     public function index()
     {
-        require 'src/models/article.php';
+        require 'src/models/post.php';
 
-        $model = new Article;
+        $model = new Post;
 
-        $articles = $model->getData();
+        $posts = $model->getData();
 
         //require 'view.php';   // TODO changed
         require 'views/home_index.php';
