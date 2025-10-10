@@ -8,7 +8,7 @@ class Controller
 
         $model = new Model;
 
-        $products = $model->getData();
+        $posts = $model->getData();
 
         require "view.php";
     }

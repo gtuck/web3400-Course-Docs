@@ -1,17 +1,19 @@
 ---
 theme: default
-background: https://source.unsplash.com/collection/94734566/1920x1080
-class: text-center
+title: Refactoring to MVC Pattern
+info: |
+    ## MVC Pattern in PHP
+    Converting a monolithic PHP script to follow the Model-View-Controller pattern
+layout: cover
 highlighter: shiki
 lineNumbers: true
-info: |
-  ## MVC Pattern in PHP
-  Converting a monolithic PHP script to follow the Model-View-Controller pattern
 drawings:
-  persist: false
+    persist: false
 transition: slide-left
-title: Refactoring to MVC Pattern
 mdc: true
+download: true
+exportFilename: mvc-transition-slides
+class: text-center
 ---
 
 # Refactoring to MVC Pattern
@@ -26,7 +28,7 @@ layout: two-cols
 
 Plain PHP script mixing logic and presentation
 
-```php {all|3-13|15|26-30}
+```php
 <?php
 // Database connection and query
 $host = 'db';
@@ -65,23 +67,16 @@ $posts = $stmt->fetchAll();
 
 # Problems
 
-<v-clicks>
-
 - **Mixed concerns**: Database logic + HTML in one file
 - **Hard to maintain**: Changes require editing multiple sections
 - **Not reusable**: Logic can't be shared across pages
 - **Testing difficulties**: Can't test logic independently
 - **Violates separation of concerns**
 
-</v-clicks>
-
-<v-click>
-
 ## Goal
 
 Split the code to follow the **MVC pattern**
 
-</v-click>
 
 ---
 
@@ -129,9 +124,7 @@ Model-View-Controller Design Pattern
 
 </div>
 
-<v-click>
-
-<div class="mt-8 text-center">
+<div class="mt-8 text-center" v-click>
 
 ```mermaid
 graph LR
@@ -144,7 +137,6 @@ graph LR
 
 </div>
 
-</v-click>
 
 ---
 
@@ -152,17 +144,11 @@ graph LR
 
 Extract data logic into a class
 
-<v-clicks>
-
 - Create new file: `model.php`
 - Define a `Model` class
 - Add `getData()` method
 - Move database code into method
 - Return the data
-
-</v-clicks>
-
-<v-click>
 
 ```php
 <?php
@@ -189,15 +175,12 @@ class Model
 }
 ```
 
-</v-click>
 
 ---
 
 # PHP Naming Conventions
 
 Following PSR (PHP Standard Recommendations)
-
-<v-clicks>
 
 ## Classes: StudlyCaps
 ```php
@@ -213,17 +196,12 @@ public function get_data()       // ✗ Wrong
 public function GetData()        // ✗ Wrong
 ```
 
-</v-clicks>
-
-<v-click>
-
 <div class="mt-4 p-4 bg-blue-50 dark:bg-blue-900 rounded">
 
 **PSR** = Industry standard recommendations for PHP code structure
 
 </div>
 
-</v-click>
 
 ---
 
@@ -298,16 +276,10 @@ $posts = $model->getData();
 
 Verify it works as before
 
-<v-clicks>
-
 1. Open the page in browser
 2. Check that posts display correctly
 3. **Nothing has changed** from user perspective
 4. But the code is now better organized!
-
-</v-clicks>
-
-<v-click>
 
 <div class="mt-8 text-center">
 
@@ -317,7 +289,6 @@ This is successful **refactoring**
 
 </div>
 
-</v-click>
 
 ---
 
@@ -325,16 +296,10 @@ This is successful **refactoring**
 
 Separate presentation from logic
 
-<v-clicks>
-
 - Create new file: `view.php`
 - Move HTML code into it
 - Keep the `foreach` loop
 - Remove PHP logic (already in Model)
-
-</v-clicks>
-
-<v-click>
 
 ```php
 <!DOCTYPE html>
@@ -358,15 +323,12 @@ Separate presentation from logic
 </html>
 ```
 
-</v-click>
 
 ---
 
 # Step 4: Create the Controller
 
 Coordinate Model and View
-
-<v-clicks>
 
 - Create new file: `controller.php`
 - Define a `Controller` class
@@ -375,11 +337,7 @@ Coordinate Model and View
 - Get data from Model
 - Require the View
 
-</v-clicks>
-
-<v-click>
-
-```php {all|3|5-7|9|11|13}
+```php
 <?php
 
 class Controller
@@ -397,7 +355,6 @@ class Controller
 }
 ```
 
-</v-click>
 
 ---
 
@@ -472,8 +429,6 @@ project/
 └── view.php           # View template - displays HTML
 ```
 
-<v-click>
-
 ## Flow of Execution
 
 ```mermaid
@@ -491,7 +446,6 @@ sequenceDiagram
     V-->>I: Output HTML
 ```
 
-</v-click>
 
 ---
 layout: two-cols
@@ -582,8 +536,6 @@ class Controller {
 
 Why this pattern matters
 
-<v-clicks>
-
 ## 1. Separation of Concerns
 Each component has **one job** and does it well
 
@@ -602,15 +554,11 @@ Different developers can work on M, V, or C simultaneously
 ## 6. Scalability
 Easy to add new features without breaking existing code
 
-</v-clicks>
-
 ---
 
 # Key Takeaways
 
 What we learned
-
-<v-clicks>
 
 1. **MVC separates** data (Model), display (View), and logic (Controller)
 
@@ -626,17 +574,12 @@ What we learned
 
 7. Same output, better organized code = **successful refactoring**
 
-</v-clicks>
-
-<v-click>
-
 <div class="mt-8 text-center text-2xl font-bold">
 
 Start simple → Refactor to MVC → Scale confidently
 
 </div>
 
-</v-click>
 
 ---
 layout: center

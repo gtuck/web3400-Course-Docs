@@ -4,14 +4,20 @@ class Model
 {
     public function getData(): array
     {
-        $dsn = "mysql:host=localhost;dbname=product_db;charset=utf8;port=3306";
+        // Database connection
+        $host = 'db';
+        $dbname = 'web3400';
+        $username = 'web3400';
+        $password = 'password';
 
-        $pdo = new PDO($dsn, "product_db_user", "secret", [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+        $dsn = "mysql:host=$host;dbname=$dbname;charset=UTF8";
+        $pdo = new PDO($dsn, $username, $password, [
+            PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
         ]);
 
-        $stmt = $pdo->query("SELECT * FROM product");
+        $stmt = $pdo->query("SELECT * FROM posts");
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll();
     }
 }

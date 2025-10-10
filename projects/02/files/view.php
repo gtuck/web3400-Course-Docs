@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Products</title>
+    <title>Blog Posts</title>
     <meta charset="UTF-8">
 </head>
 <body>
 
-<h1>Products</h1>
+<h1>Blog Posts</h1>
 
-<?php foreach ($products as $product): ?>
+<?php foreach ($posts as $post): ?>
 
-    <h2><?= htmlspecialchars($product["name"]) ?></h2>
-    <p><?= htmlspecialchars($product["description"]) ?></p>
+    <h2><?= htmlspecialchars($post["title"]) ?></h2>
+    <p><?= htmlspecialchars($post["body"]) ?></p>
 
 <?php endforeach; ?>
 

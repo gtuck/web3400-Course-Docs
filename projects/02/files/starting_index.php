@@ -1,30 +1,33 @@
 <?php
+// Database connection
+$host = 'db';
+$dbname = 'web3400';
+$username = 'web3400';
+$password = 'password';
 
-$dsn = "mysql:host=localhost;dbname=product_db;charset=utf8;port=3306";
-
-$pdo = new PDO($dsn, "product_db_user", "secret", [
-    PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+$dsn = "mysql:host=$host;dbname=$dbname;charset=UTF8";
+$pdo = new PDO($dsn, $username, $password, [
+    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
+    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
 ]);
 
-$stmt = $pdo->query("SELECT * FROM product");
-
-$products = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+$stmt = $pdo->query("SELECT * FROM posts");
+$posts = $stmt->fetchAll();
 ?>
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Products</title>
+    <title>Blog Posts</title>
     <meta charset="UTF-8">
 </head>
 <body>
 
-<h1>Products</h1>
+<h1>Blog Posts</h1>
 
-<?php foreach ($products as $product): ?>
+<?php foreach ($posts as $post): ?>
 
-    <h2><?= htmlspecialchars($product["name"]) ?></h2>
-    <p><?= htmlspecialchars($product["description"]) ?></p>
+    <h2><?= htmlspecialchars($post["title"]) ?></h2>
+    <p><?= htmlspecialchars($post["body"]) ?></p>
 
 <?php endforeach; ?>
 
