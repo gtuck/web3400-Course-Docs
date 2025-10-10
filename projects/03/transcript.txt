@@ -29,3 +29,16 @@ So let's change this line.
 And also where we create a new object as the class name has changed.
 In the browser.
 It still works as before.
+Unlike the model and controller, views don't contain pure PHP code.
+They're more likely to contain HTML too, so we won't store these inside the source folder.
+Instead, let's create a folder for views at the same level as the source folder.
+As with the controllers and models view, PHP is an unsuitable file name as we'll very soon have more
+than one.
+The view file is being loaded from the index action here in the products controller.
+So let's rename the view file to products index dot PHP and at the same time move it into the new views
+folder.
+Then in the product controller class we can change this require line to the new path of the view file.
+A quick check in the browser to make sure we haven't broken anything, and it still works as before.
+So in this section, we've split up a single page PHP file into a model, a view and a controller,
+and organized these into folders.
+These are the beginnings of our framework.
