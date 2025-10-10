@@ -1,0 +1,31 @@
+Now that we've split the code up to fit the MVC pattern, we can organize it a bit better.
+Let's start by creating some folders to organize the models and controllers.
+We'll deal with the views in a moment.
+First, let's create an src or source folder.
+It's standard practice to store PHP classes inside a source folder like this.
+Inside this folder, let's create a folder for models and one for controllers.
+Now we can move the model class file into the models folder and the controller class file into the controllers
+folder.
+However, unless our application is very small, we're going to have more than one controller and more
+than one model.
+So we need names better than controller and model.
+Let's start with the model, as the code in here is getting data about products.
+We'll rename it to product dot php.
+In the PHP.
+Inside this file we'll rename the class to product again, making sure the class name starts with a
+capital letter to follow the coding standard.
+Quite often, but not always.
+A model class corresponds directly to a database table.
+As for the controller, as this is dealing with products, we'll rename it to products dot PHP.
+We'll also rename the class accordingly.
+Note that the model name is singular and the controller name is plural.
+This is the convention.
+While we're in the controller, we can see that we're using the model first, requiring the file where
+the class is defined.
+This path has changed now, so we need to change this line where we require the file, and also where
+we create a new object as the class name has also changed.
+Then in the index dot php file where we're requiring the controller file, this path has also changed.
+So let's change this line.
+And also where we create a new object as the class name has changed.
+In the browser.
+It still works as before.
