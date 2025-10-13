@@ -184,6 +184,40 @@ Centralizes bootstrapping:
 
 ---
 
+# Router & Dispatch (Concepts)
+
+What a Router does:
+- Keeps a route table keyed by HTTP method + path
+- Matches the current request (method + URI path, without the query string)
+- Maps to a controller class and action method
+
+What Dispatch means:
+- Instantiate the matched controller
+- Invoke the mapped action method
+- Optionally pass path params/body data (simple version: none)
+- Return a response (usually by rendering a view)
+
+---
+
+# Router & Dispatch Cont.
+
+Request flow:
+```
+Request → Router.match(method, path)
+       → Controller@action
+       → Model (fetch data)
+       → View (render output)
+       → Response
+```
+
+Good practices:
+- Register routes separately from dispatch
+- Ignore the query string when matching paths
+- Return clear errors for unknown routes (404/No route) or methods (405)
+- Keep controllers thin; no routing logic inside controllers
+
+---
+
 # Router (src/Router.php)
 
 Responsibilities:
