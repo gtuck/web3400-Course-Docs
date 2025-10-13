@@ -12,7 +12,7 @@ transition: slide-left
 mdc: true
 download: true
 exportFilename: mvc-plus-router-slides
-class: text-left
+class: text-center
 ---
 
 # MVC+ Router, Namespaces & Autoloading
@@ -73,6 +73,10 @@ Key files/dirs:
 - `composer.json` – project manifest (deps, autoload rules)
 - `composer.lock` – exact versions installed
 - `vendor/` – installed packages + `vendor/autoload.php`
+
+---
+
+# Composer (What & Why) Cont.
 
 Common commands:
 - `composer init` / `composer require vendor/package`
