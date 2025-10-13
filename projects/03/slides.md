@@ -64,6 +64,27 @@ src/
 
 ---
 
+# Composer (What & Why)
+
+What it is:
+- PHP’s dependency manager. Installs packages (from Packagist), manages versions, and generates autoloaders.
+
+Key files/dirs:
+- `composer.json` – project manifest (deps, autoload rules)
+- `composer.lock` – exact versions installed
+- `vendor/` – installed packages + `vendor/autoload.php`
+
+Common commands:
+- `composer init` / `composer require vendor/package`
+- `composer install` / `composer update`
+- `composer dump-autoload` (regenerates autoload map)
+
+Why we use it here:
+- Enables PSR‑4 autoloading so classes load automatically by namespace
+- Simplifies project structure (no manual require chains)
+- Standard approach in modern PHP apps
+
+---
 
 # PSR-4 (PHP Standard Recommendation 4) Explained
 
@@ -83,6 +104,9 @@ Example mapping:
   }
 }
 ```
+---
+
+# PSR-4 Cont.
 
 Resolution examples:
 - `App\\Controllers\\HomeController` → `src/Controllers/HomeController.php`
