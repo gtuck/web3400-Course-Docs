@@ -262,4 +262,4 @@ Submit the direct URL to your Project 03 folder in your repository (replace YOUR
 https://github.com/YOUR-USER/YOUR-REPO/blob/main/projects/03/
 ```
 
-Ensure your code structure and runtime behavior matches the files in `projects/03/files`.
+Ensure your code structure and runtime behavior matches the files in [`projects/03/files`](files).
