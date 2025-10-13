@@ -101,8 +101,28 @@ Key requirements:
   - Instantiates the controller and calls the action
   - Throws a clear exception for unknown routes
 
-The provided `projects/03/files/src/Router.php` meets these requirements.
+```php
+<?php
+class Router {
+  protected $routes = [];
 
+  private function addRoute($route, $controller, $action, $method) {
+    $this->routes[$method][$route] = ['controller' => $controller, 'action' => $action];
+  }
+
+  public function get($route, $controller, $action)  { $this->addRoute($route, $controller, $action, 'GET'); }
+  public function post($route, $controller, $action) { $this->addRoute($route, $controller, $action, 'POST'); }
+
+  public function dispatch() {
+    $uri = strtok($_SERVER['REQUEST_URI'], '?');
+    $method = $_SERVER['REQUEST_METHOD'];
+    if (!isset($this->routes[$method][$uri])) throw new \Exception("No route for $method $uri");
+    $controller = new ($this->routes[$method][$uri]['controller']);
+    $action = $this->routes[$method][$uri]['action'];
+    $controller->$action();
+  }
+}
+```
 ---
 
 ### 4) Define routes (src/Routes/index.php)
