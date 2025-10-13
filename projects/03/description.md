@@ -45,6 +45,7 @@ projects/03/
 Run the following command to create the files and folders for the project.
 
 ```bash
+cd projects/03
 # Create directory structure and files
 mkdir -p public src/{Controllers,Models,Routes,Views} && \
 touch composer.json \
