@@ -11,8 +11,6 @@ In Project 02, you separated concerns into Model, View, and Controller within a 
 - Namespaces and PSR-4 autoloading via Composer
 - A base controller with a `render()` helper
 
-You will keep the same blog posts feature and database logic, but restructure your code to match a scalable MVC layout like the provided files in `projects/03/files`.
-
 ---
 
 ## Learning Objectives
@@ -25,7 +23,6 @@ You will keep the same blog posts feature and database logic, but restructure yo
 ---
 
 ## Target File Structure
-Your result should mirror the structure in `projects/03/files`:
 
 ```
 projects/03/
@@ -281,5 +278,3 @@ Submit the direct URL to your Project 03 folder in your repository (replace YOUR
 ```
 https://github.com/YOUR-USER/YOUR-REPO/blob/main/projects/03/
 ```
-
-Ensure your code structure and runtime behavior matches the files in [`projects/03/files`](files).
