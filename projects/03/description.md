@@ -42,9 +42,19 @@ projects/03/
       index.php              # HTML view for posts
   README.md                  # Basic run instructions
 ```
+Run the following command to create the files and folders for the project.
 
-Your final app should respond to `GET /` by rendering the posts view.
-
+```bash
+# Create directory structure and files
+mkdir -p public src/{Controllers,Models,Routes,Views} && \
+touch composer.json \
+public/index.php \
+src/{Controller.php,Router.php} \
+src/Controllers/HomeController.php \
+src/Models/Blog.php \
+src/Routes/index.php \
+src/Views/index.php
+```
 ---
 
 ## Step-by-Step Instructions
