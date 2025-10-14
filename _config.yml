@@ -1,13 +1,27 @@
+# _config.yml
 defaults:
   - scope:
-      path: "projects/"
+      path: "projects"   # no trailing slash
+      type: "pages"      # ensure we're matching regular pages
     values:
       render_with_liquid: false
+
   - scope:
-      path: "assignments/"
+      path: "assignments"
+      type: "pages"
     values:
       render_with_liquid: false
+
   - scope:
-      path: "tutorials/"
+      path: "tutorials"
+      type: "pages"
+    values:
+      render_with_liquid: false
+
+  # Extra safety: any .twig anywhere should not run Liquid
+  - scope:
+      path: ""
+      glob: "*.twig"
+      type: "pages"
     values:
       render_with_liquid: false
