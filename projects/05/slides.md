@@ -109,7 +109,7 @@ Uses Bulma for quick styling.
 ---
 
 # Extend the Base (Home Page)
-{% raw %}
+
 ```twig
 {% extends 'base.html.twig' %}
 
@@ -123,7 +123,6 @@ Uses Bulma for quick styling.
   <p>This page is rendered with Twig.</p>
 {% endblock %}
 ```
-{% endraw %}
 
 ---
 
