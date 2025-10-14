@@ -1,7 +1,13 @@
-# _config.yml
 defaults:
   - scope:
       path: "projects/"
+    values:
+      render_with_liquid: false
+  - scope:
       path: "assignments/"
+    values:
+      render_with_liquid: false
+  - scope:
+      path: "tutorials/"
     values:
       render_with_liquid: false
