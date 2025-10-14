@@ -111,6 +111,7 @@ Uses Bulma for quick styling.
 
 # Extend the Base (Home Page)
 
+{% raw %}
 ```twig
 {% extends 'base.html.twig' %}
 
@@ -124,6 +125,7 @@ Uses Bulma for quick styling.
   <p>This page is rendered with Twig.</p>
 {% endblock %}
 ```
+{% endraw %}
 
 ---
 
@@ -149,6 +151,7 @@ Route:
 # Variables, Filters, Control Flow
 
 Examples:
+{% raw %}
 ```twig
 {{ name }}           {# variable #}
 {{ email|e }}        {# escape #}
@@ -161,16 +164,20 @@ Default values:
 ```twig
 {{ pageTitle|default('Page') }}
 ```
+{% endraw %}
 
 ---
 
 # Links with `path()`
 
 We added a minimal `path()` function:
+
+{% raw %}
 ```twig
 <a href="{{ path('home') }}">Home</a>
 <a href="{{ path('contact') }}">Contact</a>
 ```
+{% endraw %}
 
 Note:
 - In larger frameworks, `path()` maps route names to URLs
