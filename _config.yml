@@ -1,5 +1,6 @@
 # _config.yml
-exclude:
-  - tutorials/
-  - projects/
-  - "*.twig"
+defaults:
+  - scope:
+      path: "projects/"
+    values:
+      render_with_liquid: false
