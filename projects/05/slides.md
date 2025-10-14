@@ -4,6 +4,7 @@ title: Twig Templates and Base Layout
 info: |
   Introduce Twig, add a shared base layout, and render views from controllers
 layout: cover
+render_with_liquid: false
 highlighter: shiki
 lineNumbers: true
 drawings:

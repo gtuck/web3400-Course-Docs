@@ -1,27 +1,30 @@
 # _config.yml
 defaults:
   - scope:
-      path: "projects"   # no trailing slash
-      type: "pages"      # ensure we're matching regular pages
-    values:
-      render_with_liquid: false
-
-  - scope:
-      path: "assignments"
+      path: ""
+      glob: "projects/**/*.md"
       type: "pages"
     values:
       render_with_liquid: false
 
-  - scope:
-      path: "tutorials"
-      type: "pages"
-    values:
-      render_with_liquid: false
-
-  # Extra safety: any .twig anywhere should not run Liquid
   - scope:
       path: ""
-      glob: "*.twig"
+      glob: "assignments/**/*.md"
+      type: "pages"
+    values:
+      render_with_liquid: false
+
+  - scope:
+      path: ""
+      glob: "tutorials/**/*.md"
+      type: "pages"
+    values:
+      render_with_liquid: false
+
+# Optional: also catch any .twig anywhere
+  - scope:
+      path: ""
+      glob: "**/*.twig"
       type: "pages"
     values:
       render_with_liquid: false
