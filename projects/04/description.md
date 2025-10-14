@@ -56,7 +56,35 @@ If you are evolving your existing P03 app, add only the new files/folders and ch
 
 ---
 
-## Step 1) Require phpdotenv with Composer
+## Step 1) Copy Project 03 into Project 04
+
+Start from your working Project 03 as the baseline for this project. From your repo root:
+
+```bash
+cp -r projects/03 projects/04
+```
+
+This copies your MVC structure (public/, src/, composer.json, etc.) into `projects/04/`.
+
+---
+
+## Step 2) Create the new files and folders (empty)
+
+From the repo root, after copying P03, create the additional P04 files/folders you’ll need:
+
+```bash
+cd projects/04
+# Create directories and empty files needed for P04
+mkdir -p public src/{Controllers,Models,Routes,Views,Support} && \
+touch src/Support/Database.php \
+src/Controllers/ContactController.php \
+src/Views/contact.php \
+.env.example
+```
+
+---
+
+## Step 3) Require phpdotenv with Composer
 
 From `projects/04/` (or your app root):
 
@@ -82,7 +110,7 @@ composer dump-autoload
 
 ---
 
-## Step 2) Add .env and .env.example
+## Step 4) Add .env and .env.example
 
 Create `.env` in your project root (same folder as `composer.json`). Do not commit this file.
 
@@ -113,7 +141,7 @@ DB_CHARSET=UTF8
 ```
 ---
 
-## Step 3) Bootstrap Dotenv in the front controller
+## Step 5) Bootstrap Dotenv in the front controller
 
 Load autoload and then Dotenv before routing. In `public/index.php`:
 
@@ -136,7 +164,7 @@ Notes:
 
 ---
 
-## Step 4) Create a Database helper
+## Step 6) Create a Database helper
 
 Create `src/Support/Database.php` that returns a configured PDO instance using env vars.
 
@@ -173,7 +201,7 @@ Why a helper?
 
 ---
 
-## Step 5) Add ContactController (GET form, POST submit)
+## Step 7) Add ContactController (GET form, POST submit)
 
 Create `src/Controllers/ContactController.php`:
 
@@ -237,7 +265,7 @@ class ContactController extends Controller
 
 ---
 
-## Step 6) Create the Contact view (plain HTML only)
+## Step 8) Create the Contact view (plain HTML only)
 
 Create `src/Views/contact.php` with no CSS (plain HTML only):
 
@@ -287,7 +315,7 @@ Create `src/Views/contact.php` with no CSS (plain HTML only):
 
 ---
 
-## Step 7) Register routes
+## Step 9) Register routes
 
 In `src/Routes/index.php`, add GET and POST routes for `/contact`:
 
@@ -309,7 +337,7 @@ Make sure your `public/index.php` requires this routes file after loading Dotenv
 
 ---
 
-## Step 8) Run and Test
+## Step 10) Run and Test
 
 From the project root:
 
