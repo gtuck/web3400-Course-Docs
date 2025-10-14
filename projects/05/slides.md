@@ -150,16 +150,20 @@ Route:
 
 Examples:
 ```twig
+{% raw %}
 {{ name }}           {# variable #}
 {{ email|e }}        {# escape #}
 {{ total|number_format(2) }}
 {% if items|length %} ... {% endif %}
 {% for item in items %} ... {% endfor %}
+{% endraw %}
 ```
 
 Default values:
 ```twig
+{% raw %}
 {{ pageTitle|default('Page') }}
+{% endraw %}
 ```
 
 ---
@@ -168,8 +172,10 @@ Default values:
 
 We added a minimal `path()` function:
 ```twig
+{% raw %}
 <a href="{{ path('home') }}">Home</a>
 <a href="{{ path('contact') }}">Contact</a>
+{% endraw %}
 ```
 
 Note:

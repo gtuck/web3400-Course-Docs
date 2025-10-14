@@ -177,6 +177,7 @@ Register the route in `src/Routes/index.php` so GET `/` dispatches to `HomeContr
 Edit `templates/home.html.twig` to extend the provided base and override a couple blocks:
 
 ```twig
+{% raw %}
 {% extends 'base.html.twig' %}
 
 {% block title %}{{ pageTitle|default('Home') }} - {{ siteName|default('Site') }}{% endblock %}
@@ -194,6 +195,7 @@ Edit `templates/home.html.twig` to extend the provided base and override a coupl
     {% endfor %}
   </ul>
 {% endblock %}
+{% endraw %}
 ```
 
 Notes:
