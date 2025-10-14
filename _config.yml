@@ -2,5 +2,6 @@
 defaults:
   - scope:
       path: "projects/"
+      path: "assignments/"
     values:
       render_with_liquid: false
