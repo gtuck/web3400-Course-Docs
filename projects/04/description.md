@@ -35,7 +35,7 @@ You will extend your Project 03 MVC app by:
 ```
 projects/04/
   composer.json
-  .env                 # not committed
+  .env                 # not committed (add to .gitignore)
   .env.example         # committed template
   public/
     index.php          # loads vendor/autoload + Dotenv, then routes
@@ -88,6 +88,8 @@ Create `.env` in your project root (same folder as `composer.json`). Do not comm
 
 Example `.env`:
 
+Add `.env` to your `.gitignore` if it isn’t already ignored.
+
 ```
 APP_ENV=local
 
@@ -109,9 +111,6 @@ DB_USER=YOUR_DB_USER
 DB_PASS=YOUR_DB_PASS
 DB_CHARSET=UTF8
 ```
-
-Add `.env` to your `.gitignore` if it isn’t already ignored.
-
 ---
 
 ## Step 3) Bootstrap Dotenv in the front controller
