@@ -119,8 +119,6 @@ Example `.env`:
 Add `.env` to your `.gitignore` if it isn’t already ignored.
 
 ```
-APP_ENV=local
-
 DB_HOST=db
 DB_NAME=web3400
 DB_USER=web3400
@@ -131,8 +129,6 @@ DB_CHARSET=UTF8
 Commit a `.env.example` with the same keys but placeholder values:
 
 ```
-APP_ENV=local
-
 DB_HOST=YOUR_DB_HOST
 DB_NAME=YOUR_DB_NAME
 DB_USER=YOUR_DB_USER
