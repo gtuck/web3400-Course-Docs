@@ -235,6 +235,75 @@ Avoid:
 
 ---
 
+# DIY BaseModel (CRUD)
+
+Why:
+- Keep controllers thin and reuse CRUD logic
+- Whitelist columns with `fillable`
+
+Shape:
+```php
+abstract class BaseModel {
+  protected static string $table;
+  protected static string $primaryKey = 'id';
+  protected static array $fillable = [];
+  public static function find($id): ?array {}
+  public static function all($limit=100,$offset=0,$orderBy=null): array {}
+  public static function create(array $data): int {}
+  public static function update($id, array $data): bool {}
+  public static function delete($id): bool {}
+}
+```
+
+Example model:
+```php
+final class Contact extends BaseModel {
+  protected static string $table = 'contact_us';
+  protected static array $fillable = ['name','email','message'];
+}
+```
+
+---
+
+# BaseModel (Code)
+
+```php
+namespace App\Models; use App\Support\Database; use PDO;
+abstract class BaseModel {
+  protected static string $table; protected static string $primaryKey='id';
+  protected static array $fillable=[]; protected static function pdo():PDO{ return Database::pdo(); }
+  public static function find($id):?array{ $s=self::pdo()->prepare('SELECT * FROM `'.static::$table.'` WHERE `'.static::$primaryKey.'`=:id LIMIT 1');$s->bindValue(':id',$id);$s->execute();$r=$s->fetch();return $r?:null; }
+  public static function all(int $limit=100,int $offset=0,?string $orderBy=null):array{ $order=$orderBy?:'`'.static::$primaryKey.'` DESC'; $s=self::pdo()->prepare('SELECT * FROM `'.static::$table.'` ORDER BY '.$order.' LIMIT :l OFFSET :o'); $s->bindValue(':l',$limit,PDO::PARAM_INT); $s->bindValue(':o',$offset,PDO::PARAM_INT); $s->execute(); return $s->fetchAll(); }
+  public static function create(array $data):int{ $data=array_intersect_key($data,array_flip(static::$fillable)); if(!$data) throw new \InvalidArgumentException('No fillable fields provided.'); $cols=array_keys($data); $ph=array_map(fn($c)=>':'.$c,$cols); $qc=array_map(fn($c)=>'`'.$c.'`',$cols); $sql='INSERT INTO `'.static::$table.'` ('.implode(',',$qc).') VALUES ('.implode(',',$ph).')'; $s=self::pdo()->prepare($sql); foreach($data as $c=>$v){$s->bindValue(':'.$c,$v);} $s->execute(); return (int) self::pdo()->lastInsertId(); }
+  public static function update($id,array $data):bool{ $data=array_intersect_key($data,array_flip(static::$fillable)); if(!$data) return false; $sets=[]; foreach(array_keys($data) as $c){$sets[]='`'.$c.'`=:' . $c;} $sql='UPDATE `'.static::$table.'` SET '.implode(', ',$sets).' WHERE `'.static::$primaryKey.'`=:_id'; $s=self::pdo()->prepare($sql); foreach($data as $c=>$v){$s->bindValue(':'.$c,$v);} $s->bindValue(':_id',$id); return $s->execute(); }
+  public static function delete($id):bool{ $s=self::pdo()->prepare('DELETE FROM `'.static::$table.'` WHERE `'.static::$primaryKey.'`=:id'); $s->bindValue(':id',$id); return $s->execute(); }
+}
+```
+
+---
+
+# Model Generator (CLI)
+
+Script: `scripts/generate-model.php`
+- Reads `INFORMATION_SCHEMA` to find PK + columns
+- Skips timestamps; writes `src/Models/{Table}.php`
+
+Usage:
+```bash
+php scripts/generate-model.php contact_us
+```
+
+Generated:
+```php
+final class Contact extends BaseModel {
+  protected static string $table = 'contact_us';
+  protected static string $primaryKey = 'id';
+  protected static array $fillable = ['name','email','message'];
+}
+```
+
+---
+
 # Q&A / Next Steps
 
 - PRG pattern (redirect after POST)

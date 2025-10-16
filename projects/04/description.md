@@ -352,6 +352,77 @@ If necessary, confirm your table exists: see `projects/01/sql/contact_us.sql`.
 
 ---
 
+## Optional: Lightweight BaseModel + Generator
+
+To keep controllers thin and avoid repeating CRUD, add a simple `BaseModel` and an optional generator that scaffolds concrete model classes from your tables.
+
+Included in the reference files for Project 04:
+- `src/Models/BaseModel.php` – reusable CRUD on top of `Database::pdo()`
+- `scripts/generate-model.php` – creates `src/Models/{Class}.php` from a table
+
+BaseModel shape:
+
+```php
+namespace App\Models;
+
+use App\Support\Database; use PDO;
+
+abstract class BaseModel {
+    protected static string $table;              // set in subclass
+    protected static string $primaryKey = 'id';  // override if needed
+    protected static array  $fillable = [];      // whitelist for create/update
+
+    public static function find($id): ?array {}
+    public static function all($limit=100,$offset=0,$orderBy=null): array {}
+    public static function create(array $data): int {}
+    public static function update($id, array $data): bool {}
+    public static function delete($id): bool {}
+}
+```
+
+Example model:
+
+```php
+final class Contact extends BaseModel {
+    protected static string $table = 'contact_us';
+    protected static array  $fillable = ['name','email','message'];
+}
+```
+
+Generator usage (from your project root):
+
+```bash
+php scripts/generate-model.php contact_us
+```
+
+This will create `src/Models/Contact.php` with the correct `$table`, `$primaryKey`, and `$fillable` (excluding common timestamp fields).
+
+Controller usage:
+
+```php
+use App\Models\Contact;
+
+// Create
+$id = Contact::create(['name' => $name, 'email' => $email, 'message' => $msg]);
+
+// Read
+$row  = Contact::find($id);
+$rows = Contact::all(limit: 20);
+
+// Update
+Contact::update($id, ['message' => 'Updated message']);
+
+// Delete
+Contact::delete($id);
+```
+
+Notes:
+- Security: `create`/`update` only accept whitelisted `$fillable` fields (server-side validate inputs as usual).
+- Ordering: If you allow custom `$orderBy`, whitelist valid columns to avoid SQL injection.
+- Transactions: For multi-step operations, wrap logic in a transaction with `$pdo->beginTransaction()` / `commit()`.
+
+---
+
 ## Tips, Standards, and Gotchas
 - Never commit `.env`; always commit `.env.example`.
 - Keep secrets in env vars; never hardcode credentials in PHP files.

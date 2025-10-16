@@ -9,9 +9,8 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $blog = new Blog();
-        $posts = $blog->getPosts();
+        // Fetch posts via BaseModel-powered Blog model
+        $posts = Blog::all(limit: 100);
         $this->render('index', ['posts' => $posts]);
     }
 }
-

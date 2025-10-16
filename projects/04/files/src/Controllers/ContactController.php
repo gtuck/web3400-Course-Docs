@@ -3,7 +3,7 @@
 namespace App\Controllers;
 
 use App\Controller; // base with render()
-use App\Support\Database;
+use App\Models\Contact;
 
 class ContactController extends Controller
 {
@@ -37,14 +37,11 @@ class ContactController extends Controller
             ]);
         }
 
-        $pdo = Database::pdo();
-        $stmt = $pdo->prepare(
-            'INSERT INTO contact_us (name, email, message) VALUES (:name, :email, :message)'
-        );
-        $stmt->execute([
-            ':name'    => $name,
-            ':email'   => $email,
-            ':message' => $message,
+        // Persist via BaseModel-powered Contact model
+        Contact::create([
+            'name' => $name,
+            'email' => $email,
+            'message' => $message,
         ]);
 
         $this->render('contact', [
@@ -54,4 +51,3 @@ class ContactController extends Controller
         ]);
     }
 }
-
