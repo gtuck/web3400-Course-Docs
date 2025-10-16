@@ -92,7 +92,7 @@ DB_HOST=db
 DB_NAME=web3400
 DB_USER=web3400
 DB_PASS=password
-DB_CHARSET=UTF8
+DB_CHARSET=utf8mb4
 ```
 
 ---
