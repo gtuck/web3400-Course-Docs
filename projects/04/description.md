@@ -82,6 +82,7 @@ This copies your MVC structure (public/, src/, composer.json, etc.) into `projec
 From the repo root, after copying P03, create the additional P04 files/folders you’ll need:
 
 ```bash
+cp -r projects/03 projects/04
 cd projects/04
 # Create directories and empty files needed for P04
 mkdir -p public src/{Controllers,Models,Routes,Views,Support} scripts && \
