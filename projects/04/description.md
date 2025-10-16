@@ -597,10 +597,6 @@ If necessary, confirm your table exists: see `projects/01/sql/contact_us.sql`.
 
 To keep controllers thin and avoid repeating CRUD, use a simple `BaseModel` and the generator to scaffold concrete model classes from your tables.
 
-Included in the reference files for Project 04:
-- `src/Models/BaseModel.php` – reusable CRUD on top of `Database::pdo()`
-- `scripts/generate-model.php` – creates `src/Models/{Class}.php` from a table
-
 BaseModel shape:
 
 ```php
