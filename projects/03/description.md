@@ -112,6 +112,8 @@ Key requirements:
 ```php
 <?php
 class Router {
+  namespace App;
+
   protected $routes = [];
 
   private function addRoute($route, $controller, $action, $method) {
