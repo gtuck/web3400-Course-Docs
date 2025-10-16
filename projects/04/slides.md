@@ -164,15 +164,15 @@ class ContactController extends Controller {
   public function submit() {
     $name = trim($_POST['name'] ?? '');
     $email = trim($_POST['email'] ?? '');
-    $msg = trim($_POST['message'] ?? '');
+    $message = trim($_POST['message'] ?? '');
     $errors = [];
     if ($name==='') $errors[]='Name required';
     if ($email==='' || !filter_var($email, FILTER_VALIDATE_EMAIL)) $errors[]='Valid email required';
-    if ($msg==='') $errors[]='Message required';
-    if ($errors) return $this->render('contact', ['errors'=>$errors,'old'=>compact('name','email','msg')]);
+    if ($message==='') $errors[]='Message required';
+    if ($errors) return $this->render('contact', ['errors'=>$errors,'old'=>compact('name','email','message')]);
     $pdo = Database::pdo();
-    $pdo->prepare('INSERT INTO contact_us (name,email,message) VALUES (:n,:e,:m)')
-        ->execute([':n'=>$name, ':e'=>$email, ':m'=>$msg]);
+    $pdo->prepare('INSERT INTO contact_us (name,email,message) VALUES (:name,:email,:message)')
+        ->execute([':name'=>$name, ':email'=>$email, ':message'=>$message]);
     $this->render('contact', ['errors'=>[], 'old'=>[], 'status'=>'Thanks!']);
   }
 }

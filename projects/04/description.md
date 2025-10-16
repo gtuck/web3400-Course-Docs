@@ -320,7 +320,7 @@ In `src/Routes/index.php`, add GET and POST routes for `/contact`:
 use App\Controllers\ContactController;
 use App\Router;
 
-$router = $router ?? new Router();
+$router = new Router();
 
 $router->get('/contact', ContactController::class, 'show');
 $router->post('/contact', ContactController::class, 'submit');
