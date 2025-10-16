@@ -1,5 +1,5 @@
-# Project 04 – Dotenv, Database Helper, and Contact Form
-Add environment variable support with `vlucas/phpdotenv`, centralize PDO setup in a reusable Database helper, and build a Contact page that safely inserts messages into an existing `contact_us` table.
+# Project 04 – Dotenv, Database Helper, BaseModel + Generator, and Contact Form
+Add environment variable support with `vlucas/phpdotenv`, centralize PDO setup in a reusable Database helper, implement a lightweight `BaseModel` and code generator, and build a Contact page that saves messages to `contact_us` using the model.
 
 ---
 
@@ -9,8 +9,10 @@ You will extend your Project 03 MVC app by:
 - Creating a `.env` file to store DB credentials (and a committed `.env.example`)
 - Bootstrapping Dotenv in your front controller
 - Implementing a `Database` helper (PDO + settings) that reads from env vars
+- Implementing a lightweight `BaseModel` and running the model generator
+- Using a generated `Contact` model to persist messages
 - Adding a Contact page with a form and POST handler
-- Inserting messages into `contact_us` using prepared statements
+- Inserting messages into `contact_us` using parameterized queries (via model `create()`)
 
 ---
 
@@ -20,6 +22,8 @@ You will extend your Project 03 MVC app by:
 - Centralize and reuse PDO connection logic
 - Build GET/POST routes in an MVC app
 - Validate user input and prevent SQL injection using prepared statements
+- Implement a lightweight `BaseModel` (CRUD, fillable whitelist)
+- Use a generator script to scaffold concrete models (e.g., `Contact`)
 
 ---
 
@@ -44,12 +48,17 @@ projects/04/
     Controller.php     # from P03
     Support/
       Database.php     # new – central PDO helper
+    Models/
+      BaseModel.php    # new – lightweight CRUD helper
+      Contact.php      # generated model (from contact_us)
     Controllers/
       ContactController.php
     Routes/
       index.php        # add /contact GET+POST
     Views/
       contact.php      # Contact form + messages
+  scripts/
+    generate-model.php # CLI to scaffold models from tables
 ```
 
 If you are evolving your existing P03 app, add only the new files/folders and changes below.
@@ -75,10 +84,11 @@ From the repo root, after copying P03, create the additional P04 files/folders y
 ```bash
 cd projects/04
 # Create directories and empty files needed for P04
-mkdir -p public src/{Controllers,Models,Routes,Views,Support} && \
+mkdir -p public src/{Controllers,Models,Routes,Views,Support} scripts && \
 touch src/Support/Database.php \
 src/Controllers/ContactController.php \
 src/Views/contact.php \
+scripts/generate-model.php \
 .env.example
 ```
 
@@ -197,16 +207,36 @@ Why a helper?
 
 ---
 
-## Step 7) Add ContactController (GET form, POST submit)
+## Step 7) Add BaseModel + generate Contact model (required)
 
-Create `src/Controllers/ContactController.php`:
+Add a reusable base model class and generate a concrete `Contact` model from the `contact_us` table.
+
+Included in the reference files for Project 04:
+- `src/Models/BaseModel.php` – reusable CRUD on top of `Database::pdo()`
+- `scripts/generate-model.php` – creates `src/Models/{Class}.php` from a table
+
+Generate the `Contact` model (from your project root):
+
+```bash
+php scripts/generate-model.php contact_us
+```
+
+This should create `src/Models/Contact.php` with the correct `$table`, `$primaryKey`, and `$fillable` fields.
+
+Controller usage will call `Contact::create(...)` (see next step).
+
+---
+
+## Step 8) Add ContactController (GET form, POST submit)
+
+Create `src/Controllers/ContactController.php` and persist via the generated `Contact` model:
 
 ```php
 <?php
 namespace App\Controllers;
 
 use App\Controller; // base from P03 with render()
-use App\Support\Database;
+use App\Models\Contact;
 
 class ContactController extends Controller
 {
@@ -240,14 +270,11 @@ class ContactController extends Controller
             ]);
         }
 
-        $pdo = Database::pdo();
-        $stmt = $pdo->prepare(
-            'INSERT INTO contact_us (name, email, message) VALUES (:name, :email, :message)'
-        );
-        $stmt->execute([
-            ':name'    => $name,
-            ':email'   => $email,
-            ':message' => $message,
+        // Persist via BaseModel-powered Contact model
+        Contact::create([
+            'name'    => $name,
+            'email'   => $email,
+            'message' => $message,
         ]);
 
         $this->render('contact', [
@@ -261,7 +288,7 @@ class ContactController extends Controller
 
 ---
 
-## Step 8) Create the Contact view (plain HTML only)
+## Step 9) Create the Contact view (plain HTML only)
 
 Create `src/Views/contact.php` with no CSS (plain HTML only):
 
@@ -311,7 +338,7 @@ Create `src/Views/contact.php` with no CSS (plain HTML only):
 
 ---
 
-## Step 9) Register routes
+## Step 10) Register routes
 
 In `src/Routes/index.php`, add GET and POST routes for `/contact`:
 
@@ -333,7 +360,7 @@ Make sure your `public/index.php` requires this routes file after loading Dotenv
 
 ---
 
-## Step 10) Run and Test
+## Step 11) Run and Test
 
 From the project root:
 
@@ -352,9 +379,9 @@ If necessary, confirm your table exists: see `projects/01/sql/contact_us.sql`.
 
 ---
 
-## Optional: Lightweight BaseModel + Generator
+## BaseModel + Generator (Details)
 
-To keep controllers thin and avoid repeating CRUD, add a simple `BaseModel` and an optional generator that scaffolds concrete model classes from your tables.
+To keep controllers thin and avoid repeating CRUD, use a simple `BaseModel` and the generator to scaffold concrete model classes from your tables.
 
 Included in the reference files for Project 04:
 - `src/Models/BaseModel.php` – reusable CRUD on top of `Database::pdo()`
@@ -432,6 +459,7 @@ Notes:
 - Validate server-side even if you validate client-side.
 - Keep views plain HTML for this project (no CSS). A later project will add styling/templates.
 - If you see class not found issues, run `composer dump-autoload`.
+- When using BaseModel, whitelist allowed columns in `$fillable` and let `create`/`update` sanitize inputs.
 
 ---
 

@@ -3,7 +3,8 @@
 This folder contains a reference implementation for Project 04:
 - Dotenv configuration via `vlucas/phpdotenv`
 - Centralized PDO helper (`App\\Support\\Database`)
-- Contact page with GET/POST routes and prepared INSERT into `contact_us`
+- Lightweight BaseModel (`App\\Models\\BaseModel`) + generator (`scripts/generate-model.php`) [REQUIRED]
+- Contact page with GET/POST routes and model-based INSERT into `contact_us`
 
 ## Quick Start
 
@@ -33,5 +34,7 @@ This folder contains a reference implementation for Project 04:
 ## Notes
 - `public/index.php` loads Dotenv and requires DB_* env vars.
 - `App\\Support\\Database::pdo()` reads env vars only (no hardcoded defaults).
+- `App\\Models\\BaseModel` implements reusable CRUD with `$fillable` whitelisting.
+- Use `php scripts/generate-model.php contact_us` to scaffold `App\\Models\\Contact` and call `Contact::create([...])` in your controller.
 - The Contact view is plain HTML (no CSS) by design.
 - Ensure your database has the `contact_us` table (see `projects/01/sql/contact_us.sql`).
