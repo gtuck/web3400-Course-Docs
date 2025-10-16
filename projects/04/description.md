@@ -217,6 +217,215 @@ Included in the reference files for Project 04:
 - `src/Models/BaseModel.php` – reusable CRUD on top of `Database::pdo()`
 - `scripts/generate-model.php` – creates `src/Models/{Class}.php` from a table
 
+Create `src/Models/BaseModel.php`  
+
+```php
+<?php
+
+namespace App\Models;
+
+use App\Support\Database;
+use PDO;
+
+abstract class BaseModel
+{
+    /** @var string Table name (override in subclass) */
+    protected static string $table;
+    /** @var string Primary key column name */
+    protected static string $primaryKey = 'id';
+    /** @var array<string> Fillable columns for create/update */
+    protected static array $fillable = [];
+
+    protected static function pdo(): PDO
+    {
+        return Database::pdo();
+    }
+
+    protected static function table(): string
+    {
+        return static::$table;
+    }
+
+    protected static function pk(): string
+    {
+        return static::$primaryKey;
+    }
+
+    protected static function sanitize(array $data): array
+    {
+        return array_intersect_key($data, array_flip(static::$fillable));
+    }
+
+    public static function find(int|string $id): ?array
+    {
+        $sql = 'SELECT * FROM `'.static::table().'` WHERE `'.static::pk().'` = :id LIMIT 1';
+        $stmt = static::pdo()->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        $stmt->execute();
+        $row = $stmt->fetch();
+        return $row ?: null;
+    }
+
+    public static function all(int $limit = 100, int $offset = 0, ?string $orderBy = null): array
+    {
+        $order = $orderBy ?: '`'.static::pk().'` DESC';
+        // If exposing $orderBy from user-input, whitelist columns in callers.
+        $sql = 'SELECT * FROM `'.static::table().'` ORDER BY '.$order.' LIMIT :limit OFFSET :offset';
+        $stmt = static::pdo()->prepare($sql);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public static function create(array $data): int
+    {
+        $data = static::sanitize($data);
+        if (!$data) {
+            throw new \InvalidArgumentException('No fillable fields provided.');
+        }
+        $cols = array_keys($data);
+        $placeholders = array_map(fn($c) => ':'.$c, $cols);
+        $quotedCols = array_map(fn($c) => '`'.$c.'`', $cols);
+        $sql = 'INSERT INTO `'.static::table().'` ('.implode(',', $quotedCols).') VALUES ('.implode(',', $placeholders).')';
+        $stmt = static::pdo()->prepare($sql);
+        foreach ($data as $c => $v) {
+            $stmt->bindValue(':'.$c, $v);
+        }
+        $stmt->execute();
+        return (int) static::pdo()->lastInsertId();
+    }
+
+    public static function update(int|string $id, array $data): bool
+    {
+        $data = static::sanitize($data);
+        if (!$data) {
+            return false;
+        }
+        $sets = [];
+        foreach (array_keys($data) as $c) {
+            $sets[] = '`'.$c.'` = :'.$c;
+        }
+        $sql = 'UPDATE `'.static::table().'` SET '.implode(', ', $sets).' WHERE `'.static::pk().'` = :_id';
+        $stmt = static::pdo()->prepare($sql);
+        foreach ($data as $c => $v) {
+            $stmt->bindValue(':'.$c, $v);
+        }
+        $stmt->bindValue(':_id', $id);
+        return $stmt->execute();
+    }
+
+    public static function delete(int|string $id): bool
+    {
+        $sql = 'DELETE FROM `'.static::table().'` WHERE `'.static::pk().'` = :id';
+        $stmt = static::pdo()->prepare($sql);
+        $stmt->bindValue(':id', $id);
+        return $stmt->execute();
+    }
+}
+
+```
+
+Create `scripts/generate-model.php`  
+
+```php
+#!/usr/bin/env php
+<?php
+// scripts/generate-model.php
+// Usage: php scripts/generate-model.php <table_name>
+
+declare(strict_types=1);
+
+require __DIR__ . '/../vendor/autoload.php';
+
+// Load .env so Database::pdo() has credentials
+if (class_exists(\Dotenv\Dotenv::class)) {
+    \Dotenv\Dotenv::createImmutable(dirname(__DIR__))->safeLoad();
+}
+
+use App\Support\Database;
+use PDO;
+
+[$script, $table] = $argv + [null, null];
+if (!$table) {
+    fwrite(STDERR, "Usage: php scripts/generate-model.php <table>\n");
+    exit(1);
+}
+
+$pdo = Database::pdo();
+
+$sql = "SELECT COLUMN_NAME, COLUMN_KEY\n          FROM INFORMATION_SCHEMA.COLUMNS\n         WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = :t\n      ORDER BY ORDINAL_POSITION";
+$stmt = $pdo->prepare($sql);
+$stmt->execute([':t' => $table]);
+$cols = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+if (!$cols) {
+    fwrite(STDERR, "Table not found: {$table}\n");
+    exit(1);
+}
+
+$pk = 'id';
+$fillable = [];
+foreach ($cols as $col) {
+    $name = $col['COLUMN_NAME'];
+    if ($col['COLUMN_KEY'] === 'PRI') {
+        $pk = $name;
+        continue;
+    }
+    if (in_array($name, ['created_at', 'updated_at', 'deleted_at'], true)) {
+        continue;
+    }
+    $fillable[] = $name;
+}
+
+function studly(string $s): string {
+    $s = str_replace(['-', '_'], ' ', $s);
+    $s = ucwords($s);
+    return str_replace(' ', '', $s);
+}
+
+function ends_with(string $s, string $suffix): bool {
+    $len = strlen($suffix);
+    if ($len === 0) return true;
+    return substr($s, -$len) === $suffix;
+}
+
+function singular(string $s): string {
+    if (ends_with($s, 'ies')) return substr($s, 0, -3) . 'y';
+    if (ends_with($s, 'ses')) return substr($s, 0, -2); // e.g., analyses -> analysis
+    if (ends_with($s, 's')) return substr($s, 0, -1);
+    return $s;
+}
+
+$class = studly(singular($table));
+
+$template = <<<'PHP'
+<?php
+namespace App\Models;
+
+final class %CLASS% extends BaseModel
+{
+    protected static string $table = '%TABLE%';
+    protected static string $primaryKey = '%PK%';
+    protected static array $fillable = %FILLABLE%;
+}
+
+PHP;
+
+$code = str_replace(
+    ['%CLASS%', '%TABLE%', '%PK%', '%FILLABLE%'],
+    [$class, $table, $pk, var_export($fillable, true)],
+    $template
+);
+
+$outPath = dirname(__DIR__) . '/src/Models/' . $class . '.php';
+@mkdir(dirname($outPath), 0777, true);
+file_put_contents($outPath, $code);
+
+echo "Generated model: {$outPath}\n";
+
+```
+
 Generate the `Contact` model (from your project root):
 
 ```bash
@@ -346,16 +555,19 @@ In `src/Routes/index.php`, add GET and POST routes for `/contact`:
 
 ```php
 <?php
-use App\Controllers\ContactController;
+
+use App\Controllers\HomeController;
+use App\Controllers\ContactController; // new line
 use App\Router;
 
 $router = new Router();
 
-$router->get('/contact', ContactController::class, 'show');
-$router->post('/contact', ContactController::class, 'submit');
+$router->get('/', HomeController::class, 'index');
+$router->get('/contact', ContactController::class, 'show'); // new line
+$router->post('/contact', ContactController::class, 'submit'); // new line
 
-// Keep existing routes (e.g., home) and final dispatch
 $router->dispatch();
+
 ```
 
 Make sure your `public/index.php` requires this routes file after loading Dotenv.
