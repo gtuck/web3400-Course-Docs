@@ -86,6 +86,7 @@ cd projects/04
 # Create directories and empty files needed for P04
 mkdir -p public src/{Controllers,Models,Routes,Views,Support} scripts && \
 touch src/Support/Database.php \
+src/Models/BaseModel.php \
 src/Controllers/ContactController.php \
 src/Views/contact.php \
 scripts/generate-model.php \
