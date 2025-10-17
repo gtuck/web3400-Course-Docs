@@ -64,7 +64,7 @@ projects/05/
         nav.php              # Top navigation
         flash.php            # Flash/status messages (optional)
         footer.php           # Footer
-      home.php               # Homepage view (defines sections)
+      index.php              # Homepage view (defines sections)
       contact.php            # Contact form view (defines sections)
   scripts/
     generate-model.php       # From P04
@@ -93,7 +93,7 @@ mkdir -p src/Support src/Views/{layouts,partials} && \
 touch src/Support/View.php \
 src/Views/layouts/main.php \
 src/Views/partials/{head.php,nav.php,flash.php,footer.php} \
-src/Views/home.php
+src/Views/index.php
 ```
 
 ---
@@ -220,7 +220,7 @@ Notes:
 
 ## Step 4) Update the base `Controller` to use `View`
 
-Modify `src/Controller.php` so controllers render through the new engine. Example implementation:
+Modify `src/Controller.php` so controllers render through the new engine. Add helpers for flash messages and redirects to support PRG.
 
 ```php
 <?php
@@ -252,32 +252,53 @@ class Controller
     {
         echo $this->view->render($view, $data);
     }
+
+    // Flash a message for next request
+    protected function flash(string $text, string $type = 'is-info'): void
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        $_SESSION['messages'] = $_SESSION['messages'] ?? [];
+        $_SESSION['messages'][] = compact('type', 'text');
+    }
+
+    // Redirect with default 303 (PRG)
+    protected function redirect(string $path, int $status = 303): void
+    {
+        header('Location: ' . $path, true, $status);
+        exit;
+    }
 }
 ```
 
 ---
 
-## Step 4a) Add `SITE_NAME` to your environment
+## Step 4a) Add site info to your environment
 
-Add an app title to `.env` and to `.env.example` so others can run your project.
+Add app/site details to `.env` and to `.env.example` so others can run your project.
 
 Example `.env` additions:
 
 ```
 SITE_NAME=My PHP Site
+SITE_EMAIL=email@website.com
+SITE_PHONE=123-321-9876
 ```
 
 Example `.env.example` additions:
 
 ```
 SITE_NAME=My PHP Site
+SITE_EMAIL=email@website.com
+SITE_PHONE=123-321-9876
 ```
 
-Tip: You can enforce it with Dotenv if you prefer strictness:
+Tip: You can enforce them with Dotenv if you prefer strictness:
 
 ```php
 // in public/index.php after safeLoad():
-$dotenv->required(['DB_HOST','DB_NAME','DB_USER','DB_PASS','DB_CHARSET','SITE_NAME'])->notEmpty();
+$dotenv->required(['DB_HOST','DB_NAME','DB_USER','DB_PASS','DB_CHARSET','SITE_NAME','SITE_EMAIL','SITE_PHONE'])->notEmpty();
 ```
 
 ---
@@ -403,28 +424,30 @@ if (session_status() === PHP_SESSION_NONE) {
 
 ## Step 6) Create a view that uses the layout and sections
 
-`src/Views/home.php`
+`src/Views/index.php`
 ```php
 <?php $this->layout('layouts/main'); ?>
 <?php $this->start('content'); ?>
 
-  <h1>Welcome to <?= $this->e($siteName ?? 'My PHP Site') ?></h1>
-  <p>This page is rendered with a vanilla PHP template engine.</p>
+  <section class="hero is-primary">
+    <div class="hero-body">
+      <h1 class="title">Welcome to <?= $this->e($siteName ?? 'My PHP Site') ?></h1>
+      <p class="subtitle">This page is rendered with a vanilla PHP template engine.</p>
+    </div>
+  </section>
 
-  <?php if (!empty($posts)): ?>
-    <h2>Blog Posts</h2>
-    <?php foreach ($posts as $post): ?>
-      <h3><?= htmlspecialchars($post['title']) ?></h3>
-      <p><?= htmlspecialchars($post['body']) ?></p>
-    <?php endforeach; ?>
-  <?php endif; ?>
+  <h2>Blog Posts</h2>
+  <?php foreach ($posts as $post): ?>
+    <h3><?= htmlspecialchars($post['title']) ?></h3>
+    <p><?= htmlspecialchars($post['body']) ?></p>
+  <?php endforeach; ?>
 
 <?php $this->end(); ?>
 ```
 
 ---
 
-Note: If your P04 homepage view was `src/Views/index.php`, either rename it to `home.php` and adapt it as above, or update your controller to render `index` instead of `home`.
+Note: If you prefer `home.php`, you can render that instead from the controller.
 
 ---
 
@@ -446,9 +469,9 @@ class HomeController extends Controller
     {
         // Optional: keep Blog posts from P04
         $blog = new Blog();
-        $posts = $blog->all();
+        $posts = $blog->all(orderBy: 'created_at');
 
-        $this->render('home', [
+        $this->render('index', [
             'title' => 'Home',
             'posts' => $posts,
         ]);
@@ -483,7 +506,7 @@ $router->dispatch();
 
 ## Step 9) Update `ContactController` to render via `View`
 
-Adapt your P04 `ContactController` to use flash notifications and the PRG pattern on success. Use `$this->render()` for GET and for invalid POSTs.
+Adapt your P04 `ContactController` to use the base `flash()` helper and the PRG pattern on success. Use `$this->render()` for GET and for invalid POSTs.
 
 ```php
 <?php
@@ -499,8 +522,7 @@ class ContactController extends Controller
     {
         $this->render('contact', [
             'title' => 'Contact Us',
-            'errors' => [],
-            'old'    => ['name' => '', 'email' => '', 'message' => ''],
+            'old'   => ['name' => '', 'email' => '', 'message' => ''],
         ]);
     }
 
@@ -522,16 +544,13 @@ class ContactController extends Controller
         }
 
         if ($errors) {
-            // Flash a high-level error message (details show inline)
-            $_SESSION['messages'][] = [
-                'type' => 'is-danger',
-                'text' => 'Please fix the errors below and resubmit.',
-            ];
-
+            // Flash high-level notices; show field errors inline or as separate flashes
+            foreach ($errors as $err) {
+                $this->flash($err, 'is-warning');
+            }
             return $this->render('contact', [
-                'title'  => 'Contact Us',
-                'errors' => $errors,
-                'old'    => compact('name', 'email', 'message'),
+                'title' => 'Contact Us',
+                'old'   => compact('name', 'email', 'message'),
             ]);
         }
 
@@ -542,14 +561,9 @@ class ContactController extends Controller
             'message' => $message,
         ]);
 
-        // Flash success and redirect (POST/Redirect/GET)
-        $_SESSION['messages'][] = [
-            'type' => 'is-success',
-            'text' => 'Thanks! Your message has been received.',
-        ];
-
-        header('Location: /contact');
-        exit;
+        // Flash success and redirect (POST/Redirect/GET; default 303)
+        $this->flash('Thanks! Your message has been received.', 'is-success');
+        $this->redirect('/contact');
     }
 }
 ```
@@ -566,16 +580,6 @@ Create or replace `src/Views/contact.php` to mirror the new template system (fla
 <?php $this->start('content'); ?>
 
 <h1>Contact Us</h1>
-
-<?php if (!empty($errors)): ?>
-    <div>
-        <ul>
-            <?php foreach ($errors as $e): ?>
-                <li><?= htmlspecialchars($e) ?></li>
-            <?php endforeach; ?>
-        </ul>
-    </div>
-<?php endif; ?>
 
 <form method="post" action="/contact" novalidate>
     <div class="field">
@@ -631,7 +635,7 @@ php -S 0.0.0.0:8000 -t public
 
 Open `http://localhost:8000/` and verify:
 - The page renders using the layout
-- The `home.php` content appears in the layout’s `content` section
+- The home page content appears in the layout’s `content` section
 - Partials render without duplication
 - Escaping works: `<?= $this->e('<b>XSS</b>') ?>` prints safely
 
@@ -659,8 +663,8 @@ Also verify `http://localhost:8000/contact`:
 - [ ] `src/Controller.php` renders through the `View` engine
 - [ ] Layout at `src/Views/layouts/main.php` yields at least a `content` section
 - [ ] Partials present (`partials/head.php`, `partials/nav.php`, `partials/footer.php`)
-- [ ] Homepage view (`home.php`) uses layout and defines a `content` section
-- [ ] Contact view (`contact.php`) uses layout, displays validation errors, and relies on flash for status
+- [ ] Homepage view (`index.php`) uses layout and defines a `content` section
+- [ ] Contact view (`contact.php`) uses layout, displays flash messages, and preserves old input
 - [ ] Routes include `/` and `/contact` GET/POST (from P04)
 - [ ] Output escaping used for dynamic values
 - [ ] No external templating libraries used
