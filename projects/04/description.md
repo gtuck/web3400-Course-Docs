@@ -425,10 +425,11 @@ echo "Generated model: {$outPath}\n";
 
 ```
 
-Generate the `Contact` model (from your project root):
+Generate the `Contact` model and a new `Posts` model (from your project root):
 
 ```bash
 php scripts/generate-model.php contact_us
+php scripts/generate-model.php posts
 ```
 
 This should create `src/Models/Contact.php` with the correct `$table`, `$primaryKey`, and `$fillable` fields.
