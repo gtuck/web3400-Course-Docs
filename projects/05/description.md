@@ -251,7 +251,7 @@ Layout `src/Views/layouts/main.php` defines the base HTML shell and yields secti
   <head>
     <?php $this->insert('partials/head', ['title' => ($title ?? 'Home') . ' – ' . ($siteName ?? 'Site')]); ?>
   </head>
-  <body>
+  <body class="has-navbar-fixed-top">
     <?php $this->insert('partials/nav'); ?>
     <?php $this->insert('partials/flash'); ?>
 
@@ -269,35 +269,74 @@ Example partials (keep them minimal for the project):
 `src/Views/partials/head.php`
 ```php
 <?php // Basic head partial; you can add Bulma/FA/CDN links as needed ?>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title><?= $this->e($title ?? ($siteName ?? 'Site')) ?></title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title><?= $this->e($title ?? ($siteName ?? 'Site')) ?></title>
+  
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+  <script src="https://cdn.jsdelivr.net/npm/@vizuaalog/bulmajs@0.12/dist/bulma.min.js" defer></script>
+
 ```
 
 `src/Views/partials/nav.php`
 ```php
-<nav>
-  <a href="/">Home</a>
-  <a href="/contact">Contact</a>
-</nav>
+<header class="container">
+    <nav class="navbar is-fixed-top is-spaced has-shadow" role="navigation" aria-label="main navigation">
+      <div class="navbar-brand">
+        <a class="navbar-item" href="/">
+          <span class="icon-text">
+            <span class="icon"><i class="fas fa-code" aria-hidden="true"></i></span>
+            <span><?= $this->e($title ?? ($siteName ?? 'Site')) ?></span>
+          </span>
+        </a>
+
+        <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarMenu">
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <div id="navbarMenu" class="navbar-menu">
+        <div class="navbar-start">
+        </div>
+        <div class="navbar-end">
+            <a class="navbar-item" href="/contact">Contact</a>
+        </div>
+      </div>
+    </nav>
+  </header>
 ```
 
-`src/Views/partials/flash.php` (optional placeholder)
+`src/Views/partials/flash.php`
 ```php
-<?php if (!empty($_SESSION['messages'] ?? [])): ?>
-  <section>
-    <?php foreach ($_SESSION['messages'] as $m): ?>
-      <div><?= $this->e($m['text']) ?></div>
-    <?php endforeach; $_SESSION['messages'] = []; ?>
-  </section>
+<?php
+if (!empty($_SESSION['messages'])):
+?>
+    <section class="section">
+        <?php foreach ($_SESSION['messages'] as $m): ?>
+            <div class="notification <?= htmlspecialchars($m['type'], ENT_QUOTES) ?>">
+                <button class="delete" data-bulma="notification"></button>
+                <?= htmlspecialchars($m['text'], ENT_QUOTES) ?>
+            </div>
+        <?php endforeach;
+        $_SESSION['messages'] = []; ?>
+    </section>
 <?php endif; ?>
 ```
 
 `src/Views/partials/footer.php`
 ```php
-<footer>
-  <small>&copy; <?= date('Y') ?> <?= $this->e($siteName ?? 'My PHP Site') ?></small>
+ <!-- BEGIN PAGE FOOTER -->
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p>Your footer goes here.</p>
+    </div>
   </footer>
+  <!-- END PAGE FOOTER -->
 ```
 
 ---
