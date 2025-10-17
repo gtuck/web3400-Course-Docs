@@ -4,7 +4,7 @@ Build a lightweight, dependency‑free PHP templating system that supports layou
 ---
 
 ## Overview
-You will create a small `View` class that renders PHP templates using output buffering. Views can declare a layout, define sections with `start()/end()`, yield those sections in the layout with `section()`, and include partials with `insert()`.
+Starting from the end of Project 04 (Dotenv, Database helper, BaseModel + generator, Blog + Contact pages), you will add a small, dependency‑free `View` class that renders PHP templates using output buffering. Views can declare a layout, define sections with `start()/end()`, yield those sections in the layout with `section()`, and include partials with `insert()`.
 
 Key capabilities:
 - Layout inheritance via `$this->layout('layouts/main')`
@@ -28,8 +28,9 @@ This is “vanilla PHP”: no external templating libraries.
 ---
 
 ## Prerequisites
-- Project 03 or 04 structure in place (`public/`, `src/`, `composer.json`, PSR‑4 autoload)
-- Your router + controllers working from earlier projects
+- Start from your completed Project 04 (recommended): Dotenv bootstrapped in `public/index.php`, `Support/Database.php`, `Models/BaseModel.php`, generated models (e.g., `Blog`, `Contact`), and `/contact` GET/POST routes.
+- Composer PSR‑4 autoload in place (`App\ => src/`).
+- Your router + controllers working from Project 04.
 
 ---
 
@@ -37,16 +38,24 @@ This is “vanilla PHP”: no external templating libraries.
 
 ```
 projects/05/
-  composer.json              # PSR‑4 autoload (App\ => src/)
+  composer.json              # PSR‑4 autoload (App\ => src/), includes phpdotenv
   public/
-    index.php                # Front controller
+    index.php                # Front controller (keeps Dotenv from P04)
   src/
     Controller.php           # Base controller updated to use View
     Router.php               # From P03/P04
     Support/
+      Database.php           # From P04
       View.php               # NEW – vanilla template engine
+    Models/
+      BaseModel.php          # From P04
+      Blog.php               # From P04 (for homepage posts)
+      Contact.php            # From P04 (for contact form persistence)
     Controllers/
-      HomeController.php     # Example usage
+      HomeController.php     # Renders with View
+      ContactController.php  # Renders with View (GET + POST)
+    Routes/
+      index.php              # Includes / and /contact routes from P04
     Views/
       layouts/
         main.php             # Site layout (yields sections)
@@ -55,7 +64,10 @@ projects/05/
         nav.php              # Top navigation
         flash.php            # Flash/status messages (optional)
         footer.php           # Footer
-      home.php               # Example page view (defines sections)
+      home.php               # Homepage view (defines sections)
+      contact.php            # Contact form view (defines sections)
+  scripts/
+    generate-model.php       # From P04
 ```
 
 ---
@@ -68,7 +80,7 @@ From the repository root:
 cp -r projects/04 projects/05
 ```
 
-If you’re coming from P03, copying that is fine too. The key is that you have a working `public/index.php`, router, controllers, and PSR‑4 autoload.
+If you’re coming from P03, you must also add the P04 pieces (Dotenv bootstrapping, `Support/Database.php`, `Models/BaseModel.php`, generated models, contact controller + routes) before continuing. The goal is to begin where Project 04 concluded.
 
 ---
 
@@ -226,8 +238,13 @@ class Controller
         // Point to the Views directory relative to this file
         $this->view = new View(__DIR__ . '/Views');
         // Optionally share site‑wide variables
+        $siteName = $_ENV['SITE_NAME'] ?? 'My PHP Site';
+        $siteEmail = $_ENV['SITE_EMAIL'] ?? 'email@website.com';
+        $sitePhone = $_ENV['SITE_PHONE'] ?? '123-321-9876';
         $this->view->share([
-            'siteName' => 'My PHP Site',
+            'siteName' => $siteName,
+            'siteEmail' => $siteEmail,
+            'sitePhone' => $sitePhone,
         ]);
     }
 
@@ -236,6 +253,31 @@ class Controller
         echo $this->view->render($view, $data);
     }
 }
+```
+
+---
+
+## Step 4a) Add `SITE_NAME` to your environment
+
+Add an app title to `.env` and to `.env.example` so others can run your project.
+
+Example `.env` additions:
+
+```
+SITE_NAME=My PHP Site
+```
+
+Example `.env.example` additions:
+
+```
+SITE_NAME=My PHP Site
+```
+
+Tip: You can enforce it with Dotenv if you prefer strictness:
+
+```php
+// in public/index.php after safeLoad():
+$dotenv->required(['DB_HOST','DB_NAME','DB_USER','DB_PASS','DB_CHARSET','SITE_NAME'])->notEmpty();
 ```
 
 ---
@@ -341,6 +383,24 @@ if (!empty($_SESSION['messages'])):
 
 ---
 
+## Step 5a) Start the PHP session (for flash messages)
+
+Flash notifications use `$_SESSION`. Enable sessions in your front controller:
+
+```php
+<?php
+// filepath: projects/05/public/index.php
+require '../vendor/autoload.php';
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Load env and route as usual...
+```
+
+---
+
 ## Step 6) Create a view that uses the layout and sections
 
 `src/Views/home.php`
@@ -351,12 +411,24 @@ if (!empty($_SESSION['messages'])):
   <h1>Welcome to <?= $this->e($siteName ?? 'My PHP Site') ?></h1>
   <p>This page is rendered with a vanilla PHP template engine.</p>
 
+  <?php if (!empty($posts)): ?>
+    <h2>Blog Posts</h2>
+    <?php foreach ($posts as $post): ?>
+      <h3><?= htmlspecialchars($post['title']) ?></h3>
+      <p><?= htmlspecialchars($post['body']) ?></p>
+    <?php endforeach; ?>
+  <?php endif; ?>
+
 <?php $this->end(); ?>
 ```
 
 ---
 
-## Step 7) Render from a controller
+Note: If your P04 homepage view was `src/Views/index.php`, either rename it to `home.php` and adapt it as above, or update your controller to render `index` instead of `home`.
+
+---
+
+## Step 7) Render from a controller (Home)
 
 Example `HomeController`:
 
@@ -366,19 +438,185 @@ Example `HomeController`:
 namespace App\Controllers;
 
 use App\Controller;
+use App\Models\Blog;
 
 class HomeController extends Controller
 {
     public function index(): void
     {
+        // Optional: keep Blog posts from P04
+        $blog = new Blog();
+        $posts = $blog->all();
+
         $this->render('home', [
             'title' => 'Home',
+            'posts' => $posts,
         ]);
     }
 }
 ```
 
-Your router should dispatch `/` to `HomeController@index` as in P03/P04. No router changes are strictly required for this project beyond ensuring the home route points to the controller above.
+Your router should dispatch `/` to `HomeController@index` as in P03/P04.
+
+---
+
+## Step 8) Keep the `contact` routes from Project 04
+
+Ensure `src/Routes/index.php` still contains the GET and POST contact routes from P04:
+
+```php
+<?php
+use App\Controllers\HomeController;
+use App\Controllers\ContactController;
+use App\Router;
+
+$router = new Router();
+
+$router->get('/', HomeController::class, 'index');
+$router->get('/contact', ContactController::class, 'show');
+$router->post('/contact', ContactController::class, 'submit');
+
+$router->dispatch();
+```
+
+---
+
+## Step 9) Update `ContactController` to render via `View`
+
+Adapt your P04 `ContactController` to use flash notifications and the PRG pattern on success. Use `$this->render()` for GET and for invalid POSTs.
+
+```php
+<?php
+// filepath: projects/05/src/Controllers/ContactController.php
+namespace App\Controllers;
+
+use App\Controller; // base from P03 with render()
+use App\Models\Contact;
+
+class ContactController extends Controller
+{
+    public function show()
+    {
+        $this->render('contact', [
+            'title' => 'Contact Us',
+            'errors' => [],
+            'old'    => ['name' => '', 'email' => '', 'message' => ''],
+        ]);
+    }
+
+    public function submit()
+    {
+        $name    = trim($_POST['name']    ?? '');
+        $email   = trim($_POST['email']   ?? '');
+        $message = trim($_POST['message'] ?? '');
+
+        $errors = [];
+        if ($name === '') {
+            $errors[] = 'Name is required.';
+        }
+        if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $errors[] = 'A valid email is required.';
+        }
+        if ($message === '') {
+            $errors[] = 'Message is required.';
+        }
+
+        if ($errors) {
+            // Flash a high-level error message (details show inline)
+            $_SESSION['messages'][] = [
+                'type' => 'is-danger',
+                'text' => 'Please fix the errors below and resubmit.',
+            ];
+
+            return $this->render('contact', [
+                'title'  => 'Contact Us',
+                'errors' => $errors,
+                'old'    => compact('name', 'email', 'message'),
+            ]);
+        }
+
+        // Persist via BaseModel-powered Contact model
+        Contact::create([
+            'name'    => $name,
+            'email'   => $email,
+            'message' => $message,
+        ]);
+
+        // Flash success and redirect (POST/Redirect/GET)
+        $_SESSION['messages'][] = [
+            'type' => 'is-success',
+            'text' => 'Thanks! Your message has been received.',
+        ];
+
+        header('Location: /contact');
+        exit;
+    }
+}
+```
+
+---
+
+## Step 10) Convert the `contact` view to use the layout and sections
+
+Create or replace `src/Views/contact.php` to mirror the new template system (flash messages render via the layout’s `partials/flash.php`):
+
+```php
+<?php $this->layout('layouts/main'); ?>
+
+<?php $this->start('content'); ?>
+
+<h1>Contact Us</h1>
+
+<?php if (!empty($errors)): ?>
+    <div>
+        <ul>
+            <?php foreach ($errors as $e): ?>
+                <li><?= htmlspecialchars($e) ?></li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+<?php endif; ?>
+
+<form method="post" action="/contact" novalidate>
+    <div class="field">
+        <label class="label" for="name">Name</label>
+        <div class="control">
+            <input id="name" name="name" class="input" type="text" required
+                value="<?= htmlspecialchars($old['name'] ?? '') ?>" placeholder="Your name">
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label" for="email">Email</label>
+        <div class="control">
+            <input id="email" name="email" class="input" type="email" required
+                value="<?= htmlspecialchars($old['email'] ?? '') ?>" placeholder="you@example.com">
+        </div>
+    </div>
+
+    <div class="field">
+        <label class="label" for="message">Message</label>
+        <div class="control">
+            <textarea id="message" name="message" class="textarea" required
+                placeholder="How can we help?"><?= htmlspecialchars($old['message'] ?? '') ?></textarea>
+        </div>
+    </div>
+
+    <div class="field is-grouped">
+        <div class="control">
+            <button type="submit" class="button is-primary">
+                <span class="icon"><i class="fas fa-paper-plane" aria-hidden="true"></i></span>
+                <span>Send</span>
+            </button>
+        </div>
+        <div class="control">
+            <a class="button is-light" href="/">Cancel</a>
+        </div>
+    </div>
+</form>
+
+<?php $this->end(); ?>
+```
 
 ---
 
@@ -397,6 +635,11 @@ Open `http://localhost:8000/` and verify:
 - Partials render without duplication
 - Escaping works: `<?= $this->e('<b>XSS</b>') ?>` prints safely
 
+Also verify `http://localhost:8000/contact`:
+- GET renders the contact form within the layout
+- Invalid POSTs show validation errors and repopulate inputs
+- Valid POSTs persist to DB via `Contact::create()`, set a success flash, and redirect to GET
+
 ---
 
 ## Tips and Gotchas
@@ -406,6 +649,7 @@ Open `http://localhost:8000/` and verify:
 - If you forget `end()`, you’ll get a “No active section to end()” error.
 - If a layout is set and no `content` section was defined, the entire view output becomes `content` automatically.
 - Share globals like `siteName` or `authUser` via `$this->view->share([...])` in the base controller or a service provider.
+ - Prefer the PRG pattern: after successful POSTs, set a flash and redirect to avoid duplicate submissions.
 
 ---
 
@@ -415,9 +659,13 @@ Open `http://localhost:8000/` and verify:
 - [ ] `src/Controller.php` renders through the `View` engine
 - [ ] Layout at `src/Views/layouts/main.php` yields at least a `content` section
 - [ ] Partials present (`partials/head.php`, `partials/nav.php`, `partials/footer.php`)
-- [ ] A view (`home.php`) sets a layout and defines a `content` section
+- [ ] Homepage view (`home.php`) uses layout and defines a `content` section
+- [ ] Contact view (`contact.php`) uses layout, displays validation errors, and relies on flash for status
+- [ ] Routes include `/` and `/contact` GET/POST (from P04)
 - [ ] Output escaping used for dynamic values
 - [ ] No external templating libraries used
+ - [ ] PHP session started in `public/index.php`
+ - [ ] `ContactController` uses flash notifications and PRG on success
 
 ---
 
