@@ -1,3 +1,18 @@
+<?php
+/**
+ * Home Page View
+ *
+ * PURPOSE:
+ * Displays the home page with a hero section and list of blog posts
+ *
+ * AVAILABLE VARIABLES:
+ * - $siteName: Website name (from shared variables)
+ * - $posts: Array of blog post records from the database
+ * - $title: Page title (set in controller)
+ *
+ * LAYOUT: layouts/main
+ */
+?>
 <?php $this->layout('layouts/main'); ?>
 
 <?php $this->start('content'); ?>
@@ -15,10 +30,10 @@
 <h2>Blog Posts</h2>
 
 <?php foreach ($posts as $post): ?>
-
-    <h2><?= htmlspecialchars($post["title"]) ?></h2>
-    <p><?= htmlspecialchars($post["body"]) ?></p>
-
+    <article class="box">
+        <h2><?= $this->e($post["title"]) ?></h2>
+        <p><?= $this->e($post["body"]) ?></p>
+    </article>
 <?php endforeach; ?>
 <!-- END PAGE CONTENT -->
 

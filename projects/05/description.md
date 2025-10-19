@@ -1,12 +1,18 @@
-# Project 05 – Vanilla PHP Template System (Layouts, Sections, Partials)
-Build a lightweight, dependency‑free PHP templating system that supports layout inheritance, named sections, reusable partials, shared data, and a safe escape helper. Integrate it with your existing MVC structure (from P03/P04) by updating the base controller to render views through this template engine.
+# Project 05 – Vanilla PHP Template System with Enhanced Security & Validation
+Build a lightweight, dependency‑free PHP templating system that supports layout inheritance, named sections, reusable partials, shared data, and a safe escape helper. Enhance your MVC framework with CSRF protection, reusable validation, RESTful routing, and custom exception handling.
 
 ---
 
 ## Overview
-Starting from the end of Project 04 (Dotenv, Database helper, BaseModel + generator, Blog + Contact pages), you will add a small, dependency‑free `View` class that renders PHP templates using output buffering. Views can declare a layout, define sections with `start()/end()`, yield those sections in the layout with `section()`, and include partials with `insert()`.
+Starting from the end of Project 04 (Dotenv, Database helper, BaseModel + generator, Blog + Contact pages), you will:
 
-Key capabilities:
+1. **Add a dependency‑free `View` class** that renders PHP templates using output buffering
+2. **Implement CSRF protection** to secure forms against cross-site request forgery
+3. **Create a reusable `Validator` class** for clean, declarative input validation
+4. **Extend routing** to support RESTful HTTP methods (PUT, DELETE, PATCH) with method spoofing
+5. **Add custom exceptions** for better error handling and debugging
+
+### Templating Features:
 - Layout inheritance via `$this->layout('layouts/main')`
 - Named sections via `$this->start('content')` and `$this->end()`
 - Yield sections in the layout via `$this->section('content')`
@@ -14,16 +20,27 @@ Key capabilities:
 - Shared data available in all views (`$this->share([...])`)
 - Safe escaping helper `$this->e($value)`
 
-This is “vanilla PHP”: no external templating libraries.
+### Security & Architecture Features:
+- **CSRF tokens** automatically shared with all views
+- **Validator class** with rules like `required`, `email`, `max`, `min`, `in`
+- **RESTful routing** with PUT/DELETE/PATCH support
+- **Custom exceptions** like `RouteNotFoundException`
+- **Consistent XSS protection** using `$this->e()` throughout
+
+This is "vanilla PHP": no external templating or validation libraries.
 
 ---
 
 ## Learning Objectives
 - Use output buffering to build a simple templating engine
 - Separate page layout/partials from view content
-- Avoid global state; keep rendering concerns in a small class
 - Integrate a view engine into an MVC base controller
-- Safely escape output to prevent XSS
+- **Implement CSRF protection** to prevent cross-site request forgery attacks
+- **Create reusable validation logic** with a declarative rule-based system
+- **Extend routing** to support RESTful HTTP methods beyond GET/POST
+- **Use custom exceptions** for better error handling and debugging
+- **Apply consistent XSS protection** throughout all views
+- Follow security best practices (timing-safe comparisons, prepared statements, mass assignment protection)
 
 ---
 
@@ -40,34 +57,37 @@ This is “vanilla PHP”: no external templating libraries.
 projects/05/
   composer.json              # PSR‑4 autoload (App\ => src/), includes phpdotenv
   public/
-    index.php                # Front controller (keeps Dotenv from P04)
+    index.php                # Front controller (session start, Dotenv from P04)
   src/
-    Controller.php           # Base controller updated to use View
-    Router.php               # From P03/P04
+    Controller.php           # Base controller with View, CSRF, flash, redirect
+    Router.php               # Enhanced with PUT/DELETE/PATCH + method spoofing
     Support/
       Database.php           # From P04
-      View.php               # NEW – vanilla template engine
+      View.php               # Vanilla template engine
+      Validator.php          # NEW – Reusable validation class
+    Exceptions/
+      RouteNotFoundException.php  # NEW – Custom 404 exception
     Models/
-      BaseModel.php          # From P04
-      Blog.php               # From P04 (for homepage posts)
-      Contact.php            # From P04 (for contact form persistence)
+      BaseModel.php          # From P04 (Active Record pattern)
+      Blog.php               # Clean array syntax, documented
+      Contact.php            # Clean array syntax, documented
     Controllers/
-      HomeController.php     # Renders with View
-      ContactController.php  # Renders with View (GET + POST)
+      HomeController.php     # Renders with View, documented
+      ContactController.php  # Uses Validator + CSRF, documented
     Routes/
-      index.php              # Includes / and /contact routes from P04
+      index.php              # Routes: /, /contact (GET + POST)
     Views/
       layouts/
         main.php             # Site layout (yields sections)
       partials/
         head.php             # <head> + CSS/JS
         nav.php              # Top navigation
-        flash.php            # Flash/status messages (optional)
+        flash.php            # Flash/status messages
         footer.php           # Footer
-      index.php              # Homepage view (defines sections)
-      contact.php            # Contact form view (defines sections)
+      index.php              # Homepage view (consistent XSS protection)
+      contact.php            # Contact form (includes CSRF token)
   scripts/
-    generate-model.php       # From P04
+    generate-model.php       # Enhanced to output clean array syntax
 ```
 
 ---
@@ -218,9 +238,9 @@ Notes:
 
 ---
 
-## Step 4) Update the base `Controller` to use `View`
+## Step 4) Update the base `Controller` to use `View` and add CSRF protection
 
-Modify `src/Controller.php` so controllers render through the new engine. Add helpers for flash messages and redirects to support PRG.
+Modify `src/Controller.php` to render through the new engine and add CSRF protection helpers.
 
 ```php
 <?php
@@ -237,14 +257,17 @@ class Controller
     {
         // Point to the Views directory relative to this file
         $this->view = new View(__DIR__ . '/Views');
-        // Optionally share site‑wide variables
+
+        // Share site‑wide variables
         $siteName = $_ENV['SITE_NAME'] ?? 'My PHP Site';
         $siteEmail = $_ENV['SITE_EMAIL'] ?? 'email@website.com';
         $sitePhone = $_ENV['SITE_PHONE'] ?? '123-321-9876';
+
         $this->view->share([
             'siteName' => $siteName,
             'siteEmail' => $siteEmail,
             'sitePhone' => $sitePhone,
+            'csrfToken' => $this->csrfToken(),  // NEW: Share CSRF token
         ]);
     }
 
@@ -268,6 +291,27 @@ class Controller
     {
         header('Location: ' . $path, true, $status);
         exit;
+    }
+
+    // NEW: Generate or retrieve CSRF token
+    protected function csrfToken(): string
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        if (empty($_SESSION['csrf_token'])) {
+            $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+        }
+        return $_SESSION['csrf_token'];
+    }
+
+    // NEW: Validate CSRF token (timing-safe comparison)
+    protected function validateCsrf(string $token): bool
+    {
+        if (session_status() !== PHP_SESSION_ACTIVE) {
+            session_start();
+        }
+        return hash_equals($_SESSION['csrf_token'] ?? '', $token);
     }
 }
 ```
@@ -438,8 +482,10 @@ if (session_status() === PHP_SESSION_NONE) {
 
   <h2>Blog Posts</h2>
   <?php foreach ($posts as $post): ?>
-    <h3><?= htmlspecialchars($post['title']) ?></h3>
-    <p><?= htmlspecialchars($post['body']) ?></p>
+    <article class="box">
+      <h3><?= $this->e($post['title']) ?></h3>
+      <p><?= $this->e($post['body']) ?></p>
+    </article>
   <?php endforeach; ?>
 
 <?php $this->end(); ?>
@@ -453,7 +499,7 @@ Note: If you prefer `home.php`, you can render that instead from the controller.
 
 ## Step 7) Render from a controller (Home)
 
-Example `HomeController`:
+Example `HomeController` (note: use static method call, not instantiation):
 
 ```php
 <?php
@@ -467,9 +513,8 @@ class HomeController extends Controller
 {
     public function index(): void
     {
-        // Optional: keep Blog posts from P04
-        $blog = new Blog();
-        $posts = $blog->all(orderBy: 'created_at');
+        // Fetch blog posts using static method (BaseModel pattern)
+        $posts = Blog::all(orderBy: 'created_at DESC');
 
         $this->render('index', [
             'title' => 'Home',
@@ -478,6 +523,8 @@ class HomeController extends Controller
     }
 }
 ```
+
+**Important:** Since `Blog` extends `BaseModel`, all CRUD methods are static. Use `Blog::all()`, not `$blog->all()`.
 
 Your router should dispatch `/` to `HomeController@index` as in P03/P04.
 
@@ -504,17 +551,18 @@ $router->dispatch();
 
 ---
 
-## Step 9) Update `ContactController` to render via `View`
+## Step 9) Update `ContactController` with CSRF protection and Validator
 
-Adapt your P04 `ContactController` to use the base `flash()` helper and the PRG pattern on success. Use `$this->render()` for GET and for invalid POSTs.
+Enhance `ContactController` to use CSRF validation and the new `Validator` class.
 
 ```php
 <?php
 // filepath: projects/05/src/Controllers/ContactController.php
 namespace App\Controllers;
 
-use App\Controller; // base from P03 with render()
+use App\Controller;
 use App\Models\Contact;
+use App\Support\Validator;
 
 class ContactController extends Controller
 {
@@ -528,51 +576,110 @@ class ContactController extends Controller
 
     public function submit()
     {
-        $name    = trim($_POST['name']    ?? '');
-        $email   = trim($_POST['email']   ?? '');
-        $message = trim($_POST['message'] ?? '');
-
-        $errors = [];
-        if ($name === '') {
-            $errors[] = 'Name is required.';
-        }
-        if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $errors[] = 'A valid email is required.';
-        }
-        if ($message === '') {
-            $errors[] = 'Message is required.';
+        // CSRF Protection: Validate token first
+        if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
+            $this->flash('Security token validation failed. Please try again.', 'is-danger');
+            $this->redirect('/contact');
         }
 
-        if ($errors) {
-            // Flash high-level notices; show field errors inline or as separate flashes
+        // Sanitize input
+        $data = [
+            'name'    => trim($_POST['name'] ?? ''),
+            'email'   => trim($_POST['email'] ?? ''),
+            'message' => trim($_POST['message'] ?? ''),
+        ];
+
+        // Validate using Validator class
+        $validationErrors = Validator::validate($data, [
+            'name'    => 'required|max:255',
+            'email'   => 'required|email',
+            'message' => 'required',
+        ]);
+
+        // Flatten errors to simple array
+        $errors = Validator::flattenErrors($validationErrors);
+
+        if (!empty($errors)) {
             foreach ($errors as $err) {
                 $this->flash($err, 'is-warning');
             }
             return $this->render('contact', [
                 'title' => 'Contact Us',
-                'old'   => compact('name', 'email', 'message'),
+                'old'   => $data,
             ]);
         }
 
         // Persist via BaseModel-powered Contact model
-        Contact::create([
-            'name'    => $name,
-            'email'   => $email,
-            'message' => $message,
-        ]);
+        Contact::create($data);
 
-        // Flash success and redirect (POST/Redirect/GET; default 303)
+        // Flash success and redirect (POST/Redirect/GET)
         $this->flash('Thanks! Your message has been received.', 'is-success');
         $this->redirect('/contact');
     }
 }
 ```
 
+### Step 9a) Create the Validator class
+
+Create `src/Support/Validator.php` with reusable validation logic:
+
+```php
+<?php
+// filepath: projects/05/src/Support/Validator.php
+namespace App\Support;
+
+class Validator
+{
+    public static function validate(array $data, array $rules): array
+    {
+        $errors = [];
+        foreach ($rules as $field => $ruleString) {
+            $fieldRules = explode('|', $ruleString);
+            $value = $data[$field] ?? null;
+
+            foreach ($fieldRules as $rule) {
+                $ruleParts = explode(':', $rule, 2);
+                $ruleName = $ruleParts[0];
+                $ruleParam = $ruleParts[1] ?? null;
+
+                $error = self::applyRule($field, $value, $ruleName, $ruleParam);
+                if ($error) {
+                    $errors[$field] = $errors[$field] ?? [];
+                    $errors[$field][] = $error;
+                }
+            }
+        }
+        return $errors;
+    }
+
+    private static function applyRule(string $field, mixed $value, string $rule, ?string $param): ?string
+    {
+        return match ($rule) {
+            'required' => ($value === null || $value === '') ? ucfirst($field) . " is required." : null,
+            'email' => ($value && !filter_var($value, FILTER_VALIDATE_EMAIL)) ? ucfirst($field) . " must be a valid email." : null,
+            'max' => ($value && mb_strlen($value) > (int)$param) ? ucfirst($field) . " must not exceed {$param} characters." : null,
+            default => null,
+        };
+    }
+
+    public static function flattenErrors(array $errors): array
+    {
+        $flat = [];
+        foreach ($errors as $fieldErrors) {
+            foreach ($fieldErrors as $message) {
+                $flat[] = $message;
+            }
+        }
+        return $flat;
+    }
+}
+```
+
 ---
 
-## Step 10) Convert the `contact` view to use the layout and sections
+## Step 10) Convert the `contact` view to use the layout and CSRF token
 
-Create or replace `src/Views/contact.php` to mirror the new template system (flash messages render via the layout’s `partials/flash.php`):
+Create or replace `src/Views/contact.php` with CSRF protection and consistent XSS escaping:
 
 ```php
 <?php $this->layout('layouts/main'); ?>
@@ -582,11 +689,14 @@ Create or replace `src/Views/contact.php` to mirror the new template system (fla
 <h1>Contact Us</h1>
 
 <form method="post" action="/contact" novalidate>
+    <!-- CSRF Protection Token -->
+    <input type="hidden" name="csrf_token" value="<?= $this->e($csrfToken) ?>">
+
     <div class="field">
         <label class="label" for="name">Name</label>
         <div class="control">
             <input id="name" name="name" class="input" type="text" required
-                value="<?= htmlspecialchars($old['name'] ?? '') ?>" placeholder="Your name">
+                value="<?= $this->e($old['name'] ?? '') ?>" placeholder="Your name">
         </div>
     </div>
 
@@ -594,7 +704,7 @@ Create or replace `src/Views/contact.php` to mirror the new template system (fla
         <label class="label" for="email">Email</label>
         <div class="control">
             <input id="email" name="email" class="input" type="email" required
-                value="<?= htmlspecialchars($old['email'] ?? '') ?>" placeholder="you@example.com">
+                value="<?= $this->e($old['email'] ?? '') ?>" placeholder="you@example.com">
         </div>
     </div>
 
@@ -602,7 +712,7 @@ Create or replace `src/Views/contact.php` to mirror the new template system (fla
         <label class="label" for="message">Message</label>
         <div class="control">
             <textarea id="message" name="message" class="textarea" required
-                placeholder="How can we help?"><?= htmlspecialchars($old['message'] ?? '') ?></textarea>
+                placeholder="How can we help?"><?= $this->e($old['message'] ?? '') ?></textarea>
         </div>
     </div>
 
@@ -621,6 +731,10 @@ Create or replace `src/Views/contact.php` to mirror the new template system (fla
 
 <?php $this->end(); ?>
 ```
+
+**Key Changes:**
+- Added CSRF token as hidden field: `<input type="hidden" name="csrf_token" value="<?= $this->e($csrfToken) ?>">`
+- Use `$this->e()` for all dynamic values (consistent XSS protection)
 
 ---
 
@@ -647,29 +761,74 @@ Also verify `http://localhost:8000/contact`:
 ---
 
 ## Tips and Gotchas
-- Always escape untrusted data with `$this->e()` inside templates.
-- Keep templates dumb: no DB access or heavy logic.
-- Use `$this->insert('partials/...')` for reusable chunks.
-- If you forget `end()`, you’ll get a “No active section to end()” error.
-- If a layout is set and no `content` section was defined, the entire view output becomes `content` automatically.
-- Share globals like `siteName` or `authUser` via `$this->view->share([...])` in the base controller or a service provider.
- - Prefer the PRG pattern: after successful POSTs, set a flash and redirect to avoid duplicate submissions.
+
+### Templating
+- Always escape untrusted data with `$this->e()` inside templates (use consistently, not raw `htmlspecialchars()`)
+- Keep templates dumb: no DB access or heavy logic
+- Use `$this->insert('partials/...')` for reusable chunks
+- If you forget `end()`, you'll get a "No active section to end()" error
+- If a layout is set and no `content` section was defined, the entire view output becomes `content` automatically
+- Share globals like `siteName`, `csrfToken`, etc. via `$this->view->share([...])` in the base controller constructor
+
+### Security
+- **CSRF tokens** prevent cross-site request forgery—validate on all POST/PUT/DELETE/PATCH requests
+- Use **timing-safe comparison** (`hash_equals()`) when validating tokens to prevent timing attacks
+- Always validate CSRF **before** processing form data
+- The CSRF token is automatically shared with all views, just add it to forms as a hidden field
+
+### Models & Data
+- BaseModel methods are **static**: use `Blog::all()`, not `(new Blog())->all()`
+- Models use `$fillable` for **mass assignment protection**—only listed fields can be set via `create()` or `update()`
+- Use clean array syntax: `['field1', 'field2']` not `array(0 => 'field1', 1 => 'field2')`
+
+### Validation
+- Use the `Validator` class instead of manual validation for cleaner, reusable code
+- Validation rules are declarative: `'email' => 'required|email|max:255'`
+- Use `Validator::flattenErrors()` to convert nested errors to a simple array for flash messages
+
+### Routing
+- Router now supports RESTful methods: `$router->put()`, `$router->delete()`, `$router->patch()`
+- HTML forms only support GET/POST, use method spoofing: `<input type="hidden" name="_method" value="DELETE">`
+- Use custom exceptions like `RouteNotFoundException` for better debugging
+
+### Best Practices
+- Prefer the **PRG pattern** (POST-Redirect-GET): after successful POSTs, set a flash and redirect to avoid duplicate submissions
+- Keep controllers thin: validation goes in Validator, data operations in Models
+- Document your code with PHPDoc comments explaining purpose and usage examples
 
 ---
 
 ## Grading Checklist
+
+### Core Templating (Original Requirements)
 - [ ] Project exists at `projects/05/` and runs
 - [ ] `src/Support/View.php` implements layout/sections/partials and `e()`
 - [ ] `src/Controller.php` renders through the `View` engine
 - [ ] Layout at `src/Views/layouts/main.php` yields at least a `content` section
-- [ ] Partials present (`partials/head.php`, `partials/nav.php`, `partials/footer.php`)
+- [ ] Partials present (`partials/head.php`, `partials/nav.php`, `partials/footer.php`, `partials/flash.php`)
 - [ ] Homepage view (`index.php`) uses layout and defines a `content` section
-- [ ] Contact view (`contact.php`) uses layout, displays flash messages, and preserves old input
-- [ ] Routes include `/` and `/contact` GET/POST (from P04)
-- [ ] Output escaping used for dynamic values
+- [ ] Contact view (`contact.php`) uses layout and preserves old input
+- [ ] Routes include `/` and `/contact` GET/POST
 - [ ] No external templating libraries used
- - [ ] PHP session started in `public/index.php`
- - [ ] `ContactController` uses flash notifications and PRG on success
+- [ ] PHP session started in `public/index.php`
+- [ ] `ContactController` uses flash notifications and PRG on success
+
+### Enhanced Security & Features
+- [ ] **CSRF Protection:** Controller has `csrfToken()` and `validateCsrf()` methods
+- [ ] **CSRF Token:** Automatically shared with all views in Controller constructor
+- [ ] **CSRF Validation:** `ContactController::submit()` validates token before processing
+- [ ] **CSRF in Form:** Contact form includes hidden CSRF token field
+- [ ] **Validator Class:** `src/Support/Validator.php` implements rule-based validation
+- [ ] **Validator Usage:** `ContactController` uses `Validator::validate()` instead of manual validation
+- [ ] **Consistent XSS:** All views use `$this->e()` for dynamic values (not raw `htmlspecialchars()`)
+- [ ] **Custom Exceptions:** `src/Exceptions/RouteNotFoundException.php` exists
+- [ ] **Router Updates:** Router throws `RouteNotFoundException` instead of generic `Exception`
+- [ ] **RESTful Routing:** Router supports `put()`, `delete()`, `patch()` methods
+- [ ] **Method Spoofing:** Router's `dispatch()` checks for `_method` field
+- [ ] **Clean Models:** Blog and Contact models use clean array syntax: `['field1', 'field2']`
+- [ ] **Static Model Calls:** `HomeController` uses `Blog::all()`, not `$blog->all()`
+- [ ] **Model Generator:** `scripts/generate-model.php` outputs clean array syntax
+- [ ] **Documentation:** Key files have PHPDoc comments explaining purpose and usage
 
 ---
 
