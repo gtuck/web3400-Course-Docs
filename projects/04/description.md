@@ -130,6 +130,7 @@ Example `.env`:
 Add `.env` to your `.gitignore` if it isn’t already ignored.
 
 ```
+#Database configuration
 DB_HOST=db
 DB_NAME=web3400
 DB_USER=web3400
@@ -140,6 +141,7 @@ DB_CHARSET=utf8mb4
 Commit a `.env.example` with the same keys but placeholder values:
 
 ```
+#Database configuration
 DB_HOST=YOUR_DB_HOST
 DB_NAME=YOUR_DB_NAME
 DB_USER=YOUR_DB_USER
@@ -226,35 +228,130 @@ namespace App\Models;
 use App\Support\Database;
 use PDO;
 
+/**
+ * BaseModel - Abstract base class for all database models
+ *
+ * Provides a simple Active Record-like pattern for database operations.
+ * All model classes should extend this class and define their table name,
+ * primary key, and fillable columns.
+ *
+ * Example usage:
+ *
+ * class User extends BaseModel {
+ *     protected static string $table = 'users';
+ *     protected static string $primaryKey = 'id';
+ *     protected static array $fillable = ['name', 'email', 'password'];
+ * }
+ *
+ * // Find a user by ID
+ * $user = User::find(1);
+ *
+ * // Get all users
+ * $users = User::all();
+ *
+ * // Create a new user
+ * $id = User::create(['name' => 'John', 'email' => 'john@example.com']);
+ *
+ * // Update a user
+ * User::update(1, ['name' => 'Jane']);
+ *
+ * // Delete a user
+ * User::delete(1);
+ */
 abstract class BaseModel
 {
     /** @var string Table name (override in subclass) */
     protected static string $table;
-    /** @var string Primary key column name */
+
+    /** @var string Primary key column name (default: 'id') */
     protected static string $primaryKey = 'id';
-    /** @var array<string> Fillable columns for create/update */
+
+    /** @var array<string> Fillable columns for create/update operations (whitelist for mass assignment protection) */
     protected static array $fillable = [];
 
+    /**
+     * Get the PDO database connection instance
+     *
+     * @return PDO The database connection object
+     *
+     * Example:
+     * $pdo = static::pdo();
+     * $stmt = $pdo->prepare('SELECT * FROM users WHERE active = 1');
+     */
     protected static function pdo(): PDO
     {
         return Database::pdo();
     }
 
+    /**
+     * Get the table name for this model
+     *
+     * @return string The database table name
+     *
+     * Example:
+     * $tableName = static::table(); // Returns 'users' for User model
+     */
     protected static function table(): string
     {
         return static::$table;
     }
 
+    /**
+     * Get the primary key column name for this model
+     *
+     * @return string The primary key column name (typically 'id')
+     *
+     * Example:
+     * $pk = static::pk(); // Returns 'id' by default
+     */
     protected static function pk(): string
     {
         return static::$primaryKey;
     }
 
+    /**
+     * Sanitize input data to only include fillable columns
+     *
+     * This provides mass assignment protection by filtering out any
+     * columns that are not explicitly defined in the $fillable array.
+     *
+     * @param array $data Raw input data (e.g., from $_POST)
+     * @return array Sanitized data containing only fillable columns
+     *
+     * Example:
+     * // If $fillable = ['name', 'email']
+     * $input = ['name' => 'John', 'email' => 'john@example.com', 'is_admin' => 1];
+     * $safe = static::sanitize($input);
+     * // Result: ['name' => 'John', 'email' => 'john@example.com']
+     * // Note: 'is_admin' is removed because it's not in $fillable
+     */
     protected static function sanitize(array $data): array
     {
         return array_intersect_key($data, array_flip(static::$fillable));
     }
 
+    /**
+     * Find a single record by its primary key
+     *
+     * Retrieves one row from the database matching the given ID.
+     * Returns null if no record is found.
+     *
+     * @param int|string $id The primary key value to search for
+     * @return array|null Associative array of the record, or null if not found
+     *
+     * Example:
+     * // Find user with ID 5
+     * $user = User::find(5);
+     * if ($user) {
+     *     echo $user['name']; // Access column values
+     *     echo $user['email'];
+     * } else {
+     *     echo "User not found";
+     * }
+     *
+     * // Also works with string IDs (e.g., UUIDs)
+     * $item = Item::find('550e8400-e29b-41d4-a716-446655440000');
+     */
     public static function find(int|string $id): ?array
     {
         $sql = 'SELECT * FROM `'.static::table().'` WHERE `'.static::pk().'` = :id LIMIT 1';
@@ -265,6 +362,41 @@ abstract class BaseModel
         return $row ?: null;
     }
 
+    /**
+     * Retrieve all records from the table with pagination and ordering
+     *
+     * Fetches multiple records with support for limiting, offsetting, and custom ordering.
+     * By default, returns up to 100 records ordered by primary key descending (newest first).
+     *
+     * SECURITY NOTE: If exposing $orderBy from user input, always whitelist allowed columns
+     * in your calling code to prevent SQL injection.
+     *
+     * @param int $limit Maximum number of records to return (default: 100)
+     * @param int $offset Number of records to skip (for pagination, default: 0)
+     * @param string|null $orderBy Custom ORDER BY clause (default: primary key DESC)
+     * @return array Array of associative arrays, each representing a record
+     *
+     * Example:
+     * // Get the first 10 users (default newest first)
+     * $users = User::all(10);
+     *
+     * // Get the next 10 users (pagination)
+     * $users = User::all(10, 10); // Skip first 10, get next 10
+     *
+     * // Custom ordering by name ascending
+     * $users = User::all(50, 0, '`name` ASC');
+     *
+     * // Page 3 of results (20 per page)
+     * $page = 3;
+     * $perPage = 20;
+     * $offset = ($page - 1) * $perPage;
+     * $users = User::all($perPage, $offset);
+     *
+     * // Iterate through results
+     * foreach ($users as $user) {
+     *     echo $user['name'] . '<br>';
+     * }
+     */
     public static function all(int $limit = 100, int $offset = 0, ?string $orderBy = null): array
     {
         $order = $orderBy ?: '`'.static::pk().'` DESC';
@@ -277,6 +409,40 @@ abstract class BaseModel
         return $stmt->fetchAll();
     }
 
+    /**
+     * Create a new record in the database
+     *
+     * Inserts a new row with the provided data. Only columns listed in the
+     * $fillable array will be inserted (mass assignment protection).
+     * Returns the auto-generated ID of the newly created record.
+     *
+     * @param array $data Associative array of column => value pairs to insert
+     * @return int The ID of the newly created record (from lastInsertId)
+     * @throws \InvalidArgumentException If no fillable fields are provided
+     *
+     * Example:
+     * // Create a new user
+     * $userId = User::create([
+     *     'name' => 'John Doe',
+     *     'email' => 'john@example.com',
+     *     'password' => password_hash('secret123', PASSWORD_DEFAULT)
+     * ]);
+     * echo "New user created with ID: $userId";
+     *
+     * // Using data from a form submission
+     * $newId = User::create($_POST); // Only fillable fields will be used
+     *
+     * // Handle potential errors
+     * try {
+     *     $productId = Product::create([
+     *         'name' => 'Widget',
+     *         'price' => 29.99,
+     *         'stock' => 100
+     *     ]);
+     * } catch (\InvalidArgumentException $e) {
+     *     echo "Error: " . $e->getMessage();
+     * }
+     */
     public static function create(array $data): int
     {
         $data = static::sanitize($data);
@@ -295,6 +461,43 @@ abstract class BaseModel
         return (int) static::pdo()->lastInsertId();
     }
 
+    /**
+     * Update an existing record by its primary key
+     *
+     * Updates the specified record with new data. Only columns listed in the
+     * $fillable array will be updated (mass assignment protection).
+     * Returns true if the update query executed successfully, false if no
+     * fillable fields were provided.
+     *
+     * @param int|string $id The primary key value of the record to update
+     * @param array $data Associative array of column => value pairs to update
+     * @return bool True if update executed successfully, false if no fillable data
+     *
+     * Example:
+     * // Update a user's email
+     * $success = User::update(5, ['email' => 'newemail@example.com']);
+     * if ($success) {
+     *     echo "User updated successfully";
+     * }
+     *
+     * // Update multiple columns
+     * User::update(10, [
+     *     'name' => 'Jane Smith',
+     *     'email' => 'jane@example.com',
+     *     'status' => 'active'
+     * ]);
+     *
+     * // Update from form data (only fillable fields will be used)
+     * $userId = 3;
+     * User::update($userId, $_POST);
+     *
+     * // Partial updates are allowed
+     * Product::update(15, ['stock' => 50]); // Only updates stock column
+     *
+     * // Check if update affected any rows (not supported by default, but can be extended)
+     * $result = User::update(99, ['name' => 'New Name']);
+     * // $result is true if query executed, even if no rows matched ID 99
+     */
     public static function update(int|string $id, array $data): bool
     {
         $data = static::sanitize($data);
@@ -314,6 +517,44 @@ abstract class BaseModel
         return $stmt->execute();
     }
 
+    /**
+     * Delete a record by its primary key
+     *
+     * Permanently removes the specified record from the database.
+     * Returns true if the deletion query executed successfully.
+     *
+     * WARNING: This operation is irreversible. Consider implementing soft deletes
+     * (e.g., a 'deleted_at' timestamp column) for recoverable deletions.
+     *
+     * @param int|string $id The primary key value of the record to delete
+     * @return bool True if deletion executed successfully
+     *
+     * Example:
+     * // Delete a user by ID
+     * $success = User::delete(5);
+     * if ($success) {
+     *     echo "User deleted successfully";
+     * } else {
+     *     echo "Failed to delete user";
+     * }
+     *
+     * // Delete with confirmation
+     * $userId = 10;
+     * $user = User::find($userId);
+     * if ($user && confirm("Delete user {$user['name']}?")) {
+     *     User::delete($userId);
+     * }
+     *
+     * // Batch deletion (manual loop needed)
+     * $idsToDelete = [1, 2, 3, 4, 5];
+     * foreach ($idsToDelete as $id) {
+     *     User::delete($id);
+     * }
+     *
+     * // NOTE: The return value indicates query success, not whether
+     * // a row was actually deleted. Returns true even if ID doesn't exist.
+     * $result = User::delete(99999); // Returns true even if user 99999 doesn't exist
+     */
     public static function delete(int|string $id): bool
     {
         $sql = 'DELETE FROM `'.static::table().'` WHERE `'.static::pk().'` = :id';
@@ -322,7 +563,6 @@ abstract class BaseModel
         return $stmt->execute();
     }
 }
-
 ```
 
 Create `scripts/generate-model.php`  
@@ -330,8 +570,27 @@ Create `scripts/generate-model.php`
 ```php
 #!/usr/bin/env php
 <?php
-// scripts/generate-model.php
-// Usage: php scripts/generate-model.php <table_name>
+/**
+ * Model Generator Script
+ *
+ * PURPOSE:
+ * CLI tool to automatically generate model classes from database tables.
+ * Introspects table structure and creates a properly formatted model file.
+ *
+ * USAGE:
+ * php scripts/generate-model.php <table_name>
+ *
+ * EXAMPLES:
+ * php scripts/generate-model.php users
+ * php scripts/generate-model.php blog_posts
+ * php scripts/generate-model.php contact_us
+ *
+ * FEATURES:
+ * - Auto-detects primary key
+ * - Excludes timestamp columns (created_at, updated_at, deleted_at)
+ * - Converts table names to singular class names (posts → Post)
+ * - Generates clean, properly formatted model files with documentation
+ */
 
 declare(strict_types=1);
 
@@ -345,91 +604,178 @@ if (class_exists(\Dotenv\Dotenv::class)) {
 use App\Support\Database;
 use PDO;
 
+// Parse command-line arguments
 [$script, $table] = $argv + [null, null];
 if (!$table) {
     fwrite(STDERR, "Usage: php scripts/generate-model.php <table>\n");
     exit(1);
 }
 
+// Connect to database
 $pdo = Database::pdo();
 
-$sql = "SELECT COLUMN_NAME, COLUMN_KEY\n          FROM INFORMATION_SCHEMA.COLUMNS\n         WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = :t\n      ORDER BY ORDINAL_POSITION";
+// Query table structure from INFORMATION_SCHEMA
+$sql = "SELECT COLUMN_NAME, COLUMN_KEY
+          FROM INFORMATION_SCHEMA.COLUMNS
+         WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = :t
+      ORDER BY ORDINAL_POSITION";
 $stmt = $pdo->prepare($sql);
 $stmt->execute([':t' => $table]);
 $cols = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
+// Validate table exists
 if (!$cols) {
     fwrite(STDERR, "Table not found: {$table}\n");
     exit(1);
 }
 
+// Extract primary key and fillable columns
 $pk = 'id';
 $fillable = [];
 foreach ($cols as $col) {
     $name = $col['COLUMN_NAME'];
+
+    // Identify primary key
     if ($col['COLUMN_KEY'] === 'PRI') {
         $pk = $name;
         continue;
     }
+
+    // Exclude timestamp columns (auto-managed by database)
     if (in_array($name, ['created_at', 'updated_at', 'deleted_at'], true)) {
         continue;
     }
+
     $fillable[] = $name;
 }
 
-function studly(string $s): string {
+/**
+ * Convert snake_case or kebab-case to StudlyCase
+ * Example: blog_posts → BlogPosts, user-roles → UserRoles
+ */
+function studly(string $s): string
+{
     $s = str_replace(['-', '_'], ' ', $s);
     $s = ucwords($s);
     return str_replace(' ', '', $s);
 }
 
-function ends_with(string $s, string $suffix): bool {
+/**
+ * Check if string ends with a suffix
+ */
+function ends_with(string $s, string $suffix): bool
+{
     $len = strlen($suffix);
     if ($len === 0) return true;
     return substr($s, -$len) === $suffix;
 }
 
-function singular(string $s): string {
+/**
+ * Convert plural table name to singular class name
+ * Examples: posts → post, categories → category, analyses → analysis
+ */
+function singular(string $s): string
+{
     if (ends_with($s, 'ies')) return substr($s, 0, -3) . 'y';
-    if (ends_with($s, 'ses')) return substr($s, 0, -2); // e.g., analyses -> analysis
+    if (ends_with($s, 'ses')) return substr($s, 0, -2);
     if (ends_with($s, 's')) return substr($s, 0, -1);
     return $s;
 }
 
+/**
+ * Format array as clean PHP array literal syntax
+ * Example: ['name', 'email', 'message']
+ */
+function format_array(array $items): string
+{
+    if (empty($items)) {
+        return '[]';
+    }
+
+    $quoted = array_map(fn($item) => "'{$item}'", $items);
+    return '[' . implode(', ', $quoted) . ']';
+}
+
+// Generate class name from table name
 $class = studly(singular($table));
 
+// Generate fillable array with clean syntax
+$fillableString = format_array($fillable);
+
+// Model template with documentation
 $template = <<<'PHP'
 <?php
+/**
+ * %CLASS% Model
+ *
+ * PURPOSE:
+ * Represents records in the '%TABLE%' database table.
+ * Provides CRUD operations via ActiveRecord pattern.
+ *
+ * DATABASE TABLE: %TABLE%
+ * PRIMARY KEY: %PK%
+ *
+ * USAGE EXAMPLES:
+ *
+ * // Create a new record
+ * $id = %CLASS%::create([
+ *     // Add your fields here
+ * ]);
+ *
+ * // Find a specific record
+ * $record = %CLASS%::find(1);
+ *
+ * // Get all records
+ * $records = %CLASS%::all(limit: 10, orderBy: 'created_at DESC');
+ *
+ * // Update a record
+ * %CLASS%::update(1, [
+ *     // Updated fields
+ * ]);
+ *
+ * // Delete a record
+ * %CLASS%::delete(1);
+ */
+
 namespace App\Models;
 
 final class %CLASS% extends BaseModel
 {
+    /** @var string Database table name */
     protected static string $table = '%TABLE%';
+
+    /** @var string Primary key column */
     protected static string $primaryKey = '%PK%';
+
+    /** @var array<string> Columns allowed for mass assignment */
     protected static array $fillable = %FILLABLE%;
 }
 
 PHP;
 
+// Replace placeholders with actual values
 $code = str_replace(
     ['%CLASS%', '%TABLE%', '%PK%', '%FILLABLE%'],
-    [$class, $table, $pk, var_export($fillable, true)],
+    [$class, $table, $pk, $fillableString],
     $template
 );
 
+// Write model file
 $outPath = dirname(__DIR__) . '/src/Models/' . $class . '.php';
 @mkdir(dirname($outPath), 0777, true);
 file_put_contents($outPath, $code);
 
 echo "Generated model: {$outPath}\n";
-
+echo "Class name: {$class}\n";
+echo "Table: {$table}\n";
+echo "Primary key: {$pk}\n";
+echo "Fillable fields: " . implode(', ', $fillable) . "\n";
 ```
 
-Generate the `Contact` model and a new `Posts` model (from your project root):
+Generate the `Contact` model (from your project root):
 
 ```bash
 php scripts/generate-model.php contact_us
-php scripts/generate-model.php posts
 ```
 
 This should create `src/Models/Contact.php` with the correct `$table`, `$primaryKey`, and `$fillable` fields.
@@ -590,73 +936,6 @@ Open `http://localhost:8000/contact` and verify:
 - Invalid inputs re-render the form with error messages and old values
 
 If necessary, confirm your table exists: see `projects/01/sql/contact_us.sql`.
-
----
-
-## BaseModel + Generator (Details)
-
-To keep controllers thin and avoid repeating CRUD, use a simple `BaseModel` and the generator to scaffold concrete model classes from your tables.
-
-BaseModel shape:
-
-```php
-namespace App\Models;
-
-use App\Support\Database; use PDO;
-
-abstract class BaseModel {
-    protected static string $table;              // set in subclass
-    protected static string $primaryKey = 'id';  // override if needed
-    protected static array  $fillable = [];      // whitelist for create/update
-
-    public static function find($id): ?array {}
-    public static function all($limit=100,$offset=0,$orderBy=null): array {}
-    public static function create(array $data): int {}
-    public static function update($id, array $data): bool {}
-    public static function delete($id): bool {}
-}
-```
-
-Example model:
-
-```php
-final class Contact extends BaseModel {
-    protected static string $table = 'contact_us';
-    protected static array  $fillable = ['name','email','message'];
-}
-```
-
-Generator usage (from your project root):
-
-```bash
-php scripts/generate-model.php contact_us
-```
-
-This will create `src/Models/Contact.php` with the correct `$table`, `$primaryKey`, and `$fillable` (excluding common timestamp fields).
-
-Controller usage:
-
-```php
-use App\Models\Contact;
-
-// Create
-$id = Contact::create(['name' => $name, 'email' => $email, 'message' => $msg]);
-
-// Read
-$row  = Contact::find($id);
-$rows = Contact::all(limit: 20);
-
-// Update
-Contact::update($id, ['message' => 'Updated message']);
-
-// Delete
-Contact::delete($id);
-```
-
-Notes:
-- Security: `create`/`update` only accept whitelisted `$fillable` fields (server-side validate inputs as usual).
-- Ordering: If you allow custom `$orderBy`, whitelist valid columns to avoid SQL injection.
-- Transactions: For multi-step operations, wrap logic in a transaction with `$pdo->beginTransaction()` / `commit()`.
 
 ---
 
