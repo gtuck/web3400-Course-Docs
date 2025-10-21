@@ -88,6 +88,22 @@ cp -r projects/05 projects/06
 
 Remove P05-specific references in routes and views that aren’t needed, then add the files described below.
 
+Create the additional P06 folders and empty files:
+
+```bash
+cd projects/06 \
+&& mkdir -p src/{Support,Models,Controllers,Routes,Views} \
+&& mkdir -p src/Views/{auth,profile,admin/users} \
+&& touch \
+  src/Support/Auth.php \
+  src/Models/User.php \
+  src/Controllers/{AuthController.php,ProfileController.php,UsersController.php} \
+  src/Routes/index.php \
+  src/Views/auth/{login.php,register.php} \
+  src/Views/profile/{show.php,edit.php,password.php} \
+  src/Views/admin/users/{index.php,create.php,edit.php}
+```
+
 ---
 
 ## Step 2) Create the `users` table
