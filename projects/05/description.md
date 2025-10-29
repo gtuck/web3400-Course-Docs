@@ -4,7 +4,7 @@ Build a lightweight, dependency‑free PHP templating system that supports layou
 ---
 
 ## Overview
-Starting from the end of Project 04 (Dotenv, Database helper, BaseModel + generator, Blog + Contact pages), you will:
+Starting from the end of Project 04 (Dotenv, Database helper, BaseModel + generator, Post + Contact pages), you will:
 
 1. **Add a dependency‑free `View` class** that renders PHP templates using output buffering
 2. **Implement CSRF protection** to secure forms against cross-site request forgery
@@ -320,12 +320,12 @@ class Controller
 
 ## Step 4a) Add site info to your environment
 
-Add app/site details to `.env` and to `.env.example` so others can run your project.
+Add app/site details to `.env` and to `.env.example` so others can run your project. Always wrap strings that include spaces with quotes.
 
 Example `.env` additions:
 
 ```
-SITE_NAME=My PHP Site
+SITE_NAME="My PHP Site"
 SITE_EMAIL=email@website.com
 SITE_PHONE=123-321-9876
 ```
@@ -333,7 +333,7 @@ SITE_PHONE=123-321-9876
 Example `.env.example` additions:
 
 ```
-SITE_NAME=My PHP Site
+SITE_NAME="My PHP Site"
 SITE_EMAIL=email@website.com
 SITE_PHONE=123-321-9876
 ```
@@ -493,10 +493,6 @@ if (session_status() === PHP_SESSION_NONE) {
 
 ---
 
-Note: If you prefer `home.php`, you can render that instead from the controller.
-
----
-
 ## Step 7) Render from a controller (Home)
 
 Example `HomeController` (note: use static method call, not instantiation):
@@ -507,14 +503,14 @@ Example `HomeController` (note: use static method call, not instantiation):
 namespace App\Controllers;
 
 use App\Controller;
-use App\Models\Blog;
+use App\Models\Post;
 
 class HomeController extends Controller
 {
     public function index(): void
     {
         // Fetch blog posts using static method (BaseModel pattern)
-        $posts = Blog::all(orderBy: 'created_at DESC');
+        $posts = Post::all(orderBy: 'created_at DESC');
 
         $this->render('index', [
             'title' => 'Home',
@@ -524,7 +520,7 @@ class HomeController extends Controller
 }
 ```
 
-**Important:** Since `Blog` extends `BaseModel`, all CRUD methods are static. Use `Blog::all()`, not `$blog->all()`.
+**Important:** Replace your `Blog` model using the `generate-model.php` script for the `posts` table. This will create a new model `Post` that extends `BaseModel`, all CRUD methods are static. Use `Post::all()`.
 
 Your router should dispatch `/` to `HomeController@index` as in P03/P04.
 
@@ -777,7 +773,7 @@ Also verify `http://localhost:8000/contact`:
 - The CSRF token is automatically shared with all views, just add it to forms as a hidden field
 
 ### Models & Data
-- BaseModel methods are **static**: use `Blog::all()`, not `(new Blog())->all()`
+- BaseModel methods are **static**: use `Post::all()`, not `(new Post())->all()`
 - Models use `$fillable` for **mass assignment protection**—only listed fields can be set via `create()` or `update()`
 - Use clean array syntax: `['field1', 'field2']` not `array(0 => 'field1', 1 => 'field2')`
 
@@ -825,8 +821,8 @@ Also verify `http://localhost:8000/contact`:
 - [ ] **Router Updates:** Router throws `RouteNotFoundException` instead of generic `Exception`
 - [ ] **RESTful Routing:** Router supports `put()`, `delete()`, `patch()` methods
 - [ ] **Method Spoofing:** Router's `dispatch()` checks for `_method` field
-- [ ] **Clean Models:** Blog and Contact models use clean array syntax: `['field1', 'field2']`
-- [ ] **Static Model Calls:** `HomeController` uses `Blog::all()`, not `$blog->all()`
+- [ ] **Clean Models:** Post and Contact models use clean array syntax: `['field1', 'field2']`
+- [ ] **Static Model Calls:** `HomeController` uses `Post::all()`, not `$Post->all()`
 - [ ] **Model Generator:** `scripts/generate-model.php` outputs clean array syntax
 - [ ] **Documentation:** Key files have PHPDoc comments explaining purpose and usage
 
