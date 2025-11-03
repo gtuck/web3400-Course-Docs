@@ -1,4 +1,5 @@
-<?php // Basic head partial; you can add Bulma/FA/CDN links as needed ?>
+<?php // Basic head partial; you can add Bulma/FA/CDN links as needed 
+?>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 

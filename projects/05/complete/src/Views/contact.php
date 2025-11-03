@@ -1,33 +1,11 @@
-<?php
-/**
- * Contact Form View
- *
- * PURPOSE:
- * Displays a contact form for users to send messages
- *
- * AVAILABLE VARIABLES:
- * - $title: Page title (set in controller)
- * - $old: Array with previous form input (for repopulation after validation errors)
- *         ['name' => string, 'email' => string, 'message' => string]
- * - $csrfToken: CSRF protection token (automatically shared from Controller)
- *
- * SECURITY FEATURES:
- * - CSRF token protection against cross-site request forgery
- * - XSS protection via $this->e() for all user input
- * - Server-side validation (complemented by HTML5 client-side validation)
- *
- * LAYOUT: layouts/main
- */
-?>
 <?php $this->layout('layouts/main'); ?>
 
 <?php $this->start('content'); ?>
 
-<!-- BEGIN PAGE CONTENT -->
-<h1>Contact Us</h1>
+<h1 class="title">Contact Us</h1>
 
-<form class="box" method="post" action="/contact" novalidate>
-    <!-- CSRF Protection Token (hidden field) -->
+<form method="post" action="/contact" novalidate>
+    <!-- CSRF Protection Token -->
     <input type="hidden" name="csrf_token" value="<?= $this->e($csrfToken) ?>">
 
     <div class="field">
@@ -66,6 +44,5 @@
         </div>
     </div>
 </form>
-<!-- END PAGE CONTENT -->
 
 <?php $this->end(); ?>
