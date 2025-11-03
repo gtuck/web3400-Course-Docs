@@ -426,15 +426,16 @@ View (`src/Views/auth/register.php`):
 
 —
 
-## Step 8) Implement Login/Logout (GET/POST)
+## Step 8) Implement Login/Logout Route (GET/POST), Controller and View
 
 Routes:
 - `GET /login` → `AuthController@showLogin`
 - `POST /login` → `AuthController@login`
 - `POST /logout` → `AuthController@logout` (CSRF‑protected)
 
-Controller (excerpts):
+Auth Controller (excerpts):
 ```php
+...
 public function showLogin(): void
 {
     $this->render('auth/login', ['title' => 'Login']);
