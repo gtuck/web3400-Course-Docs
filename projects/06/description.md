@@ -294,13 +294,15 @@ public function csrfField(): void
 
 —
 
-## Step 7) Implement Registration (GET/POST)
+## Step 7) Implement Registration Route (GET/POST), Controller and View
 
 Routes (`src/Routes/index.php`):
-- `GET /register` → `AuthController@showRegister`
-- `POST /register` → `AuthController@register`
 
 ```php
+use App\Controllers\AuthController; //new line
+
+...
+
 $router->get('/register', AuthController::class, 'showRegister'); // new line
 $router->post('/register', AuthController::class, 'register'); // new line
 ```
@@ -831,7 +833,7 @@ Example (excerpt):
   <div class="navbar-brand">
     <a class="navbar-item" href="/">Home</a>
   </div>
-  <div class="navbar-menu">
+  <div class="navbar-menu is-active">
     <div class="navbar-start">
       <?php if ($u): ?>
         <a class="navbar-item" href="/profile">Profile</a>
@@ -843,11 +845,9 @@ Example (excerpt):
     <div class="navbar-end">
       <?php if ($u): ?>
         <div class="navbar-item">
-          <form class="field is-grouped" method="post" action="/logout">
+          <form method="post" action="/logout">
             <?php $this->csrfField(); ?>
-            <div class="control">
-              <button class="button is-light" type="submit">Logout</button>
-            </div>
+            <button class="button is-light" type="submit">Logout</button>
           </form>
         </div>
       <?php else: ?>
