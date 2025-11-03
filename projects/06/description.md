@@ -69,7 +69,41 @@ projects/06/
 
 —
 
-## Step 1) Create the `users` table
+## Step 1) Run the Project 06 setup script
+
+From the repo root run the scaffolding script to create the empty directories and placeholder files you will fill in during this project:
+
+```bash
+cp -r projects/05 projects/06
+cd projects/06
+
+# Directories
+mkdir -p public
+mkdir -p src/Controllers/Admin
+mkdir -p src/Models
+mkdir -p src/Routes
+mkdir -p src/Support
+mkdir -p src/Views/auth
+mkdir -p src/Views/profile
+mkdir -p src/Views/admin/users
+
+# Empty files
+touch src/Controllers/AuthController.php
+touch src/Controllers/ProfileController.php
+touch src/Controllers/Admin/UsersController.php
+touch src/Models/User.php
+touch src/Views/auth/login.php
+touch src/Views/auth/register.php
+touch src/Views/profile/show.php
+touch src/Views/profile/edit.php
+touch src/Views/profile/change_password.php
+touch src/Views/admin/users/index.php
+touch src/Views/admin/users/create.php
+touch src/Views/admin/users/edit.php
+```
+—
+
+## Step 2) Create the `users` table
 
 Keep it simple and portable. Example MySQL schema:
 
@@ -99,7 +133,7 @@ INSERT INTO users (name, email, password_hash, role) VALUES
 
 —
 
-## Step 2) Add a `User` model
+## Step 3) Add a `User` model
 
 `src/Models/User.php`
 ```php
@@ -118,7 +152,7 @@ class User extends BaseModel
 
 —
 
-## Step 3) Small generic helpers in `BaseModel`
+## Step 4) Small data-layer helpers (BaseModel + Validator)
 
 To support lookups like “find user by email” or “does an email exist?”, add minimal reusable helpers. Keep them generic so other models can use them.
 
@@ -152,9 +186,25 @@ public static function existsBy(string $column, mixed $value, ?int $exceptId = n
 }
 ```
 
+The new validation rules used throughout the project also need support in your shared validator. Extend the existing `match` inside `src/Support/Validator.php::applyRule()` so it understands minimum lengths and constrained sets:
+
+`src/Support/Validator.php` (within `applyRule`)
+```php
+    return match ($rule) {
+        'required' => ($value === null || $value === '') ? ucfirst($field) . " is required." : null,
+        'email' => ($value && !filter_var($value, FILTER_VALIDATE_EMAIL)) ? ucfirst($field) . " must be a valid email." : null,
+        'max' => ($value && mb_strlen($value) > (int)$param) ? ucfirst($field) . " must not exceed {$param} characters." : null,
+        'min' => ($value && mb_strlen($value) < (int)$param) ? ucfirst($field) . " must be at least {$param} characters." : null,
+        'in' => ($value && !in_array($value, array_map('trim', explode(',', (string)$param)), true))
+            ? ucfirst($field) . ' must be one of: ' . $param . '.'
+            : null,
+        default => null,
+    };
+```
+
 —
 
-## Step 4) Add lightweight auth helpers to your base `Controller`
+## Step 5) Add lightweight auth helpers to your base `Controller`
 
 Add these helpers to keep controllers tidy and route protection consistent.
 
@@ -222,7 +272,7 @@ protected function requireRole(string ...$roles): void
 
 —
 
-## Step 5) Add a `csrfField()` helper to the `View`
+## Step 6) Add a `csrfField()` helper to the `View`
 
 Convenience helper to echo a hidden CSRF input in any form.
 
@@ -244,7 +294,7 @@ public function csrfField(): void
 
 —
 
-## Step 6) Implement Registration (GET/POST)
+## Step 7) Implement Registration (GET/POST)
 
 Routes (`src/Routes/index.php`):
 - `GET /register` → `AuthController@showRegister`
@@ -326,7 +376,7 @@ View (`src/Views/auth/register.php`, excerpt):
 
 —
 
-## Step 7) Implement Login/Logout (GET/POST)
+## Step 8) Implement Login/Logout (GET/POST)
 
 Routes:
 - `GET /login` → `AuthController@showLogin`
@@ -405,7 +455,7 @@ View (`src/Views/auth/login.php`, excerpt):
 
 —
 
-## Step 8) Profile: view/edit + change password
+## Step 9) Profile: view/edit + change password
 
 Routes:
 - `GET /profile` → `ProfileController@show` (requires auth)
@@ -490,7 +540,7 @@ public function changePassword(): void
 
 —
 
-## Step 9) Admin‑only Users Management (GET/POST)
+## Step 10) Admin‑only Users Management (GET/POST)
 
 All routes require `admin` role. Keep endpoints simple and POST for state changes.
 
@@ -609,7 +659,67 @@ public function deactivate(int $id): void
 
 —
 
-## Step 10) Routes (favor GET/POST)
+## Step 11) Routes (favor GET/POST)
+
+Before wiring the new endpoints, update `src/Router.php` so it can dispatch routes with placeholders such as `/admin/users/{id}`. Store each route as a compiled regular expression with named parameters and hydrate them before invoking the controller:
+
+`src/Router.php` (key updates)
+```php
+class Router
+{
+    protected $routes = [
+        'GET' => [],
+        'POST' => [],
+    ];
+
+    private function addRoute(string $route, string $controller, string $action, string $method): void
+    {
+        $paramNames = [];
+        $pattern = preg_replace_callback(
+            '/\{([a-zA-Z_][a-zA-Z0-9_]*)\}/',
+            function (array $m) use (&$paramNames): string {
+                $paramNames[] = $m[1];
+                return '(?P<' . $m[1] . '>[^/]+)';
+            },
+            $route
+        );
+
+        $this->routes[$method][] = [
+            'pattern' => '#^' . $pattern . '$#',
+            'controller' => $controller,
+            'action' => $action,
+            'params' => $paramNames,
+        ];
+    }
+
+    public function get(string $route, string $controller, string $action): void
+    {
+        $this->addRoute($route, $controller, $action, 'GET');
+    }
+
+    public function post(string $route, string $controller, string $action): void
+    {
+        $this->addRoute($route, $controller, $action, 'POST');
+    }
+
+    public function dispatch(): void
+    {
+        $uri = strtok($_SERVER['REQUEST_URI'], '?');
+        $method = $_SERVER['REQUEST_METHOD'];
+
+        foreach ($this->routes[$method] ?? [] as $route) {
+            if (preg_match($route['pattern'], $uri, $matches)) {
+                $controller = new ($route['controller']);
+                $params = array_map(fn(string $name) => $matches[$name] ?? null, $route['params']);
+                $controller->{$route['action']}(...$params);
+                return;
+            }
+        }
+
+        throw new \Exception("No route for {$method} {$uri}");
+    }
+}
+```
 
 `src/Routes/index.php` example additions:
 ```php
@@ -639,7 +749,7 @@ $router->post('/admin/users/{id}/deactivate', UsersController::class, 'deactivat
 
 —
 
-## Step 11) Role‑aware navigation and protected views
+## Step 12) Role‑aware navigation and protected views
 
 Update `src/Views/partials/nav.php` so it reflects auth state and roles:
 - Guest: show “Login”, “Register”
