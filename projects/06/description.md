@@ -300,77 +300,125 @@ Routes (`src/Routes/index.php`):
 - `GET /register` → `AuthController@showRegister`
 - `POST /register` → `AuthController@register`
 
-Controller (`src/Controllers/AuthController.php`, excerpts):
 ```php
-public function showRegister(): void
+$router->get('/register', AuthController::class, 'showRegister'); // new line
+$router->post('/register', AuthController::class, 'register'); // new line
+```
+
+Controller (`src/Controllers/AuthController.php`):
+
+```php
+<?php
+// filepath: projects/06/src/Controllers/AuthController.php
+namespace App\Controllers;
+
+use App\Controller;
+use App\Models\User;
+use App\Support\Validator;
+
+class AuthController extends Controller
 {
-    $this->render('auth/register', ['title' => 'Register']);
-}
-
-public function register(): void
-{
-    if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
-        $this->flash('Security token validation failed.', 'is-danger');
-        return $this->redirect('/register');
+    public function showRegister(): void
+    {
+        $this->render('auth/register', ['title' => 'Register']);
     }
 
-    $data = [
-        'name' => trim($_POST['name'] ?? ''),
-        'email' => strtolower(trim($_POST['email'] ?? '')),
-        'password' => $_POST['password'] ?? '',
-        'password_confirm' => $_POST['password_confirm'] ?? '',
-    ];
-
-    $errors = \App\Support\Validator::validate($data, [
-        'name' => 'required|max:255',
-        'email' => 'required|email|max:255',
-        'password' => 'required|min:8',
-    ]);
-
-    if ($data['password'] !== $data['password_confirm']) {
-        $errors['password'][] = 'Password confirmation does not match.';
-    }
-
-    // Unique email
-    if (\App\Models\User::existsBy('email', $data['email'])) {
-        $errors['email'][] = 'Email is already registered.';
-    }
-
-    if (!empty($errors)) {
-        foreach (\App\Support\Validator::flattenErrors($errors) as $m) {
-            $this->flash($m, 'is-warning');
+    public function register(): void
+    {
+        if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
+            $this->flash('Security token validation failed.', 'is-danger');
+            $this->redirect('/register');
         }
-        return $this->render('auth/register', ['title' => 'Register', 'old' => $data]);
+
+        $data = [
+            'name' => trim($_POST['name'] ?? ''),
+            'email' => strtolower(trim($_POST['email'] ?? '')),
+            'password' => $_POST['password'] ?? '',
+            'password_confirm' => $_POST['password_confirm'] ?? '',
+        ];
+
+        $errors = \App\Support\Validator::validate($data, [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255',
+            'password' => 'required|min:8',
+        ]);
+
+        if ($data['password'] !== $data['password_confirm']) {
+            $errors['password'][] = 'Password confirmation does not match.';
+        }
+
+        // Unique email
+        if (\App\Models\User::existsBy('email', $data['email'])) {
+            $errors['email'][] = 'Email is already registered.';
+        }
+
+        if (!empty($errors)) {
+            foreach (\App\Support\Validator::flattenErrors($errors) as $m) {
+                $this->flash($m, 'is-warning');
+            }
+            $this->render('auth/register', ['title' => 'Register', 'old' => $data]);
+        }
+
+        $id = \App\Models\User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password_hash' => password_hash($data['password'], PASSWORD_DEFAULT),
+            'role' => 'user',
+            'is_active' => 1,
+        ]);
+
+        $user = \App\Models\User::find($id);
+        $this->loginUser($user);
+        $this->flash('Welcome, your account has been created!', 'is-success');
+        $this->redirect('/profile');
     }
-
-    $id = \App\Models\User::create([
-        'name' => $data['name'],
-        'email' => $data['email'],
-        'password_hash' => password_hash($data['password'], PASSWORD_DEFAULT),
-        'role' => 'user',
-        'is_active' => 1,
-    ]);
-
-    $user = \App\Models\User::find($id);
-    $this->loginUser($user);
-    $this->flash('Welcome, your account has been created!', 'is-success');
-    $this->redirect('/profile');
 }
 ```
 
-View (`src/Views/auth/register.php`, excerpt):
+View (`src/Views/auth/register.php`):
+
 ```php
 <?php $this->layout('layouts/main'); $this->start('content'); ?>
-<h1>Register</h1>
-<form method="post" action="/register">
-  <?php $this->csrfField(); ?>
-  <label>Name <input type="text" name="name" value="<?= $this->e($old['name'] ?? '') ?>" required></label>
-  <label>Email <input type="email" name="email" value="<?= $this->e($old['email'] ?? '') ?>" required></label>
-  <label>Password <input type="password" name="password" required></label>
-  <label>Confirm Password <input type="password" name="password_confirm" required></label>
-  <button type="submit">Create Account</button>
-  <a href="/login">Already have an account?</a>
-  </form>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Register</h1>
+    <form class="box" method="post" action="/register">
+      <?php $this->csrfField(); ?>
+      <div class="field">
+        <label class="label" for="name">Name</label>
+        <div class="control">
+          <input class="input" id="name" type="text" name="name" value="<?= $this->e($old['name'] ?? '') ?>" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="email">Email</label>
+        <div class="control">
+          <input class="input" id="email" type="email" name="email" value="<?= $this->e($old['email'] ?? '') ?>" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="password">Password</label>
+        <div class="control">
+          <input class="input" id="password" type="password" name="password" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="password_confirm">Confirm Password</label>
+        <div class="control">
+          <input class="input" id="password_confirm" type="password" name="password_confirm" required>
+        </div>
+      </div>
+      <div class="field is-grouped is-justify-content-space-between is-align-items-center">
+        <div class="control">
+          <button class="button is-primary" type="submit">Create Account</button>
+        </div>
+        <div class="control">
+          <a class="button is-text" href="/login">Already have an account?</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
 <?php $this->end(); ?>
 ```
 
@@ -442,14 +490,34 @@ public function logout(): void
 View (`src/Views/auth/login.php`, excerpt):
 ```php
 <?php $this->layout('layouts/main'); $this->start('content'); ?>
-<h1>Login</h1>
-<form method="post" action="/login">
-  <?php $this->csrfField(); ?>
-  <label>Email <input type="email" name="email" required></label>
-  <label>Password <input type="password" name="password" required></label>
-  <button type="submit">Login</button>
-  <a href="/register">Create account</a>
-</form>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Login</h1>
+    <form class="box" method="post" action="/login">
+      <?php $this->csrfField(); ?>
+      <div class="field">
+        <label class="label" for="email">Email</label>
+        <div class="control">
+          <input class="input" id="email" type="email" name="email" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="password">Password</label>
+        <div class="control">
+          <input class="input" id="password" type="password" name="password" required>
+        </div>
+      </div>
+      <div class="field is-grouped is-justify-content-space-between is-align-items-center">
+        <div class="control">
+          <button class="button is-link" type="submit">Login</button>
+        </div>
+        <div class="control">
+          <a class="button is-text" href="/register">Create account</a>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
 <?php $this->end(); ?>
 ```
 
@@ -759,19 +827,39 @@ Update `src/Views/partials/nav.php` so it reflects auth state and roles:
 Example (excerpt):
 ```php
 <?php $u = $_SESSION['user_id'] ?? null; $role = $_SESSION['user_role'] ?? 'user'; ?>
-<nav>
-  <a href="/">Home</a>
-  <?php if ($u): ?>
-    <a href="/profile">Profile</a>
-    <?php if ($role === 'admin'): ?><a href="/admin/users">Users</a><?php endif; ?>
-    <form method="post" action="/logout" style="display:inline">
-      <?php $this->csrfField(); ?>
-      <button type="submit">Logout</button>
-    </form>
-  <?php else: ?>
-    <a href="/login">Login</a>
-    <a href="/register">Register</a>
-  <?php endif; ?>
+<nav class="navbar is-light" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">Home</a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start">
+      <?php if ($u): ?>
+        <a class="navbar-item" href="/profile">Profile</a>
+        <?php if ($role === 'admin'): ?>
+          <a class="navbar-item" href="/admin/users">Users</a>
+        <?php endif; ?>
+      <?php endif; ?>
+    </div>
+    <div class="navbar-end">
+      <?php if ($u): ?>
+        <div class="navbar-item">
+          <form class="field is-grouped" method="post" action="/logout">
+            <?php $this->csrfField(); ?>
+            <div class="control">
+              <button class="button is-light" type="submit">Logout</button>
+            </div>
+          </form>
+        </div>
+      <?php else: ?>
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-light" href="/login">Login</a>
+            <a class="button is-primary" href="/register"><strong>Register</strong></a>
+          </div>
+        </div>
+      <?php endif; ?>
+    </div>
+  </div>
 </nav>
 ```
 
