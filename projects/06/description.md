@@ -450,7 +450,7 @@ public function login(): void
 {
     if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
         $this->flash('Security token validation failed.', 'is-danger');
-        return $this->redirect('/login');
+        $this->redirect('/login');
     }
 
     $email = strtolower(trim($_POST['email'] ?? ''));
@@ -464,18 +464,18 @@ public function login(): void
         foreach (\App\Support\Validator::flattenErrors($errors) as $m) {
             $this->flash($m, 'is-warning');
         }
-        return $this->redirect('/login');
+        $this->redirect('/login');
     }
 
     $user = \App\Models\User::firstBy('email', $email);
     if (!$user || !$user['is_active']) {
         $this->flash('Invalid credentials.', 'is-danger');
-        return $this->redirect('/login');
+        $this->redirect('/login');
     }
 
     if (!password_verify($password, $user['password_hash'])) {
         $this->flash('Invalid credentials.', 'is-danger');
-        return $this->redirect('/login');
+        $this->redirect('/login');
     }
 
     $this->loginUser($user);
