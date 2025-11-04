@@ -130,7 +130,8 @@ Seed at least one admin. Options:
 INSERT INTO users (name, email, password_hash, role) VALUES
 ('Admin', 'admin@example.com', '$2y$10$SfhYIDtn.iOuCW7zfoFLuuZHX6lja4lF4XA4JqNmpiH/.P3zB8JCa', 'admin');
 ```
-
+- Login with: admin@example.com
+- Password: test
 —
 
 ## Step 3) Add a `User` model
