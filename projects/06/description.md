@@ -132,7 +132,8 @@ INSERT INTO users (name, email, password_hash, role) VALUES
 ```
 - Login with: admin@example.com
 - Password: test
-—
+
+-
 
 ## Step 3) Add a `User` model
 
