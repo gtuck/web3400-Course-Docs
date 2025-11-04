@@ -428,14 +428,19 @@ View (`src/Views/auth/register.php`):
 
 ## Step 8) Implement Login/Logout Route (GET/POST), Controller and View
 
-Routes:
-- `GET /login` → `AuthController@showLogin`
-- `POST /login` → `AuthController@login`
-- `POST /logout` → `AuthController@logout` (CSRF‑protected)
-
-Auth Controller (excerpts):
+Routes (`src/Routes/index.php`):
 ```php
+use App\Controllers\AuthController; // new line
+
 ...
+
+$router->get('/login', AuthController::class, 'showLogin'); // new line
+$router->post('/login', AuthController::class, 'login'); // new line
+$router->post('/logout', AuthController::class, 'logout'); // new line
+```
+
+Controller (`src/Controllers/AuthController.php` additions):
+```php
 public function showLogin(): void
 {
     $this->render('auth/login', ['title' => 'Login']);
@@ -490,7 +495,7 @@ public function logout(): void
 }
 ```
 
-View (`src/Views/auth/login.php`, excerpt):
+View (`src/Views/auth/login.php`):
 ```php
 <?php $this->layout('layouts/main'); $this->start('content'); ?>
 <section class="section">
@@ -528,85 +533,196 @@ View (`src/Views/auth/login.php`, excerpt):
 
 ## Step 9) Profile: view/edit + change password
 
-Routes:
-- `GET /profile` → `ProfileController@show` (requires auth)
-- `GET /profile/edit` → `ProfileController@edit` (requires auth)
-- `POST /profile` → `ProfileController@update` (requires CSRF)
-- `POST /profile/password` → `ProfileController@changePassword` (requires CSRF)
-
-Controller (excerpts):
+Routes (`src/Routes/index.php`):
 ```php
-public function show(): void
-{
-    $this->requireAuth();
-    $this->render('profile/show', ['title' => 'Your Profile', 'user' => $this->user()]);
-}
+use App\Controllers\ProfileController; // new line
 
-public function edit(): void
-{
-    $this->requireAuth();
-    $this->render('profile/edit', ['title' => 'Edit Profile', 'user' => $this->user()]);
-}
+...
 
-public function update(): void
+$router->get('/profile', ProfileController::class, 'show'); // new line
+$router->get('/profile/edit', ProfileController::class, 'edit'); // new line
+$router->post('/profile', ProfileController::class, 'update'); // new line
+$router->post('/profile/password', ProfileController::class, 'changePassword'); // new line
+```
+
+Controller (`src/Controllers/ProfileController.php`):
+```php
+<?php
+// filepath: projects/06/src/Controllers/ProfileController.php
+namespace App\Controllers;
+
+use App\Controller;
+use App\Models\User;
+use App\Support\Validator;
+
+class ProfileController extends Controller
 {
-    $this->requireAuth();
-    if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
-        $this->flash('Security token validation failed.', 'is-danger');
-        return $this->redirect('/profile/edit');
+    public function show(): void
+    {
+        $this->requireAuth();
+        $this->render('profile/show', ['title' => 'Your Profile', 'user' => $this->user()]);
     }
-    $name = trim($_POST['name'] ?? '');
-    $email = strtolower(trim($_POST['email'] ?? ''));
-    $id = (int)($this->user()['id'] ?? 0);
 
-    $errors = \App\Support\Validator::validate(compact('name','email'), [
-        'name' => 'required|max:255',
-        'email' => 'required|email|max:255',
-    ]);
-    if (\App\Models\User::existsBy('email', $email, $id)) {
-        $errors['email'][] = 'That email is already in use.';
+    public function edit(): void
+    {
+        $this->requireAuth();
+        $this->render('profile/edit', ['title' => 'Edit Profile', 'user' => $this->user()]);
     }
-    if (!empty($errors)) {
-        foreach (\App\Support\Validator::flattenErrors($errors) as $m) {
-            $this->flash($m, 'is-warning');
+
+    public function update(): void
+    {
+        $this->requireAuth();
+        if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
+            $this->flash('Security token validation failed.', 'is-danger');
+            return $this->redirect('/profile/edit');
         }
-        return $this->redirect('/profile/edit');
-    }
-    \App\Models\User::update($id, compact('name','email'));
-    $this->flash('Profile updated.', 'is-success');
-    $this->redirect('/profile');
-}
+        $name = trim($_POST['name'] ?? '');
+        $email = strtolower(trim($_POST['email'] ?? ''));
+        $id = (int)($this->user()['id'] ?? 0);
 
-public function changePassword(): void
-{
-    $this->requireAuth();
-    if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
-        $this->flash('Security token validation failed.', 'is-danger');
-        return $this->redirect('/profile');
-    }
-    $current = $_POST['current_password'] ?? '';
-    $new = $_POST['new_password'] ?? '';
-    $confirm = $_POST['new_password_confirm'] ?? '';
-    $user = $this->user();
-
-    if (!password_verify($current, $user['password_hash'])) {
-        $this->flash('Current password is incorrect.', 'is-danger');
-        return $this->redirect('/profile');
-    }
-    $errs = \App\Support\Validator::validate(['p' => $new], ['p' => 'required|min:8']);
-    if ($new !== $confirm) {
-        $errs['p'][] = 'Password confirmation does not match.';
-    }
-    if (!empty($errs)) {
-        foreach (\App\Support\Validator::flattenErrors($errs) as $m) {
-            $this->flash($m, 'is-warning');
+        $errors = \App\Support\Validator::validate(compact('name','email'), [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255',
+        ]);
+        if (\App\Models\User::existsBy('email', $email, $id)) {
+            $errors['email'][] = 'That email is already in use.';
         }
-        return $this->redirect('/profile');
+        if (!empty($errors)) {
+            foreach (\App\Support\Validator::flattenErrors($errors) as $m) {
+                $this->flash($m, 'is-warning');
+            }
+            return $this->redirect('/profile/edit');
+        }
+        \App\Models\User::update($id, compact('name','email'));
+        $this->flash('Profile updated.', 'is-success');
+        $this->redirect('/profile');
     }
-    \App\Models\User::update((int)$user['id'], ['password_hash' => password_hash($new, PASSWORD_DEFAULT)]);
-    $this->flash('Password changed.', 'is-success');
-    $this->redirect('/profile');
+
+    public function changePassword(): void
+    {
+        $this->requireAuth();
+        if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
+            $this->flash('Security token validation failed.', 'is-danger');
+            return $this->redirect('/profile');
+        }
+        $current = $_POST['current_password'] ?? '';
+        $new = $_POST['new_password'] ?? '';
+        $confirm = $_POST['new_password_confirm'] ?? '';
+        $user = $this->user();
+
+        if (!password_verify($current, $user['password_hash'])) {
+            $this->flash('Current password is incorrect.', 'is-danger');
+            return $this->redirect('/profile');
+        }
+        $errs = \App\Support\Validator::validate(['p' => $new], ['p' => 'required|min:8']);
+        if ($new !== $confirm) {
+            $errs['p'][] = 'Password confirmation does not match.';
+        }
+        if (!empty($errs)) {
+            foreach (\App\Support\Validator::flattenErrors($errs) as $m) {
+                $this->flash($m, 'is-warning');
+            }
+            return $this->redirect('/profile');
+        }
+        \App\Models\User::update((int)$user['id'], ['password_hash' => password_hash($new, PASSWORD_DEFAULT)]);
+        $this->flash('Password changed.', 'is-success');
+        $this->redirect('/profile');
+    }
 }
+```
+
+Views:
+
+`src/Views/profile/show.php`
+```php
+<?php $this->layout('layouts/main'); $this->start('content'); ?>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Your Profile</h1>
+    <div class="box">
+      <p><strong>Name:</strong> <?= $this->e(($user['name'] ?? '') ?: ($this->user()['name'] ?? '')) ?></p>
+      <p><strong>Email:</strong> <?= $this->e(($user['email'] ?? '') ?: ($this->user()['email'] ?? '')) ?></p>
+    </div>
+    <div class="buttons">
+      <a class="button is-link" href="/profile/edit">Edit Profile</a>
+    </div>
+  </div>
+  </section>
+<?php $this->end(); ?>
+```
+
+`src/Views/profile/edit.php`
+```php
+<?php $this->layout('layouts/main'); $this->start('content'); ?>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Edit Profile</h1>
+    <form class="box" method="post" action="/profile">
+      <?php $this->csrfField(); ?>
+      <div class="field">
+        <label class="label" for="name">Name</label>
+        <div class="control">
+          <input class="input" id="name" type="text" name="name" value="<?= $this->e($user['name'] ?? '') ?>" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="email">Email</label>
+        <div class="control">
+          <input class="input" id="email" type="email" name="email" value="<?= $this->e($user['email'] ?? '') ?>" required>
+        </div>
+      </div>
+      <div class="field is-grouped">
+        <div class="control"><button class="button is-primary" type="submit">Save</button></div>
+        <div class="control"><a class="button" href="/profile">Cancel</a></div>
+      </div>
+    </form>
+
+    <hr>
+
+    <h2 class="title is-5">Change Password</h2>
+    <form class="box" method="post" action="/profile/password">
+      <?php $this->csrfField(); ?>
+      <div class="field">
+        <label class="label" for="current_password">Current Password</label>
+        <div class="control">
+          <input class="input" id="current_password" type="password" name="current_password" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="new_password">New Password</label>
+        <div class="control">
+          <input class="input" id="new_password" type="password" name="new_password" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="label" for="new_password_confirm">Confirm New Password</label>
+        <div class="control">
+          <input class="input" id="new_password_confirm" type="password" name="new_password_confirm" required>
+        </div>
+      </div>
+      <div class="field"><button class="button is-link" type="submit">Change Password</button></div>
+    </form>
+  </div>
+</section>
+<?php $this->end(); ?>
+```
+
+`src/Views/profile/change_password.php` (optional separate view if you split pages)
+```php
+<?php $this->layout('layouts/main'); $this->start('content'); ?>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Change Password</h1>
+    <form class="box" method="post" action="/profile/password">
+      <?php $this->csrfField(); ?>
+      <div class="field"><label class="label" for="current_password">Current Password</label><div class="control"><input class="input" id="current_password" type="password" name="current_password" required></div></div>
+      <div class="field"><label class="label" for="new_password">New Password</label><div class="control"><input class="input" id="new_password" type="password" name="new_password" required></div></div>
+      <div class="field"><label class="label" for="new_password_confirm">Confirm New Password</label><div class="control"><input class="input" id="new_password_confirm" type="password" name="new_password_confirm" required></div></div>
+      <div class="field"><button class="button is-link" type="submit">Change Password</button></div>
+    </form>
+  </div>
+</section>
+<?php $this->end(); ?>
 ```
 
 —
@@ -615,117 +731,257 @@ public function changePassword(): void
 
 All routes require `admin` role. Keep endpoints simple and POST for state changes.
 
-Routes:
-- `GET /admin/users` → list users
-- `GET /admin/users/create` → new user form
-- `POST /admin/users` → create
-- `GET /admin/users/{id}/edit` → edit user form
-- `POST /admin/users/{id}` → update name/email/role/active
-- `POST /admin/users/{id}/role` → change role
-- `POST /admin/users/{id}/deactivate` → deactivate (or `POST /admin/users/{id}/delete` to delete)
-
-Controller guard pattern (in `UsersController` constructor or each action):
+Routes (`src/Routes/index.php`):
 ```php
-public function __construct()
+use App\Controllers\Admin\UsersController; // new line
+
+...
+
+$router->get('/admin/users', UsersController::class, 'index'); // new line
+$router->get('/admin/users/create', UsersController::class, 'create'); // new line
+$router->post('/admin/users', UsersController::class, 'store'); // new line
+$router->get('/admin/users/{id}/edit', UsersController::class, 'edit'); // new line
+$router->post('/admin/users/{id}', UsersController::class, 'update'); // new line
+$router->post('/admin/users/{id}/role', UsersController::class, 'updateRole'); // new line
+$router->post('/admin/users/{id}/deactivate', UsersController::class, 'deactivate'); // new line
+```
+
+Controller (`src/Controllers/Admin/UsersController.php`):
+```php
+<?php
+// filepath: projects/06/src/Controllers/Admin/UsersController.php
+namespace App\Controllers\Admin;
+
+use App\Controller;
+use App\Models\User;
+use App\Support\Validator;
+
+class UsersController extends Controller
 {
-    parent::__construct();
-    $this->requireRole('admin');
+    public function __construct()
+    {
+        parent::__construct();
+        $this->requireRole('admin');
+    }
+
+    public function index(): void
+    {
+        $users = \App\Models\User::all(limit: 200, offset: 0, orderBy: '`id` DESC');
+        $this->render('admin/users/index', ['title' => 'Users', 'users' => $users]);
+    }
+
+    public function create(): void
+    {
+        $this->render('admin/users/create', ['title' => 'Create User']);
+    }
+
+    public function store(): void
+    {
+        if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
+            $this->flash('Security token validation failed.', 'is-danger');
+            return $this->redirect('/admin/users/create');
+        }
+        $name = trim($_POST['name'] ?? '');
+        $email = strtolower(trim($_POST['email'] ?? ''));
+        $role = $_POST['role'] ?? 'user';
+        $password = $_POST['password'] ?? '';
+
+        $errors = \App\Support\Validator::validate(
+            compact('name','email','role','password'),
+            [
+                'name' => 'required|max:255',
+                'email' => 'required|email|max:255',
+                'role' => 'required|in:admin,editor,user',
+                'password' => 'required|min:8',
+            ]
+        );
+        if (\App\Models\User::existsBy('email', $email)) {
+            $errors['email'][] = 'Email is already registered.';
+        }
+        if (!empty($errors)) {
+            foreach (\App\Support\Validator::flattenErrors($errors) as $m) {
+                $this->flash($m, 'is-warning');
+            }
+            return $this->redirect('/admin/users/create');
+        }
+
+        \App\Models\User::create([
+            'name' => $name,
+            'email' => $email,
+            'role' => $role,
+            'password_hash' => password_hash($password, PASSWORD_DEFAULT),
+            'is_active' => 1,
+        ]);
+        $this->flash('User created.', 'is-success');
+        $this->redirect('/admin/users');
+    }
+
+    public function edit(int $id): void
+    {
+        $user = \App\Models\User::find($id);
+        if (!$user) {
+            $this->flash('User not found.', 'is-warning');
+            return $this->redirect('/admin/users');
+        }
+        $this->render('admin/users/edit', ['title' => 'Edit User', 'user' => $user]);
+    }
+
+    public function update(int $id): void
+    {
+        if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
+            $this->flash('Security token validation failed.', 'is-danger');
+            return $this->redirect("/admin/users/{$id}/edit");
+        }
+        $name = trim($_POST['name'] ?? '');
+        $email = strtolower(trim($_POST['email'] ?? ''));
+        $role = $_POST['role'] ?? 'user';
+        $is_active = (int)($_POST['is_active'] ?? 1);
+
+        $errors = \App\Support\Validator::validate(
+            compact('name','email','role'),
+            [
+                'name' => 'required|max:255',
+                'email' => 'required|email|max:255',
+                'role' => 'required|in:admin,editor,user',
+            ]
+        );
+        if (\App\Models\User::existsBy('email', $email, $id)) {
+            $errors['email'][] = 'That email is already in use.';
+        }
+        if (!empty($errors)) {
+            foreach (\App\Support\Validator::flattenErrors($errors) as $m) {
+                $this->flash($m, 'is-warning');
+            }
+            return $this->redirect("/admin/users/{$id}/edit");
+        }
+
+        \App\Models\User::update($id, compact('name','email','role','is_active'));
+        $this->flash('User updated.', 'is-success');
+        $this->redirect('/admin/users');
+    }
+
+    public function updateRole(int $id): void
+    {
+        if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
+            $this->flash('Security token validation failed.', 'is-danger');
+            return $this->redirect('/admin/users');
+        }
+        $role = $_POST['role'] ?? 'user';
+        $errs = \App\Support\Validator::validate(['role' => $role], ['role' => 'required|in:admin,editor,user']);
+        if (!empty($errs)) {
+            foreach (\App\Support\Validator::flattenErrors($errs) as $m) {
+                $this->flash($m, 'is-warning');
+            }
+            return $this->redirect('/admin/users');
+        }
+        \App\Models\User::update($id, ['role' => $role]);
+        $this->flash('Role updated.', 'is-success');
+        $this->redirect('/admin/users');
+    }
+
+    public function deactivate(int $id): void
+    {
+        if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
+            $this->flash('Security token validation failed.', 'is-danger');
+            return $this->redirect('/admin/users');
+        }
+        \App\Models\User::update($id, ['is_active' => 0]);
+        $this->flash('User deactivated.', 'is-info');
+        $this->redirect('/admin/users');
+    }
 }
 ```
 
-Examples (excerpts):
+Views:
+
+`src/Views/admin/users/index.php`
 ```php
-public function index(): void
-{
-    $users = \App\Models\User::all(limit: 200, offset: 0, orderBy: '`id` DESC');
-    $this->render('admin/users/index', ['title' => 'Users', 'users' => $users]);
-}
+<?php $this->layout('layouts/main'); $this->start('content'); ?>
+<section class="section">
+  <div class="container">
+    <div class="level">
+      <h1 class="title level-left">Users</h1>
+      <div class="level-right"><a class="button is-primary" href="/admin/users/create">New User</a></div>
+    </div>
+    <table class="table is-fullwidth is-striped">
+      <thead><tr><th>ID</th><th>Name</th><th>Email</th><th>Role</th><th>Active</th><th></th></tr></thead>
+      <tbody>
+        <?php foreach (($users ?? []) as $u): ?>
+          <tr>
+            <td><?= (int)$u['id'] ?></td>
+            <td><?= $this->e($u['name']) ?></td>
+            <td><?= $this->e($u['email']) ?></td>
+            <td><?= $this->e($u['role']) ?></td>
+            <td><?= (int)$u['is_active'] ? 'Yes' : 'No' ?></td>
+            <td class="has-text-right">
+              <a class="button is-small" href="/admin/users/<?= (int)$u['id'] ?>/edit">Edit</a>
+              <form style="display:inline" method="post" action="/admin/users/<?= (int)$u['id'] ?>/deactivate">
+                <?php $this->csrfField(); ?>
+                <button class="button is-small is-light" type="submit">Deactivate</button>
+              </form>
+            </td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  </div>
+</section>
+<?php $this->end(); ?>
+```
 
-public function store(): void
-{
-    if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
-        $this->flash('Security token validation failed.', 'is-danger');
-        return $this->redirect('/admin/users/create');
-    }
-    $name = trim($_POST['name'] ?? '');
-    $email = strtolower(trim($_POST['email'] ?? ''));
-    $role = $_POST['role'] ?? 'user';
-    $password = $_POST['password'] ?? '';
+`src/Views/admin/users/create.php`
+```php
+<?php $this->layout('layouts/main'); $this->start('content'); ?>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Create User</h1>
+    <form class="box" method="post" action="/admin/users">
+      <?php $this->csrfField(); ?>
+      <div class="field"><label class="label" for="name">Name</label><div class="control"><input class="input" id="name" type="text" name="name" required></div></div>
+      <div class="field"><label class="label" for="email">Email</label><div class="control"><input class="input" id="email" type="email" name="email" required></div></div>
+      <div class="field"><label class="label" for="role">Role</label><div class="control"><div class="select"><select id="role" name="role"><option value="user">user</option><option value="editor">editor</option><option value="admin">admin</option></select></div></div></div>
+      <div class="field"><label class="label" for="password">Password</label><div class="control"><input class="input" id="password" type="password" name="password" required></div></div>
+      <div class="field is-grouped"><div class="control"><button class="button is-primary" type="submit">Create</button></div><div class="control"><a class="button" href="/admin/users">Cancel</a></div></div>
+    </form>
+  </div>
+</section>
+<?php $this->end(); ?>
+```
 
-    $errors = \App\Support\Validator::validate(
-        compact('name','email','role','password'),
-        [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255',
-            'role' => 'required|in:admin,editor,user',
-            'password' => 'required|min:8',
-        ]
-    );
-    if (\App\Models\User::existsBy('email', $email)) {
-        $errors['email'][] = 'Email is already registered.';
-    }
-    if (!empty($errors)) {
-        foreach (\App\Support\Validator::flattenErrors($errors) as $m) {
-            $this->flash($m, 'is-warning');
-        }
-        return $this->redirect('/admin/users/create');
-    }
+`src/Views/admin/users/edit.php`
+```php
+<?php $this->layout('layouts/main'); $this->start('content'); ?>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Edit User</h1>
+    <form class="box" method="post" action="/admin/users/<?= (int)($user['id'] ?? 0) ?>">
+      <?php $this->csrfField(); ?>
+      <div class="field"><label class="label" for="name">Name</label><div class="control"><input class="input" id="name" type="text" name="name" value="<?= $this->e($user['name'] ?? '') ?>" required></div></div>
+      <div class="field"><label class="label" for="email">Email</label><div class="control"><input class="input" id="email" type="email" name="email" value="<?= $this->e($user['email'] ?? '') ?>" required></div></div>
+      <div class="field"><label class="label" for="role">Role</label><div class="control"><div class="select"><select id="role" name="role">
+        <?php $roles = ['user','editor','admin']; foreach ($roles as $r): ?>
+          <option value="<?= $r ?>" <?= (($user['role'] ?? 'user') === $r) ? 'selected' : '' ?>><?= $r ?></option>
+        <?php endforeach; ?>
+      </select></div></div></div>
+      <div class="field"><label class="checkbox"><input type="checkbox" name="is_active" value="1" <?= ((int)($user['is_active'] ?? 1)) ? 'checked' : '' ?>> Active</label></div>
+      <div class="field is-grouped"><div class="control"><button class="button is-primary" type="submit">Save</button></div><div class="control"><a class="button" href="/admin/users">Cancel</a></div></div>
+    </form>
 
-    \App\Models\User::create([
-        'name' => $name,
-        'email' => $email,
-        'role' => $role,
-        'password_hash' => password_hash($password, PASSWORD_DEFAULT),
-        'is_active' => 1,
-    ]);
-    $this->flash('User created.', 'is-success');
-    $this->redirect('/admin/users');
-}
+    <hr>
 
-public function update(int $id): void
-{
-    if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
-        $this->flash('Security token validation failed.', 'is-danger');
-        return $this->redirect("/admin/users/{$id}/edit");
-    }
-    $name = trim($_POST['name'] ?? '');
-    $email = strtolower(trim($_POST['email'] ?? ''));
-    $role = $_POST['role'] ?? 'user';
-    $is_active = (int)($_POST['is_active'] ?? 1);
-
-    $errors = \App\Support\Validator::validate(
-        compact('name','email','role'),
-        [
-            'name' => 'required|max:255',
-            'email' => 'required|email|max:255',
-            'role' => 'required|in:admin,editor,user',
-        ]
-    );
-    if (\App\Models\User::existsBy('email', $email, $id)) {
-        $errors['email'][] = 'That email is already in use.';
-    }
-    if (!empty($errors)) {
-        foreach (\App\Support\Validator::flattenErrors($errors) as $m) {
-            $this->flash($m, 'is-warning');
-        }
-        return $this->redirect("/admin/users/{$id}/edit");
-    }
-
-    \App\Models\User::update($id, compact('name','email','role','is_active'));
-    $this->flash('User updated.', 'is-success');
-    $this->redirect('/admin/users');
-}
-
-public function deactivate(int $id): void
-{
-    if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
-        $this->flash('Security token validation failed.', 'is-danger');
-        return $this->redirect('/admin/users');
-    }
-    \App\Models\User::update($id, ['is_active' => 0]);
-    $this->flash('User deactivated.', 'is-info');
-    $this->redirect('/admin/users');
-}
+    <h2 class="title is-5">Update Role Only</h2>
+    <form method="post" action="/admin/users/<?= (int)($user['id'] ?? 0) ?>/role">
+      <?php $this->csrfField(); ?>
+      <div class="field"><div class="select"><select name="role">
+        <?php foreach ($roles as $r): ?>
+          <option value="<?= $r ?>" <?= (($user['role'] ?? 'user') === $r) ? 'selected' : '' ?>><?= $r ?></option>
+        <?php endforeach; ?>
+      </select></div></div>
+      <div class="field"><button class="button is-link" type="submit">Update Role</button></div>
+    </form>
+  </div>
+</section>
+<?php $this->end(); ?>
 ```
 
 —
