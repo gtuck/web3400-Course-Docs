@@ -744,7 +744,7 @@ $router->post('/admin/users', UsersController::class, 'store'); // new line
 $router->get('/admin/users/{id}/edit', UsersController::class, 'edit'); // new line
 $router->post('/admin/users/{id}', UsersController::class, 'update'); // new line
 $router->post('/admin/users/{id}/role', UsersController::class, 'updateRole'); // new line
-$router->post('/admin/users/{id}/deactivate', UsersController::class, 'deactivate'); // new line
+$router->post('/admin/users/{id}/active', UsersController::class, 'updateActive'); // new line
 ```
 
 Controller (`src/Controllers/Admin/UsersController.php`):
@@ -880,14 +880,15 @@ class UsersController extends Controller
         $this->redirect('/admin/users');
     }
 
-    public function deactivate(int $id): void
+    public function updateActive(int $id): void
     {
         if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
             $this->flash('Security token validation failed.', 'is-danger');
             return $this->redirect('/admin/users');
         }
-        \App\Models\User::update($id, ['is_active' => 0]);
-        $this->flash('User deactivated.', 'is-info');
+        $isActive = isset($_POST['is_active']) ? 1 : 0; // checkbox presence
+        \App\Models\User::update($id, ['is_active' => $isActive]);
+        $this->flash('User status updated.', 'is-info');
         $this->redirect('/admin/users');
     }
 }
@@ -916,9 +917,12 @@ Views:
             <td><?= (int)$u['is_active'] ? 'Yes' : 'No' ?></td>
             <td class="has-text-right">
               <a class="button is-small" href="/admin/users/<?= (int)$u['id'] ?>/edit">Edit</a>
-              <form style="display:inline" method="post" action="/admin/users/<?= (int)$u['id'] ?>/deactivate">
+              <form style="display:inline; margin-left:.5rem" method="post" action="/admin/users/<?= (int)$u['id'] ?>/active">
                 <?php $this->csrfField(); ?>
-                <button class="button is-small is-light" type="submit">Deactivate</button>
+                <label class="checkbox">
+                  <input type="checkbox" name="is_active" value="1" <?= (int)$u['is_active'] ? 'checked' : '' ?> onchange="this.form.submit()">
+                  Active
+                </label>
               </form>
             </td>
           </tr>
@@ -1072,7 +1076,7 @@ $router->post('/admin/users', UsersController::class, 'store');
 $router->get('/admin/users/{id}/edit', UsersController::class, 'edit');
 $router->post('/admin/users/{id}', UsersController::class, 'update');
 $router->post('/admin/users/{id}/role', UsersController::class, 'updateRole');
-$router->post('/admin/users/{id}/deactivate', UsersController::class, 'deactivate');
+$router->post('/admin/users/{id}/active', UsersController::class, 'updateActive');
 ```
 
 —
