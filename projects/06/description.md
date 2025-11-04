@@ -57,7 +57,7 @@ projects/06/
       AuthController.php     # register/login/logout
       ProfileController.php  # view/edit profile, change password
       Admin/
-        UsersController.php  # admin‑only: list/create/edit/role/deactivate(delete)
+        UsersController.php  # admin‑only: list/create/edit/role/active (toggle)
     Routes/
       index.php              # add routes for auth, profile, admin users
     Views/
@@ -488,7 +488,7 @@ public function logout(): void
 {
     if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
         $this->flash('Security token validation failed.', 'is-danger');
-        return $this->redirect('/');
+        $this->redirect('/');
     }
     $this->logoutUser();
     $this->flash('You have been logged out.', 'is-info');
@@ -573,10 +573,10 @@ class ProfileController extends Controller
     public function update(): void
     {
         $this->requireAuth();
-        if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
-            $this->flash('Security token validation failed.', 'is-danger');
-            return $this->redirect('/profile/edit');
-        }
+    if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
+        $this->flash('Security token validation failed.', 'is-danger');
+        $this->redirect('/profile/edit');
+    }
         $name = trim($_POST['name'] ?? '');
         $email = strtolower(trim($_POST['email'] ?? ''));
         $id = (int)($this->user()['id'] ?? 0);
@@ -588,12 +588,12 @@ class ProfileController extends Controller
         if (\App\Models\User::existsBy('email', $email, $id)) {
             $errors['email'][] = 'That email is already in use.';
         }
-        if (!empty($errors)) {
-            foreach (\App\Support\Validator::flattenErrors($errors) as $m) {
-                $this->flash($m, 'is-warning');
-            }
-            return $this->redirect('/profile/edit');
+    if (!empty($errors)) {
+        foreach (\App\Support\Validator::flattenErrors($errors) as $m) {
+            $this->flash($m, 'is-warning');
         }
+        $this->redirect('/profile/edit');
+    }
         \App\Models\User::update($id, compact('name','email'));
         $this->flash('Profile updated.', 'is-success');
         $this->redirect('/profile');
@@ -602,29 +602,29 @@ class ProfileController extends Controller
     public function changePassword(): void
     {
         $this->requireAuth();
-        if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
-            $this->flash('Security token validation failed.', 'is-danger');
-            return $this->redirect('/profile');
-        }
+    if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
+        $this->flash('Security token validation failed.', 'is-danger');
+        $this->redirect('/profile');
+    }
         $current = $_POST['current_password'] ?? '';
         $new = $_POST['new_password'] ?? '';
         $confirm = $_POST['new_password_confirm'] ?? '';
         $user = $this->user();
 
-        if (!password_verify($current, $user['password_hash'])) {
-            $this->flash('Current password is incorrect.', 'is-danger');
-            return $this->redirect('/profile');
-        }
+    if (!password_verify($current, $user['password_hash'])) {
+        $this->flash('Current password is incorrect.', 'is-danger');
+        $this->redirect('/profile');
+    }
         $errs = \App\Support\Validator::validate(['p' => $new], ['p' => 'required|min:8']);
         if ($new !== $confirm) {
             $errs['p'][] = 'Password confirmation does not match.';
         }
-        if (!empty($errs)) {
-            foreach (\App\Support\Validator::flattenErrors($errs) as $m) {
-                $this->flash($m, 'is-warning');
-            }
-            return $this->redirect('/profile');
+    if (!empty($errs)) {
+        foreach (\App\Support\Validator::flattenErrors($errs) as $m) {
+            $this->flash($m, 'is-warning');
         }
+        $this->redirect('/profile');
+    }
         \App\Models\User::update((int)$user['id'], ['password_hash' => password_hash($new, PASSWORD_DEFAULT)]);
         $this->flash('Password changed.', 'is-success');
         $this->redirect('/profile');
@@ -780,7 +780,7 @@ class UsersController extends Controller
     {
         if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
             $this->flash('Security token validation failed.', 'is-danger');
-            return $this->redirect('/admin/users/create');
+            $this->redirect('/admin/users/create');
         }
         $name = trim($_POST['name'] ?? '');
         $email = strtolower(trim($_POST['email'] ?? ''));
@@ -803,7 +803,7 @@ class UsersController extends Controller
             foreach (\App\Support\Validator::flattenErrors($errors) as $m) {
                 $this->flash($m, 'is-warning');
             }
-            return $this->redirect('/admin/users/create');
+            $this->redirect('/admin/users/create');
         }
 
         \App\Models\User::create([
@@ -822,7 +822,7 @@ class UsersController extends Controller
         $user = \App\Models\User::find($id);
         if (!$user) {
             $this->flash('User not found.', 'is-warning');
-            return $this->redirect('/admin/users');
+            $this->redirect('/admin/users');
         }
         $this->render('admin/users/edit', ['title' => 'Edit User', 'user' => $user]);
     }
@@ -831,7 +831,7 @@ class UsersController extends Controller
     {
         if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
             $this->flash('Security token validation failed.', 'is-danger');
-            return $this->redirect("/admin/users/{$id}/edit");
+            $this->redirect("/admin/users/{$id}/edit");
         }
         $name = trim($_POST['name'] ?? '');
         $email = strtolower(trim($_POST['email'] ?? ''));
@@ -853,7 +853,7 @@ class UsersController extends Controller
             foreach (\App\Support\Validator::flattenErrors($errors) as $m) {
                 $this->flash($m, 'is-warning');
             }
-            return $this->redirect("/admin/users/{$id}/edit");
+            $this->redirect("/admin/users/{$id}/edit");
         }
 
         \App\Models\User::update($id, compact('name','email','role','is_active'));
@@ -865,7 +865,7 @@ class UsersController extends Controller
     {
         if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
             $this->flash('Security token validation failed.', 'is-danger');
-            return $this->redirect('/admin/users');
+            $this->redirect('/admin/users');
         }
         $role = $_POST['role'] ?? 'user';
         $errs = \App\Support\Validator::validate(['role' => $role], ['role' => 'required|in:admin,editor,user']);
@@ -873,7 +873,7 @@ class UsersController extends Controller
             foreach (\App\Support\Validator::flattenErrors($errs) as $m) {
                 $this->flash($m, 'is-warning');
             }
-            return $this->redirect('/admin/users');
+            $this->redirect('/admin/users');
         }
         \App\Models\User::update($id, ['role' => $role]);
         $this->flash('Role updated.', 'is-success');
