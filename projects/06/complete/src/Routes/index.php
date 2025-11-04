@@ -31,7 +31,6 @@ $router->post('/admin/users', UsersController::class, 'store'); // new line
 $router->get('/admin/users/{id}/edit', UsersController::class, 'edit'); // new line
 $router->post('/admin/users/{id}', UsersController::class, 'update'); // new line
 $router->post('/admin/users/{id}/role', UsersController::class, 'updateRole'); // new line
-$router->post('/admin/users/{id}/deactivate', UsersController::class, 'deactivate'); // new line
 $router->post('/admin/users/{id}/active', UsersController::class, 'updateActive');
 
 $router->dispatch();

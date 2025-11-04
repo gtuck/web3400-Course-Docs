@@ -1053,30 +1053,45 @@ class Router
 }
 ```
 
-`src/Routes/index.php` example additions:
+`src/Routes/index.php` complete:
 ```php
-use App\Controllers\AuthController;
-use App\Controllers\ProfileController;
-use App\Controllers\Admin\UsersController;
+<?php
 
-$router->get('/register', AuthController::class, 'showRegister');
-$router->post('/register', AuthController::class, 'register');
-$router->get('/login', AuthController::class, 'showLogin');
-$router->post('/login', AuthController::class, 'login');
-$router->post('/logout', AuthController::class, 'logout');
+use App\Controllers\Admin\UsersController; // new line
+use App\Controllers\ProfileController; // new line
+use App\Controllers\AuthController; //new line
+use App\Controllers\HomeController;
+use App\Controllers\ContactController;
+use App\Router;
 
-$router->get('/profile', ProfileController::class, 'show');
-$router->get('/profile/edit', ProfileController::class, 'edit');
-$router->post('/profile', ProfileController::class, 'update');
-$router->post('/profile/password', ProfileController::class, 'changePassword');
+$router = new Router();
 
-$router->get('/admin/users', UsersController::class, 'index');
-$router->get('/admin/users/create', UsersController::class, 'create');
-$router->post('/admin/users', UsersController::class, 'store');
-$router->get('/admin/users/{id}/edit', UsersController::class, 'edit');
-$router->post('/admin/users/{id}', UsersController::class, 'update');
-$router->post('/admin/users/{id}/role', UsersController::class, 'updateRole');
+$router->get('/', HomeController::class, 'index');
+$router->get('/contact', ContactController::class, 'show');
+$router->post('/contact', ContactController::class, 'submit');
+
+$router->get('/register', AuthController::class, 'showRegister'); // new line
+$router->post('/register', AuthController::class, 'register'); // new line
+
+$router->get('/login', AuthController::class, 'showLogin'); // new line
+$router->post('/login', AuthController::class, 'login'); // new line
+$router->post('/logout', AuthController::class, 'logout'); // new line
+
+$router->get('/profile', ProfileController::class, 'show'); // new line
+$router->get('/profile/edit', ProfileController::class, 'edit'); // new line
+$router->post('/profile', ProfileController::class, 'update'); // new line
+$router->post('/profile/password', ProfileController::class, 'changePassword'); // new line
+
+$router->get('/admin/users', UsersController::class, 'index'); // new line
+$router->get('/admin/users/create', UsersController::class, 'create'); // new line
+$router->post('/admin/users', UsersController::class, 'store'); // new line
+$router->get('/admin/users/{id}/edit', UsersController::class, 'edit'); // new line
+$router->post('/admin/users/{id}', UsersController::class, 'update'); // new line
+$router->post('/admin/users/{id}/role', UsersController::class, 'updateRole'); // new line
 $router->post('/admin/users/{id}/active', UsersController::class, 'updateActive');
+
+$router->dispatch();
+
 ```
 
 —
