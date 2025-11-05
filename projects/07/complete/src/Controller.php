@@ -127,4 +127,13 @@ class Controller
             exit;
         }
     }
+
+    // Shared helper: create URL-friendly slugs
+    protected function slugify(string $value): string
+    {
+        $v = strtolower(trim($value));
+        $v = preg_replace('~[^a-z0-9]+~', '-', $v) ?? '';
+        $v = trim($v, '-');
+        return $v ?: uniqid('post-');
+    }
 }

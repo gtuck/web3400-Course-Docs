@@ -71,6 +71,21 @@ projects/07/
       partials/nav.php       # updated: Admin dropdown
 ```
 
+Add a reusable helper to your base controller, then call it from Admin/PostsController:
+
+```php
+// filepath: src/Controller.php
+protected function slugify(string $value): string
+{
+    $v = strtolower(trim($value));
+    $v = preg_replace('~[^a-z0-9]+~', '-', $v) ?? '';
+    $v = trim($v, '-');
+    return $v ?: uniqid('post-');
+}
+```
+
+You may alternatively keep a private slugify in Admin/PostsController if you prefer local scope, but the base helper is more reusable.
+
 —
 
 ## Step 1) Scaffold from Project 06 + create new files
