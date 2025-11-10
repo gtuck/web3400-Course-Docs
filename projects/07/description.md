@@ -300,7 +300,7 @@ final class Time
 
 —
 
-## Step 5a) Slugify
+## Step 5a) Add a “Slugify” helper
 
 Add a reusable helper to your base controller, then call it from Admin/PostsController:
 
