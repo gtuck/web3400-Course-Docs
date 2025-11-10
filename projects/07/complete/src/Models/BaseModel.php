@@ -230,12 +230,17 @@ abstract class BaseModel
         $placeholders = array_map(fn($c) => ':' . $c, $cols);
         $quotedCols = array_map(fn($c) => '`' . $c . '`', $cols);
         $sql = 'INSERT INTO `' . static::table() . '` (' . implode(',', $quotedCols) . ') VALUES (' . implode(',', $placeholders) . ')';
-        $stmt = static::pdo()->prepare($sql);
+        
+        $pdo = static::pdo(); //new line
+        
+        // old/bad code: $stmt = static::pdo()->prepare($sql);
+        $stmt = $pdo()->prepare($sql); // Corrected code
         foreach ($data as $c => $v) {
             $stmt->bindValue(':' . $c, $v);
         }
         $stmt->execute();
-        return (int) static::pdo()->lastInsertId();
+        // old/bad code: return (int) static::pdo()->lastInsertId();
+        return (int) $pdo()->lastInsertId(); // Corrected code
     }
 
     /**
