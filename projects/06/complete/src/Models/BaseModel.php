@@ -233,14 +233,14 @@ abstract class BaseModel
         
         $pdo = static::pdo(); //new line
         
-        //$stmt = static::pdo()->prepare($sql);
-        $stmt = $pdo()->prepare($sql); // Corrected
+        // old/bad code: $stmt = static::pdo()->prepare($sql);
+        $stmt = $pdo()->prepare($sql); // Corrected code
         foreach ($data as $c => $v) {
             $stmt->bindValue(':' . $c, $v);
         }
         $stmt->execute();
-        //return (int) static::pdo()->lastInsertId();
-        return (int) $pdo()->lastInsertId(); // Corrected
+        // old/bad code: return (int) static::pdo()->lastInsertId();
+        return (int) $pdo()->lastInsertId(); // Corrected code
     }
 
     /**
