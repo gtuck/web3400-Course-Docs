@@ -63,6 +63,10 @@ projects/07/
     Views/
       index.php              # updated featured posts layout
       posts/show.php         # new post detail view
+      admin/users/           # from P06 (carry forward)
+        index.php            # list
+        create.php           # create (ensure exists)
+        edit.php             # edit (ensure exists)
       admin/posts/
         index.php            # list
         create.php           # create
@@ -70,6 +74,21 @@ projects/07/
         _form.php            # shared form
       partials/nav.php       # updated: Admin dropdown
 ```
+
+Add a reusable helper to your base controller, then call it from Admin/PostsController:
+
+```php
+// filepath: src/Controller.php
+protected function slugify(string $value): string
+{
+    $v = strtolower(trim($value));
+    $v = preg_replace('~[^a-z0-9]+~', '-', $v) ?? '';
+    $v = trim($v, '-');
+    return $v ?: uniqid('post-');
+}
+```
+
+You may alternatively keep a private slugify in Admin/PostsController if you prefer local scope, but the base helper is more reusable.
 
 —
 
@@ -81,6 +100,7 @@ From the repository root, copy P06 to P07 and scaffold the new files/directories
 cp -r projects/06 projects/07 && \
 mkdir -p projects/07/src/Controllers/Admin \
          projects/07/src/Views/admin/posts \
+         projects/07/src/Views/admin/users \
          projects/07/src/Views/posts \
          projects/07/src/Support \
   && \
@@ -88,6 +108,7 @@ touch projects/07/src/Controllers/PostsController.php \
       projects/07/src/Controllers/Admin/PostsController.php \
       projects/07/src/Support/Time.php \
       projects/07/src/Views/admin/posts/{index.php,create.php,edit.php,_form.php} \
+      projects/07/src/Views/admin/users/{create.php,edit.php} \
       projects/07/src/Views/posts/show.php
 ```
 
@@ -299,23 +320,6 @@ final class Time
 ```
 
 —
-
-## Step 5a) Add a “Slugify” helper
-
-Add a reusable helper to your base controller, then call it from Admin/PostsController:
-
-```php
-// filepath: src/Controller.php
-protected function slugify(string $value): string
-{
-    $v = strtolower(trim($value));
-    $v = preg_replace('~[^a-z0-9]+~', '-', $v) ?? '';
-    $v = trim($v, '-');
-    return $v ?: uniqid('post-');
-}
-```
-
--
 
 ## Step 6) Update the home page (featured posts)
 
@@ -536,9 +540,83 @@ Create a shared form partial and simple screens for list/create/edit.
 </table>
 ```
 
+Tip: In `src/Views/admin/posts/edit.php`, include a small “Quick Actions” box with CSRF-protected forms to Publish/Unpublish and Delete the post, mirroring the actions available in the index table.
+
 —
 
-## Step 11) Update the navigation (Admin dropdown)
+## Step 11) Admin Users views (create/edit)
+
+Carry forward your Admin/Users controller and routes from Project 06. In P07, add or complete these two views to match your existing actions and patterns:
+
+`src/Views/admin/users/create.php`
+```php
+<?php $this->layout('layouts/main'); $this->start('content'); ?>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Create User</h1>
+    <form class="box" method="post" action="/admin/users">
+      <?php $this->csrfField(); ?>
+      <!-- Name (text), Email (email), Role (select: user/editor/admin), Password (password) -->
+      <!-- Submit (Create) + Cancel (/admin/users) -->
+    </form>
+  </div>
+  </section>
+<?php $this->end(); ?>
+```
+
+`src/Views/admin/users/edit.php`
+```php
+<?php $this->layout('layouts/main'); $this->start('content'); ?>
+<section class="section">
+  <div class="container">
+    <h1 class="title">Edit User</h1>
+    <form class="box" method="post" action="/admin/users/<?= (int)($user['id'] ?? 0) ?>">
+      <?php $this->csrfField(); ?>
+      <!-- Name (text), Email (email), Role (select), Active (checkbox) -->
+      <!-- Submit (Save) + Cancel (/admin/users) -->
+    </form>
+
+    <!-- Optional: separate role-only form if you expose /admin/users/{id}/role -->
+  </div>
+  </section>
+<?php $this->end(); ?>
+```
+
+Notes:
+- Use `$this->e()` for all dynamic output and `$this->csrfField()` for CSRF.
+- These views pair with your existing Users routes from P06 (index/create/store/edit/update, plus optional role/active endpoints).
+
+Routes (carried over from P06):
+`src/Routes/index.php`
+```php
+use App\Controllers\Admin\UsersController;
+
+$router->get('/admin/users', UsersController::class, 'index');
+$router->get('/admin/users/create', UsersController::class, 'create');
+$router->post('/admin/users', UsersController::class, 'store');
+$router->get('/admin/users/{id}/edit', UsersController::class, 'edit');
+$router->post('/admin/users/{id}', UsersController::class, 'update');
+$router->post('/admin/users/{id}/role', UsersController::class, 'updateRole');
+$router->post('/admin/users/{id}/active', UsersController::class, 'updateActive');
+```
+
+Access: restrict all Admin/Users routes to `admin` via `UsersController::__construct()` calling `$this->requireRole('admin');`. Protect all POST routes with CSRF.
+
+Inline Active toggle (index view):
+```php
+<form style="display:inline; margin-left:.5rem" method="post" action="/admin/users/<?= (int)$u['id'] ?>/active">
+  <?php $this->csrfField(); ?>
+  <label class="checkbox">
+    <input type="checkbox" name="is_active" value="1" <?= (int)$u['is_active'] ? 'checked' : '' ?> onchange="this.form.submit()">
+    Active
+  </label>
+  <!-- Controller tip: treat presence of checkbox as 1, absence as 0 -->
+</form>
+```
+
+—
+
+## Step 12) Update the navigation (Admin dropdown)
 
 Replace the single Admin/Users link with a dropdown. Show “Manage Users” only to Admins; show “Manage Posts” to Admins and Editors.
 
@@ -559,7 +637,7 @@ Replace the single Admin/Users link with a dropdown. Show “Manage Users” onl
 
 —
 
-## Step 12) Rubric (100 points)
+## Step 13) Rubric (100 points)
 
 - Database and Model (20)
   - `posts` table created with schema above (10)
