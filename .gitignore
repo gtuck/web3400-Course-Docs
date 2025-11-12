@@ -1,1 +1,23 @@
+# macOS
 .DS_Store
+
+# AI Assistant context files (local only)
+CLAUDE.md
+AGENTS.md
+GEMINI.md
+CURSOR.md
+WINDSURF.md
+CODEX.md
+
+# AI Assistant directories (local only)
+.claude/
+.gemini/
+.cursor/
+.windsurf/
+.agents/
+.cody/
+.aider/
+.continue/
+
+# AI-generated reports (local only)
+.reports/
