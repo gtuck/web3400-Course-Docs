@@ -637,7 +637,7 @@ Replace the single Admin/Users link with a dropdown. Show “Manage Users” onl
 
 —
 
-## Step 13) Rubric (100 points)
+## Rubric (100 points)
 
 - Database and Model (20)
   - `posts` table created with schema above (10)
