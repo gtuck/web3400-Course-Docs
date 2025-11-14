@@ -10,56 +10,73 @@ $this->start('content'); ?>
         <div class="buttons">
             <a class="button is-link" href="/profile/edit">Edit Profile</a>
         </div>
+
         <hr>
+        <style>
+            .tabs-content li {
+                display: none;
+                list-style: none;
+            }
 
+            .tabs-content li.is-active {
+                display: block;
+            }
+        </style>
         <h2 class="title is-5">Your Activity</h2>
-
-        <div class="tabs is-boxed" data-bulma="tabs">
-            <ul>
-                <li class="is-active" data-tab="likes"><a>Likes</a></li>
-                <li data-tab="favs"><a>Favs</a></li>
-                <li data-tab="comments"><a>Comments</a></li>
-            </ul>
-        </div>
-
-        <div id="tab-likes" class="profile-tab-panel">
-            <?php if (empty($likedPosts)): ?>
-                <p class="has-text-grey">You haven’t liked any posts yet.</p>
-            <?php else: ?>
+        <div class="tabs-wrapper">
+            <div class="tabs is-boxed">
                 <ul>
-                    <?php foreach ($likedPosts as $post): ?>
-                        <li>
-                            <a href="/posts<?= $user ? '/' . $this->e($post['slug']) : '' ?>">
-                                <?= $this->e($post['title']) ?>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
+                    <li class="is-active">
+                        <a>Likes</a>
+                    </li>
+                    <li>
+                        <a>Favs</a>
+                    </li>
+                    <li>
+                        <a>Comments</a>
+                    </li>
                 </ul>
-            <?php endif; ?>
-        </div>
-
-        <div id="tab-favs" class="profile-tab-panel is-hidden">
-            <?php if (empty($favoritedPosts)): ?>
-                <p class="has-text-grey">You haven’t favorited any posts yet.</p>
-            <?php else: ?>
+            </div>
+            <div class="tabs-content">
                 <ul>
-                    <?php foreach ($favoritedPosts as $post): ?>
-                        <li><a href="/posts/<?= $this->e($post['slug']) ?>"><?= $this->e($post['title']) ?></a></li>
-                    <?php endforeach; ?>
-                </ul>
-            <?php endif; ?>
-        </div>
+                    <li class="is-active">
+                        <?php if (empty($likedPosts)): ?>
+                            <p class="has-text-grey">You haven't liked any posts yet.</p>
+                        <?php else: ?>
+                            <?php foreach ($likedPosts as $post): ?>
+                                <p>
+                                    <a href="/posts<?= $user ? '/' . $this->e($post['slug']) : '' ?>">
+                                        <?= $this->e($post['title']) ?>
 
-        <div id="tab-comments" class="profile-tab-panel is-hidden">
-            <?php if (empty($commentedPosts)): ?>
-                <p class="has-text-grey">You haven’t commented on any posts yet.</p>
-            <?php else: ?>
-                <ul>
-                    <?php foreach ($commentedPosts as $post): ?>
-                        <li><a href="/posts/<?= $this->e($post['slug']) ?>"><?= $this->e($post['title']) ?></a></li>
-                    <?php endforeach; ?>
+                                    </a>
+                                </p>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </li>
+                    <li>
+                        <?php if (empty($favoritedPosts)): ?>
+                            <p class="has-text-grey">You haven't favorited any posts yet.</p>
+                        <?php else: ?>
+                            <?php foreach ($favoritedPosts as $post): ?>
+                                <p>
+                                    <a href="/posts/<?= $this->e($post['slug']) ?>"><?= $this->e($post['title']) ?></a>
+                                </p>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </li>
+                    <li>
+                        <?php if (empty($commentedPosts)): ?>
+                            <p class="has-text-grey">You haven't commented on any posts yet.</p>
+                        <?php else: ?>
+                            <?php foreach ($commentedPosts as $post): ?>
+                                <p>
+                                    <a href="/posts/<?= $this->e($post['slug']) ?>"><?= $this->e($post['title']) ?></a>
+                                </p>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </li>
                 </ul>
-            <?php endif; ?>
+            </div>
         </div>
     </div>
 </section>

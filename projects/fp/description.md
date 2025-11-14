@@ -36,6 +36,7 @@ Instead of a standalone `admin_dashboard.php` file, your final project should tr
   - Front controller (`public/index.php`) and `Router`
   - Authenticated users with roles (e.g., `admin`, `user`)
   - Content models (e.g., `Post`/`Article`, `User`, `ContactMessage`)
+  - Enhanced user profile page with activity tabs (Likes, Favs, Comments) from Project 08
   - Active Record‑style `BaseModel` and database helper
   - CSRF protection, validation, and view templating from Projects 05–08
 - Database tables for:
