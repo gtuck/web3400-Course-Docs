@@ -553,40 +553,74 @@ ORDER BY p.published_at DESC;
 ```
 
 View updates (`src/Views/profile/show.php`):
-- At the bottom of the page (after the existing profile box and buttons), add a Bulma tabs component. BulmaJS is already included in the head partial and will handle the default Bulma tab behavior when you use the standard markup:
+- At the bottom of the page (after the existing profile box and buttons), add a Bulma tabs component wrapped in a simple container. BulmaJS is already included in the head partial and will handle the default Bulma tab behavior when you use the standard markup and `data-bulma="tabs"` attribute:
 
 ```php
 <hr>
-
-<h2 class="title is-5">Your Activity</h2>
-
-<div class="tabs is-boxed" data-bulma="tabs">
-  <ul>
-    <li class="is-active" data-tab="likes"><a>Likes</a></li>
-    <li data-tab="favs"><a>Favs</a></li>
-    <li data-tab="comments"><a>Comments</a></li>
-  </ul>
-</div>
-
-<div id="tab-likes" class="profile-tab-panel">
-  <?php if (empty($likedPosts)): ?>
-    <p class="has-text-grey">You haven’t liked any posts yet.</p>
-  <?php else: ?>
-    <ul>
-      <?php foreach ($likedPosts as $post): ?>
-        <li><a href="/posts/<?= $this->e($post['slug']) ?>"><?= $this->e($post['title']) ?></a></li>
-      <?php endforeach; ?>
-    </ul>
-  <?php endif; ?>
-</div>
-
-<div id="tab-favs" class="profile-tab-panel is-hidden">
-  <!-- Similar list using $favoritedPosts -->
-</div>
-
-<div id="tab-comments" class="profile-tab-panel is-hidden">
-  <!-- Similar list using $commentedPosts -->
-</div>
+  <style>
+      .tabs-content li {
+          display: none;
+          list-style: none;
+      }
+      .tabs-content li.is-active {
+          display: block;
+      }
+  </style>
+  <h2 class="title is-5">Your Activity</h2>
+  <div class="tabs-wrapper">
+      <div class="tabs is-boxed">
+          <ul>
+              <li class="is-active">
+                  <a>Likes</a>
+              </li>
+              <li>
+                  <a>Favs</a>
+              </li>
+              <li>
+                  <a>Comments</a>
+              </li>
+          </ul>
+      </div>
+      <div class="tabs-content">
+          <ul>
+              <li class="is-active">
+                  <?php if (empty($likedPosts)): ?>
+                      <p class="has-text-grey">You haven't liked any posts yet.</p>
+                  <?php else: ?>
+                      <?php foreach ($likedPosts as $post): ?>
+                          <p>
+                              <a href="/posts<?= $user ? '/' . $this->e($post['slug']) : '' ?>">
+                                  <?= $this->e($post['title']) ?>
+                              </a>
+                          </p>
+                      <?php endforeach; ?>
+                  <?php endif; ?>
+              </li>
+              <li>
+                  <?php if (empty($favoritedPosts)): ?>
+                      <p class="has-text-grey">You haven't favorited any posts yet.</p>
+                  <?php else: ?>
+                      <?php foreach ($favoritedPosts as $post): ?>
+                          <p>
+                              <a href="/posts/<?= $this->e($post['slug']) ?>"><?= $this->e($post['title']) ?></a>
+                          </p>
+                      <?php endforeach; ?>
+                  <?php endif; ?>
+              </li>
+              <li>
+                  <?php if (empty($commentedPosts)): ?>
+                      <p class="has-text-grey">You haven't commented on any posts yet.</p>
+                  <?php else: ?>
+                      <?php foreach ($commentedPosts as $post): ?>
+                          <p>
+                              <a href="/posts/<?= $this->e($post['slug']) ?>"><?= $this->e($post['title']) ?></a>
+                          </p>
+                      <?php endforeach; ?>
+                  <?php endif; ?>
+              </li>
+          </ul>
+      </div>
+  </div>
 ```
 
 Notes:
