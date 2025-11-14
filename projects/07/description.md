@@ -544,75 +544,70 @@ Tip: In `src/Views/admin/posts/edit.php`, include a small “Quick Actions” bo
 
 —
 
-## Step 11) Admin Users views (create/edit)
+## Step 11) Admin Posts views (create/edit)
 
-Carry forward your Admin/Users controller and routes from Project 06. In P07, add or complete these two views to match your existing actions and patterns:
+Finish the admin create/edit screens so Editors/Admins can add and update posts without leaving the CMS.
 
-`src/Views/admin/users/create.php`
+`src/Views/admin/posts/create.php`
 ```php
 <?php $this->layout('layouts/main'); $this->start('content'); ?>
 <section class="section">
   <div class="container">
-    <h1 class="title">Create User</h1>
-    <form class="box" method="post" action="/admin/users">
-      <?php $this->csrfField(); ?>
-      <!-- Name (text), Email (email), Role (select: user/editor/admin), Password (password) -->
-      <!-- Submit (Create) + Cancel (/admin/users) -->
-    </form>
+    <h1 class="title">Create Post</h1>
+    <div class="box">
+      <?php $this->insert('admin/posts/_form'); ?>
+    </div>
   </div>
-  </section>
+</section>
 <?php $this->end(); ?>
 ```
 
-`src/Views/admin/users/edit.php`
+`src/Views/admin/posts/edit.php`
 ```php
 <?php $this->layout('layouts/main'); $this->start('content'); ?>
 <section class="section">
   <div class="container">
-    <h1 class="title">Edit User</h1>
-    <form class="box" method="post" action="/admin/users/<?= (int)($user['id'] ?? 0) ?>">
-      <?php $this->csrfField(); ?>
-      <!-- Name (text), Email (email), Role (select), Active (checkbox) -->
-      <!-- Submit (Save) + Cancel (/admin/users) -->
-    </form>
+    <div class="level">
+      <h1 class="title level-left">Edit Post</h1>
+      <div class="level-right">
+        <a class="button" href="/admin/posts">Back to Posts</a>
+      </div>
+    </div>
 
-    <!-- Optional: separate role-only form if you expose /admin/users/{id}/role -->
+    <div class="columns">
+      <div class="column is-two-thirds">
+        <div class="box">
+          <?php $this->insert('admin/posts/_form', ['post' => $post]); ?>
+        </div>
+      </div>
+      <div class="column">
+        <div class="box">
+          <h2 class="subtitle">Quick Actions</h2>
+          <form method="post" action="/admin/posts/<?= (int)$post['id'] ?>/publish">
+            <?php $this->csrfField(); ?>
+            <button class="button is-success is-fullwidth">Publish</button>
+          </form>
+          <form method="post" action="/admin/posts/<?= (int)$post['id'] ?>/unpublish" style="margin-top:.75rem">
+            <?php $this->csrfField(); ?>
+            <button class="button is-warning is-fullwidth">Unpublish</button>
+          </form>
+          <form method="post" action="/admin/posts/<?= (int)$post['id'] ?>/delete" style="margin-top:.75rem">
+            <?php $this->csrfField(); ?>
+            <button class="button is-danger is-fullwidth" onclick="return confirm('Delete this post?')">Delete</button>
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
-  </section>
+</section>
 <?php $this->end(); ?>
 ```
 
 Notes:
-- Use `$this->e()` for all dynamic output and `$this->csrfField()` for CSRF.
-- These views pair with your existing Users routes from P06 (index/create/store/edit/update, plus optional role/active endpoints).
-
-Routes (carried over from P06):
-`src/Routes/index.php`
-```php
-use App\Controllers\Admin\UsersController;
-
-$router->get('/admin/users', UsersController::class, 'index');
-$router->get('/admin/users/create', UsersController::class, 'create');
-$router->post('/admin/users', UsersController::class, 'store');
-$router->get('/admin/users/{id}/edit', UsersController::class, 'edit');
-$router->post('/admin/users/{id}', UsersController::class, 'update');
-$router->post('/admin/users/{id}/role', UsersController::class, 'updateRole');
-$router->post('/admin/users/{id}/active', UsersController::class, 'updateActive');
-```
-
-Access: restrict all Admin/Users routes to `admin` via `UsersController::__construct()` calling `$this->requireRole('admin');`. Protect all POST routes with CSRF.
-
-Inline Active toggle (index view):
-```php
-<form style="display:inline; margin-left:.5rem" method="post" action="/admin/users/<?= (int)$u['id'] ?>/active">
-  <?php $this->csrfField(); ?>
-  <label class="checkbox">
-    <input type="checkbox" name="is_active" value="1" <?= (int)$u['is_active'] ? 'checked' : '' ?> onchange="this.form.submit()">
-    Active
-  </label>
-  <!-- Controller tip: treat presence of checkbox as 1, absence as 0 -->
-</form>
-```
+- `_form.php` should output Title, Slug, Excerpt, Featured Image URL, Body, `is_featured`, and a Status select (`draft`, `published`, `archived`, `deleted`). Include Cancel links back to `/admin/posts`.
+- Pass `$post` into the partial when editing so existing values populate the form and toggle the submit button text (`Create Post` vs `Save Changes`).
+- Keep all dynamic output wrapped with `$this->e()`, and make sure each form includes `$this->csrfField()` plus hidden `_method` fields if you mimic REST semantics.
+- The quick-action forms should call your Admin Posts controller methods (`publish`, `unpublish`, `destroy`) added earlier; they mirror the action buttons in the index table.
 
 —
 
