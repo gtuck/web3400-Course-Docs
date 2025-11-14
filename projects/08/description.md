@@ -223,6 +223,84 @@ In `Post` (from Project 07), add helpers such as:
 - `Post::incrementFavs(int $postId)` / `Post::decrementFavs(int $postId)`
 - `Post::incrementComments(int $postId)` / `Post::decrementComments(int $postId)`
 
+Implementation tips:
+- Use existing `BaseModel` helpers wherever possible instead of writing raw PDO in controllers:
+  - `create()` / `update()` for inserts and updates
+  - `find()` / `firstBy()` for record lookup
+  - `existsBy()` for uniqueness checks
+- The SQL snippets below show what each helper _does_ in the database; your PHP should call model methods rather than re-implement these queries in controllers.
+
+Example SQL for these helpers (reference only):
+
+```sql
+-- Post::withEngagementBySlug($slug, $userId)
+SELECT p.*, u.name AS author_name
+FROM posts p
+JOIN users u ON u.id = p.author_id
+WHERE p.slug = :slug
+LIMIT 1;
+```
+
+```sql
+-- Check if current user has liked the post
+SELECT 1
+FROM post_likes
+WHERE post_id = :post_id
+  AND user_id = :user_id
+LIMIT 1;
+```
+
+```sql
+-- Check if current user has favorited the post
+SELECT 1
+FROM post_favorites
+WHERE post_id = :post_id
+  AND user_id = :user_id
+LIMIT 1;
+```
+
+```sql
+-- Post::incrementLikes($postId)
+UPDATE posts
+SET likes = likes + 1
+WHERE id = :post_id;
+```
+
+```sql
+-- Post::decrementLikes($postId)
+UPDATE posts
+SET likes = GREATEST(likes - 1, 0)
+WHERE id = :post_id;
+```
+
+```sql
+-- Post::incrementFavs($postId)
+UPDATE posts
+SET favs = favs + 1
+WHERE id = :post_id;
+```
+
+```sql
+-- Post::decrementFavs($postId)
+UPDATE posts
+SET favs = GREATEST(favs - 1, 0)
+WHERE id = :post_id;
+```
+
+```sql
+-- Post::incrementComments($postId)
+UPDATE posts
+SET comments_count = comments_count + 1
+WHERE id = :post_id;
+```
+
+```sql
+-- Post::decrementComments($postId)
+UPDATE posts
+SET comments_count = GREATEST(comments_count - 1, 0)
+WHERE id = :post_id;
+```
+
 Use these helpers (or equivalent) so controllers stay thin and all counter logic stays inside models.
 
 —
@@ -252,6 +330,9 @@ $router->post('/posts/{id}/unfav', PostEngagementController::class, 'unfav');
 - On `unlike`:
   - If a `post_likes` row exists, delete it and decrement `posts.likes` (down to a minimum of 0).
 - On `fav` / `unfav`, mirror the like/unlike behavior, using `PostFavorite` and the `posts.favs` column.
+
+Implementation tip:
+- Use `Post::find($id)`, `PostLike::create()`, and `PostLike::firstBy()` / a small helper rather than hand-writing these queries in the controller. The SQL below is reference only.
 
 After each action, redirect back to the post detail page (e.g., `/posts/{slug}`) with a flash message if you like.
 
@@ -287,6 +368,40 @@ $router->post('/comments/{id}/delete', CommentsController::class, 'destroy');
     - The current user has `admin` or `editor` role.
   - Soft delete by setting `status='deleted'` (recommended) and decrement `posts.comments_count` for that post.
 
+Implementation tip:
+- Use `Post::findBySlug($slug)`, `Comment::create()`, and `Comment::update()` from your models. Let the model layer own the SQL; treat the queries below as documentation of what happens in the database.
+
+Example SQL used by this controller (reference only):
+
+```sql
+-- Look up post by slug
+SELECT *
+FROM posts
+WHERE slug = :slug
+LIMIT 1;
+```
+
+```sql
+-- Insert a new comment
+INSERT INTO comments (post_id, user_id, body, status)
+VALUES (:post_id, :user_id, :body, :status);
+```
+
+```sql
+-- Look up comment by ID
+SELECT *
+FROM comments
+WHERE id = :id
+LIMIT 1;
+```
+
+```sql
+-- Soft delete a comment
+UPDATE comments
+SET status = 'deleted'
+WHERE id = :id;
+```
+
 —
 
 ## Step 6) Load engagement and comments in the post detail view
@@ -302,6 +417,20 @@ Controller responsibilities:
   - Only include comments with `status='published'` (or include `pending` for admins/editors if you prefer).
   - Order newest-first or oldest-first consistently.
 - Pass the post, engagement flags, counts, and comments into the view.
+
+Implementation tip:
+- You can either call a small helper on `Comment`/`Post` to load comments by `post_id`, or (if you prefer) write this query in `PostsController@show`. Do not duplicate the same SQL in multiple places—keep it in one helper if you reuse it.
+
+Example SQL for loading comments in `PostsController@show` (reference only):
+
+```sql
+SELECT c.*, u.name AS user_name
+FROM comments c
+JOIN users u ON u.id = c.user_id
+WHERE c.post_id = :post_id
+  AND c.status = 'published'
+ORDER BY c.created_at ASC;
+```
 
 View responsibilities (`src/Views/posts/show.php`):
 - Show current engagement counts (Likes, Favorites, Comments) near the title or metadata.
@@ -348,6 +477,44 @@ $router->post('/admin/comments/{id}/delete', AdminCommentsController::class, 'de
 - `destroy(int $id)`:
   - Soft delete the comment (`status='deleted'`).
   - Decrement `posts.comments_count` if you only count published comments.
+
+Implementation tip:
+- Prefer to keep these queries inside your `Comment` or `Post` models if you reuse them; controllers should call model helpers instead of copying SQL.
+
+Example SQL used by this controller (reference only):
+
+```sql
+-- List comments with optional status filter
+SELECT c.*, p.title AS post_title, p.slug AS post_slug, u.name AS user_name, u.email AS user_email
+FROM comments c
+JOIN posts p ON p.id = c.post_id
+JOIN users u ON u.id = c.user_id
+-- Optional WHERE c.status = :status
+ORDER BY c.created_at DESC
+LIMIT 200;
+```
+
+```sql
+-- Look up a single comment
+SELECT *
+FROM comments
+WHERE id = :id
+LIMIT 1;
+```
+
+```sql
+-- Publish a comment
+UPDATE comments
+SET status = 'published'
+WHERE id = :id;
+```
+
+```sql
+-- Soft delete a comment
+UPDATE comments
+SET status = 'deleted'
+WHERE id = :id;
+```
 
 Views (`src/Views/admin/comments/*.php`):
 - `index.php`:
@@ -401,6 +568,42 @@ Controller updates (`ProfileController@show`):
   - `$favoritedPosts` – posts the user has favorited (join `post_favorites` → `posts`).
   - `$commentedPosts` – distinct posts the user has commented on (join `comments` → `posts`, filter out `status='deleted'`).
 - Pass these arrays into the view in addition to the existing `$user` data.
+
+Implementation tip:
+- These joins can live in a small helper method on a new model (e.g., `PostLike::forUser($userId)`) or in `ProfileController@show`. If you use them in multiple places, move them into a model to avoid duplication.
+
+Example SQL for these profile queries (reference only):
+
+```sql
+-- Posts the user has liked
+SELECT p.*
+FROM post_likes pl
+JOIN posts p ON p.id = pl.post_id
+WHERE pl.user_id = :user_id
+  AND p.status = 'published'
+ORDER BY p.published_at DESC;
+```
+
+```sql
+-- Posts the user has favorited
+SELECT p.*
+FROM post_favorites pf
+JOIN posts p ON p.id = pf.post_id
+WHERE pf.user_id = :user_id
+  AND p.status = 'published'
+ORDER BY p.published_at DESC;
+```
+
+```sql
+-- Posts the user has commented on (distinct)
+SELECT DISTINCT p.*
+FROM comments c
+JOIN posts p ON p.id = c.post_id
+WHERE c.user_id = :user_id
+  AND c.status <> 'deleted'
+  AND p.status = 'published'
+ORDER BY p.published_at DESC;
+```
 
 View updates (`src/Views/profile/show.php`):
 - At the bottom of the page (after the existing profile box and buttons), add a Bulma tabs component. BulmaJS is already included in the head partial and will handle the default Bulma tab behavior when you use the standard markup:
