@@ -230,17 +230,14 @@ abstract class BaseModel
         $placeholders = array_map(fn($c) => ':' . $c, $cols);
         $quotedCols = array_map(fn($c) => '`' . $c . '`', $cols);
         $sql = 'INSERT INTO `' . static::table() . '` (' . implode(',', $quotedCols) . ') VALUES (' . implode(',', $placeholders) . ')';
-        
-        $pdo = static::pdo(); //new line
-        
-        // old/bad code: $stmt = static::pdo()->prepare($sql);
-        $stmt = $pdo()->prepare($sql); // Corrected code
+
+        $pdo = static::pdo();
+        $stmt = $pdo->prepare($sql);
         foreach ($data as $c => $v) {
             $stmt->bindValue(':' . $c, $v);
         }
         $stmt->execute();
-        // old/bad code: return (int) static::pdo()->lastInsertId();
-        return (int) $pdo()->lastInsertId(); // Corrected code
+        return (int) $pdo->lastInsertId();
     }
 
     /**
@@ -370,5 +367,27 @@ abstract class BaseModel
         }
         $stmt->execute();
         return (bool) $stmt->fetchColumn();
+    }
+
+    /**
+     * Count all rows in the table.
+     */
+    public static function count(): int
+    {
+        $sql = 'SELECT COUNT(*) FROM `' . static::table() . '`';
+        $stmt = static::pdo()->query($sql);
+        return (int) $stmt->fetchColumn();
+    }
+
+    /**
+     * Convenience helper for counting by a `status` column.
+     */
+    public static function countByStatus(string $status): int
+    {
+        $sql = 'SELECT COUNT(*) FROM `' . static::table() . '` WHERE `status` = :status';
+        $stmt = static::pdo()->prepare($sql);
+        $stmt->bindValue(':status', $status);
+        $stmt->execute();
+        return (int) $stmt->fetchColumn();
     }
 }

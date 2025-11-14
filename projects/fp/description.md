@@ -1,7 +1,7 @@
 # Final Project – Administrator Dashboard (MVC CMS)
 Build a production‑ready **Administrator Dashboard** on top of your existing MVC CMS. This final project is a comprehensive integration of everything you built in Projects 03–08: routing, controllers, models, authentication, authorization, validation, CSRF protection, content management, and engagement features.
 
-The admin dashboard must expose meaningful **Key Performance Indicators (KPIs)**, quick‑create workflows, and recent activity so an administrator can monitor and manage the site efficiently.
+The admin dashboard must expose meaningful **Key Performance Indicators (KPIs)** and recent activity so an administrator can monitor and manage the site efficiently.
 
 ---
 
@@ -11,10 +11,9 @@ Starting from your completed **Project 08** (or best version of your CMS from Pr
 1. **Add an authenticated Admin Dashboard route + controller action** in your MVC app
 2. **Secure the dashboard** so only users with an `admin` role can access it
 3. **Implement KPI cards** for posts (articles), contact messages, and users
-4. **Add “quick create” forms** for posts, contact messages, and users, with validation + CSRF protection
-5. **Display recent contact messages** and relevant recent activity in the dashboard
-6. **Make the dashboard the default landing page after admin login** (instead of the profile page)
-7. **Polish UI/UX** to feel like a cohesive, professional admin experience
+4. **Display recent contact messages** and relevant recent activity in the dashboard
+5. **Make the dashboard the default landing page after admin login** (instead of the profile page)
+6. **Polish UI/UX** to feel like a cohesive, professional admin experience
 
 Instead of a standalone `admin_dashboard.php` file, your final project should treat the dashboard as a **first‑class MVC feature**: routed through `public/index.php`, implemented in a controller, backed by models, and rendered through your view engine.
 
@@ -25,7 +24,6 @@ Instead of a standalone `admin_dashboard.php` file, your final project should tr
 - Design and secure an **admin‑only** workflow and navigation
 - Implement **read‑heavy** dashboard views using aggregate queries (KPIs)
 - Use models and prepared statements for **analytics‑style queries**
-- Build **quick‑create** forms that reuse validators, CSRF, and flash messaging
 - Present data using a clean, responsive dashboard layout
 - Practice **quality assurance**: testing, debugging, and polishing for production‑like readiness
 
@@ -90,7 +88,6 @@ projects/fp/
       admin/
         dashboard.php      # NEW – Admin dashboard view
         _kpi_cards.php     # optional partial for KPIs
-        _quick_forms.php   # optional partial for quick‑create forms
 ```
 
 Your exact filenames/namespaces may differ, but the **patterns** should match:
@@ -188,11 +185,10 @@ You do **not** need to match the exact method names above, but you should:
 Create `projects/fp/src/Views/admin/dashboard.php` using your templating engine from Project 05:
 - Extend your main layout (e.g., `$this->layout('layouts/main');`)
 - Use partials for nav and flash messages
-- Render KPI cards and quick‑create forms inside your existing Bulma‑style or custom layout.
+- Render KPI cards and recent activity inside your existing Bulma‑style or custom layout.
 
 Dashboard layout should include:
 - A **KPI section** with cards showing counts/averages for posts, contact messages, and users
-- A **Quick Actions** section with forms to create posts, contact messages, and users
 - A **Recent Activity** section (recent contact messages and optionally recent posts/users)
 
 Example structure (pseudocode):
@@ -211,16 +207,6 @@ Example structure (pseudocode):
       <!-- loop over $kpis and render cards -->
     </div>
 
-    <!-- Quick create forms -->
-    <div class="columns">
-      <div class="column is-half">
-        <!-- Quick post/article form -->
-      </div>
-      <div class="column is-half">
-        <!-- Quick contact or user form -->
-      </div>
-    </div>
-
     <!-- Recent contact messages / activity -->
     <div class="box">
       <!-- table of recent contact messages -->
@@ -233,28 +219,7 @@ Use `$this->e()` for all dynamic output, and include CSRF tokens in any forms.
 
 ---
 
-## Step 5) Add quick Post, Contact, and User creation forms
-
-Under the KPI section, add **three forms**:
-- Quick Post/Article create form
-- Quick Contact Message create/log form
-- Quick User create form
-
-Each form should:
-- Submit to an existing controller action (`ArticleController@store`, `ContactController@store`, `UserController@store`) or new, dedicated “quick create” actions
-- Include CSRF protection using your framework’s CSRF helper
-- Use your `Validator` class for server‑side validation
-- On success, redirect back to `/admin/dashboard` with a flash message
-- On validation error, redirect back with errors and old input
-
-Focus on a **minimal but useful** field set for quick creation, for example:
-- Post: title, slug, status (draft/published), is_featured
-- Contact message: name, email, subject, short message
-- User: name, email, password, role (user/admin)
-
----
-
-## Step 6) Display recent contact messages and activity
+## Step 5) Display recent contact messages and activity
 
 Add a “Recent Contact Messages” panel or table to the dashboard:
 - Query your `ContactMessage` (or equivalent) model for the last 5–10 messages.
@@ -286,6 +251,13 @@ Ensure your `DashboardController` (and any admin routes) enforce:
 - User has an admin role
 - Non‑admin users are redirected to login or a 403/“not authorized” page with a flash message
 
+Also update your site footer partial (e.g., `projects/fp/src/Views/partials/footer.php`) so it contains appropriate site information (course name, site name, or copyright)
+and includes a clear link to the Contact page:
+
+```php
+<a href="/contact">Contact Us</a>
+```
+
 ---
 
 ## Requirements Checklist
@@ -296,9 +268,9 @@ To receive full credit, your final project must:
 - [ ] Restrict dashboard access to authenticated admin users only
 - [ ] Implement KPI queries for posts (articles), contact messages, users, and engagement (likes, favorites, comments, interactions)
 - [ ] Render KPIs in a dashboard view using your view engine and layout/partials
-- [ ] Provide quick‑create forms for posts, contact messages, and users with CSRF and validation
 - [ ] Display recent contact messages and/or recent activity in the dashboard
  - [ ] Redirect admin users to the dashboard as their default post‑login landing page (instead of a profile page)
+- [ ] Update the footer partial with site‑appropriate information and a link to the Contact form at `/contact`
 - [ ] Keep SQL inside models/helpers, not in views
 - [ ] Use `$this->e()` for all dynamic output in views
 - [ ] Show clear success/error flash messages for admin actions

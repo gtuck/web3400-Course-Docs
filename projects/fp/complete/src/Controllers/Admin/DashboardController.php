@@ -104,7 +104,7 @@ class DashboardController extends Controller
 
         $sql = "
             SELECT 
-                u.full_name AS name,
+                u.name AS name,
                 COUNT(*) AS interactions
             FROM users u
             JOIN (
@@ -114,7 +114,7 @@ class DashboardController extends Controller
                 UNION ALL
                 SELECT user_id FROM comments
             ) ui ON ui.user_id = u.id
-            GROUP BY u.id, u.full_name
+            GROUP BY u.id, u.name
             ORDER BY interactions DESC
             LIMIT 1
         ";
