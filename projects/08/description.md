@@ -12,6 +12,7 @@ Starting from a completed Project 07, you will:
 4. Add routes/controllers for creating and moderating comments
 5. Update the public post view to show engagement counts and comments
 6. Update the admin area to review and manage comments
+7. Enhance the existing user profile page with an activity tabs section (Likes, Favs, Comments)
 
 Constraints:
 - Keep using your existing MVC structure (Router, Controller, BaseModel, View engine, Validator).
@@ -176,15 +177,23 @@ Requirements:
 
 Create simple models for likes, favorites, and comments that extend `BaseModel`. Update your `Post` model to include helper methods for engagement counts and lookups.
 
-Example models:
+Example models (namespaces may vary, but follow your Project 07 conventions):
 
 ```php
+<?php
+namespace App\Models;
+
 final class PostLike extends BaseModel
 {
     protected static string $table = 'post_likes';
     protected static string $primaryKey = 'id';
     protected static array $fillable = ['post_id', 'user_id'];
 }
+```
+
+```php
+<?php
+namespace App\Models;
 
 final class PostFavorite extends BaseModel
 {
@@ -192,6 +201,11 @@ final class PostFavorite extends BaseModel
     protected static string $primaryKey = 'id';
     protected static array $fillable = ['post_id', 'user_id'];
 }
+```
+
+```php
+<?php
+namespace App\Models;
 
 final class Comment extends BaseModel
 {
@@ -376,6 +390,61 @@ Security:
 
 —
 
+## Step 10) Profile engagement tabs (Bulma)
+
+Append a Bulma `tabs` section to the bottom of the profile page (`src/Views/profile/show.php`) that shows posts the current user has liked, favorited, and commented on. This builds on the Profile feature you implemented in Project 06 and carried forward into Projects 07–08.
+
+Controller updates (`ProfileController@show`):
+- Load the current user ID (e.g., `$userId = (int)($this->user()['id'] ?? 0);`).
+- Use your engagement models to fetch three lists:
+  - `$likedPosts` – posts the user has liked (join `post_likes` → `posts`).
+  - `$favoritedPosts` – posts the user has favorited (join `post_favorites` → `posts`).
+  - `$commentedPosts` – distinct posts the user has commented on (join `comments` → `posts`, filter out `status='deleted'`).
+- Pass these arrays into the view in addition to the existing `$user` data.
+
+View updates (`src/Views/profile/show.php`):
+- At the bottom of the page (after the existing profile box and buttons), add a Bulma tabs component. BulmaJS is already included in the head partial and will handle the default Bulma tab behavior when you use the standard markup:
+
+```php
+<hr>
+
+<h2 class="title is-5">Your Activity</h2>
+
+<div class="tabs is-boxed">
+  <ul>
+    <li class="is-active" data-tab="likes"><a>Likes</a></li>
+    <li data-tab="favs"><a>Favs</a></li>
+    <li data-tab="comments"><a>Comments</a></li>
+  </ul>
+</div>
+
+<div id="tab-likes" class="profile-tab-panel">
+  <?php if (empty($likedPosts)): ?>
+    <p class="has-text-grey">You haven’t liked any posts yet.</p>
+  <?php else: ?>
+    <ul>
+      <?php foreach ($likedPosts as $post): ?>
+        <li><a href="/posts/<?= $this->e($post['slug']) ?>"><?= $this->e($post['title']) ?></a></li>
+      <?php endforeach; ?>
+    </ul>
+  <?php endif; ?>
+</div>
+
+<div id="tab-favs" class="profile-tab-panel is-hidden">
+  <!-- Similar list using $favoritedPosts -->
+</div>
+
+<div id="tab-comments" class="profile-tab-panel is-hidden">
+  <!-- Similar list using $commentedPosts -->
+</div>
+```
+
+Notes:
+- Keep all dynamic output escaped with `$this->e()`.
+- For commented posts, you may choose to show only posts with at least one non-deleted comment by the user.
+
+—
+
 ## Rubric (100 points)
 
 - Database & Models (20)
@@ -385,13 +454,15 @@ Security:
   - Authenticated users can like/unlike posts; likes are stored per user and update `posts.likes` (10)
   - Authenticated users can fav/unfav posts; favorites are stored per user and update `posts.favs` (10)
   - UI clearly shows current counts and user’s like/fav state (5)
-- Comments (30)
+- Comments (25)
   - Authenticated users can add comments to posts (with validation and CSRF) (10)
   - Comments appear on the post page in a clear, readable layout (10)
-  - Users and/or admins can delete comments; `posts.comments_count` stays in sync (10)
+  - Users and/or admins can delete comments; `posts.comments_count` stays in sync (5)
 - Admin Moderation (15)
   - Admin comments index shows recent comments with basic info and actions (10)
   - Only `admin`/`editor` can access moderation routes and perform publish/delete actions (5)
+- Profile Activity Tabs (5)
+  - Profile page shows Bulma tabs listing liked, favorited, and commented posts for the current user (5)
 - Code Quality & UX (10)
   - Follows MVC patterns, keeps controllers thin, uses models for DB logic, uses `$this->e()` for output, and provides a reasonable user experience (10)
 
