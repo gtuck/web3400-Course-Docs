@@ -14,7 +14,7 @@ $this->start('content'); ?>
 
         <h2 class="title is-5">Your Activity</h2>
 
-        <div class="tabs is-boxed">
+        <div class="tabs is-boxed" data-bulma="tabs">
             <ul>
                 <li class="is-active" data-tab="likes"><a>Likes</a></li>
                 <li data-tab="favs"><a>Favs</a></li>
