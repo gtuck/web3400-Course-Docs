@@ -371,37 +371,6 @@ $router->post('/comments/{id}/delete', CommentsController::class, 'destroy');
 Implementation tip:
 - Use `Post::findBySlug($slug)`, `Comment::create()`, and `Comment::update()` from your models. Let the model layer own the SQL; treat the queries below as documentation of what happens in the database.
 
-Example SQL used by this controller (reference only):
-
-```sql
--- Look up post by slug
-SELECT *
-FROM posts
-WHERE slug = :slug
-LIMIT 1;
-```
-
-```sql
--- Insert a new comment
-INSERT INTO comments (post_id, user_id, body, status)
-VALUES (:post_id, :user_id, :body, :status);
-```
-
-```sql
--- Look up comment by ID
-SELECT *
-FROM comments
-WHERE id = :id
-LIMIT 1;
-```
-
-```sql
--- Soft delete a comment
-UPDATE comments
-SET status = 'deleted'
-WHERE id = :id;
-```
-
 —
 
 ## Step 6) Load engagement and comments in the post detail view
@@ -492,28 +461,6 @@ JOIN users u ON u.id = c.user_id
 -- Optional WHERE c.status = :status
 ORDER BY c.created_at DESC
 LIMIT 200;
-```
-
-```sql
--- Look up a single comment
-SELECT *
-FROM comments
-WHERE id = :id
-LIMIT 1;
-```
-
-```sql
--- Publish a comment
-UPDATE comments
-SET status = 'published'
-WHERE id = :id;
-```
-
-```sql
--- Soft delete a comment
-UPDATE comments
-SET status = 'deleted'
-WHERE id = :id;
 ```
 
 Views (`src/Views/admin/comments/*.php`):
