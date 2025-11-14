@@ -1,204 +1,320 @@
-# Comprehensive Final Project: Administrator Dashboard Enhancement
+# Final Project – Administrator Dashboard (MVC CMS)
+Build a production‑ready **Administrator Dashboard** on top of your existing MVC CMS. This final project is a comprehensive integration of everything you built in Projects 03–08: routing, controllers, models, authentication, authorization, validation, CSRF protection, content management, and engagement features.
 
-The final project for the WEB 3400 Server Side Programming Class is designed to be a comprehensive culmination of all the skills and knowledge you've acquired throughout the course. This project involves enhancing the Administrator Dashboard with new features and ensuring that all functionalities from previous projects are integrated and functioning correctly.
+The admin dashboard must expose meaningful **Key Performance Indicators (KPIs)**, quick‑create workflows, and recent activity so an administrator can monitor and manage the site efficiently.
 
-## Key Aspects of the Final Project:
+---
 
-### 1. Integration of Previous Features:
-Your final project should seamlessly incorporate all the features you've developed in previous projects. This includes user authentication, article management, ticketing systems, and other functionalities you've implemented. These features must work together harmoniously in the enhanced dashboard.
+## Overview
+Starting from your completed **Project 08** (or best version of your CMS from Projects 06–08), you will:
 
-### 2. New Features and Enhancements:
-In addition to the existing features, you'll add new functionalities such as Key Performance Indicators (KPIs) for articles, tickets, and users, quick creation forms for articles and tickets, and a section to display recent contact messages. These enhancements should provide a more comprehensive and user-friendly experience for administrators.
+1. **Add an authenticated Admin Dashboard route + controller action** in your MVC app
+2. **Secure the dashboard** so only users with an `admin` role can access it
+3. **Implement KPI cards** for posts (articles), contact messages, and users
+4. **Add “quick create” forms** for posts, contact messages, and users, with validation + CSRF protection
+5. **Display recent contact messages** and relevant recent activity in the dashboard
+6. **Make the dashboard the default landing page after admin login** (instead of the profile page)
+7. **Polish UI/UX** to feel like a cohesive, professional admin experience
 
-### 3. Comprehensive Functionality:
-The final project is not just about adding new features but ensuring that the entire dashboard operates as a cohesive unit. All features, both old and new, must function correctly and efficiently. This includes proper data retrieval and display, error handling, security measures, and user interaction.
+Instead of a standalone `admin_dashboard.php` file, your final project should treat the dashboard as a **first‑class MVC feature**: routed through `public/index.php`, implemented in a controller, backed by models, and rendered through your view engine.
 
-### 4. Quality Assurance:
-Thorough testing is essential to ensure that every dashboard aspect works as intended. This includes testing individual features, their integration, and the overall user experience. Any bugs or issues should be identified and resolved before the final submission.
+---
 
-### 5. Professional Presentation:
-The presentation of your final project should reflect the professionalism expected in a real-world application. This includes a clean and intuitive user interface, consistent styling, and clear documentation of your code and functionalities.
+## Learning Objectives
+- Integrate all previous project features into a cohesive MVC application
+- Design and secure an **admin‑only** workflow and navigation
+- Implement **read‑heavy** dashboard views using aggregate queries (KPIs)
+- Use models and prepared statements for **analytics‑style queries**
+- Build **quick‑create** forms that reuse validators, CSRF, and flash messaging
+- Present data using a clean, responsive dashboard layout
+- Practice **quality assurance**: testing, debugging, and polishing for production‑like readiness
 
-## Copy Project 06 to the Final Project (fp) folder
+---
 
-- Recursively copy the project folder.
-- Stage, commit, and push your new project to GitHub
+## Prerequisites
+- A working CMS codebase from **Project 08** (or equivalent) with:
+  - Front controller (`public/index.php`) and `Router`
+  - Authenticated users with roles (e.g., `admin`, `user`)
+  - Content models (e.g., `Post`/`Article`, `User`, `ContactMessage`)
+  - Active Record‑style `BaseModel` and database helper
+  - CSRF protection, validation, and view templating from Projects 05–08
+- Database tables for:
+  - Content (articles/posts)
+  - Users and roles
+  - Contact messages (e.g., `contact_us`)
+  - Engagement tables (`post_likes`, `post_favorites`, `comments`, `user_interactions`)
 
-## Starter File: `admin_dashboard.php` (should already exist from a previous version)
+If you are missing any of these, backfill them from your earlier projects before starting.
 
-Your starter file should look like this:
+---
 
-```php
-<?php
-// Step 1: Include config.php file
-include 'config.php';
+## Target Structure
 
-// Step 2: Secure and only allow 'admin' users to access this page
-if (!isset($_SESSION['loggedin']) || $_SESSION['user_role'] !== 'admin') {
-    // Redirect user to login page or display an error message
-    $_SESSION['messages'][] = "You must be an administrator to access that resource.";
-    header('Location: login.php');
-    exit;
-}
-?>
+Your final project should live in `projects/fp/` and mirror the structure of Projects 05–08:
 
-<?php include 'templates/head.php'; ?>
-<?php include 'templates/nav.php'; ?>
-
-<!-- BEGIN YOUR CONTENT -->
-<section class="section">
-    <h1 class="title">Admin Dashboard</h1>
-    <p>Admin dashboard content will be created in a future project...</p>
-</section>
-<!-- END YOUR CONTENT -->
-
-<?php include 'templates/footer.php'; ?>
+```
+projects/fp/
+  composer.json
+  public/
+    index.php              # Front controller, bootstraps app
+  src/
+    Router.php             # Routes including admin dashboard
+    Controller.php         # Base controller (view, flash, redirect, CSRF)
+    Support/
+      Database.php
+      View.php
+      Validator.php
+    Models/
+      BaseModel.php
+      User.php
+      Article.php          # or Post.php
+      ContactMessage.php   # or Contact.php / ContactUs.php
+      PostLike.php         # optional – from P08
+      PostFavorite.php     # optional – from P08
+      Comment.php          # optional – from P08
+    Controllers/
+      AuthController.php
+      ArticleController.php
+      ContactController.php
+      Admin/
+        DashboardController.php   # NEW – Admin dashboard controller
+    Routes/
+      index.php            # + admin route(s)
+    Views/
+      layouts/
+        main.php
+      partials/
+        nav.php
+        flash.php
+      admin/
+        dashboard.php      # NEW – Admin dashboard view
+        _kpi_cards.php     # optional partial for KPIs
+        _quick_forms.php   # optional partial for quick‑create forms
 ```
 
-## Completed File Overview
+Your exact filenames/namespaces may differ, but the **patterns** should match:
+- Dashboard request goes through `public/index.php` → `Router` → `Admin\DashboardController` → `View`.
+- Dashboard view extends your main layout and uses partials for navigation/flash messages.
 
-Your completed file will include several enhancements:
+---
 
-- SQL queries to fetch KPIs related to articles, tickets, and users.
-- Display KPIs in a visually appealing manner using the Bulma CSS framework.
-- Forms for quick addition of articles and tickets.
-- A section to display the most recent contact messages.
+## Step 1) Copy your base project into `projects/fp`
 
-## Step-by-Step Instructions
+From the repository root, copy your best, most complete CMS project into the final project folder:
 
-### Define KPI Queries
+```bash
+cp -r projects/08 projects/fp
+```
 
-Define an associative array `$kpiQueries` to store your SQL queries for various KPIs.
+If your strongest project is `projects/07` or `projects/06`, copy that instead and then add any missing pieces from later projects (auth, roles, engagement models, etc.) until it matches your current framework.
+
+Clean up any leftover project‑number branding in the UI (e.g., “Project 07”) so the app looks like a standalone CMS.
+
+---
+
+## Step 2) Add an Admin Dashboard route and controller
+
+Add a **dashboard route** that only admins can access. For example, in `projects/fp/src/Routes/index.php`:
 
 ```php
-// KPI Queries
-$kpiQueries = [
-    'total_articles_count' => 'SELECT COUNT(*) AS total_articles_count FROM articles',
-    'unpublished_articles_count' => 'SELECT COUNT(*) AS unpublished_articles_count FROM articles WHERE is_published = 0',
-    'published_articles_count' => 'SELECT COUNT(*) AS published_articles_count FROM articles WHERE is_published = 1',
-    'featured_articles_count' => 'SELECT COUNT(*) AS featured_articles_count FROM articles WHERE is_featured = 1',
-    'total_user_interactions' => 'SELECT COUNT(*) FROM `user_interactions`',
-    'average_likes_per_article' => 'SELECT ROUND(AVG(likes_count), 2) AS average_likes_per_article FROM articles',
-    'average_favs_per_article' => 'SELECT ROUND(AVG(favs_count), 2) AS average_favs_per_article FROM articles',
-    'average_comments_per_article' => 'SELECT ROUND(AVG(comments_count), 2) AS average_comments_per_article FROM articles',
-    'total_tickets_count' => 'SELECT COUNT(*) AS total_tickets_count FROM tickets',
-    'open_tickets_count' => 'SELECT COUNT(*) AS open_tickets_count FROM tickets WHERE status = "Open"',
-    'in_progress_tickets_count' => 'SELECT COUNT(*) AS open_tickets_count FROM tickets WHERE status = "In Progress"',
-    'closed_tickets_count' => 'SELECT COUNT(*) AS closed_tickets_count FROM tickets WHERE status = "Closed"',
-    'total_user_count' => 'SELECT COUNT(*) AS user_count FROM users WHERE role = "user"',
-    'most_active_user' => "SELECT CONCAT(u.full_name, ': ', COUNT(ui.id), ' interactions') AS user_interactions FROM users u JOIN user_interactions ui ON u.id = ui.user_id WHERE u.role = 'user' GROUP BY u.full_name ORDER BY COUNT(ui.id) DESC LIMIT 1",
+// Admin dashboard (GET)
+$router->get('/admin/dashboard', [\App\Controllers\Admin\DashboardController::class, 'index']);
+```
+
+Create a new `Admin\DashboardController` (e.g., `projects/fp/src/Controllers/Admin/DashboardController.php`) that:
+- Extends your base `Controller`
+- Verifies the current user is authenticated **and** has an `admin` role
+- Uses models to gather KPI data and recent activity
+- Passes data to the `admin/dashboard` view
+  
+Update your `AuthController` (or equivalent) login handler so that:
+- Successful login for an **admin** user redirects to `/admin/dashboard`
+- Successful login for a non‑admin user continues to use your existing default (e.g., profile or home page)
+
+Example (simplified) responsibilities:
+- `index()`:
+  - Authorize admin user
+  - Build an array of KPIs (counts, averages, most active user)
+  - Load lists for recent contact messages and other recent activity (e.g., new users or posts)
+  - Render `admin/dashboard` with all data
+
+---
+
+## Step 3) Define KPI queries and models
+
+Translate the original `admin_dashboard.php` KPIs into **model‑based queries**. Do not write raw SQL directly in the view.
+
+At minimum, support KPIs such as:
+- Total number of articles
+- Number of unpublished, published, and featured articles
+- Total number of regular users (and optionally admin vs non‑admin)
+- Total number of contact messages (and optionally “new”/unread messages)
+- Average likes per article
+- Average favorites per article
+- Average comments per article
+- Total user interactions
+- Most active user (by interactions)
+
+You may implement these using:
+- Dedicated methods on existing models (e.g., `Article::stats()`, `Ticket::byStatusCounts()`)
+- A small `AdminStats`/`DashboardStats` helper that runs aggregate queries via `Database::query()` and returns an associative array.
+
+Example (conceptual) PHP:
+
+```php
+$kpis = [
+    'total_articles'            => Article::count(),
+    'unpublished_articles'      => Article::countByStatus('unpublished'),
+    'published_articles'        => Article::countByStatus('published'),
+    'featured_articles'         => Article::countFeatured(),
+    'total_users'               => User::countByRole('user'),
+    'total_contact_messages'    => ContactMessage::count(),
+    'average_likes_per_article' => Article::average('likes_count'),
+    // add favorites, comments, interactions as needed
+    // ...
 ];
 ```
 
-### Execute KPI Queries and Store Results
+You do **not** need to match the exact method names above, but you should:
+- Keep all SQL in models or dedicated helpers
+- Use prepared statements to avoid SQL injection
+- Return clean, view‑friendly arrays (no PDOStatement objects in views)
 
-Loop through the `$kpiQueries` array, execute each query, and store the results in a new array `$kpiResults`.
+---
+
+## Step 4) Build the Admin Dashboard view
+
+Create `projects/fp/src/Views/admin/dashboard.php` using your templating engine from Project 05:
+- Extend your main layout (e.g., `$this->layout('layouts/main');`)
+- Use partials for nav and flash messages
+- Render KPI cards and quick‑create forms inside your existing Bulma‑style or custom layout.
+
+Dashboard layout should include:
+- A **KPI section** with cards showing counts/averages for posts, contact messages, and users
+- A **Quick Actions** section with forms to create posts, contact messages, and users
+- A **Recent Activity** section (recent contact messages and optionally recent posts/users)
+
+Example structure (pseudocode):
 
 ```php
-$kpiResults = [];
-foreach ($kpiQueries as $kpi => $query) {
-    $stmt = $pdo->prepare($query);
-    $stmt->execute();
-    $kpiResults[$kpi] = $stmt->fetchColumn();
-}
-```
+<?php $this->layout('layouts/main'); ?>
 
-### Display KPIs in the Dashboard
+<?php $this->start('content'); ?>
+  <section class="section">
+    <h1 class="title">Admin Dashboard</h1>
 
-Bulma CSS classes display KPIs in the HTML content section in a visually appealing layout. See an example finished admin_dashboard.php page at **(please do not add, modify, or delete any site data)**:
-- https://garthtuck.com/web3400/fp/admin_dashboard.php 
-- Username: admin@admin.com and 
-- Password: password
+    <?php $this->insert('partials/flash'); ?>
 
-```html
-<section class="section">
+    <!-- KPI cards -->
     <div class="columns is-multiline">
-        <div class="column">
-            <div class="box">
-                <div class="heading"><a href="articles.php">Articles</a></div>
-                <div class="title">Count: <?= $kpiResults["total_articles_count"] ?></div>
-                <div class="level">
-                    <div class="level-item">
-                        <div class="">
-                            <div class="heading">Unublished</div>
-                            <div class="title is-5"><?= $kpiResults["unpublished_articles_count"] ?></div>
-                        </div>
-                    </div>
-                    <div class="level-item">
-                        <div class="">
-                            <div class="heading">Published</div>
-                            <div class="title is-5"><?= $kpiResults["published_articles_count"] ?></div>
-                        </div>
-                    </div>
-                    <div class="level-item">
-                        <div class="">
-                            <div class="heading">Featured</div>
-                            <div class="title is-5"><?= $kpiResults["featured_articles_count"] ?></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Add more KPI boxes here -->
+      <!-- loop over $kpis and render cards -->
     </div>
-</section>
+
+    <!-- Quick create forms -->
+    <div class="columns">
+      <div class="column is-half">
+        <!-- Quick post/article form -->
+      </div>
+      <div class="column is-half">
+        <!-- Quick contact or user form -->
+      </div>
+    </div>
+
+    <!-- Recent contact messages / activity -->
+    <div class="box">
+      <!-- table of recent contact messages -->
+    </div>
+  </section>
+<?php $this->end(); ?>
 ```
 
-### Add Quick Article and Ticket Creation Forms
+Use `$this->e()` for all dynamic output, and include CSRF tokens in any forms.
 
-Below the KPIs, add forms for quick article and ticket creation. Ensure these forms submit to the appropriate handling scripts (e.g., `article_add.php` and `ticket_create.php`).
+---
 
-```html
-<div class="columns">
-    <div class="column is-6">
-        <!-- Quick Article Add Form -->
-    </div>
-    <div class="column is-6">
-        <!-- Quick Ticket Add Form -->
-    </div>
-</div>
-```
+## Step 5) Add quick Post, Contact, and User creation forms
 
-### Display Recent Contact Messages
+Under the KPI section, add **three forms**:
+- Quick Post/Article create form
+- Quick Contact Message create/log form
+- Quick User create form
 
-Query the database for the most recent contact messages and display them in a table.
+Each form should:
+- Submit to an existing controller action (`ArticleController@store`, `ContactController@store`, `UserController@store`) or new, dedicated “quick create” actions
+- Include CSRF protection using your framework’s CSRF helper
+- Use your `Validator` class for server‑side validation
+- On success, redirect back to `/admin/dashboard` with a flash message
+- On validation error, redirect back with errors and old input
+
+Focus on a **minimal but useful** field set for quick creation, for example:
+- Post: title, slug, status (draft/published), is_featured
+- Contact message: name, email, subject, short message
+- User: name, email, password, role (user/admin)
+
+---
+
+## Step 6) Display recent contact messages and activity
+
+Add a “Recent Contact Messages” panel or table to the dashboard:
+- Query your `ContactMessage` (or equivalent) model for the last 5–10 messages.
+- Display key fields: name, email, subject, created_at, short preview of message.
+- Link each row to a more detailed view if your app supports it.
+
+Optionally, you may also display:
+- Recent comments or user interactions
+- A “Most Active User” badge using your engagement tables
+
+All queries should live in models or helpers, not in the view.
+
+---
+
+## Step 7) Update navigation and authorization
+
+Update your main nav partial (e.g., `projects/fp/src/Views/partials/nav.php`) to add an **Admin** menu item that appears only for admins:
 
 ```php
-$stmt = $pdo->prepare('SELECT * FROM contact_us ORDER BY submitted_at DESC LIMIT 5');
-$stmt->execute();
-$messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
-```
-
-```html
-<div class="panel is-success">
-    <p class="panel-heading">Contact Us Messages</p>
-    <div class="panel-block">
-        <table class="table">
-            <!-- Table headers and rows for messages -->
-        </table>
-    </div>
-</div>
-```
-
-## Update the `nav.php` navigation template file
-
-**nav.php**: Update the `Admin` menu to include the `Dashboard` link to the admin_dashboard.php page. The code should be added to the top of the `navbar-start` section of the main navbar.
-
-```html
-<!-- BEGIN ADMIN MENU -->
-...
-  <a href="admin_dashboard.php" class="navbar-item">
+<?php if ($currentUser && $currentUser['role'] === 'admin'): ?>
+  <a href="/admin/dashboard" class="navbar-item">
     Dashboard
   </a>
-<!-- END ADMIN MENU -->
+<?php endif; ?>
 ```
 
-### Finalize and Test
+Ensure your `DashboardController` (and any admin routes) enforce:
+- User is logged in
+- User has an admin role
+- Non‑admin users are redirected to login or a 403/“not authorized” page with a flash message
 
-- Ensure all files are correctly added and committed to your repository.
-- Test your dashboard thoroughly to catch and fix any bugs or issues.
-- Push your final changes to GitHub and submit your project URL as instructed.
+---
 
-## Conclusion:
+## Requirements Checklist
 
-The final project is an opportunity to showcase your full range of skills in server-side programming. It's a testament to your ability to create a comprehensive, functional, professional web application. Ensuring that all features from previous projects function correctly in conjunction with the new enhancements is key to the success of your final dashboard.
+To receive full credit, your final project must:
+- [ ] Start from a working Project 06–08 MVC CMS in `projects/fp/`
+- [ ] Route `/admin/dashboard` through your `Router` and `DashboardController`
+- [ ] Restrict dashboard access to authenticated admin users only
+- [ ] Implement KPI queries for posts (articles), contact messages, users, and engagement (likes, favorites, comments, interactions)
+- [ ] Render KPIs in a dashboard view using your view engine and layout/partials
+- [ ] Provide quick‑create forms for posts, contact messages, and users with CSRF and validation
+- [ ] Display recent contact messages and/or recent activity in the dashboard
+ - [ ] Redirect admin users to the dashboard as their default post‑login landing page (instead of a profile page)
+- [ ] Keep SQL inside models/helpers, not in views
+- [ ] Use `$this->e()` for all dynamic output in views
+- [ ] Show clear success/error flash messages for admin actions
+
+---
+
+## Quality Assurance & Submission
+
+Before submitting:
+- Manually test all dashboard features as both an admin and a regular user
+- Verify unauthorized users **cannot** access `/admin/dashboard`
+- Confirm KPIs update correctly when data changes (new posts, contact messages, users, etc.)
+- Check that forms validate input and show friendly error messages
+- Review your code for readability, consistency with previous projects, and security best practices
+
+When you are satisfied:
+- Commit and push your `projects/fp` folder to GitHub
+- Submit your repository URL (and any specific route, if requested) according to the course instructions
+
+The final project is your chance to demonstrate a **full, integrated MVC application** with a professional‑quality Administrator Dashboard. Treat it like a real client deliverable: cohesive, secure, and polished.
