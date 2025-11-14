@@ -269,7 +269,7 @@ To receive full credit, your final project must:
 - [ ] Implement KPI queries for posts (articles), contact messages, users, and engagement (likes, favorites, comments, interactions)
 - [ ] Render KPIs in a dashboard view using your view engine and layout/partials
 - [ ] Display recent contact messages and/or recent activity in the dashboard
- - [ ] Redirect admin users to the dashboard as their default post‑login landing page (instead of a profile page)
+- [ ] Redirect admin users to the dashboard as their default post‑login landing page (instead of a profile page)
 - [ ] Update the footer partial with site‑appropriate information and a link to the Contact form at `/contact`
 - [ ] Keep SQL inside models/helpers, not in views
 - [ ] Use `$this->e()` for all dynamic output in views
