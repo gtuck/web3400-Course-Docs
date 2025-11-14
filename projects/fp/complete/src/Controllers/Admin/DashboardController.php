@@ -34,7 +34,7 @@ class DashboardController extends Controller
 
     private function buildKpis(): array
     {
-        $pdo = Database::getConnection();
+        $pdo = Database::pdo();
 
         // Posts
         $totalPosts = Post::count();
@@ -86,7 +86,7 @@ class DashboardController extends Controller
 
     private function recentUsers(int $limit = 5): array
     {
-        $pdo = Database::getConnection();
+        $pdo = Database::pdo();
         $stmt = $pdo->prepare("SELECT * FROM `users` ORDER BY `id` DESC LIMIT :limit");
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
@@ -100,7 +100,7 @@ class DashboardController extends Controller
 
     private function mostActiveUser(): ?string
     {
-        $pdo = Database::getConnection();
+        $pdo = Database::pdo();
 
         $sql = "
             SELECT 
@@ -129,4 +129,3 @@ class DashboardController extends Controller
         return $row['name'] . ' (' . $row['interactions'] . ' interactions)';
     }
 }
-
