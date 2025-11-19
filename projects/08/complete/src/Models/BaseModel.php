@@ -220,28 +220,6 @@ abstract class BaseModel
      *     echo "Error: " . $e->getMessage();
      * }
      */
-    public static function create(array $data): int
-    {
-        $data = static::sanitize($data);
-        if (!$data) {
-            throw new \InvalidArgumentException('No fillable fields provided.');
-        }
-        $cols = array_keys($data);
-        $placeholders = array_map(fn($c) => ':' . $c, $cols);
-        $quotedCols = array_map(fn($c) => '`' . $c . '`', $cols);
-        $sql = 'INSERT INTO `' . static::table() . '` (' . implode(',', $quotedCols) . ') VALUES (' . implode(',', $placeholders) . ')';
-        
-        $pdo = static::pdo(); //new line
-        
-        // old/bad code: $stmt = static::pdo()->prepare($sql);
-        $stmt = $pdo->prepare($sql); // Corrected code
-        foreach ($data as $c => $v) {
-            $stmt->bindValue(':' . $c, $v);
-        }
-        $stmt->execute();
-        // old/bad code: return (int) static::pdo()->lastInsertId();
-        return (int) $pdo->lastInsertId(); // Corrected code
-    }
 
     public static function create(array $data): int
     {
