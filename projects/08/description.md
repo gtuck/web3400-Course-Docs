@@ -183,23 +183,119 @@ Example models (namespaces may vary, but follow your Project 07 conventions):
 <?php
 namespace App\Models;
 
+use PDO;
+
 final class PostLike extends BaseModel
 {
     protected static string $table = 'post_likes';
     protected static string $primaryKey = 'id';
     protected static array $fillable = ['post_id', 'user_id'];
+
+    /**
+     * Check if a like exists for a given post and user.
+     */
+    public static function existsForUser(int $postId, int $userId): bool
+    {
+        $pdo = static::pdo();
+        $stmt = $pdo->prepare('SELECT 1 FROM `post_likes` WHERE `post_id` = :post_id AND `user_id` = :user_id LIMIT 1');
+        $stmt->bindValue(':post_id', $postId, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return (bool)$stmt->fetchColumn();
+    }
+
+    /**
+     * Delete a like for a given post and user.
+     * Returns true if a row was deleted, false otherwise.
+     */
+    public static function deleteForUser(int $postId, int $userId): bool
+    {
+        $pdo = static::pdo();
+        $stmt = $pdo->prepare('DELETE FROM `post_likes` WHERE `post_id` = :post_id AND `user_id` = :user_id');
+        $stmt->bindValue(':post_id', $postId, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->rowCount() > 0;
+    }
+
+    /**
+     * Get all published posts liked by a user.
+     */
+    public static function postsLikedByUser(int $userId): array
+    {
+        $pdo = static::pdo();
+        $stmt = $pdo->prepare("
+            SELECT p.*
+            FROM `post_likes` pl
+            JOIN `posts` p ON p.id = pl.post_id
+            WHERE pl.user_id = :user_id
+              AND p.status = 'published'
+            ORDER BY p.published_at DESC
+        ");
+        $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }
 ```
 
 ```php
 <?php
 namespace App\Models;
+
+use PDO;
 
 final class PostFavorite extends BaseModel
 {
     protected static string $table = 'post_favorites';
     protected static string $primaryKey = 'id';
     protected static array $fillable = ['post_id', 'user_id'];
+
+    /**
+     * Check if a favorite exists for a given post and user.
+     */
+    public static function existsForUser(int $postId, int $userId): bool
+    {
+        $pdo = static::pdo();
+        $stmt = $pdo->prepare('SELECT 1 FROM `post_favorites` WHERE `post_id` = :post_id AND `user_id` = :user_id LIMIT 1');
+        $stmt->bindValue(':post_id', $postId, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return (bool)$stmt->fetchColumn();
+    }
+
+    /**
+     * Delete a favorite for a given post and user.
+     * Returns true if a row was deleted, false otherwise.
+     */
+    public static function deleteForUser(int $postId, int $userId): bool
+    {
+        $pdo = static::pdo();
+        $stmt = $pdo->prepare('DELETE FROM `post_favorites` WHERE `post_id` = :post_id AND `user_id` = :user_id');
+        $stmt->bindValue(':post_id', $postId, PDO::PARAM_INT);
+        $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->rowCount() > 0;
+    }
+
+    /**
+     * Get all published posts favorited by a user.
+     */
+    public static function postsFavoritedByUser(int $userId): array
+    {
+        $pdo = static::pdo();
+        $stmt = $pdo->prepare("
+            SELECT p.*
+            FROM `post_favorites` pf
+            JOIN `posts` p ON p.id = pf.post_id
+            WHERE pf.user_id = :user_id
+              AND p.status = 'published'
+            ORDER BY p.published_at DESC
+        ");
+        $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }
 ```
 
@@ -207,11 +303,80 @@ final class PostFavorite extends BaseModel
 <?php
 namespace App\Models;
 
+use PDO;
+
 final class Comment extends BaseModel
 {
     protected static string $table = 'comments';
     protected static string $primaryKey = 'id';
     protected static array $fillable = ['post_id', 'user_id', 'body', 'status'];
+
+    /**
+     * Get all published comments for a post, with user names.
+     */
+    public static function publishedForPost(int $postId): array
+    {
+        $pdo = static::pdo();
+        $stmt = $pdo->prepare("
+            SELECT c.*, u.name AS user_name
+            FROM `comments` c
+            JOIN `users` u ON u.id = c.user_id
+            WHERE c.post_id = :post_id AND c.status = 'published'
+            ORDER BY c.created_at ASC
+        ");
+        $stmt->bindValue(':post_id', $postId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    /**
+     * Get all distinct published posts a user has commented on.
+     */
+    public static function postsCommentedByUser(int $userId): array
+    {
+        $pdo = static::pdo();
+        $stmt = $pdo->prepare("
+            SELECT DISTINCT p.*
+            FROM `comments` c
+            JOIN `posts` p ON p.id = c.post_id
+            WHERE c.user_id = :user_id
+              AND c.status <> 'deleted'
+              AND p.status = 'published'
+            ORDER BY p.published_at DESC
+        ");
+        $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    /**
+     * Get all comments with post and user details, with optional status filter.
+     */
+    public static function allWithDetails(?string $statusFilter = null, int $limit = 200): array
+    {
+        $sql = "
+            SELECT c.*, p.title AS post_title, p.slug AS post_slug,
+                   u.name AS user_name, u.email AS user_email
+            FROM `comments` c
+            JOIN `posts` p ON p.id = c.post_id
+            JOIN `users` u ON u.id = c.user_id
+        ";
+        $params = [];
+        if ($statusFilter && in_array($statusFilter, ['pending', 'published', 'deleted'], true)) {
+            $sql .= " WHERE c.status = :status";
+            $params[':status'] = $statusFilter;
+        }
+        $sql .= " ORDER BY c.created_at DESC LIMIT :limit";
+
+        $pdo = static::pdo();
+        $stmt = $pdo->prepare($sql);
+        foreach ($params as $key => $val) {
+            $stmt->bindValue($key, $val);
+        }
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
 }
 ```
 
@@ -223,85 +388,12 @@ In `Post` (from Project 07), add helpers such as:
 - `Post::incrementFavs(int $postId)` / `Post::decrementFavs(int $postId)`
 - `Post::incrementComments(int $postId)` / `Post::decrementComments(int $postId)`
 
-Implementation tips:
-- Use existing `BaseModel` helpers wherever possible instead of writing raw PDO in controllers:
-  - `create()` / `update()` for inserts and updates
-  - `find()` / `firstBy()` for record lookup
-  - `existsBy()` for uniqueness checks
-- The SQL snippets below show what each helper _does_ in the database; your PHP should call model methods rather than re-implement these queries in controllers.
-
-Example SQL for these helpers (reference only):
-
-```sql
--- Post::withEngagementBySlug($slug, $userId)
-SELECT p.*, u.name AS author_name
-FROM posts p
-JOIN users u ON u.id = p.author_id
-WHERE p.slug = :slug
-LIMIT 1;
-```
-
-```sql
--- Check if current user has liked the post
-SELECT 1
-FROM post_likes
-WHERE post_id = :post_id
-  AND user_id = :user_id
-LIMIT 1;
-```
-
-```sql
--- Check if current user has favorited the post
-SELECT 1
-FROM post_favorites
-WHERE post_id = :post_id
-  AND user_id = :user_id
-LIMIT 1;
-```
-
-```sql
--- Post::incrementLikes($postId)
-UPDATE posts
-SET likes = likes + 1
-WHERE id = :post_id;
-```
-
-```sql
--- Post::decrementLikes($postId)
-UPDATE posts
-SET likes = GREATEST(likes - 1, 0)
-WHERE id = :post_id;
-```
-
-```sql
--- Post::incrementFavs($postId)
-UPDATE posts
-SET favs = favs + 1
-WHERE id = :post_id;
-```
-
-```sql
--- Post::decrementFavs($postId)
-UPDATE posts
-SET favs = GREATEST(favs - 1, 0)
-WHERE id = :post_id;
-```
-
-```sql
--- Post::incrementComments($postId)
-UPDATE posts
-SET comments_count = comments_count + 1
-WHERE id = :post_id;
-```
-
-```sql
--- Post::decrementComments($postId)
-UPDATE posts
-SET comments_count = GREATEST(comments_count - 1, 0)
-WHERE id = :post_id;
-```
-
-Use these helpers (or equivalent) so controllers stay thin and all counter logic stays inside models.
+**Implementation notes:**
+- The model methods above encapsulate all database logic for engagement features
+- Controllers should call these model methods instead of writing raw SQL
+- Use existing `BaseModel` helpers (`create()`, `update()`, `find()`) where appropriate
+- All counter increment/decrement methods use `GREATEST(column - 1, 0)` to prevent negative values
+- Keep controllers thin by moving all SQL queries into model methods
 
 —
 
@@ -320,21 +412,96 @@ $router->post('/posts/{id}/fav', PostEngagementController::class, 'fav');
 $router->post('/posts/{id}/unfav', PostEngagementController::class, 'unfav');
 ```
 
-`PostEngagementController` (key ideas):
-- Require a logged-in user in `__construct()` (e.g., `$this->requireLogin();`).
-- Validate CSRF tokens on every action.
-- Look up the post by ID; if not found or not published, redirect back with an error.
-- On `like`:
-  - If a `post_likes` row for `(post_id, user_id)` already exists, do nothing (idempotent).
-  - Otherwise insert a new `PostLike` row and increment `posts.likes`.
-- On `unlike`:
-  - If a `post_likes` row exists, delete it and decrement `posts.likes` (down to a minimum of 0).
-- On `fav` / `unfav`, mirror the like/unlike behavior, using `PostFavorite` and the `posts.favs` column.
+`PostEngagementController` implementation example:
 
-Implementation tip:
-- Use `Post::find($id)`, `PostLike::create()`, and `PostLike::firstBy()` / a small helper rather than hand-writing these queries in the controller. The SQL below is reference only.
+```php
+<?php
+namespace App\Controllers;
 
-After each action, redirect back to the post detail page (e.g., `/posts/{slug}`) with a flash message if you like.
+use App\Controller;
+use App\Models\Post;
+use App\Models\PostLike;
+use App\Models\PostFavorite;
+
+class PostEngagementController extends Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+        $this->requireAuth();
+    }
+
+    public function like(int $id): void
+    {
+        if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
+            $this->flash('Invalid CSRF token.', 'is-danger');
+            $this->redirect('/');
+        }
+
+        $post = Post::find($id);
+        if (!$post || ($post['status'] ?? '') !== 'published') {
+            $this->flash('Post not available.', 'is-warning');
+            $this->redirect('/');
+        }
+
+        $user = $this->user();
+        $userId = (int)($user['id'] ?? 0);
+
+        // Use model method instead of raw SQL
+        if (!PostLike::existsForUser($id, $userId)) {
+            PostLike::create([
+                'post_id' => $id,
+                'user_id' => $userId,
+            ]);
+            Post::incrementLikes($id);
+        }
+
+        $this->redirect('/posts/' . $post['slug']);
+    }
+
+    public function unlike(int $id): void
+    {
+        if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
+            $this->flash('Invalid CSRF token.', 'is-danger');
+            $this->redirect('/');
+        }
+
+        $post = Post::find($id);
+        if (!$post) {
+            $this->redirect('/');
+        }
+
+        $user = $this->user();
+        $userId = (int)($user['id'] ?? 0);
+
+        // Use model method instead of raw SQL
+        if (PostLike::deleteForUser($id, $userId)) {
+            Post::decrementLikes($id);
+        }
+
+        $this->redirect('/posts/' . $post['slug']);
+    }
+
+    public function fav(int $id): void
+    {
+        // Similar to like(), but uses PostFavorite::existsForUser() and Post::incrementFavs()
+    }
+
+    public function unfav(int $id): void
+    {
+        // Similar to unlike(), but uses PostFavorite::deleteForUser() and Post::decrementFavs()
+    }
+}
+```
+
+**Key implementation points:**
+- Require authentication in `__construct()` (via `$this->requireAuth()`)
+- Validate CSRF tokens on every action
+- Look up the post by ID; redirect if not found or not published
+- Use model methods (`PostLike::existsForUser()`, `PostLike::deleteForUser()`) instead of raw SQL
+- The `like` action is idempotent (calling it multiple times has same effect as once)
+- Counters are updated using model methods (`Post::incrementLikes()`, `Post::decrementLikes()`)
+- Redirect back to the post detail page after each action
 
 —
 
@@ -351,23 +518,23 @@ $router->post('/posts/{slug}/comments', CommentsController::class, 'store');
 $router->post('/comments/{id}/delete', CommentsController::class, 'destroy');
 ```
 
-`CommentsController` (key ideas):
+`CommentsController` implementation:
 - `store(string $slug)`:
-  - Require login and validate CSRF.
-  - Look up the post by `slug` and ensure it is `published`.
-  - Validate comment `body` (non-empty, reasonable length).
-  - Insert a `Comment` row with `status='pending'` (moderated before visibility).
-  - Do **not** increment `posts.comments_count` here; publish handles the counter.
-  - Redirect back to `/posts/{slug}`.
+  - Require login and validate CSRF
+  - Look up the post by `slug` using `Post::findBySlug($slug)` and ensure it is `published`
+  - Validate comment `body` (non-empty, reasonable length)
+  - Insert a `Comment` row with `status='pending'` using `Comment::create()`
+  - Do **not** increment `posts.comments_count` here; publish handles the counter
+  - Redirect back to `/posts/{slug}`
 - `destroy(int $id)`:
-  - Require login.
-  - Load the comment; allow deletion if:
+  - Require login
+  - Load the comment using `Comment::find($id)`
+  - Allow deletion if:
     - The current user authored the comment, or
-    - The current user has `admin` or `editor` role.
-  - Soft delete by setting `status='deleted'` (recommended) and, if it was `published`, decrement `posts.comments_count`.
+    - The current user has `admin` or `editor` role
+  - Soft delete by setting `status='deleted'` using `Comment::update()` and, if it was `published`, decrement `posts.comments_count`
 
-Implementation tip:
-- Use `Post::findBySlug($slug)`, `Comment::create()`, and `Comment::update()` from your models. Let the model layer own the SQL; treat the queries below as documentation of what happens in the database.
+**Key points:** Use model methods (`Post::findBySlug()`, `Comment::create()`, `Comment::update()`) instead of raw SQL in the controller.
 
 —
 
@@ -375,29 +542,43 @@ Implementation tip:
 
 Update your `PostsController@show` action (created in Project 07) to load engagement data and comments for the given post.
 
-Controller responsibilities:
-- Accept `slug` as a route parameter.
-- Load the current user (if logged in) so you can mark `is_liked_by_user` and `is_favorited_by_user`.
-- Fetch the post via a helper like `Post::withEngagementBySlug($slug, $currentUserId)`:
-  - If no published post is found, return 404.
-- Load comments for that post:
-  - Only include comments with `status='published'` (or include `pending` for admins/editors if you prefer).
-  - Order newest-first or oldest-first consistently.
-- Pass the post, engagement flags, counts, and comments into the view.
+Controller implementation (`PostsController@show`):
 
-Implementation tip:
-- You can either call a small helper on `Comment`/`Post` to load comments by `post_id`, or (if you prefer) write this query in `PostsController@show`. Do not duplicate the same SQL in multiple places—keep it in one helper if you reuse it.
+```php
+public function show(string $slug): void
+{
+    $user = $this->user();
+    $userId = $user ? (int)$user['id'] : null;
 
-Example SQL for loading comments in `PostsController@show` (reference only):
+    // Load post with engagement data
+    $post = Post::findBySlugWithAuthorAndEngagement($slug, $userId);
+    if (!$post || $post['status'] !== 'published') {
+        http_response_code(404);
+        echo 'Post not found';
+        return;
+    }
 
-```sql
-SELECT c.*, u.name AS user_name
-FROM comments c
-JOIN users u ON u.id = c.user_id
-WHERE c.post_id = :post_id
-  AND c.status = 'published'
-ORDER BY c.created_at ASC;
+    // Load published comments using model method
+    $comments = Comment::publishedForPost((int)$post['id']);
+
+    // Add human-readable timestamps
+    foreach ($comments as &$c) {
+        $c['created_human'] = Time::ago($c['created_at']);
+    }
+
+    $this->render('posts/show', [
+        'title' => $post['title'],
+        'post' => $post,
+        'published_human' => Time::ago($post['published_at']),
+        'comments' => $comments,
+    ]);
+}
 ```
+
+**Key points:**
+- Use `Post::findBySlugWithAuthorAndEngagement()` to load post with engagement flags
+- Use `Comment::publishedForPost()` instead of raw SQL to load comments
+- The model method handles the JOIN and filtering, keeping the controller thin
 
 View responsibilities (`src/Views/posts/show.php`):
 - Show current engagement counts (Likes, Favorites, Comments) near the title or metadata.
@@ -433,33 +614,80 @@ $router->post('/admin/comments/{id}/publish', AdminCommentsController::class, 'p
 $router->post('/admin/comments/{id}/delete', AdminCommentsController::class, 'destroy');
 ```
 
-`Admin\CommentsController`:
-- Require role `admin` or `editor` in `__construct()`.
-- `index()`:
-  - List recent comments with filters (e.g., all, pending, published, deleted).
-  - Show columns such as Post title (link), commenter name/email, status, created date, and a small excerpt.
-- `publish(int $id)`:
-  - Set `status='published'`.
-  - Increment `posts.comments_count` (only here, since creation is pending).
-- `destroy(int $id)`:
-  - Soft delete the comment (`status='deleted'`).
-  - Decrement `posts.comments_count` only if the comment was `published`.
+`Admin\CommentsController` implementation example:
 
-Implementation tip:
-- Prefer to keep these queries inside your `Comment` or `Post` models if you reuse them; controllers should call model helpers instead of copying SQL.
+```php
+<?php
+namespace App\Controllers\Admin;
 
-Example SQL used by this controller (reference only):
+use App\Controller;
+use App\Models\Comment;
+use App\Models\Post;
 
-```sql
--- List comments with optional status filter
-SELECT c.*, p.title AS post_title, p.slug AS post_slug, u.name AS user_name, u.email AS user_email
-FROM comments c
-JOIN posts p ON p.id = c.post_id
-JOIN users u ON u.id = c.user_id
--- Optional WHERE c.status = :status
-ORDER BY c.created_at DESC
-LIMIT 200;
+class CommentsController extends Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+        $this->requireRole('admin', 'editor');
+    }
+
+    public function index(): void
+    {
+        $status = $_GET['status'] ?? null;
+
+        // Use model method instead of raw SQL
+        $comments = Comment::allWithDetails($status);
+
+        $this->render('admin/comments/index', [
+            'title' => 'Manage Comments',
+            'comments' => $comments,
+            'status' => $status,
+        ]);
+    }
+
+    public function publish(int $id): void
+    {
+        if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
+            $this->flash('Invalid CSRF token.', 'is-danger');
+            $this->redirect('/admin/comments');
+        }
+
+        $comment = Comment::find($id);
+        if ($comment && $comment['status'] !== 'published') {
+            Comment::update($id, ['status' => 'published']);
+            Post::incrementComments((int)$comment['post_id']);
+        }
+
+        $this->redirect('/admin/comments');
+    }
+
+    public function destroy(int $id): void
+    {
+        if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
+            $this->flash('Invalid CSRF token.', 'is-danger');
+            $this->redirect('/admin/comments');
+        }
+
+        $comment = Comment::find($id);
+        if ($comment && $comment['status'] !== 'deleted') {
+            Comment::update($id, ['status' => 'deleted']);
+            if ($comment['status'] === 'published') {
+                Post::decrementComments((int)$comment['post_id']);
+            }
+        }
+
+        $this->redirect('/admin/comments');
+    }
+}
 ```
+
+**Key points:**
+- Use `Comment::allWithDetails($statusFilter)` to load comments with post and user info
+- The model method handles the complex JOIN query and optional filtering
+- Counter updates use `Post::incrementComments()` and `Post::decrementComments()`
+- Only increment counter when publishing (pending → published)
+- Only decrement counter when deleting a previously published comment
 
 Views (`src/Views/admin/comments/*.php`):
 - `index.php`:
@@ -506,49 +734,36 @@ Security:
 
 Append a Bulma `tabs` section to the bottom of the profile page (`src/Views/profile/show.php`) that shows posts the current user has liked, favorited, and commented on. This builds on the Profile feature you implemented in Project 06 and carried forward into Projects 07–08.
 
-Controller updates (`ProfileController@show`):
-- Load the current user ID (e.g., `$userId = (int)($this->user()['id'] ?? 0);`).
-- Use your engagement models to fetch three lists:
-  - `$likedPosts` – posts the user has liked (join `post_likes` → `posts`).
-  - `$favoritedPosts` – posts the user has favorited (join `post_favorites` → `posts`).
-  - `$commentedPosts` – distinct posts the user has commented on (join `comments` → `posts`, filter out `status='deleted'`).
-- Pass these arrays into the view in addition to the existing `$user` data.
+Controller implementation (`ProfileController@show`):
 
-Implementation tip:
-- These joins can live in a small helper method on a new model (e.g., `PostLike::forUser($userId)`) or in `ProfileController@show`. If you use them in multiple places, move them into a model to avoid duplication.
+```php
+public function show(): void
+{
+    $this->requireAuth();
+    $user = $this->user();
+    $userId = (int)($user['id'] ?? 0);
 
-Example SQL for these profile queries (reference only):
+    // Use model methods to load engagement data
+    $likedPosts = PostLike::postsLikedByUser($userId);
+    $favoritedPosts = PostFavorite::postsFavoritedByUser($userId);
+    $commentedPosts = Comment::postsCommentedByUser($userId);
 
-```sql
--- Posts the user has liked
-SELECT p.*
-FROM post_likes pl
-JOIN posts p ON p.id = pl.post_id
-WHERE pl.user_id = :user_id
-  AND p.status = 'published'
-ORDER BY p.published_at DESC;
+    $this->render('profile/show', [
+        'title' => 'Your Profile',
+        'user' => $user,
+        'likedPosts' => $likedPosts,
+        'favoritedPosts' => $favoritedPosts,
+        'commentedPosts' => $commentedPosts,
+    ]);
+}
 ```
 
-```sql
--- Posts the user has favorited
-SELECT p.*
-FROM post_favorites pf
-JOIN posts p ON p.id = pf.post_id
-WHERE pf.user_id = :user_id
-  AND p.status = 'published'
-ORDER BY p.published_at DESC;
-```
-
-```sql
--- Posts the user has commented on (distinct)
-SELECT DISTINCT p.*
-FROM comments c
-JOIN posts p ON p.id = c.post_id
-WHERE c.user_id = :user_id
-  AND c.status <> 'deleted'
-  AND p.status = 'published'
-ORDER BY p.published_at DESC;
-```
+**Key points:**
+- Use `PostLike::postsLikedByUser()` instead of raw SQL
+- Use `PostFavorite::postsFavoritedByUser()` instead of raw SQL
+- Use `Comment::postsCommentedByUser()` instead of raw SQL
+- These model methods encapsulate the JOIN queries and filtering logic
+- Controller remains thin and focused on orchestration
 
 View updates (`src/Views/profile/show.php`):
 - At the bottom of the page (after the existing profile box and buttons), add a Bulma tabs component wrapped in a simple container. BulmaJS is already included in the head partial and will handle the default Bulma tab behavior when you use the standard markup and `data-bulma="tabs"` attribute:
@@ -587,7 +802,7 @@ View updates (`src/Views/profile/show.php`):
                   <?php else: ?>
                       <?php foreach ($likedPosts as $post): ?>
                           <p>
-                              <a href="/posts<?= $user ? '/' . $this->e($post['slug']) : '' ?>">
+                              <a href="/posts/<?= $this->e($post['slug']) ?>">
                                   <?= $this->e($post['title']) ?>
                               </a>
                           </p>

@@ -45,9 +45,8 @@ $this->start('content'); ?>
                         <?php else: ?>
                             <?php foreach ($likedPosts as $post): ?>
                                 <p>
-                                    <a href="/posts<?= $user ? '/' . $this->e($post['slug']) : '' ?>">
+                                    <a href="/posts/<?= $this->e($post['slug']) ?>">
                                         <?= $this->e($post['title']) ?>
-
                                     </a>
                                 </p>
                             <?php endforeach; ?>

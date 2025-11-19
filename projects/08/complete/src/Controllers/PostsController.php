@@ -3,7 +3,7 @@ namespace App\Controllers;
 
 use App\Controller;
 use App\Models\Post;
-use App\Support\Database;
+use App\Models\Comment;
 use App\Support\Time;
 
 class PostsController extends Controller
@@ -21,17 +21,7 @@ class PostsController extends Controller
         }
 
         // Load published comments for this post
-        $pdo = Database::pdo();
-        $stmt = $pdo->prepare("
-            SELECT c.*, u.name AS user_name
-            FROM `comments` c
-            JOIN `users` u ON u.id = c.user_id
-            WHERE c.post_id = :post_id AND c.status = 'published'
-            ORDER BY c.created_at ASC
-        ");
-        $stmt->bindValue(':post_id', (int)$post['id'], \PDO::PARAM_INT);
-        $stmt->execute();
-        $comments = $stmt->fetchAll();
+        $comments = Comment::publishedForPost((int)$post['id']);
 
         foreach ($comments as &$c) {
             $c['created_human'] = Time::ago($c['created_at']);
