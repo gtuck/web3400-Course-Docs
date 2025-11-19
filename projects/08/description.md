@@ -9,7 +9,7 @@ Starting from a completed Project 07, you will:
 1. Add tables for post likes, favorites, and comments
 2. Create models and helper methods for engagement data
 3. Add routes/controllers for like/unlike and fav/unfav
-4. Add routes/controllers for creating and moderating comments
+4. Add routes/controllers for creating and moderating comments (new comments start pending, publish in admin)
 5. Update the public post view to show engagement counts and comments
 6. Update the admin area to review and manage comments
 7. Enhance the existing user profile page with an activity tabs section (Likes, Favs, Comments)
@@ -26,7 +26,7 @@ Constraints:
 - Start from your own, working Project 07 codebase.
 - Use the existing `posts.favs`, `posts.likes`, and `posts.comments_count` columns for counters; keep them in sync with the new tables.
 - Implement per-user likes and favorites (toggle on/off).
-- Implement user comments with validation and basic moderation.
+- Implement user comments with validation and basic moderation (new comments default to `pending`; publish via admin).
 - Show engagement UI on the public post page and a simple moderation UI in the admin area.
 
 —
@@ -356,17 +356,15 @@ $router->post('/comments/{id}/delete', CommentsController::class, 'destroy');
   - Require login and validate CSRF.
   - Look up the post by `slug` and ensure it is `published`.
   - Validate comment `body` (non-empty, reasonable length).
-  - Insert a `Comment` row with `status` set to either:
-    - `'pending'` (if you want moderation before visibility), or
-    - `'published'` (if you want immediate visibility).
-  - Increment `posts.comments_count`.
+  - Insert a `Comment` row with `status='pending'` (moderated before visibility).
+  - Do **not** increment `posts.comments_count` here; publish handles the counter.
   - Redirect back to `/posts/{slug}`.
 - `destroy(int $id)`:
   - Require login.
   - Load the comment; allow deletion if:
     - The current user authored the comment, or
     - The current user has `admin` or `editor` role.
-  - Soft delete by setting `status='deleted'` (recommended) and decrement `posts.comments_count` for that post.
+  - Soft delete by setting `status='deleted'` (recommended) and, if it was `published`, decrement `posts.comments_count`.
 
 Implementation tip:
 - Use `Post::findBySlug($slug)`, `Comment::create()`, and `Comment::update()` from your models. Let the model layer own the SQL; treat the queries below as documentation of what happens in the database.
@@ -442,10 +440,10 @@ $router->post('/admin/comments/{id}/delete', AdminCommentsController::class, 'de
   - Show columns such as Post title (link), commenter name/email, status, created date, and a small excerpt.
 - `publish(int $id)`:
   - Set `status='published'`.
-  - Optionally increment `posts.comments_count` if you only count published comments.
+  - Increment `posts.comments_count` (only here, since creation is pending).
 - `destroy(int $id)`:
   - Soft delete the comment (`status='deleted'`).
-  - Decrement `posts.comments_count` if you only count published comments.
+  - Decrement `posts.comments_count` only if the comment was `published`.
 
 Implementation tip:
 - Prefer to keep these queries inside your `Comment` or `Post` models if you reuse them; controllers should call model helpers instead of copying SQL.
@@ -477,9 +475,9 @@ Update your nav partial (`src/Views/partials/nav.php`) to include a link to `/ad
 You are responsible for keeping `posts.likes`, `posts.favs`, and `posts.comments_count` consistent with the data in `post_likes`, `post_favorites`, and `comments`.
 
 Guidelines:
-- When you insert a like/favorite/comment, increment the corresponding counter.
-- When you remove or soft-delete a like/favorite/comment, decrement the counter (down to a minimum of 0).
-- When you change a comment’s status (e.g., from `pending` to `published`), decide whether that should affect `comments_count` and keep the behavior consistent.
+- When you insert a like/favorite, increment the corresponding counter.
+- When you remove or soft-delete a like/favorite, decrement the counter (down to a minimum of 0).
+- For comments, increment `comments_count` when publishing (pending → published) and decrement only when deleting a published comment. Keep this consistent across user and admin flows.
 - If counters ever get out of sync, you should be able to recompute them with a one-off SQL query or script; think about what that query would look like.
 
 —
