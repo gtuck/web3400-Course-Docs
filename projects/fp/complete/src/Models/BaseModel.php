@@ -187,6 +187,15 @@ abstract class BaseModel
     }
 
     /**
+     * Count all rows in the table.
+     */
+    public static function count(): int
+    {
+        $stmt = static::pdo()->query('SELECT COUNT(*) FROM `' . static::table() . '`');
+        return (int) $stmt->fetchColumn();
+    }
+
+    /**
      * Create a new record in the database
      *
      * Inserts a new row with the provided data. Only columns listed in the

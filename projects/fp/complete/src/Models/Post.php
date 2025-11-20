@@ -203,4 +203,44 @@ final class Post extends BaseModel
     {
         return static::findBySlugWithAuthorAndEngagement($slug, $userId);
     }
+
+    /**
+     * Dashboard helpers
+     */
+    public static function countByStatus(string $status): int
+    {
+        $sql = 'SELECT COUNT(*) FROM `' . static::table() . '` WHERE `status` = :status';
+        $stmt = static::pdo()->prepare($sql);
+        $stmt->bindValue(':status', $status);
+        $stmt->execute();
+        return (int) $stmt->fetchColumn();
+    }
+
+    public static function countFeatured(): int
+    {
+        $sql = 'SELECT COUNT(*) FROM `' . static::table() . '` WHERE `is_featured` = 1 AND `status` = \'published\'';
+        $stmt = static::pdo()->query($sql);
+        return (int) $stmt->fetchColumn();
+    }
+
+    public static function averageLikes(): float
+    {
+        $sql = 'SELECT COALESCE(AVG(`likes`), 0) FROM `' . static::table() . '` WHERE `status` = \'published\'';
+        $stmt = static::pdo()->query($sql);
+        return (float) $stmt->fetchColumn();
+    }
+
+    public static function averageFavs(): float
+    {
+        $sql = 'SELECT COALESCE(AVG(`favs`), 0) FROM `' . static::table() . '` WHERE `status` = \'published\'';
+        $stmt = static::pdo()->query($sql);
+        return (float) $stmt->fetchColumn();
+    }
+
+    public static function averageComments(): float
+    {
+        $sql = 'SELECT COALESCE(AVG(`comments_count`), 0) FROM `' . static::table() . '` WHERE `status` = \'published\'';
+        $stmt = static::pdo()->query($sql);
+        return (float) $stmt->fetchColumn();
+    }
 }
