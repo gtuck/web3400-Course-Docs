@@ -40,19 +40,19 @@ class DashboardController extends Controller
         $totalPosts = Post::count();
         $draftPosts = Post::countByStatus('draft');
         $publishedPosts = Post::countByStatus('published');
-        $featuredPosts = (int)$pdo->query("SELECT COUNT(*) FROM `posts` WHERE `is_featured` = 1")->fetchColumn();
+        $featuredPosts = Post::countFeatured();
 
         // Users
-        $totalUsers = (int)$pdo->query("SELECT COUNT(*) FROM `users` WHERE `role` = 'user'")->fetchColumn();
-        $totalAdmins = (int)$pdo->query("SELECT COUNT(*) FROM `users` WHERE `role` = 'admin'")->fetchColumn();
+        $totalUsers = User::countByRole('user');
+        $totalAdmins = User::countByRole('admin');
 
         // Contact messages
         $totalContacts = Contact::count();
 
         // Engagement aggregates
-        $avgLikes = (float)$pdo->query("SELECT COALESCE(ROUND(AVG(likes), 2), 0) FROM `posts`")->fetchColumn();
-        $avgFavs = (float)$pdo->query("SELECT COALESCE(ROUND(AVG(favs), 2), 0) FROM `posts`")->fetchColumn();
-        $avgComments = (float)$pdo->query("SELECT COALESCE(ROUND(AVG(comments_count), 2), 0) FROM `posts`")->fetchColumn();
+        $avgLikes = Post::averageLikes();
+        $avgFavs = Post::averageFavs();
+        $avgComments = Post::averageComments();
 
         $totalInteractions = (int)$pdo->query("
             SELECT 
@@ -86,11 +86,7 @@ class DashboardController extends Controller
 
     private function recentUsers(int $limit = 5): array
     {
-        $pdo = Database::pdo();
-        $stmt = $pdo->prepare("SELECT * FROM `users` ORDER BY `id` DESC LIMIT :limit");
-        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-        $stmt->execute();
-        return $stmt->fetchAll();
+        return User::all(limit: $limit, orderBy: 'id DESC');
     }
 
     private function recentPosts(int $limit = 5): array

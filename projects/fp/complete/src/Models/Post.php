@@ -203,4 +203,44 @@ final class Post extends BaseModel
     {
         return static::findBySlugWithAuthorAndEngagement($slug, $userId);
     }
+
+    /**
+     * Count featured posts.
+     */
+    public static function countFeatured(): int
+    {
+        $sql = 'SELECT COUNT(*) FROM `' . static::table() . '` WHERE `is_featured` = 1';
+        $stmt = static::pdo()->query($sql);
+        return (int) $stmt->fetchColumn();
+    }
+
+    /**
+     * Calculate average likes per post.
+     */
+    public static function averageLikes(): float
+    {
+        $sql = 'SELECT COALESCE(ROUND(AVG(likes), 2), 0) FROM `' . static::table() . '`';
+        $stmt = static::pdo()->query($sql);
+        return (float) $stmt->fetchColumn();
+    }
+
+    /**
+     * Calculate average favorites per post.
+     */
+    public static function averageFavs(): float
+    {
+        $sql = 'SELECT COALESCE(ROUND(AVG(favs), 2), 0) FROM `' . static::table() . '`';
+        $stmt = static::pdo()->query($sql);
+        return (float) $stmt->fetchColumn();
+    }
+
+    /**
+     * Calculate average comments per post.
+     */
+    public static function averageComments(): float
+    {
+        $sql = 'SELECT COALESCE(ROUND(AVG(comments_count), 2), 0) FROM `' . static::table() . '`';
+        $stmt = static::pdo()->query($sql);
+        return (float) $stmt->fetchColumn();
+    }
 }

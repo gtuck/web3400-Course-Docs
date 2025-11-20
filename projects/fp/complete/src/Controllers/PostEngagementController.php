@@ -6,7 +6,6 @@ use App\Controller;
 use App\Models\Post;
 use App\Models\PostLike;
 use App\Models\PostFavorite;
-use App\Support\Database;
 
 class PostEngagementController extends Controller
 {
@@ -32,14 +31,7 @@ class PostEngagementController extends Controller
         $user = $this->user();
         $userId = (int)($user['id'] ?? 0);
 
-        $pdo = Database::pdo();
-        $stmt = $pdo->prepare('SELECT 1 FROM `post_likes` WHERE `post_id` = :post_id AND `user_id` = :user_id LIMIT 1');
-        $stmt->bindValue(':post_id', $id, \PDO::PARAM_INT);
-        $stmt->bindValue(':user_id', $userId, \PDO::PARAM_INT);
-        $stmt->execute();
-        $exists = (bool)$stmt->fetchColumn();
-
-        if (!$exists) {
+        if (!PostLike::existsForUser($id, $userId)) {
             PostLike::create([
                 'post_id' => $id,
                 'user_id' => $userId,
@@ -65,12 +57,7 @@ class PostEngagementController extends Controller
         $user = $this->user();
         $userId = (int)($user['id'] ?? 0);
 
-        $pdo = Database::pdo();
-        $stmt = $pdo->prepare('DELETE FROM `post_likes` WHERE `post_id` = :post_id AND `user_id` = :user_id');
-        $stmt->bindValue(':post_id', $id, \PDO::PARAM_INT);
-        $stmt->bindValue(':user_id', $userId, \PDO::PARAM_INT);
-        $deleted = $stmt->execute();
-        if ($deleted && $stmt->rowCount() > 0) {
+        if (PostLike::deleteForUser($id, $userId)) {
             Post::decrementLikes($id);
         }
 
@@ -93,14 +80,7 @@ class PostEngagementController extends Controller
         $user = $this->user();
         $userId = (int)($user['id'] ?? 0);
 
-        $pdo = Database::pdo();
-        $stmt = $pdo->prepare('SELECT 1 FROM `post_favorites` WHERE `post_id` = :post_id AND `user_id` = :user_id LIMIT 1');
-        $stmt->bindValue(':post_id', $id, \PDO::PARAM_INT);
-        $stmt->bindValue(':user_id', $userId, \PDO::PARAM_INT);
-        $stmt->execute();
-        $exists = (bool)$stmt->fetchColumn();
-
-        if (!$exists) {
+        if (!PostFavorite::existsForUser($id, $userId)) {
             PostFavorite::create([
                 'post_id' => $id,
                 'user_id' => $userId,
@@ -126,12 +106,7 @@ class PostEngagementController extends Controller
         $user = $this->user();
         $userId = (int)($user['id'] ?? 0);
 
-        $pdo = Database::pdo();
-        $stmt = $pdo->prepare('DELETE FROM `post_favorites` WHERE `post_id` = :post_id AND `user_id` = :user_id');
-        $stmt->bindValue(':post_id', $id, \PDO::PARAM_INT);
-        $stmt->bindValue(':user_id', $userId, \PDO::PARAM_INT);
-        $deleted = $stmt->execute();
-        if ($deleted && $stmt->rowCount() > 0) {
+        if (PostFavorite::deleteForUser($id, $userId)) {
             Post::decrementFavs($id);
         }
 

@@ -4,8 +4,10 @@ namespace App\Controllers;
 
 use App\Controller;
 use App\Models\User;
+use App\Models\PostLike;
+use App\Models\PostFavorite;
+use App\Models\Comment;
 use App\Support\Validator;
-use App\Support\Database;
 
 class ProfileController extends Controller
 {
@@ -15,47 +17,14 @@ class ProfileController extends Controller
         $user = $this->user();
         $userId = (int)($user['id'] ?? 0);
 
-        $pdo = Database::pdo();
-
         // Posts liked by the user
-        $stmt = $pdo->prepare("
-            SELECT p.*
-            FROM `post_likes` pl
-            JOIN `posts` p ON p.id = pl.post_id
-            WHERE pl.user_id = :user_id
-              AND p.status = 'published'
-            ORDER BY p.published_at DESC
-        ");
-        $stmt->bindValue(':user_id', $userId, \PDO::PARAM_INT);
-        $stmt->execute();
-        $likedPosts = $stmt->fetchAll();
+        $likedPosts = PostLike::postsLikedByUser($userId);
 
         // Posts favorited by the user
-        $stmt = $pdo->prepare("
-            SELECT p.*
-            FROM `post_favorites` pf
-            JOIN `posts` p ON p.id = pf.post_id
-            WHERE pf.user_id = :user_id
-              AND p.status = 'published'
-            ORDER BY p.published_at DESC
-        ");
-        $stmt->bindValue(':user_id', $userId, \PDO::PARAM_INT);
-        $stmt->execute();
-        $favoritedPosts = $stmt->fetchAll();
+        $favoritedPosts = PostFavorite::postsFavoritedByUser($userId);
 
         // Posts the user has commented on (distinct)
-        $stmt = $pdo->prepare("
-            SELECT DISTINCT p.*
-            FROM `comments` c
-            JOIN `posts` p ON p.id = c.post_id
-            WHERE c.user_id = :user_id
-              AND c.status <> 'deleted'
-              AND p.status = 'published'
-            ORDER BY p.published_at DESC
-        ");
-        $stmt->bindValue(':user_id', $userId, \PDO::PARAM_INT);
-        $stmt->execute();
-        $commentedPosts = $stmt->fetchAll();
+        $commentedPosts = Comment::postsCommentedByUser($userId);
 
         $this->render('profile/show', [
             'title' => 'Your Profile',
