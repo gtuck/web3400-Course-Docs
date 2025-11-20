@@ -155,15 +155,30 @@ You only need to add **dashboard-specific analytics methods** to support KPI que
 
 ### Post Model - Add Analytics Methods
 
-Add these four methods to your `Post` model to support dashboard KPIs:
+Add these analytics helpers to your `Post` model to support dashboard KPIs:
 
 ```php
 /**
  * Count featured posts.
  */
+public static function count(): int
+{
+    $stmt = static::pdo()->query('SELECT COUNT(*) FROM `' . static::table() . '`');
+    return (int) $stmt->fetchColumn();
+}
+
+public static function countByStatus(string $status): int
+{
+    $sql = 'SELECT COUNT(*) FROM `' . static::table() . '` WHERE `status` = :status';
+    $stmt = static::pdo()->prepare($sql);
+    $stmt->bindValue(':status', $status);
+    $stmt->execute();
+    return (int) $stmt->fetchColumn();
+}
+
 public static function countFeatured(): int
 {
-    $sql = 'SELECT COUNT(*) FROM `' . static::table() . '` WHERE `is_featured` = 1';
+    $sql = 'SELECT COUNT(*) FROM `' . static::table() . '` WHERE `is_featured` = 1 AND `status` = \'published\'';
     $stmt = static::pdo()->query($sql);
     return (int) $stmt->fetchColumn();
 }
@@ -173,7 +188,7 @@ public static function countFeatured(): int
  */
 public static function averageLikes(): float
 {
-    $sql = 'SELECT COALESCE(ROUND(AVG(likes), 2), 0) FROM `' . static::table() . '`';
+    $sql = 'SELECT COALESCE(ROUND(AVG(likes), 2), 0) FROM `' . static::table() . '` WHERE `status` = \'published\'';
     $stmt = static::pdo()->query($sql);
     return (float) $stmt->fetchColumn();
 }
@@ -183,7 +198,7 @@ public static function averageLikes(): float
  */
 public static function averageFavs(): float
 {
-    $sql = 'SELECT COALESCE(ROUND(AVG(favs), 2), 0) FROM `' . static::table() . '`';
+    $sql = 'SELECT COALESCE(ROUND(AVG(favs), 2), 0) FROM `' . static::table() . '` WHERE `status` = \'published\'';
     $stmt = static::pdo()->query($sql);
     return (float) $stmt->fetchColumn();
 }
@@ -193,11 +208,44 @@ public static function averageFavs(): float
  */
 public static function averageComments(): float
 {
-    $sql = 'SELECT COALESCE(ROUND(AVG(comments_count), 2), 0) FROM `' . static::table() . '`';
+    $sql = 'SELECT COALESCE(ROUND(AVG(comments_count), 2), 0) FROM `' . static::table() . '` WHERE `status` = \'published\'';
     $stmt = static::pdo()->query($sql);
     return (float) $stmt->fetchColumn();
 }
 ```
+
+### BaseModel - Add Count Helper
+
+Add a generic `count()` method to `BaseModel` so any model can quickly return total rows:
+
+```php
+public static function count(): int
+{
+    $stmt = static::pdo()->query('SELECT COUNT(*) FROM `' . static::table() . '`');
+    return (int) $stmt->fetchColumn();
+}
+```
+
+Example usage in your dashboard controller:
+
+```php
+$totalPosts = Post::count();
+$totalUsers = User::count();
+$totalContacts = Contact::count();
+```
+
+Use `countByStatus()`/`countFeatured()`/averages from the Post model for KPI cards.
+
+### Dashboard View - Safe Dates
+
+In `admin/dashboard.php`, guard against missing `created_at` (e.g., seed data without timestamps) before formatting dates:
+
+```php
+$created = $contact['created_at'] ?? null;
+$createdFmt = $created ? date('M j, Y', strtotime($created)) : '—';
+```
+
+Use the guarded value when rendering the table to avoid undefined index notices and `strtotime(null)` deprecation warnings.
 
 ### User Model - Add Role Counting
 
