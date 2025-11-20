@@ -138,17 +138,24 @@ Example (simplified) responsibilities:
 
 ---
 
-## Step 3) Define KPI queries and model helper methods
+## Step 3) Add NEW dashboard-specific model helper methods
 
-Translate dashboard KPIs into **model‑based queries** following the **"thin controllers, fat models"** principle. **Do not write raw SQL directly in controllers or views.**
+Since you're starting from **completed Project 08**, your models should already include all the engagement helper methods from that project:
 
-### Required Model Helper Methods
+**Already implemented in Project 08:**
+- ✅ `PostLike::existsForUser()`, `deleteForUser()`, `postsLikedByUser()`
+- ✅ `PostFavorite::existsForUser()`, `deleteForUser()`, `postsFavoritedByUser()`
+- ✅ `Comment::publishedForPost()`, `postsCommentedByUser()`, `allWithDetails()`
+- ✅ `Post::incrementLikes()`, `decrementLikes()`, `incrementFavs()`, `decrementFavs()`, `incrementComments()`, `decrementComments()`
+- ✅ Controllers using model methods (no raw SQL in PostEngagementController, ProfileController, PostsController, Admin\CommentsController)
 
-Your models should include the following helper methods to encapsulate database logic:
+**NEW for Final Project:**
 
-#### Post Model (or Article Model)
+You only need to add **dashboard-specific analytics methods** to support KPI queries.
 
-Add these analytics methods to your `Post` model:
+### Post Model - Add Analytics Methods
+
+Add these four methods to your `Post` model to support dashboard KPIs:
 
 ```php
 /**
@@ -192,9 +199,9 @@ public static function averageComments(): float
 }
 ```
 
-#### User Model
+### User Model - Add Role Counting
 
-Add this method to count users by role:
+Add this method to your `User` model to count users by role:
 
 ```php
 /**
@@ -210,181 +217,9 @@ public static function countByRole(string $role): int
 }
 ```
 
-#### PostLike Model
+### DashboardController Implementation
 
-Add these helper methods for like operations:
-
-```php
-/**
- * Check if a user has liked a post.
- */
-public static function existsForUser(int $postId, int $userId): bool
-{
-    $pdo = static::pdo();
-    $stmt = $pdo->prepare('SELECT 1 FROM `post_likes` WHERE `post_id` = :post_id AND `user_id` = :user_id LIMIT 1');
-    $stmt->bindValue(':post_id', $postId, PDO::PARAM_INT);
-    $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
-    $stmt->execute();
-    return (bool)$stmt->fetchColumn();
-}
-
-/**
- * Remove a user's like from a post. Returns true if a row was deleted.
- */
-public static function deleteForUser(int $postId, int $userId): bool
-{
-    $pdo = static::pdo();
-    $stmt = $pdo->prepare('DELETE FROM `post_likes` WHERE `post_id` = :post_id AND `user_id` = :user_id');
-    $stmt->bindValue(':post_id', $postId, PDO::PARAM_INT);
-    $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->rowCount() > 0;
-}
-
-/**
- * Get all published posts liked by a user.
- */
-public static function postsLikedByUser(int $userId): array
-{
-    $pdo = static::pdo();
-    $stmt = $pdo->prepare("
-        SELECT p.*
-        FROM `post_likes` pl
-        JOIN `posts` p ON p.id = pl.post_id
-        WHERE pl.user_id = :user_id
-          AND p.status = 'published'
-        ORDER BY p.published_at DESC
-    ");
-    $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetchAll();
-}
-```
-
-#### PostFavorite Model
-
-Add these helper methods for favorite operations:
-
-```php
-/**
- * Check if a user has favorited a post.
- */
-public static function existsForUser(int $postId, int $userId): bool
-{
-    $pdo = static::pdo();
-    $stmt = $pdo->prepare('SELECT 1 FROM `post_favorites` WHERE `post_id` = :post_id AND `user_id` = :user_id LIMIT 1');
-    $stmt->bindValue(':post_id', $postId, PDO::PARAM_INT);
-    $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
-    $stmt->execute();
-    return (bool)$stmt->fetchColumn();
-}
-
-/**
- * Remove a user's favorite from a post. Returns true if a row was deleted.
- */
-public static function deleteForUser(int $postId, int $userId): bool
-{
-    $pdo = static::pdo();
-    $stmt = $pdo->prepare('DELETE FROM `post_favorites` WHERE `post_id` = :post_id AND `user_id` = :user_id');
-    $stmt->bindValue(':post_id', $postId, PDO::PARAM_INT);
-    $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->rowCount() > 0;
-}
-
-/**
- * Get all published posts favorited by a user.
- */
-public static function postsFavoritedByUser(int $userId): array
-{
-    $pdo = static::pdo();
-    $stmt = $pdo->prepare("
-        SELECT p.*
-        FROM `post_favorites` pf
-        JOIN `posts` p ON p.id = pf.post_id
-        WHERE pf.user_id = :user_id
-          AND p.status = 'published'
-        ORDER BY p.published_at DESC
-    ");
-    $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetchAll();
-}
-```
-
-#### Comment Model
-
-Add these helper methods for comment operations:
-
-```php
-/**
- * Get all published comments for a post.
- */
-public static function publishedForPost(int $postId): array
-{
-    $pdo = static::pdo();
-    $stmt = $pdo->prepare("
-        SELECT c.*, u.name AS author_name
-        FROM `comments` c
-        JOIN `users` u ON u.id = c.user_id
-        WHERE c.post_id = :post_id AND c.status = 'published'
-        ORDER BY c.created_at ASC
-    ");
-    $stmt->bindValue(':post_id', $postId, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetchAll();
-}
-
-/**
- * Get distinct posts a user has commented on.
- */
-public static function postsCommentedByUser(int $userId): array
-{
-    $pdo = static::pdo();
-    $stmt = $pdo->prepare("
-        SELECT DISTINCT p.*
-        FROM `comments` c
-        JOIN `posts` p ON p.id = c.post_id
-        WHERE c.user_id = :user_id
-          AND c.status = 'published'
-          AND p.status = 'published'
-        ORDER BY p.published_at DESC
-    ");
-    $stmt->bindValue(':user_id', $userId, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetchAll();
-}
-
-/**
- * Get all comments with post and user details for admin management.
- */
-public static function allWithDetails(?string $statusFilter = null, int $limit = 200): array
-{
-    $pdo = static::pdo();
-    $sql = "
-        SELECT c.*, p.title AS post_title, p.slug AS post_slug, u.name AS author_name
-        FROM `comments` c
-        JOIN `posts` p ON p.id = c.post_id
-        JOIN `users` u ON u.id = c.user_id
-    ";
-    if ($statusFilter) {
-        $sql .= " WHERE c.status = :status";
-    }
-    $sql .= " ORDER BY c.created_at DESC LIMIT :limit";
-
-    $stmt = $pdo->prepare($sql);
-    if ($statusFilter) {
-        $stmt->bindValue(':status', $statusFilter);
-    }
-    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-    $stmt->execute();
-    return $stmt->fetchAll();
-}
-```
-
-### Dashboard Controller Usage
-
-With these model methods in place, your `DashboardController` should **never contain raw SQL**. Here's an example of the `buildKpis()` method using model methods:
+With these new model methods in place, your `DashboardController` can build KPIs without raw SQL:
 
 ```php
 private function buildKpis(): array
@@ -395,16 +230,16 @@ private function buildKpis(): array
     $totalPosts = Post::count();
     $draftPosts = Post::countByStatus('draft');
     $publishedPosts = Post::countByStatus('published');
-    $featuredPosts = Post::countFeatured();
+    $featuredPosts = Post::countFeatured();  // NEW
 
     // Users - use model methods
-    $totalUsers = User::countByRole('user');
-    $totalAdmins = User::countByRole('admin');
+    $totalUsers = User::countByRole('user');  // NEW
+    $totalAdmins = User::countByRole('admin');  // NEW
 
     // Contact messages
     $totalContacts = Contact::count();
 
-    // Engagement aggregates - use model methods
+    // Engagement aggregates - use NEW model methods
     $avgLikes = Post::averageLikes();
     $avgFavs = Post::averageFavs();
     $avgComments = Post::averageComments();
@@ -437,11 +272,10 @@ private function buildKpis(): array
 ```
 
 **Important principles:**
-- Keep all reusable SQL queries in models
-- Controllers should only call model methods, not write SQL
+- Your Project 08 models already follow "thin controllers, fat models" - keep it that way
+- Add ONLY the new analytics methods shown above
 - Complex analytics queries specific to the dashboard may remain in the controller
-- Use prepared statements for all parameterized queries
-- Return clean, view‑friendly data types (no PDOStatement objects in views)
+- Continue using prepared statements for all parameterized queries
 
 ---
 
@@ -528,24 +362,30 @@ and includes a clear link to the Contact page:
 ## Requirements Checklist
 
 To receive full credit, your final project must:
-- [ ] Start from a working Project 06–08 MVC CMS in `projects/fp/`
-- [ ] Route `/admin/dashboard` through your `Router` and `DashboardController`
+
+**Foundation (from Project 08):**
+- [ ] Start from your completed Project 08 with all engagement features working
+- [ ] Verify Project 08 models already have helper methods (PostLike, PostFavorite, Comment)
+- [ ] Verify controllers already use model methods with no raw SQL (PostEngagementController, ProfileController, PostsController, Admin\CommentsController)
+
+**NEW Dashboard Features:**
+- [ ] Route `/admin/dashboard` through your `Router` to `Admin\DashboardController`
 - [ ] Restrict dashboard access to authenticated admin users only
-- [ ] Implement all required model helper methods following the "thin controllers, fat models" principle:
-  - [ ] Post analytics methods: `countFeatured()`, `averageLikes()`, `averageFavs()`, `averageComments()`
+- [ ] Add NEW dashboard-specific model helper methods:
+  - [ ] Post analytics: `countFeatured()`, `averageLikes()`, `averageFavs()`, `averageComments()`
   - [ ] User role counting: `User::countByRole()`
-  - [ ] PostLike methods: `existsForUser()`, `deleteForUser()`, `postsLikedByUser()`
-  - [ ] PostFavorite methods: `existsForUser()`, `deleteForUser()`, `postsFavoritedByUser()`
-  - [ ] Comment methods: `publishedForPost()`, `postsCommentedByUser()`, `allWithDetails()`
-- [ ] **NO raw SQL in controllers** except for complex dashboard-specific analytics queries
-- [ ] Controllers use model methods for all standard queries (counts, averages, finding records)
-- [ ] Render KPIs in a dashboard view using your view engine and layout/partials
+- [ ] Implement `Admin\DashboardController` with KPI queries using model methods
+- [ ] **NO raw SQL in DashboardController** except for complex dashboard-specific analytics queries (totalInteractions, mostActiveUser)
+- [ ] Render KPIs in a dashboard view using your view templating engine and layout/partials
 - [ ] Display recent contact messages and/or recent activity in the dashboard
-- [ ] Redirect admin users to the dashboard as their default post‑login landing page (instead of a profile page)
+- [ ] Redirect admin users to the dashboard as their default post‑login landing page (instead of profile page)
+- [ ] Add admin dashboard link to navigation (visible to admins only)
 - [ ] Update the footer partial with site‑appropriate information and a link to the Contact form at `/contact`
-- [ ] Keep all reusable SQL inside models, not in controllers or views
+
+**Code Quality & Security:**
+- [ ] Continue following "thin controllers, fat models" principle from Project 08
 - [ ] Use `$this->e()` for all dynamic output in views
-- [ ] Show clear success/error flash messages for admin actions
+- [ ] All forms include CSRF tokens
 - [ ] Use prepared statements for all parameterized queries
 
 ---
