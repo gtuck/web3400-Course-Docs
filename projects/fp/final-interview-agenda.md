@@ -4,7 +4,7 @@
 
 To verify your Final Project readiness, we’ll conduct a focused five-minute review in my **Office Hours Zoom Room**: [https://weber.zoom.us/j/8013088825](https://weber.zoom.us/j/8013088825).
 
-Please schedule your appointment via my **Google Appointment Schedule**: [https://calendar.app.google/1CeVqU8e2xfCpB9PA](https://calendar.app.google/1CeVqU8e2xfCpB9PA)
+Please schedule your appointment via my **Google Appointment Schedule**: [https://calendar.app.google/kArQ1voiZ8yUc5dY8](https://calendar.app.google/kArQ1voiZ8yUc5dY8)
 
 Each meeting is strictly five minutes for a quick walkthrough. If issues arise, continue to the next agenda item; deeper help should be booked separately during regular office hours.
 
