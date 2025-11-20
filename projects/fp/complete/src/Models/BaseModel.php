@@ -220,23 +220,31 @@ abstract class BaseModel
      *     echo "Error: " . $e->getMessage();
      * }
      */
+
     public static function create(array $data): int
     {
         $data = static::sanitize($data);
         if (!$data) {
             throw new \InvalidArgumentException('No fillable fields provided.');
         }
-        $cols = array_keys($data);
-        $placeholders = array_map(fn($c) => ':' . $c, $cols);
-        $quotedCols = array_map(fn($c) => '`' . $c . '`', $cols);
-        $sql = 'INSERT INTO `' . static::table() . '` (' . implode(',', $quotedCols) . ') VALUES (' . implode(',', $placeholders) . ')';
 
+        $cols         = array_keys($data);
+        $placeholders = array_map(fn($c) => ':' . $c, $cols);
+        $quotedCols   = array_map(fn($c) => '`' . $c . '`', $cols);
+
+        $sql = 'INSERT INTO `' . static::table() . '` (' . implode(',', $quotedCols) . ')
+                VALUES (' . implode(',', $placeholders) . ')';
+
+        // Get ONE PDO instance and reuse it
         $pdo = static::pdo();
+
         $stmt = $pdo->prepare($sql);
         foreach ($data as $c => $v) {
             $stmt->bindValue(':' . $c, $v);
         }
+
         $stmt->execute();
+
         return (int) $pdo->lastInsertId();
     }
 
@@ -367,27 +375,5 @@ abstract class BaseModel
         }
         $stmt->execute();
         return (bool) $stmt->fetchColumn();
-    }
-
-    /**
-     * Count all rows in the table.
-     */
-    public static function count(): int
-    {
-        $sql = 'SELECT COUNT(*) FROM `' . static::table() . '`';
-        $stmt = static::pdo()->query($sql);
-        return (int) $stmt->fetchColumn();
-    }
-
-    /**
-     * Convenience helper for counting by a `status` column.
-     */
-    public static function countByStatus(string $status): int
-    {
-        $sql = 'SELECT COUNT(*) FROM `' . static::table() . '` WHERE `status` = :status';
-        $stmt = static::pdo()->prepare($sql);
-        $stmt->bindValue(':status', $status);
-        $stmt->execute();
-        return (int) $stmt->fetchColumn();
     }
 }

@@ -53,7 +53,9 @@ class CommentsController extends Controller
         $comment = Comment::find($id);
         if ($comment && $comment['status'] !== 'deleted') {
             Comment::update($id, ['status' => 'deleted']);
-            Post::decrementComments((int)$comment['post_id']);
+            if ($comment['status'] === 'published') {
+                Post::decrementComments((int)$comment['post_id']);
+            }
         }
 
         $this->redirect('/admin/comments');

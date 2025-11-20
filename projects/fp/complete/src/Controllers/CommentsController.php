@@ -48,11 +48,10 @@ class CommentsController extends Controller
             'post_id' => (int)$post['id'],
             'user_id' => $userId,
             'body' => $body,
-            'status' => 'published',
+            'status' => 'pending',
         ]);
-        Post::incrementComments((int)$post['id']);
 
-        $this->flash('Comment added.', 'is-success');
+        $this->flash('Comment submitted for review.', 'is-success');
         $this->redirect('/posts/' . $slug);
     }
 
@@ -80,9 +79,13 @@ class CommentsController extends Controller
             $this->redirect('/posts/' . $slug);
         }
 
-        // Soft delete
-        Comment::update($id, ['status' => 'deleted']);
-        Post::decrementComments((int)$comment['post_id']);
+        // Soft delete; only decrement counter when this comment was previously counted
+        if ($comment['status'] !== 'deleted') {
+            Comment::update($id, ['status' => 'deleted']);
+            if ($comment['status'] === 'published') {
+                Post::decrementComments((int)$comment['post_id']);
+            }
+        }
 
         $this->flash('Comment deleted.', 'is-success');
         $this->redirect('/posts/' . $slug);

@@ -60,11 +60,6 @@ class AuthController extends Controller
         $user = \App\Models\User::find($id);
         $this->loginUser($user);
         $this->flash('Welcome, your account has been created!', 'is-success');
-
-        if (($user['role'] ?? 'user') === 'admin') {
-            $this->redirect('/admin/dashboard');
-        }
-
         $this->redirect('/profile');
     }
 
@@ -108,11 +103,12 @@ class AuthController extends Controller
         $this->loginUser($user);
         $this->flash('Welcome back!', 'is-success');
 
-        if (($user['role'] ?? 'user') === 'admin') {
+        // Redirect admins to dashboard, regular users to home
+        if ($user['role'] === 'admin') {
             $this->redirect('/admin/dashboard');
+        } else {
+            $this->redirect('/');
         }
-
-        $this->redirect('/');
     }
 
     public function logout(): void

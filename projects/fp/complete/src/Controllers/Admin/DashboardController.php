@@ -36,26 +36,27 @@ class DashboardController extends Controller
     {
         $pdo = Database::pdo();
 
-        // Posts
+        // Posts - use model methods
         $totalPosts = Post::count();
         $draftPosts = Post::countByStatus('draft');
         $publishedPosts = Post::countByStatus('published');
         $featuredPosts = Post::countFeatured();
 
-        // Users
+        // Users - use model methods
         $totalUsers = User::countByRole('user');
         $totalAdmins = User::countByRole('admin');
 
         // Contact messages
         $totalContacts = Contact::count();
 
-        // Engagement aggregates
+        // Engagement aggregates - use model methods
         $avgLikes = Post::averageLikes();
         $avgFavs = Post::averageFavs();
         $avgComments = Post::averageComments();
 
+        // Complex analytics query (dashboard-specific, OK to keep in controller)
         $totalInteractions = (int)$pdo->query("
-            SELECT 
+            SELECT
                 (SELECT COUNT(*) FROM post_likes) +
                 (SELECT COUNT(*) FROM post_favorites) +
                 (SELECT COUNT(*) FROM comments)
@@ -99,7 +100,7 @@ class DashboardController extends Controller
         $pdo = Database::pdo();
 
         $sql = "
-            SELECT 
+            SELECT
                 u.name AS name,
                 COUNT(*) AS interactions
             FROM users u

@@ -1,16 +1,16 @@
 <?php
 
-use App\Controllers\Admin\UsersController;
-use App\Controllers\ProfileController;
-use App\Controllers\AuthController;
+use App\Controllers\Admin\UsersController; // new line
+use App\Controllers\ProfileController; // new line
+use App\Controllers\AuthController; //new line
 use App\Controllers\HomeController;
 use App\Controllers\ContactController;
 use App\Controllers\PostsController;
+use App\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Controllers\Admin\PostsController as AdminPostsController;
 use App\Controllers\PostEngagementController;
 use App\Controllers\CommentsController;
 use App\Controllers\Admin\CommentsController as AdminCommentsController;
-use App\Controllers\Admin\DashboardController;
 use App\Router;
 
 $router = new Router();
@@ -19,31 +19,29 @@ $router->get('/', HomeController::class, 'index');
 $router->get('/contact', ContactController::class, 'show');
 $router->post('/contact', ContactController::class, 'submit');
 
-$router->get('/register', AuthController::class, 'showRegister');
-$router->post('/register', AuthController::class, 'register');
+$router->get('/register', AuthController::class, 'showRegister'); // new line
+$router->post('/register', AuthController::class, 'register'); // new line
 
-$router->get('/login', AuthController::class, 'showLogin');
-$router->post('/login', AuthController::class, 'login');
-$router->post('/logout', AuthController::class, 'logout');
+$router->get('/login', AuthController::class, 'showLogin'); // new line
+$router->post('/login', AuthController::class, 'login'); // new line
+$router->post('/logout', AuthController::class, 'logout'); // new line
 
-$router->get('/profile', ProfileController::class, 'show');
-$router->get('/profile/edit', ProfileController::class, 'edit');
-$router->post('/profile', ProfileController::class, 'update');
-$router->post('/profile/password', ProfileController::class, 'changePassword');
+$router->get('/profile', ProfileController::class, 'show'); // new line
+$router->get('/profile/edit', ProfileController::class, 'edit'); // new line
+$router->post('/profile', ProfileController::class, 'update'); // new line
+$router->post('/profile/password', ProfileController::class, 'changePassword'); // new line
 
 // Admin dashboard
-$router->get('/admin/dashboard', DashboardController::class, 'index');
+$router->get('/admin/dashboard', AdminDashboardController::class, 'index');
 
-// Admin users
-$router->get('/admin/users', UsersController::class, 'index');
-$router->get('/admin/users/create', UsersController::class, 'create');
-$router->post('/admin/users', UsersController::class, 'store');
-$router->get('/admin/users/{id}/edit', UsersController::class, 'edit');
-$router->post('/admin/users/{id}', UsersController::class, 'update');
-$router->post('/admin/users/{id}/role', UsersController::class, 'updateRole');
+$router->get('/admin/users', UsersController::class, 'index'); // new line
+$router->get('/admin/users/create', UsersController::class, 'create'); // new line
+$router->post('/admin/users', UsersController::class, 'store'); // new line
+$router->get('/admin/users/{id}/edit', UsersController::class, 'edit'); // new line
+$router->post('/admin/users/{id}', UsersController::class, 'update'); // new line
+$router->post('/admin/users/{id}/role', UsersController::class, 'updateRole'); // new line
 $router->post('/admin/users/{id}/active', UsersController::class, 'updateActive');
 
-// Public post show
 $router->get('/posts/{slug}', PostsController::class, 'show');
 
 // Engagement routes
@@ -56,7 +54,7 @@ $router->post('/posts/{id}/unfav', PostEngagementController::class, 'unfav');
 $router->post('/posts/{slug}/comments', CommentsController::class, 'store');
 $router->post('/comments/{id}/delete', CommentsController::class, 'destroy');
 
-// Admin posts management
+// Admin Posts management
 $router->get('/admin/posts', AdminPostsController::class, 'index');
 $router->get('/admin/posts/create', AdminPostsController::class, 'create');
 $router->post('/admin/posts', AdminPostsController::class, 'store');
@@ -72,4 +70,3 @@ $router->post('/admin/comments/{id}/publish', AdminCommentsController::class, 'p
 $router->post('/admin/comments/{id}/delete', AdminCommentsController::class, 'destroy');
 
 $router->dispatch();
-
