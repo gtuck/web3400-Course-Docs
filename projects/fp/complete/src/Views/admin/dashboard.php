@@ -115,7 +115,11 @@
                                     <td><?= $this->e($contact['name']) ?></td>
                                     <td><?= $this->e($contact['email']) ?></td>
                                     <td><?= $this->e($contact['subject'] ?? 'N/A') ?></td>
-                                    <td><?= $this->e(date('M j, Y', strtotime($contact['created_at']))) ?></td>
+                                    <?php
+                                      $created = $contact['created_at'] ?? null;
+                                      $createdFmt = $created ? date('M j, Y', strtotime($created)) : '—';
+                                    ?>
+                                    <td><?= $this->e($createdFmt) ?></td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
