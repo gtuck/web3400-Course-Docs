@@ -59,6 +59,7 @@
 | Sun Nov 23, 2025 | Assignment: Project 07 | due 11:59pm |
 | Mon Nov 24, 2025 | Calendar Event WEB 3400 VTL Fall 2025 23082 | 10:30am–11:20am |
 | Wed Nov 26, 2025 | Calendar Event WEB 3400 VTL Fall 2025 23082 | 10:30am–11:20am |
+| Sun Nov 30, 2025 | Assignment: Project 08 | due 11:59pm |
 | Mon Dec 1, 2025 | Calendar Event WEB 3400 VTL Fall 2025 23082 | 10:30am–11:20am |
 | Wed Dec 3, 2025 | Calendar Event WEB 3400 VTL Fall 2025 23082 | 10:30am–11:20am |
 | Wed Dec 3, 2025 | Assignment: Fifty Points of Extra Credit Available | due 11:59pm |
