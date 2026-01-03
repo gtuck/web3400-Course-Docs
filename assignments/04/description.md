@@ -27,7 +27,7 @@ You can:
 7. Commit and push changes; submit the correct file URL.
 
 ## Prerequisites
-- Repository: `web3400-fall25`
+- Repository: `web3400-spring26`
 - A00–A03 complete
 - Dev Container or Codespace running (PHP available)
 - Instructor collaborator (`gtuck`) already invited
@@ -236,7 +236,7 @@ git push origin main
 Submit direct URL (replace YOUR-USER):
 
 ```
-https://github.com/YOUR-USER/web3400-fall25/blob/main/assignments/04/index.php
+https://github.com/YOUR-USER/web3400-spring26/blob/main/assignments/04/index.php
 ```
 
 Open in a private/incognito window to confirm accessibility.

@@ -12,7 +12,7 @@ You can:
 6. Submit the correct GitHub file URL.
 
 ## Prerequisites
-- Repository `web3400-fall25` already created from the template (Assignment 00).
+- Repository `web3400-spring26` already created from the template (Assignment 00).
 - Instructor (`gtuck`) added as collaborator.
 - Dev Container or Codespace running (PHP not required for this assignment, but environment should already work).
 
@@ -197,7 +197,7 @@ Manual checks:
 Submit this URL (replace YOUR-USER):
 
 ```
-https://github.com/YOUR-USER/web3400-fall25/blob/main/assignments/01/index.html
+https://github.com/YOUR-USER/web3400-spring26/blob/main/assignments/01/index.html
 ```
 
 Open it in a private/incognito window to ensure access (instructor must have collaborator rights).

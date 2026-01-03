@@ -336,7 +336,7 @@ git push origin main
 ### **9. Submit the Project**
 Submit the direct URL (replace YOUR-USER):
 ```
-https://github.com/YOUR-USER/web3400-fall25/blob/main/projects/00/index.php
+https://github.com/YOUR-USER/web3400-spring26/blob/main/projects/00/index.php
 ```
 
 Open in a private/incognito window to confirm accessibility.

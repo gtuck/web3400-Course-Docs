@@ -24,7 +24,7 @@ If you already did any step correctly, just verify it and continue. Do not dupli
 ## Step 1. Create Your Repository
 1. Open the template: https://github.com/gtuck/web3400
 2. Click: Use this template → Create a new repository.
-3. Repository name (exact): `web3400-fall25`
+3. Repository name (exact): `web3400-spring26`
 4. Recommended visibility: Private (unless told otherwise).
 5. After creation, the top should show: generated from gtuck/web3400  
    If it does NOT, delete the repo (Settings → Danger Zone) and redo. Do NOT click Fork.
@@ -87,7 +87,7 @@ If a web server is included and a port is forwarded (e.g., 8080), open the forwa
 Submit this URL (replace YOUR-USER):
 
 ```
-https://github.com/YOUR-USER/web3400-fall25/blob/main/index.php
+https://github.com/YOUR-USER/web3400-spring26/blob/main/index.php
 ```
 
 Open it in an incognito/private window to ensure instructor visibility (collaborator invite must be accepted).
@@ -95,7 +95,7 @@ Open it in an incognito/private window to ensure instructor visibility (collabor
 ---
 
 ## Self-Checklist
-- Repo name exactly `web3400-fall25`
+- Repo name exactly `web3400-spring26`
 - Shows “generated from gtuck/web3400”
 - Instructor collaborator added (invite sent)
 - `index.php` at repo root
@@ -105,7 +105,7 @@ Open it in an incognito/private window to ensure instructor visibility (collabor
 
 ## Common Mistakes
 - Forking instead of using the template.
-- Misspelling `web3400-fall25`.
+- Misspelling `web3400-spring26`.
 - Adding email instead of GitHub username.
 - Putting `index.php` inside a subfolder.
 - Editing but not committing/pushing.

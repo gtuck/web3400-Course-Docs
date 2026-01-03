@@ -4,7 +4,7 @@ This preparatory module ensures you can complete Assignment 00 (environment veri
 
 ### Outcomes
 By the end you can:
-1. Create a private repository from the course template named exactly `web3400-fall25`.
+1. Create a private repository from the course template named exactly `web3400-spring26`.
 2. Add the instructor as collaborator (GitHub username: `gtuck`).
 3. Launch the dev environment (local Dev Container OR GitHub Codespace).
 4. Verify PHP runs inside the container.
@@ -36,7 +36,7 @@ If using ONLY GitHub Codespaces, local Docker Desktop is not required.
 ## Step 1. Create Your Repository (Template → New Repo)
 1. Open: https://github.com/gtuck/web3400
 2. Click: Use this template → Create a new repository.
-3. Repository name (exact, lowercase): `web3400-fall25`
+3. Repository name (exact, lowercase): `web3400-spring26`
 4. Visibility: Private (unless told otherwise).
 5. Confirm the banner: “generated from gtuck/web3400”.
    - If missing OR you clicked Fork by mistake: delete (Settings → Danger Zone) and redo.
@@ -58,7 +58,7 @@ Reason: Assignment 00 rubric checks exact name + template lineage.
 Pick one (you can switch later):
 
 A. Local Dev Container (requires Docker Desktop)
-- Clone via GitHub Desktop (File → Clone repository → select `web3400-fall25`).
+- Clone via GitHub Desktop (File → Clone repository → select `web3400-spring26`).
 - Open in VS Code.
 - When prompted: Reopen in Container → Accept.
 - First build may take several minutes (images download).
@@ -129,7 +129,7 @@ Submit the screenshot via Canvas (WSU Online) (only the image). No URL yet requi
 ---
 
 ## Quick Checklist Before Moving to Assignment 00
-- Repo name: `web3400-fall25`
+- Repo name: `web3400-spring26`
 - Template lineage banner present
 - Instructor invited (`gtuck`)
 - Can open container (local or Codespace)
@@ -156,7 +156,7 @@ Fix: Make sure you are inside the container terminal (NOT host) or reinstall VS 
 
 ## Common Mistakes to Avoid
 - Forking instead of using template (breaks rubric linkage).
-- Capitalizing repo name (`Web3400-Fall25` ≠ `web3400-fall25`).
+- Capitalizing repo name (`Web3400-Spring26` ≠ `web3400-spring26`).
 - Skipping collaborator step.
 - Editing files but forgetting to push.
 - Running PHP on host instead of inside container.
@@ -165,7 +165,7 @@ Fix: Make sure you are inside the container terminal (NOT host) or reinstall VS 
 
 ## Verification Commands (Reference)
 ```bash
-pwd            # ensure path ends with web3400-fall25
+pwd            # ensure path ends with web3400-spring26
 ls -a          # see .devcontainer, .git, README.md
 php -v
 git remote -v  # origin should point to your GitHub repo

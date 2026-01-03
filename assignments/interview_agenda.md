@@ -75,7 +75,7 @@ If something breaks during the demo, move to the next item. For help, schedule a
 #### 7. Submission URL (Matches A04 Instructions)
 - [ ] Direct file URL format:
   ```
-  https://github.com/<your-username>/web3400-fall25/blob/main/assignments/04/index.php
+  https://github.com/<your-username>/web3400-spring26/blob/main/assignments/04/index.php
   ```
 
 ---

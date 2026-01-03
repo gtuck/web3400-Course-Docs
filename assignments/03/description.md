@@ -34,7 +34,7 @@ You can:
 6. Maintain incremental commits; submit correct file URL.
 
 ## Prerequisites
-- Repo `web3400-fall25` (A00 complete).
+- Repo `web3400-spring26` (A00 complete).
 - A01 & A02 present (for reference).
 - Dev Container or Codespace running.
 - Collaborator `gtuck` already invited.
@@ -173,7 +173,7 @@ git push origin main
 Submit direct file URL (replace YOUR-USER):
 
 ```
-https://github.com/YOUR-USER/web3400-fall25/blob/main/assignments/03/index.html
+https://github.com/YOUR-USER/web3400-spring26/blob/main/assignments/03/index.html
 ```
 
 Open in a private/incognito window to verify visibility.
