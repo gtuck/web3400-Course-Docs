@@ -5,7 +5,7 @@ This preparatory module ensures you can complete Assignment 00 (environment veri
 ### Outcomes
 By the end you can:
 1. Create a private repository from the course template named exactly `web3400-spring26`.
-2. Add the instructor as collaborator (GitHub username: `gtuck`).
+2. Add the instructor as collaborator (GitHub username: `gtuck@weber.eduw`).
 3. Launch the dev environment (local Dev Container OR GitHub Codespace).
 4. Verify PHP runs inside the container.
 5. Make, commit, and push a simple change.
@@ -48,7 +48,7 @@ Reason: Assignment 00 rubric checks exact name + template lineage.
 
 ## Step 2. Add Instructor as Collaborator
 1. Repo → Settings → Collaborators & teams (Manage access).
-2. Add people → type: `gtuck`
+2. Add people → type: `gtuck@weber.eduw`
 3. Send invitation. (Email address is NOT used here.)
 4. Leave it pending; you can continue.
 
@@ -131,7 +131,7 @@ Submit the screenshot via Canvas (WSU Online) (only the image). No URL yet requi
 ## Quick Checklist Before Moving to Assignment 00
 - Repo name: `web3400-spring26`
 - Template lineage banner present
-- Instructor invited (`gtuck`)
+- Instructor invited (`gtuck@weber.edu`)
 - Can open container (local or Codespace)
 - `php -v` works inside container
 - A commit pushed to `main`
@@ -147,7 +147,7 @@ Issue: Wrong repo name.
 Fix: Create a NEW correctly named repo from template; optionally copy over any files; delete the misnamed one.
 
 Issue: Added instructor by email.
-Fix: Remove incorrect invite; re-invite using username `gtuck`.
+Fix: Remove incorrect invite; re-invite using username `gtuck@weber.edu`.
 
 Issue: `git` commands not found.
 Fix: Make sure you are inside the container terminal (NOT host) or reinstall VS Code + Dev Containers extension.
