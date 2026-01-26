@@ -90,10 +90,10 @@ $pageTitle = $pageTitle ?? 'Site Title';
   <meta name="description" content="Assignment 04 - PHP templating practice">
   <title><?= htmlspecialchars($pageTitle) ?></title>
 
-  <!-- Bulma & Assets (same versions used in A03 for consistency) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+  <!-- Bulma, BulmaJS and Fontawesome Assets -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma/css/bulma.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
-  <script src="https://cdn.jsdelivr.net/npm/@vizuaalog/bulmajs@0.12/dist/bulma.min.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/@vizuaalog/bulmajs/dist/bulma.min.js" defer></script>
 </head>
 <body class="has-navbar-fixed-top">
 ```
@@ -146,7 +146,7 @@ Extract ONLY navigation / hero (if used). Keep semantics; add brand or simple li
         </div>
     </nav>
     <!-- END MAIN NAV -->
-    <section class="block">&nbsp;</section>
+    <section class="block">&nbsp;</section> <!-- Spacing hack -->
     <!-- BEGIN HERO -->
     <section class="hero is-primary">
         <div class="hero-body">
