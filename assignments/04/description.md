@@ -146,15 +146,6 @@ Extract ONLY navigation / hero (if used). Keep semantics; add brand or simple li
         </div>
     </nav>
     <!-- END MAIN NAV -->
-    <section class="block">&nbsp;</section> <!-- Spacing hack -->
-    <!-- BEGIN HERO -->
-    <section class="hero is-primary">
-        <div class="hero-body">
-            <p class="title">Hero title</p>
-            <p class="subtitle">Hero subtitle</p>
-        </div>
-    </section>
-    <!-- END HERO -->
 </header>
 <!-- END PAGE HEADER -->
 <!-- BEGIN MAIN PAGE CONTENT -->
@@ -200,10 +191,19 @@ $pageTitle = 'Home - A04 Templates';
 ?>
 <?php include 'templates/head.php'; ?>
 <?php include 'templates/nav.php'; ?>
-
+<!-- BEGIN HERO -->
+<section class="hero is-primary">
+  <div class="hero-body">
+    <p class="title">Hero title</p>
+    <p class="subtitle">Hero subtitle</p>
+  </div>
+</section>
+<!-- END HERO -->
 <!-- BEGIN YOUR CONTENT -->
-<h1 class="title">This a title.</h1>
-<h2 class="subtitle">This is a subtitle</h2>
+<section>
+  <h1 class="title">This a title.</h1>
+  <h2 class="subtitle">This is a subtitle</h2>
+</section>
 <!-- END YOUR CONTENT -->
 
 <?php include 'templates/footer.php'; ?>
