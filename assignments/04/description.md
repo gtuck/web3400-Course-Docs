@@ -148,7 +148,7 @@ Extract ONLY navigation / hero (if used). Keep semantics; add brand or simple li
     <!-- END MAIN NAV -->
 </header>
 <!-- END PAGE HEADER -->
-<!-- BEGIN MAIN PAGE CONTENT -->
+<!-- BEGIN MAIN -->
 <main class="container">
 ```
 
@@ -165,7 +165,7 @@ Close structural tags and document:
 $year = date('Y');
 ?>
   </main>
-    <!-- END MAIN PAGE CONTENT -->
+    <!-- END MAIN -->
     <!-- BEGIN PAGE FOOTER -->
     <footer class="footer">
        <div class="content has-text-centered">
@@ -199,12 +199,12 @@ $pageTitle = 'Home - A04 Templates';
   </div>
 </section>
 <!-- END HERO -->
-<!-- BEGIN YOUR CONTENT -->
+<!-- BEGIN PAGE CONTENT -->
 <section>
   <h1 class="title">This a title.</h1>
   <h2 class="subtitle">This is a subtitle</h2>
 </section>
-<!-- END YOUR CONTENT -->
+<!-- END PAGE CONTENT -->
 
 <?php include 'templates/footer.php'; ?>
 ```
