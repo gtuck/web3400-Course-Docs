@@ -1,4 +1,4 @@
-### Mandatory Assignment 04 Status Review (5‑Minute Interview)
+### Mandatory Progress Status Review (5‑Minute Interview)
 
 **Purpose**  
 Quick verification that Assignment 04 (PHP templates) is correctly implemented before larger project work. This is a progress demo, not a troubleshooting session.
