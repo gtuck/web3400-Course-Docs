@@ -25,7 +25,7 @@ cd projects/01
 touch admin_blog.php blog_create.php blog_delete.php blog_edit.php blog_post.php
 mkdir sql
 cd sql
-touch schema.sql seed.sql contact_us.sql
+touch posts.sql seed.sql
 ```
 
 ---
@@ -42,8 +42,7 @@ touch schema.sql seed.sql contact_us.sql
 ├─ index.php              # Homepage and list of posts
 ├─ contact.php            
 ├─ /sql
-│   ├─ contact_us.sql  
-│   ├─ schema.sql         # Create `posts` table
+│   ├─ posts.sql          # Create `posts` table
 │   └─ seed.sql           # Optional seed data
 └─ /templates
     ├─ flash.php
@@ -61,7 +60,7 @@ touch schema.sql seed.sql contact_us.sql
 - New: `blog_create.php` — create form + handler; validates; PRG on success.
 - New: `blog_edit.php` — edit form + handler; validates; updates slug if title changed.
 - New: `blog_delete.php` — delete confirmation + handler; PRG on success.
-- New: `sql/schema.sql` — creates `posts` table (see script below).
+- New: `sql/posts.sql` — creates `posts` table (see script below).
 - New: `sql/seed.sql` — optional seed data for testing.
 - New: `sql/contact_us.sql` — creates `contact_us` table for the Contact form.
 - Update: `config.php` — keep PDO + flash; add `slugify()` helper.
@@ -76,7 +75,7 @@ Create the `posts` table and optional seed data.
 
 
 Steps
-- Log in to phpMyAdmin and run the SQL from `/sql/schema.sql`.
+- Log in to phpMyAdmin and run the SQL from `/sql/posts.sql`.
 - Optionally run `/sql/seed.sql` to add example posts.
 
 ---
@@ -287,7 +286,7 @@ Visit (adjust port as needed):
 ## Grading Checklist
 - [ ] Project 01 exists at `projects/01/` and runs.
 - [ ] `config.php` loads; session + PDO configured; `.htaccess` denies access to `config.php`.
-- [ ] `/sql/schema.sql` applied (and optional `/sql/seed.sql`).
+- [ ] `/sql/posts.sql` applied (and optional `/sql/seed.sql`).
 - [ ] `templates/` reused; include order correct; Bulma + BulmaJS present.
 - [ ] `nav.php` has an Admin → Blog Admin link (relative path), and a Contact link.
 - [ ] `index.php` lists newest posts with excerpts; titles link to single view.
