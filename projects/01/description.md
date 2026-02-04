@@ -72,7 +72,7 @@ touch schema.sql seed.sql contact_us.sql
 ## Database Setup
 Create the `posts` table and optional seed data.  
 
--See SQL code in [sql/schema.sql](sql/schema.sql) and [sql/seed.sql](sql/seed.sql) files
+-See SQL code in [sql/posts.sql](sql/posts.sql) and [sql/seed.sql](sql/seed.sql) files
 
 
 Steps
