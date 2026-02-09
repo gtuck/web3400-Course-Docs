@@ -135,7 +135,7 @@ function slugify(string $text): string {
 - Heading: “Blog Admin” with a “Create Post” button.
 - Table columns: ID, Title (link to public view), Created, Updated, Actions (Edit/Delete).
 - Flash messages show under the heading.
-- - [admin_blog.php](admin_blog.php)
+- [admin_blog.php](admin_blog.php)
 
 ### `blog_create.php` (Create)
 - POST fields: `title`, `body`.
