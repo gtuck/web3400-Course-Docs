@@ -952,14 +952,6 @@ If necessary, confirm your table exists: see `projects/01/sql/contact_us.sql`.
 
 ---
 
-## Stretch Goals (Optional)
-- Add a CSRF token to the form and verify on submit.
-- Log submissions to a file for debugging in `APP_ENV=local`.
-- Redirect after POST (PRG pattern) to avoid resubmits on refresh.
-- Add a simple admin page to list contact messages.
-
----
-
 ## Submission
 Submit the direct URL to your Project 04 folder in your repository (replace YOUR-USER and repo name):
 
