@@ -341,7 +341,7 @@ class AuthController extends Controller
             'password_confirm' => $_POST['password_confirm'] ?? '',
         ];
 
-        $errors = \App\Support\Validator::validate($data, [
+        $errors = Validator::validate($data, [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255',
             'password' => 'required|min:8',
@@ -352,18 +352,19 @@ class AuthController extends Controller
         }
 
         // Unique email
-        if (\App\Models\User::existsBy('email', $data['email'])) {
+        if (User::existsBy('email', $data['email'])) {
             $errors['email'][] = 'Email is already registered.';
         }
 
         if (!empty($errors)) {
-            foreach (\App\Support\Validator::flattenErrors($errors) as $m) {
+            foreach (Validator::flattenErrors($errors) as $m) {
                 $this->flash($m, 'is-warning');
             }
             $this->render('auth/register', ['title' => 'Register', 'old' => $data]);
+            return;
         }
 
-        $id = \App\Models\User::create([
+        $id = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password_hash' => password_hash($data['password'], PASSWORD_DEFAULT),
@@ -371,12 +372,71 @@ class AuthController extends Controller
             'is_active' => 1,
         ]);
 
-        $user = \App\Models\User::find($id);
+        $user = User::find($id);
+        if (!$user) {
+            // Fallback: we know the new user's ID and role
+            $user = ['id' => $id, 'role' => 'user'];
+        }
+
         $this->loginUser($user);
         $this->flash('Welcome, your account has been created!', 'is-success');
         $this->redirect('/profile');
     }
+
+    public function showLogin(): void
+    {
+        $this->render('auth/login', ['title' => 'Login']);
+    }
+
+    public function login(): void
+    {
+        if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
+            $this->flash('Security token validation failed.', 'is-danger');
+            $this->redirect('/login');
+        }
+
+        $email = strtolower(trim($_POST['email'] ?? ''));
+        $password = $_POST['password'] ?? '';
+
+        $errors = Validator::validate(compact('email', 'password'), [
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+        if (!empty($errors)) {
+            foreach (Validator::flattenErrors($errors) as $m) {
+                $this->flash($m, 'is-warning');
+            }
+            $this->redirect('/login');
+        }
+
+        $user = User::firstBy('email', $email);
+        if (!$user || !$user['is_active']) {
+            $this->flash('Invalid credentials.', 'is-danger');
+            $this->redirect('/login');
+        }
+
+        if (!password_verify($password, $user['password_hash'])) {
+            $this->flash('Invalid credentials.', 'is-danger');
+            $this->redirect('/login');
+        }
+
+        $this->loginUser($user);
+        $this->flash('Welcome back!', 'is-success');
+        $this->redirect('/');
+    }
+
+    public function logout(): void
+    {
+        if (!$this->validateCsrf($_POST['csrf_token'] ?? '')) {
+            $this->flash('Security token validation failed.', 'is-danger');
+            $this->redirect('/');
+        }
+        $this->logoutUser();
+        $this->flash('You have been logged out.', 'is-info');
+        $this->redirect('/');
+    }
 }
+
 ```
 
 View (`src/Views/auth/register.php`):
