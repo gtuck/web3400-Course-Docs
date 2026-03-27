@@ -436,7 +436,6 @@ class AuthController extends Controller
         $this->redirect('/');
     }
 }
-
 ```
 
 View (`src/Views/auth/register.php`):
