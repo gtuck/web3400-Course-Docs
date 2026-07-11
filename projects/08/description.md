@@ -1,4 +1,9 @@
 # Project 08 – Post Engagement & Comments
+
+**Estimated time:** 8–12 hours · **Points:** 110 · **Due:** see the course schedule in Canvas
+
+> **Falling behind?** If your Project 07 isn't working, start from the reference implementation in [`../07/complete/`](../07/complete/) — note it in your project README (see the syllabus Fresh Start Policy). No penalty.
+
 Extend your Project 07 CMS with social features that let authenticated users like, favorite, and comment on blog posts. You will design small join tables, wire up controllers and routes for these actions, and surface engagement counts and comments in the public post view and admin area.
 
 ---

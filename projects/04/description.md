@@ -1,4 +1,9 @@
 # Project 04 – Dotenv, Database Helper, BaseModel + Generator, and Contact Form
+
+**Estimated time:** 6–9 hours · **Points:** 70 · **Due:** see the course schedule in Canvas
+
+> **Falling behind?** If your Project 03 isn't working, start from the Project 03 starter in [`../03/files/`](../03/files/) and complete the Contact page walkthrough in [`../03/addPage.md`](../03/addPage.md).
+
 Add environment variable support with `vlucas/phpdotenv`, centralize PDO setup in a reusable Database helper, implement a lightweight `BaseModel` and code generator, and build a Contact page that saves messages to `contact_us` using the model.
 
 ---

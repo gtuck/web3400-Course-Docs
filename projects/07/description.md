@@ -1,4 +1,9 @@
 # Project 07 – Content Management System (Posts CMS)
+
+**Estimated time:** 8–12 hours · **Points:** 100 · **Due:** see the course schedule in Canvas
+
+> **Falling behind?** If your Project 06 isn't working, start from the reference implementation in [`../06/complete/`](../06/complete/) — note it in your project README (see the syllabus Fresh Start Policy). No penalty.
+
 Build a simple CMS that lets Editors and Administrators create, edit, publish, and delete Posts. Start from your completed Project 06 and extend your MVC app with a Posts model, admin management screens, a post detail page, and an updated home page that showcases featured content.
 
 ---

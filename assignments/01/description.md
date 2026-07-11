@@ -1,5 +1,7 @@
 # Assignment 01: Intro to HTML Fundamentals
 
+**Estimated time:** 2–4 hours · **Points:** see Canvas · **Due:** see the course schedule in Canvas
+
 Purpose: Build a single HTML page using core HTML elements while practicing repository organization and Git workflow consistent with Assignment 00.
 
 ## Learning Objectives

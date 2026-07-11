@@ -1,4 +1,7 @@
 # Project 02 - Refactoring to MVC Pattern
+
+**Estimated time:** 4–6 hours · **Points:** 75 · **Due:** see the course schedule in Canvas
+
 Learn the Model-View-Controller (MVC) design pattern by refactoring a monolithic PHP script into a well-organized, maintainable application with separated concerns.
 
 ---

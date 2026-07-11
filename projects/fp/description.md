@@ -1,4 +1,9 @@
 # Final Project – Administrator Dashboard (MVC CMS)
+
+**Estimated time:** 15–20 hours · **Points:** 150 · **Due:** see the course schedule in Canvas
+
+> **Falling behind?** If your Project 08 isn't working, start from the reference implementation in [`../08/complete/`](../08/complete/) — note it in your project README (see the syllabus Fresh Start Policy). No penalty.
+
 Build a production‑ready **Administrator Dashboard** on top of your existing MVC CMS. This final project is a comprehensive integration of everything you built in Projects 03–08: routing, controllers, models, authentication, authorization, validation, CSRF protection, content management, and engagement features.
 
 The admin dashboard must expose meaningful **Key Performance Indicators (KPIs)** and recent activity so an administrator can monitor and manage the site efficiently.

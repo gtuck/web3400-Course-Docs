@@ -1,5 +1,7 @@
 # Assignment 02: Introduction to CSS
 
+**Estimated time:** 3–5 hours · **Points:** see Canvas · **Due:** see the course schedule in Canvas
+
 Purpose: Extend your HTML page (from Assignment 01) with external CSS to control typography, color, layout, and component styling while reinforcing clean repository workflow.
 
 ## Learning Objectives

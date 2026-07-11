@@ -51,8 +51,10 @@ By the end of the course, you will be able to:
 2. **Communication:** Questions? Use [Google Appointment Calendar](https://calendar.app.google/grXYvRYJeMUtz9si7) or email anytime.  
 3. **Late Work:** Late work accepted up to 5 days after due date with a 10% per day penalty; after 5 days, assignments earn 0.  
 4. **Extra Credit:** One 50-point extra credit opportunity is offered near the end of the semester (see the course schedule). No other extra credit is available.  
-5. **Class Recording:** Recording is prohibited without instructor authorization.
+5. **Class Recording:** All class sessions are automatically recorded via Zoom and posted in Canvas within an hour or two after each class — use them to review or catch up on a missed session. Personal recording by students is prohibited without instructor authorization.
 6. **Grading:** Based on assignments, projects, and a final project (Assignments	30%, Projects	50%, Final Project	20%).
+7. **Reference Code:** Complete reference implementations for several projects are published in the course repository (`projects/*/complete`). You may read them to study patterns or to get unstuck after making a genuine attempt. Submitting reference code wholesale as your own work (outside the Fresh Start Policy below) is academic misconduct — status-review interviews require you to explain any code you submit.
+8. **Fresh Start Policy:** Projects build on each other, but one bad week should not cascade. If your previous project isn't working, you may start the new project from the most recent reference implementation (for example, begin Project 06 from `projects/05/complete`) — just say so in your project README. No penalty applies to the new project; the earlier project is still graded on its own merits.
 
 ---
 

@@ -1,5 +1,7 @@
 # Assignment 03: Bulma CSS Framework Integration
 
+**Estimated time:** 3–5 hours · **Points:** see Canvas · **Due:** see the course schedule in Canvas
+
 Purpose: Rebuild / restyle the prior HTML content (from A01/A02) using the Bulma CSS framework to practice rapid UI prototyping, consistent styling, and responsive layout with minimal custom CSS.
 
 ## Why Use a CSS Framework?

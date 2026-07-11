@@ -1,4 +1,9 @@
 # Project 03 – MVC with Router, Namespaces, and Autoloading
+
+**Estimated time:** 6–8 hours · **Points:** 100 · **Due:** see the course schedule in Canvas
+
+> **Falling behind?** If your Project 02 isn't working, the reference MVC files in [`../02/files/`](../02/files/) show the completed refactor.
+
 Elevate your Project 02 refactor into a structured MVC app using a front controller, a simple router, namespaces, and PSR-4 autoloading.
 
 ---

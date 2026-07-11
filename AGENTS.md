@@ -71,6 +71,7 @@ The projects build a PHP MVC framework from scratch:
 
 ### Editing Conventions
 - One `#` per page, Title Case headings, kebab-case filenames.
+- Every assignment/project brief opens with a front-matter line right after the H1: `**Estimated time:** X hours · **Points:** N · **Due:** see the course schedule in Canvas`. Projects that build on a predecessor also carry a `> **Falling behind?**` blockquote pointing at the correct reset source (see syllabus Fresh Start Policy). Keep points in sync with `rubric.csv` totals.
 - When pasting long instructions (e.g., assignment scaffolds), follow with a concise "Requirements" list so students know what must be original.
 - Keep schedule dates synchronized across `schedule.md`, Canvas, and any announcements. When in doubt, edit `schedule.md` first, then copy to Canvas.
 

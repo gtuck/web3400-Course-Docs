@@ -1,5 +1,7 @@
 # Assignment 04: PHP Template System (Head / Nav / Footer Includes)
 
+**Estimated time:** 4–6 hours · **Points:** see Canvas · **Due:** see the course schedule in Canvas
+
 Purpose: Introduce a lightweight PHP templating approach that reduces repetition, improves maintainability, and sets the stage for future dynamic pages.
 
 ## Why a Template System?

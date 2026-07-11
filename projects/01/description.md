@@ -1,4 +1,9 @@
 # Project 01 — Mini CMS (CRUD)
+
+**Estimated time:** 8–12 hours · **Points:** 100 · **Due:** see the course schedule in Canvas
+
+> **Falling behind?** If your Project 00 isn't working, rebuild it from the Project 00 description first — the non-blog files in [`complete/`](complete/) show the expected end state.
+
 Extend Project 00 into a working mini‑CMS. You will implement CRUD for a `posts` feature using PHP + PDO, the PRG pattern (Post‑Redirect‑Get), prepared statements, and Bulma styling — while reusing the shared templates and navigation from Project 00.
 
 ---

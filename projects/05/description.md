@@ -1,4 +1,9 @@
 # Project 05 – Vanilla PHP Template System with Enhanced Security & Validation
+
+**Estimated time:** 10–14 hours · **Points:** 80 · **Due:** see the course schedule in Canvas
+
+> **Falling behind?** If your Project 04 isn't working, start from the reference implementation in [`../04/complete/`](../04/complete/) — note it in your project README (see the syllabus Fresh Start Policy). No penalty.
+
 Build a lightweight, dependency‑free PHP templating system that supports layout inheritance, named sections, reusable partials, shared data, and a safe escape helper. Enhance your MVC framework with CSRF protection, reusable validation, RESTful routing, and custom exception handling.
 
 ---

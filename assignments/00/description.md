@@ -1,5 +1,7 @@
 # Assignment 00: Verify Your Development Environment & Workflow
 
+**Estimated time:** 1–2 hours · **Points:** see Canvas · **Due:** see the course schedule in Canvas
+
 Purpose: Confirm you can (1) create the course repository from the template, (2) add the instructor, (3) run the dev container locally or in a Codespace, (4) create / commit / push a file, (5) submit a correct URL.
 
 ## Learning Objectives

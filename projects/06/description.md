@@ -1,4 +1,9 @@
 # Project 06 – Authentication & Authorization (Users + Roles)
+
+**Estimated time:** 10–14 hours · **Points:** 100 · **Due:** see the course schedule in Canvas
+
+> **Falling behind?** If your Project 05 isn't working, start from the reference implementation in [`../05/complete/`](../05/complete/) — note it in your project README (see the syllabus Fresh Start Policy). No penalty.
+
 Build user accounts with secure registration, login/logout, sessions, role‑based authorization, and an admin users panel. Keep the MVC fundamentals front‑and‑center and use your existing framework from Project 05 (templating, CSRF, validator, RESTful routing, custom exceptions).
 
 ---

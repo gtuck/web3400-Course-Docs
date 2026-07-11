@@ -1,5 +1,7 @@
 # Project 00 — Project Configuration, Security, HTML Form Processing & Database Connections
 
+**Estimated time:** 4–6 hours · **Points:** 50 · **Due:** see the course schedule in Canvas
+
 This project sets up a basic PHP web project using **PDO** for database access and a simple **template system** (`head.php`, `nav.php`, `footer.php`). You’ll also build a secure **Contact Us** form that saves messages to the database and displays user feedback with session‑based flash messages (dismissed via **BulmaJS**).
 
 ---
