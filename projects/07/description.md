@@ -1,7 +1,7 @@
 # Project 07 – Content Management System (Posts CMS)
 Build a simple CMS that lets Editors and Administrators create, edit, publish, and delete Posts. Start from your completed Project 06 and extend your MVC app with a Posts model, admin management screens, a post detail page, and an updated home page that showcases featured content.
 
-—
+---
 
 ## Overview
 Starting from a completed Project 06, you will:
@@ -20,7 +20,7 @@ Constraints:
 - Protect all state-changing actions with CSRF and role checks.
 - Roles: `admin`, `editor`, `user`. Editors and Admins can manage posts; only Admins manage users.
 
-—
+---
 
 ## Learning Objectives
 - Design a small CMS on top of your MVC foundation
@@ -28,7 +28,7 @@ Constraints:
 - Implement role-gated admin features with clean controllers
 - Render lists and detail pages with safe output and small helpers
 
-—
+---
 
 ## Prerequisites
 - Completed Project 06 with:
@@ -36,7 +36,7 @@ Constraints:
   - CSRF, Validator, View engine, Router
   - Working DB connection via `Support/Database.php`
 
-—
+---
 
 ## Target Structure
 
@@ -90,7 +90,7 @@ protected function slugify(string $value): string
 
 You may alternatively keep a private slugify in Admin/PostsController if you prefer local scope, but the base helper is more reusable.
 
-—
+---
 
 ## Step 1) Scaffold from Project 06 + create new files
 
@@ -112,7 +112,7 @@ touch projects/07/src/Controllers/PostsController.php \
       projects/07/src/Views/posts/show.php
 ```
 
-—
+---
 
 ## Step 2) Create the `posts` table
 
@@ -143,7 +143,7 @@ CREATE TABLE IF NOT EXISTS posts (
 );
 ```
 
-—
+---
 
 ## Step 3) Seed the `posts` table
 
@@ -236,7 +236,7 @@ INSERT INTO posts (
   );
 ```
 
-—
+---
 
 ## Step 4) Update the `Post` model (fields + helpers)
 
@@ -290,7 +290,7 @@ final class Post extends BaseModel
 }
 ```
 
-—
+---
 
 ## Step 5) Add a tiny “time ago” helper
 
@@ -319,7 +319,7 @@ final class Time
 }
 ```
 
-—
+---
 
 ## Step 6) Update the home page (featured posts)
 
@@ -366,7 +366,7 @@ View: update the `<article class="box mb-4">` content.
 <?php endforeach; ?>
 ```
 
-—
+---
 
 ## Step 7) Public post detail
 
@@ -427,7 +427,7 @@ View (`src/Views/posts/show.php`):
 <?php $this->end(); ?>
 ```
 
-—
+---
 
 ## Step 8) Admin Posts routes
 
@@ -447,7 +447,7 @@ $router->post('/admin/posts/{id}/unpublish', AdminPostsController::class, 'unpub
 $router->post('/admin/posts/{id}/delete', AdminPostsController::class, 'destroy');
 ```
 
-—
+---
 
 ## Step 9) Admin Posts controller
 
@@ -503,7 +503,7 @@ class PostsController extends Controller
 }
 ```
 
-—
+---
 
 ## Step 10) Admin Posts views
 
@@ -542,7 +542,7 @@ Create a shared form partial and simple screens for list/create/edit.
 
 Tip: In `src/Views/admin/posts/edit.php`, include a small “Quick Actions” box with CSRF-protected forms to Publish/Unpublish and Delete the post, mirroring the actions available in the index table.
 
-—
+---
 
 ## Step 11) Admin Posts views (create/edit)
 
@@ -609,7 +609,7 @@ Notes:
 - Keep all dynamic output wrapped with `$this->e()`, and make sure each form includes `$this->csrfField()` plus hidden `_method` fields if you mimic REST semantics.
 - The quick-action forms should call your Admin Posts controller methods (`publish`, `unpublish`, `destroy`) added earlier; they mirror the action buttons in the index table.
 
-—
+---
 
 ## Step 12) Update the navigation (Admin dropdown)
 
@@ -630,7 +630,7 @@ Replace the single Admin/Users link with a dropdown. Show “Manage Users” onl
 <?php endif; ?>
 ```
 
-—
+---
 
 ## Rubric (100 points)
 
@@ -651,6 +651,6 @@ Replace the single Admin/Users link with a dropdown. Show “Manage Users” onl
 - Code Quality (10)
   - Follows MVC patterns, safe output, thin controllers (10)
 
-—
+---
 
 Note: Ensure you’ve run the SQL in Steps 2–3 and have at least one `editor` or `admin` user to access the admin posts area.

@@ -1,7 +1,7 @@
 # Project 08 – Post Engagement & Comments
 Extend your Project 07 CMS with social features that let authenticated users like, favorite, and comment on blog posts. You will design small join tables, wire up controllers and routes for these actions, and surface engagement counts and comments in the public post view and admin area.
 
-—
+---
 
 ## Overview
 Starting from a completed Project 07, you will:
@@ -20,7 +20,7 @@ Constraints:
 - Enforce “one like and one favorite per user per post” with unique constraints and/or validation.
 - Protect all state-changing actions with CSRF tokens and role checks where appropriate.
 
-—
+---
 
 ## Requirements
 - Start from your own, working Project 07 codebase.
@@ -29,7 +29,7 @@ Constraints:
 - Implement user comments with validation and basic moderation (new comments default to `pending`; publish via admin).
 - Show engagement UI on the public post page and a simple moderation UI in the admin area.
 
-—
+---
 
 ## Learning Objectives
 - Design and implement one-to-many and many-to-many relationships (posts ↔ users for likes/favorites, posts ↔ comments).
@@ -37,7 +37,7 @@ Constraints:
 - Implement authenticated, CSRF-protected POST actions for likes, favorites, and comments.
 - Build simple moderation workflows for user-generated content inside your CMS.
 
-—
+---
 
 ## Prerequisites
 - Completed Project 07 with:
@@ -49,7 +49,7 @@ Constraints:
 
 If your Project 07 is incomplete or significantly different, bring it up to date before starting Project 08.
 
-—
+---
 
 ## Target Structure
 
@@ -90,7 +90,7 @@ You may organize controllers/views slightly differently, but keep responsibiliti
 - Public controllers handle user-facing likes/favs/comments on a single post.
 - Admin controllers handle reviewing and moderating comments across posts.
 
-—
+---
 
 ## Step 1) Copy Project 07 to Project 08
 
@@ -115,7 +115,7 @@ touch projects/08/src/Controllers/PostEngagementController.php \
 
 Then adjust namespaces or paths if needed so `projects/08/public/index.php` points to the correct `src` directory.
 
-—
+---
 
 ## Step 2) Add tables for likes, favorites, and comments
 
@@ -171,7 +171,7 @@ Requirements:
 - Comments reference both the post and the authoring user.
 - Use the `status` field to support moderation (`pending`, `published`, `deleted`).
 
-—
+---
 
 ## Step 3) Add models and helper methods
 
@@ -395,7 +395,7 @@ In `Post` (from Project 07), add helpers such as:
 - All counter increment/decrement methods use `GREATEST(column - 1, 0)` to prevent negative values
 - Keep controllers thin by moving all SQL queries into model methods
 
-—
+---
 
 ## Step 4) Routes and controller for likes and favorites
 
@@ -503,7 +503,7 @@ class PostEngagementController extends Controller
 - Counters are updated using model methods (`Post::incrementLikes()`, `Post::decrementLikes()`)
 - Redirect back to the post detail page after each action
 
-—
+---
 
 ## Step 5) Routes and controller for comments (public)
 
@@ -536,7 +536,7 @@ $router->post('/comments/{id}/delete', CommentsController::class, 'destroy');
 
 **Key points:** Use model methods (`Post::findBySlug()`, `Comment::create()`, `Comment::update()`) instead of raw SQL in the controller.
 
-—
+---
 
 ## Step 6) Load engagement and comments in the post detail view
 
@@ -598,7 +598,7 @@ View responsibilities (`src/Views/posts/show.php`):
 
 You may extract the like/fav UI into a partial (for example, `Views/partials/engagement.php`) if you want to reuse it elsewhere.
 
-—
+---
 
 ## Step 7) Admin comments moderation
 
@@ -696,7 +696,7 @@ Views (`src/Views/admin/comments/*.php`):
 
 Update your nav partial (`src/Views/partials/nav.php`) to include a link to `/admin/comments` for `admin` and `editor` roles.
 
-—
+---
 
 ## Step 8) Keep counters in sync
 
@@ -708,7 +708,7 @@ Guidelines:
 - For comments, increment `comments_count` when publishing (pending → published) and decrement only when deleting a published comment. Keep this consistent across user and admin flows.
 - If counters ever get out of sync, you should be able to recompute them with a one-off SQL query or script; think about what that query would look like.
 
-—
+---
 
 ## Step 9) UX and security polish
 
@@ -728,7 +728,7 @@ Security:
   - Only `admin`/`editor` can access `/admin/comments`.
   - Only comment authors or `admin`/`editor` can delete comments from the public side.
 
-—
+---
 
 ## Step 10) Profile engagement tabs (Bulma)
 
@@ -840,7 +840,7 @@ Notes:
 - Keep all dynamic output escaped with `$this->e()`.
 - For commented posts, you may choose to show only posts with at least one non-deleted comment by the user.
 
-—
+---
 
 ## Rubric (100 points)
 
@@ -863,6 +863,6 @@ Notes:
 - Code Quality & UX (10)
   - Follows MVC patterns, keeps controllers thin, uses models for DB logic, uses `$this->e()` for output, and provides a reasonable user experience (10)
 
-—
+---
 
 By the end of Project 08, your CMS should feel more like a real blog platform: users can express preference through likes and favorites, contribute comments, and admins can moderate user-generated content while keeping data consistent and secure.

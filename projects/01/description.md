@@ -71,7 +71,7 @@ touch posts.sql seed.sql
 ## Database Setup
 Create the `posts` table and optional seed data.  
 
--See SQL code in [sql/posts.sql](sql/posts.sql) and [sql/seed.sql](sql/seed.sql) files
+-See SQL code in [sql/posts.sql](complete/sql/posts.sql) and [sql/seed.sql](complete/sql/seed.sql) files
 
 
 Steps

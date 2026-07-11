@@ -1,7 +1,7 @@
 # Project 06 – Authentication & Authorization (Users + Roles)
 Build user accounts with secure registration, login/logout, sessions, role‑based authorization, and an admin users panel. Keep the MVC fundamentals front‑and‑center and use your existing framework from Project 05 (templating, CSRF, validator, RESTful routing, custom exceptions).
 
-—
+---
 
 ## Overview
 Starting from a completed Project 05, you will:
@@ -19,7 +19,7 @@ Constraints:
 - Use existing `BaseModel.php` for CRUD. If a query can’t be expressed with the existing methods, add a small, reusable helper to `BaseModel` (do not bypass the model in controllers).
 - Favor simple GET/POST endpoints for admin operations.
 
-—
+---
 
 ## Learning Objectives
 - Implement session‑based authentication in vanilla PHP
@@ -29,7 +29,7 @@ Constraints:
 - Keep controllers thin: validation in `Validator`, data access in `Models`
 - Extend a shared base to add small, composable features (e.g., minimal BaseModel helpers)
 
-—
+---
 
 ## Prerequisites
 - Completed Project 05 with:
@@ -38,7 +38,7 @@ Constraints:
   - Router + basic views/partials
 - Working database connection via `Support/Database.php`
 
-—
+---
 
 ## Target Structure
 
@@ -67,7 +67,7 @@ projects/06/
       partials/nav.php       # integrate role‑aware navigation
 ```
 
-—
+---
 
 ## Step 1) Run the Project 06 setup script
 
@@ -101,7 +101,7 @@ touch src/Views/admin/users/index.php
 touch src/Views/admin/users/create.php
 touch src/Views/admin/users/edit.php
 ```
-—
+---
 
 ## Step 2) Create the `users` table
 
@@ -133,7 +133,7 @@ INSERT INTO users (name, email, password_hash, role) VALUES
 - Login with: admin@example.com
 - Password: test
 
-—
+---
 
 ## Step 3) Add a `User` model
 
@@ -152,7 +152,7 @@ class User extends BaseModel
 }
 ```
 
-—
+---
 
 ## Step 4) Small data-layer helpers (BaseModel + Validator)
 
@@ -204,7 +204,7 @@ The new validation rules used throughout the project also need support in your s
     };
 ```
 
-—
+---
 
 ## Step 5) Add lightweight auth helpers to your base `Controller`
 
@@ -272,7 +272,7 @@ protected function requireRole(string ...$roles): void
 }
 ```
 
-—
+---
 
 ## Step 6) Add a `csrfField()` helper to the `View`
 
@@ -294,7 +294,7 @@ public function csrfField(): void
 }
 ```
 
-—
+---
 
 ## Step 7) Implement Registration Route (GET/POST), Controller and View
 
@@ -485,7 +485,7 @@ View (`src/Views/auth/register.php`):
 <?php $this->end(); ?>
 ```
 
-—
+---
 
 ## Step 8) Implement Login/Logout Route (GET/POST), Controller and View
 
@@ -590,7 +590,7 @@ View (`src/Views/auth/login.php`):
 <?php $this->end(); ?>
 ```
 
-—
+---
 
 ## Step 9) Profile: view/edit + change password
 
@@ -786,7 +786,7 @@ Views:
 <?php $this->end(); ?>
 ```
 
-—
+---
 
 ## Step 10) Admin‑only Users Management (GET/POST)
 
@@ -1049,7 +1049,7 @@ Views:
 <?php $this->end(); ?>
 ```
 
-—
+---
 
 ## Step 11) Routes (favor GET/POST)
 
@@ -1154,7 +1154,7 @@ $router->dispatch();
 
 ```
 
-—
+---
 
 ## Step 12) Role‑aware navigation and protected views
 
@@ -1213,7 +1213,7 @@ $role = $_SESSION['user_role'] ?? 'user'; ?>
 </header>
 ```
 
-—
+---
 
 ## Security Notes
 - Always validate CSRF before processing POST requests.
@@ -1222,7 +1222,7 @@ $role = $_SESSION['user_role'] ?? 'user'; ?>
 - Check `is_active` on login and in admin tooling; deactivated users should not authenticate.
 - Sanitize and validate user input with `Validator` rules; limit updates via `$fillable`.
 
-—
+---
 
 ## Tips and Gotchas
 - Keep controllers thin: no SQL in controllers — if you need a new query, add a small, reusable helper to `BaseModel`.
@@ -1231,7 +1231,7 @@ $role = $_SESSION['user_role'] ?? 'user'; ?>
 - Use PRG (Post‑Redirect‑Get) after successful POSTs to prevent resubmission.
 - Reuse the templating engine: `$this->layout()`, `$this->start()/end()`, `$this->insert()` and `$this->e()` everywhere.
 
-—
+---
 
 ## Grading Checklist
 
@@ -1264,7 +1264,7 @@ Framework Integration
 - [ ] Minimal generic helpers added to `BaseModel` (`firstBy`, `existsBy`)
 - [ ] No external packages used; only Project 05 tooling + core PHP
 
-—
+---
 
 ## Submission
 Submit the direct URL to your Project 06 folder in your repository:

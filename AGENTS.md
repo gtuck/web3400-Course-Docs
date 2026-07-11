@@ -34,9 +34,9 @@ web3400-Course-Docs/
 ├── projects/             # Major projects (00-08, fp)
 │   ├── 00-08/           # Individual projects
 │   │   ├── description.md    # Project requirements
-│   │   ├── rubric.csv        # Grading rubric (02+)
+│   │   ├── rubric.csv        # Grading rubric (all projects)
 │   │   ├── files/            # Starter code (02-04)
-│   │   └── complete/         # Reference implementation (04+)
+│   │   └── complete/         # Reference implementation (01, 04+)
 │   └── fp/              # Final project
 └── PHP-Code-Examples.md # PHP syntax reference
 ```
@@ -285,11 +285,11 @@ Students use Docker Development Containers with a LAMP stack (Linux-Apache-MySQL
 
 ## Reference Implementations
 
-Each project has a `complete/` directory (Projects 04+) with a working reference implementation. These are for instructor reference and should match the requirements in `description.md`.
+Projects 01 and 04+ (plus fp) have a `complete/` directory with a working reference implementation. These are for instructor reference and should match the requirements in `description.md`. Projects 06+ include a `schema.sql` extracted from the description's SQL blocks — keep the two in sync. Reference `.env` files are never tracked in git (each `complete/` has a `.gitignore`); use `.env.example` as the template.
 
 ## Rubrics
 
-Grading rubrics are CSV files (`rubric.csv`) in each project directory (Projects 02+). They list specific criteria and point values for assessment. Canvas rubric CSVs must include a `Rubric Name` column on every row and rating headers (e.g., Full/No Credit). Use `import_rubric_template.csv` as the pattern when updating project rubrics.
+Grading rubrics are CSV files (`rubric.csv`) in every project directory (00 through 08 and fp). They list specific criteria and point values for assessment. Canvas rubric CSVs must include a `Rubric Name` column on every row and rating headers (e.g., Full/No Credit). Use `import_rubric_template.csv` as the pattern when updating project rubrics.
 
 ## Code Generator Script
 
