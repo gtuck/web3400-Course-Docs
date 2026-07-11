@@ -2,6 +2,8 @@
 
 **Estimated time:** 10–14 hours · **Points:** 100 · **Due:** see the course schedule in Canvas
 
+> **Your code, not ours:** the code blocks in this brief are scaffolds. Lines marked `// TODO(you)` are the graded heart of the project — write them yourself. You must be able to explain every line you submit (see syllabus Reference Code policy; status interviews will ask).
+
 > **Falling behind?** If your Project 05 isn't working, start from the reference implementation in [`../05/complete/`](../05/complete/) — note it in your project README (see the syllabus Fresh Start Policy). No penalty.
 
 Build user accounts with secure registration, login/logout, sessions, role‑based authorization, and an admin users panel. Keep the MVC fundamentals front‑and‑center and use your existing framework from Project 05 (templating, CSRF, validator, RESTful routing, custom exceptions).
@@ -372,7 +374,8 @@ class AuthController extends Controller
         $id = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password_hash' => password_hash($data['password'], PASSWORD_DEFAULT),
+            // TODO(you): add the 'password_hash' key — hash $data['password'] with password_hash(..., PASSWORD_DEFAULT).
+            // Never store or log the plain-text password.
             'role' => 'user',
             'is_active' => 1,
         ]);
@@ -420,10 +423,8 @@ class AuthController extends Controller
             $this->redirect('/login');
         }
 
-        if (!password_verify($password, $user['password_hash'])) {
-            $this->flash('Invalid credentials.', 'is-danger');
-            $this->redirect('/login');
-        }
+        // TODO(you): verify the submitted password against $user['password_hash'] with password_verify().
+        // On failure: flash the SAME generic 'Invalid credentials.' message and redirect to /login.
 
         $this->loginUser($user);
         $this->flash('Welcome back!', 'is-success');
@@ -539,10 +540,9 @@ public function login(): void
         $this->redirect('/login');
     }
 
-    if (!password_verify($password, $user['password_hash'])) {
-        $this->flash('Invalid credentials.', 'is-danger');
-        $this->redirect('/login');
-    }
+    // TODO(you): verify the submitted password against $user['password_hash'] with password_verify().
+    // On failure: flash the SAME generic 'Invalid credentials.' message used above (don't reveal
+    // whether the email or the password was wrong) and redirect back to /login.
 
     $this->loginUser($user);
     $this->flash('Welcome back!', 'is-success');

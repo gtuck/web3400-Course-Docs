@@ -13,3 +13,6 @@
 
 # AI-generated reports (local only)
 .reports/
+
+# Instructor-only materials with answer keys (never publish)
+instructor/

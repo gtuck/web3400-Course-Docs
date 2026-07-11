@@ -2,6 +2,8 @@
 
 **Estimated time:** 4–6 hours · **Points:** 50 · **Due:** see the course schedule in Canvas
 
+> **Your code, not ours:** the code blocks in this brief are scaffolds. Lines marked `// TODO(you)` are the graded heart of the project — write them yourself. You must be able to explain every line you submit (see syllabus Reference Code policy; status interviews will ask).
+
 This project sets up a basic PHP web project using **PDO** for database access and a simple **template system** (`head.php`, `nav.php`, `footer.php`). You’ll also build a secure **Contact Us** form that saves messages to the database and displays user feedback with session‑based flash messages (dismissed via **BulmaJS**).
 
 ---
@@ -114,8 +116,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($message === '') $errors[] = "Message is required.";
 
     if (empty($errors)) {
-        $stmt = $pdo->prepare("INSERT INTO contact_us (name, email, message) VALUES (:name, :email, :message)");
-        $stmt->execute([':name'=>$name, ':email'=>$email, ':message'=>$message]);
+        // TODO(you): Save the message to `contact_us` with a PREPARED STATEMENT.
+        //   1. $pdo->prepare('INSERT INTO contact_us (name, email, message) VALUES (:name, :email, :message)')
+        //   2. execute() the statement, passing the three validated values for the placeholders.
+        // Never build this SQL by concatenating $name/$email/$message into the string — that is SQL injection.
         flash('Thank you for contacting us!', 'is-success');
         header('Location: contact.php');
         exit;

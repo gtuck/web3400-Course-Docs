@@ -2,6 +2,8 @@
 
 **Estimated time:** 6–9 hours · **Points:** 70 · **Due:** see the course schedule in Canvas
 
+> **Your code, not ours:** the code blocks in this brief are scaffolds. Lines marked `// TODO(you)` are the graded heart of the project — write them yourself. You must be able to explain every line you submit (see syllabus Reference Code policy; status interviews will ask).
+
 > **Falling behind?** If your Project 03 isn't working, start from the Project 03 starter in [`../03/files/`](../03/files/) and complete the Contact page walkthrough in [`../03/addPage.md`](../03/addPage.md).
 
 Add environment variable support with `vlucas/phpdotenv`, centralize PDO setup in a reusable Database helper, implement a lightweight `BaseModel` and code generator, and build a Contact page that saves messages to `contact_us` using the model.
@@ -455,14 +457,11 @@ abstract class BaseModel
             throw new \InvalidArgumentException('No fillable fields provided.');
         }
         $cols = array_keys($data);
-        $placeholders = array_map(fn($c) => ':'.$c, $cols);
-        $quotedCols = array_map(fn($c) => '`'.$c.'`', $cols);
-        $sql = 'INSERT INTO `'.static::table().'` ('.implode(',', $quotedCols).') VALUES ('.implode(',', $placeholders).')';
-        $stmt = static::pdo()->prepare($sql);
-        foreach ($data as $c => $v) {
-            $stmt->bindValue(':'.$c, $v);
-        }
-        $stmt->execute();
+        // TODO(you): Build and run the INSERT as a prepared statement:
+        //   1. From $cols, build a backtick-quoted column list and a matching ':name'-style placeholder list.
+        //   2. Assemble: INSERT INTO `<table>` (<columns>) VALUES (<placeholders>) — column names come from
+        //      $fillable (already sanitized), VALUES only ever contains placeholders, never user data.
+        //   3. prepare() the SQL, bindValue() each entry of $data, then execute().
         return (int) static::pdo()->lastInsertId();
     }
 
