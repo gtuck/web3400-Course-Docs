@@ -5,7 +5,7 @@
 - **Department:** School of Computing  
 - **Office Location:** Elizabeth Hall 371  
 - **Virtual Office:** [Zoom Link](https://weber.zoom.us/j/8013088825)  
-- **Virtual Office Hours:** Monday & Wednesday, 11:30 AM–2:00 PM ([Appointment Required](https://calendar.app.google/grXYvRYJeMUtz9si7))  
+- **Virtual Office Hours:** Monday & Wednesday, 8:00–9:00 AM and 12:30–2:00 PM ([Appointment Required](https://calendar.app.google/grXYvRYJeMUtz9si7))  
 - **Contact:**  
    - **Office Phone (Accepts Voicemail & Text Message):** 801-308-8251  
    - **Email:** [gtuck@weber.edu](mailto:gtuck@weber.edu)  
@@ -13,10 +13,10 @@
 ---
 
 ## **Class Details, Meeting Format and Times**
-- **Course Description:** This course explores the Linux-Apache-MySQL-PHP, or LAMP Web development framework to build applications that solve common business problems. The course begins with an exploration of the LAMP architecture, then covers fundamentals of the PHP programming language before introducing a PHP framework like Laravel. Additional coverage focuses on database concepts and how to interact with a MySQL database.  
+- **Course Description:** This course explores the Linux-Apache-MySQL-PHP, or LAMP Web development framework to build applications that solve common business problems. The course begins with an exploration of the LAMP architecture, then covers fundamentals of the PHP programming language before building a lightweight MVC framework from scratch — the same architectural patterns used by frameworks like Laravel. Additional coverage focuses on database concepts and how to interact with a MySQL database.  
 - **Pre-requisite(s):** WEB 3200 or CYBR 2210.  
 - **Meeting Format:** Synchronous Virtual via Zoom  
-- **Meeting Days/Times:** Monday, Wednesday, Friday, 9:30–10:20 AM  
+- **Meeting Days/Times:** Monday & Wednesday, 11:00 AM–12:15 PM  
 - **Access:** Click "Zoom" in Canvas navigation.  
 
 ---
@@ -50,7 +50,7 @@ By the end of the course, you will be able to:
 1. **Attendance:** Regular attendance in synchronous sessions is crucial. Be present and engaged.  
 2. **Communication:** Questions? Use [Google Appointment Calendar](https://calendar.app.google/grXYvRYJeMUtz9si7) or email anytime.  
 3. **Late Work:** Late work accepted up to 5 days after due date with a 10% per day penalty; after 5 days, assignments earn 0.  
-4. **Extra Credit:** Not available.  
+4. **Extra Credit:** One 50-point extra credit opportunity is offered near the end of the semester (see the course schedule). No other extra credit is available.  
 5. **Class Recording:** Recording is prohibited without instructor authorization.
 6. **Grading:** Based on assignments, projects, and a final project (Assignments	30%, Projects	50%, Final Project	20%).
 

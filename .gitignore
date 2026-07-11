@@ -1,20 +1,12 @@
 # macOS
 .DS_Store
 
-# AI Assistant context files (local only)
-CLAUDE.md
-AGENTS.md
-GEMINI.md
-CURSOR.md
-WINDSURF.md
-CODEX.md
+# AI assistant instructions and agents are TRACKED in git:
+# AGENTS.md is canonical; CLAUDE.md, CURSOR.md, GEMINI.md, WINDSURF.md and the
+# dot-directory copies are symlinks to it. .agents/ holds the canonical agents.
 
-# AI Assistant directories (local only)
-.claude/
-.gemini/
-.cursor/
-.windsurf/
-.agents/
+# Local-only assistant state (machine-specific settings, session data)
+.claude/settings.local.json
 .cody/
 .aider/
 .continue/

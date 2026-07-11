@@ -1,6 +1,6 @@
 # Welcome to WEB 3400
 
-Live sessions: **Mon / Wed / Fri • 9:30–10:20 a.m. (MT) • Zoom**
+Live sessions: **Mon / Wed • 11:00 a.m.–12:15 p.m. (MT) • Zoom**
 
 **Join Zoom:** (Use the Zoom link posted in Canvas — avoid bookmarking long ICS links)  
 **Meeting ID:** 918 6186 5754  
