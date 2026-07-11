@@ -2,8 +2,8 @@
 
 Live sessions: **Mon / Wed • 11:00 a.m.–12:15 p.m. (MT) • Zoom**
 
-**Join Zoom:** (Use the Zoom link posted in Canvas — avoid bookmarking long ICS links)  
-**Meeting ID:** 918 6186 5754  
+**Join Zoom:** [https://weber.zoom.us/j/81786541971](https://weber.zoom.us/j/81786541971) (also posted in Canvas)  
+**Meeting ID:** 817 8654 1971  
 Sign in with your **@mail.weber.edu** / **@weber.edu** account.
 
 ## Day 1 Checklist

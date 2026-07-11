@@ -16,11 +16,11 @@ This is a course documentation repository for **WEB 3400 - Web Application Devel
 
 <!-- UPDATE THIS BLOCK AT THE START OF EACH SEMESTER -->
 - **Term:** Fall 2026 — classes Mon Aug 24 through Fri Dec 4, 2026
-- **Meetings:** Monday & Wednesday, 11:00 AM–12:15 PM, synchronous virtual via Zoom (class meeting ID changes each semester; Zoom link posted in Canvas)
+- **Meetings:** Monday & Wednesday, 11:00 AM–12:15 PM, synchronous virtual via Zoom — Fall 2026 class meeting ID `817 8654 1971` (`weber.zoom.us/j/81786541971`), CRN 22096; meeting ID changes each semester and is also posted in Canvas
 - **Office hours:** Monday & Wednesday, 8:00–9:00 AM and 12:30–2:00 PM, by appointment, in the instructor's personal Zoom room (`weber.zoom.us/j/8013088825`)
 - **No-class days:** Labor Day (Sep 7), Fall Break (Fri Oct 9), Thanksgiving (Nov 26–27)
 - **Student repo name:** `web3400-fall26` (updated throughout gettingStarted, A00–A04, P00, and the interview agenda)
-- **Known gaps:** `welcome.md` still shows the Spring 2026 class meeting ID; schedule.md event titles need the Fall 2026 CRN once created
+- **Known gaps:** none — welcome.md meeting ID and schedule.md CRN updated 2026-07-11
 
 ## Repository Structure
 

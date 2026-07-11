@@ -131,7 +131,7 @@ Submit the screenshot via Canvas (WSU Online) (only the image). No URL yet requi
 ## Quick Checklist Before Moving to Assignment 00
 - Repo name: `web3400-fall26`
 - Template lineage banner present
-- Instructor invited (`gtuck@weber.edu`)
+- Instructor invited (GitHub username: `gtuck`)
 - Can open container (local or Codespace)
 - `php -v` works inside container
 - A commit pushed to `main`
