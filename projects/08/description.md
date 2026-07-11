@@ -6,6 +6,15 @@
 
 Extend your Project 07 CMS with social features that let authenticated users like, favorite, and comment on blog posts. You will design small join tables, wire up controllers and routes for these actions, and surface engagement counts and comments in the public post view and admin area.
 
+
+### Learning Objectives
+
+By the end of this project you can:
+1. Design join tables with foreign keys and unique constraints for likes and favorites.
+2. Implement toggle actions (like/unlike, fav/unfav) through routes, controllers, and model helpers.
+3. Build a moderated comment workflow (pending → published) with an admin queue.
+4. Keep controllers thin by pushing engagement queries into model methods.
+
 ---
 
 ## Overview

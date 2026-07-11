@@ -6,6 +6,15 @@
 
 Build a lightweight, dependency‑free PHP templating system that supports layout inheritance, named sections, reusable partials, shared data, and a safe escape helper. Enhance your MVC framework with CSRF protection, reusable validation, RESTful routing, and custom exception handling.
 
+
+### Learning Objectives
+
+By the end of this project you can:
+1. Build a dependency-free template engine with layouts, sections, partials, and escaping.
+2. Protect all state-changing forms with CSRF tokens.
+3. Write declarative validation rules with a reusable `Validator` class.
+4. Extend routing to RESTful methods (PUT/DELETE/PATCH) using method spoofing.
+
 ---
 
 ## Overview

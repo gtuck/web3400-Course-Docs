@@ -48,7 +48,7 @@ By the end of the course, you will be able to:
 
 ## **Course Policies**
 1. **Attendance:** Regular attendance in synchronous sessions is crucial. Be present and engaged.  
-2. **Communication:** Questions? Use [Google Appointment Calendar](https://calendar.app.google/grXYvRYJeMUtz9si7) or email anytime.  
+2. **Communication:** Questions? Use the [Google Appointment Calendar](https://calendar.app.google/grXYvRYJeMUtz9si7) or email anytime. If none of the scheduled office-hour windows work for you, contact me by email or text message (801-308-8251) and we'll arrange another time.  
 3. **Late Work:** Late work accepted up to 5 days after due date with a 10% per day penalty; after 5 days, assignments earn 0.  
 4. **Extra Credit:** One 50-point extra credit opportunity is offered near the end of the semester (see the course schedule). No other extra credit is available.  
 5. **Class Recording:** All class sessions are automatically recorded via Zoom and posted in Canvas within an hour or two after each class — use them to review or catch up on a missed session. Personal recording by students is prohibited without instructor authorization.

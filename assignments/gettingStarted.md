@@ -5,7 +5,7 @@ This preparatory module ensures you can complete Assignment 00 (environment veri
 ### Outcomes
 By the end you can:
 1. Create a private repository from the course template named exactly `web3400-fall26`.
-2. Add the instructor as collaborator (GitHub username: `gtuck@weber.eduw`).
+2. Add the instructor as collaborator (GitHub username: `gtuck`).
 3. Launch the dev environment (local Dev Container OR GitHub Codespace).
 4. Verify PHP runs inside the container.
 5. Make, commit, and push a simple change.
@@ -48,7 +48,7 @@ Reason: Assignment 00 rubric checks exact name + template lineage.
 
 ## Step 2. Add Instructor as Collaborator
 1. Repo → Settings → Collaborators & teams (Manage access).
-2. Add people → type: `gtuck@weber.eduw`
+2. Add people → type the GitHub username: `gtuck` (not an email address)
 3. Send invitation. (Email address is NOT used here.)
 4. Leave it pending; you can continue.
 
@@ -140,17 +140,21 @@ Submit the screenshot via Canvas (WSU Online) (only the image). No URL yet requi
 ---
 
 ## Troubleshooting
-Issue: Container build hangs at “Downloading”.
-Fix: Check Docker Desktop running (local) OR retry Codespace (delete and recreate).
 
-Issue: Wrong repo name.
-Fix: Create a NEW correctly named repo from template; optionally copy over any files; delete the misnamed one.
+| Symptom | Fix |
+|---------|-----|
+| Container build hangs at "Downloading" | Confirm Docker Desktop is running (local), or delete and recreate the Codespace (cloud) |
+| Docker Desktop won't start / machine can't run Docker | Use the cloud path instead: GitHub Codespaces (Step 3) needs only a browser |
+| Wrong repo name | Create a NEW correctly named repo from the template; copy files over if needed; delete the misnamed one |
+| Instructor invite sent to an email address | Remove the invite; re-invite using the GitHub **username** `gtuck` |
+| `git` or `php` commands not found | You're in the host terminal — open a terminal *inside* the container (or reinstall VS Code + Dev Containers extension) |
+| "Port 8000 already in use" | Stop the other server (Ctrl+C in its terminal) or use another port: `php -S 0.0.0.0:8080` |
+| Codespace stopped/deleted unexpectedly | Free-tier Codespaces idle out; your pushed commits are safe — create a new Codespace from the repo |
+| Changes not visible on GitHub | You committed but didn't push (`git push`), or edited on the host instead of in the container |
 
-Issue: Added instructor by email.
-Fix: Remove incorrect invite; re-invite using username `gtuck@weber.edu`.
+**What a working setup looks like:** VS Code shows "Dev Container" in the bottom-left corner, the terminal prompt is inside the container, `php -v` prints a PHP 8.x version, and `pwd` ends with `web3400-fall26`.
 
-Issue: `git` commands not found.
-Fix: Make sure you are inside the container terminal (NOT host) or reinstall VS Code + Dev Containers extension.
+<!-- TODO(instructor): drop in one screenshot of the working VS Code + container state here. -->
 
 ---
 

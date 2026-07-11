@@ -4,6 +4,14 @@
 
 Learn the Model-View-Controller (MVC) design pattern by refactoring a monolithic PHP script into a well-organized, maintainable application with separated concerns.
 
+
+### Learning Objectives
+
+By the end of this project you can:
+1. Explain the responsibilities of Model, View, and Controller.
+2. Refactor a monolithic script into MVC without changing its behavior.
+3. Apply PSR naming conventions to classes and methods.
+
 ---
 
 ## Overview

@@ -71,7 +71,7 @@ The projects build a PHP MVC framework from scratch:
 
 ### Editing Conventions
 - One `#` per page, Title Case headings, kebab-case filenames.
-- Every assignment/project brief opens with a front-matter line right after the H1: `**Estimated time:** X hours · **Points:** N · **Due:** see the course schedule in Canvas`. Projects that build on a predecessor also carry a `> **Falling behind?**` blockquote pointing at the correct reset source (see syllabus Fresh Start Policy). Keep points in sync with `rubric.csv` totals.
+- Every assignment/project brief opens with a front-matter line right after the H1: `**Estimated time:** X hours · **Points:** N · **Due:** see the course schedule in Canvas`. Projects that build on a predecessor also carry a `> **Falling behind?**` blockquote pointing at the correct reset source (see syllabus Fresh Start Policy), and every project brief includes a `### Learning Objectives` list (3–4 measurable outcomes) before the first horizontal rule. Keep points in sync with `rubric.csv` totals.
 - When pasting long instructions (e.g., assignment scaffolds), follow with a concise "Requirements" list so students know what must be original.
 - Scaffold convention: description code blocks may replace load-bearing lines (prepared statements, password hashing/verification, CSRF checks) with `// TODO(you):` comments plus hints — students write those lines themselves. P00, P04, and P06 use this; the reference implementations in `complete/` stay fully working. Don't "fix" the TODOs back into full code.
 - `instructor/` is gitignored and holds instructor-only material with answer keys (e.g., `quiz-bank-web3400.md`). Never move its contents into published folders.

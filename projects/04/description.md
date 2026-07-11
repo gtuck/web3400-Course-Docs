@@ -8,6 +8,15 @@
 
 Add environment variable support with `vlucas/phpdotenv`, centralize PDO setup in a reusable Database helper, implement a lightweight `BaseModel` and code generator, and build a Contact page that saves messages to `contact_us` using the model.
 
+
+### Learning Objectives
+
+By the end of this project you can:
+1. Externalize configuration into `.env` with phpdotenv (and a committed `.env.example`).
+2. Centralize PDO setup in a reusable `Database` helper.
+3. Implement an Active Record `BaseModel` with static CRUD methods and mass-assignment protection.
+4. Generate model classes from live database tables with the generator script.
+
 ---
 
 ## Overview

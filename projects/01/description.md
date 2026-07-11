@@ -6,6 +6,15 @@
 
 Extend Project 00 into a working mini‑CMS. You will implement CRUD for a `posts` feature using PHP + PDO, the PRG pattern (Post‑Redirect‑Get), prepared statements, and Bulma styling — while reusing the shared templates and navigation from Project 00.
 
+
+### Learning Objectives
+
+By the end of this project you can:
+1. Implement full CRUD (create, read, update, delete) for a database entity using PDO.
+2. Apply the Post-Redirect-Get pattern to every state-changing form.
+3. Escape all dynamic output and parameterize all queries.
+4. Reuse shared templates and navigation across a multi-page mini CMS.
+
 ---
 
 ## Starting Point (Assumes Project 00)

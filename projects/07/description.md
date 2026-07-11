@@ -6,6 +6,15 @@
 
 Build a simple CMS that lets Editors and Administrators create, edit, publish, and delete Posts. Start from your completed Project 06 and extend your MVC app with a Posts model, admin management screens, a post detail page, and an updated home page that showcases featured content.
 
+
+### Learning Objectives
+
+By the end of this project you can:
+1. Model publishable content with slugs, status workflow (draft/published/archived), and featured flags.
+2. Build authorized admin CRUD screens for posts, restricted to editors/admins.
+3. Render public content safely with escaping and published-only queries.
+4. Generate unique, URL-friendly slugs with the base controller's `slugify()` helper.
+
 ---
 
 ## Overview

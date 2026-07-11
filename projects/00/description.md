@@ -6,6 +6,15 @@
 
 This project sets up a basic PHP web project using **PDO** for database access and a simple **template system** (`head.php`, `nav.php`, `footer.php`). You’ll also build a secure **Contact Us** form that saves messages to the database and displays user feedback with session‑based flash messages (dismissed via **BulmaJS**).
 
+
+### Learning Objectives
+
+By the end of this project you can:
+1. Configure a PHP project with a central `config.php` (site settings, sessions, PDO connection).
+2. Validate form input server-side and insert it with a prepared statement.
+3. Implement session-based flash messaging surfaced through shared templates.
+4. Protect sensitive files from direct web access with `.htaccess`.
+
 ---
 
 ## **Setup Steps**

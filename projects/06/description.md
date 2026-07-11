@@ -8,6 +8,15 @@
 
 Build user accounts with secure registration, login/logout, sessions, role‑based authorization, and an admin users panel. Keep the MVC fundamentals front‑and‑center and use your existing framework from Project 05 (templating, CSRF, validator, RESTful routing, custom exceptions).
 
+
+### Learning Objectives
+
+By the end of this project you can:
+1. Implement secure registration and login using `password_hash()`/`password_verify()`.
+2. Manage sessions safely, including `session_regenerate_id()` on login.
+3. Enforce role-based authorization (admin/editor/user) in controllers and views.
+4. Build an admin panel for managing user accounts.
+
 ---
 
 ## Overview

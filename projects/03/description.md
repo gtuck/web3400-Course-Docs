@@ -6,6 +6,15 @@
 
 Elevate your Project 02 refactor into a structured MVC app using a front controller, a simple router, namespaces, and PSR-4 autoloading.
 
+
+### Learning Objectives
+
+By the end of this project you can:
+1. Route all requests through a front controller (`public/index.php`).
+2. Implement and register routes with a simple Router class.
+3. Organize code with namespaces and PSR-4 autoloading via Composer.
+4. Explain why only `public/` is exposed as the web root.
+
 ---
 
 ## Overview
