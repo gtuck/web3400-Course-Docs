@@ -83,7 +83,7 @@ git status   # should show: nothing to commit
 ```
 
 ## (Optional) Run in Container
-If a web server is included and a port is forwarded (e.g., 8080), open the forwarded URL. You should see: Hello from PHP
+If a web server is included and a port is forwarded (e.g., 8000), open the forwarded URL. You should see: Hello from PHP
 
 ## Step 7. Submit
 Submit this URL (replace YOUR-USER):

@@ -217,10 +217,10 @@ $pageTitle = 'Home - A04 Templates';
 From repository root:
 
 ```bash
-php -S 0.0.0.0:8080
+php -S 0.0.0.0:8000
 ```
 
-Browse: http://localhost:8080/assignments/04/index.php  
+Browse: http://localhost:8000/assignments/04/index.php  
 (Or use forwarded port in Codespaces / Dev Container.)
 
 ---

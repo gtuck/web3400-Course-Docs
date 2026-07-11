@@ -291,7 +291,7 @@ Escaping output safely
 ## Test Locally
 From repository root:
 ```bash
-php -S 0.0.0.0:8080
+php -S 0.0.0.0:8000
 ```
 Visit (adjust port as needed):
 - Create, edit, and delete a post; verify flashes and redirects.

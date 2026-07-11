@@ -331,12 +331,12 @@ $year = date('Y');
 From repository root:
 
 ```bash
-php -S 0.0.0.0:8080
+php -S 0.0.0.0:8000
 ```
 
 Browse:
-- http://localhost:8080/projects/00/index.php
-- http://localhost:8080/projects/00/contact.php
+- http://localhost:8000/projects/00/index.php
+- http://localhost:8000/projects/00/contact.php
 
 ---
 

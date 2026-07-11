@@ -411,12 +411,12 @@ Easy to find and fix issues - you know exactly where to look:
 
 From your project directory:
 ```bash
-php -S 0.0.0.0:8080
+php -S 0.0.0.0:8000
 ```
 
 Visit in browser:
 ```
-http://localhost:8080/projects/02/index.php
+http://localhost:8000/projects/02/index.php
 ```
 
 **Expected result:** A page displaying post titles and bodies, identical to the original monolithic script.

@@ -96,7 +96,7 @@ rm assignments/04/index.html
 php -l assignments/04/index.php
 
 # Run local server (from repo root)
-php -S 0.0.0.0:8080
+php -S 0.0.0.0:8000
 ```
 
 ---

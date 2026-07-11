@@ -148,7 +148,7 @@ Submit the screenshot via Canvas (WSU Online) (only the image). No URL yet requi
 | Wrong repo name | Create a NEW correctly named repo from the template; copy files over if needed; delete the misnamed one |
 | Instructor invite sent to an email address | Remove the invite; re-invite using the GitHub **username** `gtuck` |
 | `git` or `php` commands not found | You're in the host terminal — open a terminal *inside* the container (or reinstall VS Code + Dev Containers extension) |
-| "Port 8000 already in use" | Stop the other server (Ctrl+C in its terminal) or use another port: `php -S 0.0.0.0:8080` |
+| "Port 8000 already in use" | Stop the other server (Ctrl+C in its terminal) or find and stop it: `pkill -f "php -S"`. Do not switch to port 8080 — it is reserved for phpMyAdmin |
 | Codespace stopped/deleted unexpectedly | Free-tier Codespaces idle out; your pushed commits are safe — create a new Codespace from the repo |
 | Changes not visible on GitHub | You committed but didn't push (`git push`), or edited on the host instead of in the container |
 
