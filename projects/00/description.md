@@ -10,6 +10,7 @@ This project sets up a basic PHP web project using **PDO** for database access a
 ### Learning Objectives
 
 By the end of this project you can:
+
 1. Configure a PHP project with a central `config.php` (site settings, sessions, PDO connection).
 2. Validate form input server-side and insert it with a prepared statement.
 3. Implement session-based flash messaging surfaced through shared templates.

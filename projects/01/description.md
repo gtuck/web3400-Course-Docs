@@ -10,6 +10,7 @@ Extend Project 00 into a working mini‑CMS. You will implement CRUD for a `post
 ### Learning Objectives
 
 By the end of this project you can:
+
 1. Implement full CRUD (create, read, update, delete) for a database entity using PDO.
 2. Apply the Post-Redirect-Get pattern to every state-changing form.
 3. Escape all dynamic output and parameterize all queries.
@@ -138,7 +139,7 @@ function slugify(string $text): string {
 ### `index.php` (Read)
 - Query the latest posts (e.g., 10 newest).
 - Show title (links to `blog_post.php?post_id=ID`), created date, and a short excerpt.
-- [index.php](index.php)
+- [index.php](complete/index.php)
 
 ### `blog_post.php` (Read single)
 - Accept `post_id` (integer) in the query string.
@@ -149,7 +150,7 @@ function slugify(string $text): string {
 - Heading: “Blog Admin” with a “Create Post” button.
 - Table columns: ID, Title (link to public view), Created, Updated, Actions (Edit/Delete).
 - Flash messages show under the heading.
-- [admin_blog.php](admin_blog.php)
+- [admin_blog.php](complete/admin_blog.php)
 
 ### `blog_create.php` (Create)
 - POST fields: `title`, `body`.
@@ -189,7 +190,7 @@ $post = $stmt->fetch();
 ```
 
 - Why: Prevents SQL injection and keeps SQL/data separate.
-- Used in: [blog_post.php](blog_post.php), [blog_edit.php](blog_edit.php), [blog_delete.php](blog_delete.php)
+- Used in: [blog_post.php](complete/blog_post.php), [blog_edit.php](complete/blog_edit.php), [blog_delete.php](complete/blog_delete.php)
 
 Prepared INSERT (create)
 ```php
@@ -198,7 +199,7 @@ $stmt->execute([$title, $slug, $body]);
 ```
 
 - Why: Safely writes user-submitted data using placeholders.
-- Used in: [blog_create.php](blog_create.php), [contact.php](contact.php)
+- Used in: [blog_create.php](complete/blog_create.php), [contact.php](complete/contact.php)
 
 Prepared UPDATE (edit)
 ```php
@@ -207,7 +208,7 @@ $stmt->execute([$title, $slug, $body, (int)$post_id]);
 ```
 
 - Why: Updates only intended columns; parameters are bound at execution.
-- Used in: [blog_edit.php](blog_edit.php)
+- Used in: [blog_edit.php](complete/blog_edit.php)
 
 Prepared DELETE (remove)
 ```php
@@ -216,7 +217,7 @@ $stmt->execute([(int)$post_id]);
 ```
 
 - Why: Removes a specific record by id with safe binding.
-- Used in: [blog_delete.php](blog_delete.php)
+- Used in: [blog_delete.php](complete/blog_delete.php)
 
 PRG pattern (Post → Redirect → Get)
 ```php
@@ -229,7 +230,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ```
 
 - Why: Prevents duplicate form resubmissions; results in shareable URLs.
-- Used in: [blog_create.php](blog_create.php), [blog_edit.php](blog_edit.php), [blog_delete.php](blog_delete.php), [contact.php](contact.php)
+- Used in: [blog_create.php](complete/blog_create.php), [blog_edit.php](complete/blog_edit.php), [blog_delete.php](complete/blog_delete.php), [contact.php](complete/contact.php)
 
 Validation and sanitization
 ```php
@@ -243,7 +244,7 @@ if ($body === '' || mb_strlen($body) < 10) {
 ```
 
 - Why: Enforces server-side rules for reliability and security.
-- Used in: [blog_create.php](blog_create.php), [blog_edit.php](blog_edit.php), [contact.php](contact.php)
+- Used in: [blog_create.php](complete/blog_create.php), [blog_edit.php](complete/blog_edit.php), [contact.php](complete/contact.php)
 
 Unique slug generation
 ```php
@@ -260,7 +261,7 @@ while (true) {
 ```
 
 - Why: Ensures human-readable, unique slugs for each post.
-- Used in: [blog_create.php](blog_create.php) (no exclude), [blog_edit.php](blog_edit.php) (exclude current id)
+- Used in: [blog_create.php](complete/blog_create.php) (no exclude), [blog_edit.php](complete/blog_edit.php) (exclude current id)
 
 Reading and validating query params
 ```php
@@ -273,7 +274,7 @@ if ($post_id <= 0) {
 ```
 
 - Why: Query strings are strings; cast and validate before DB usage.
-- Used in: [blog_post.php](blog_post.php), [blog_edit.php](blog_edit.php), [blog_delete.php](blog_delete.php)
+- Used in: [blog_post.php](complete/blog_post.php), [blog_edit.php](complete/blog_edit.php), [blog_delete.php](complete/blog_delete.php)
 
 Escaping output safely
 ```php

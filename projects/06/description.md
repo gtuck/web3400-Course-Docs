@@ -12,6 +12,7 @@ Build user accounts with secure registration, login/logout, sessions, role‑bas
 ### Learning Objectives
 
 By the end of this project you can:
+
 1. Implement secure registration and login using `password_hash()`/`password_verify()`.
 2. Manage sessions safely, including `session_regenerate_id()` on login.
 3. Enforce role-based authorization (admin/editor/user) in controllers and views.

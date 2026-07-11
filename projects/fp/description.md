@@ -12,6 +12,7 @@ The admin dashboard must expose meaningful **Key Performance Indicators (KPIs)**
 ### Learning Objectives
 
 By the end of this project you can:
+
 1. Integrate routing, auth, validation, CSRF, and CMS features into one admin dashboard.
 2. Write analytics helper methods on models (counts, averages by status/role).
 3. Restrict the dashboard to authenticated admins and make it their post-login landing page.

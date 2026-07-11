@@ -10,6 +10,7 @@ Build a simple CMS that lets Editors and Administrators create, edit, publish, a
 ### Learning Objectives
 
 By the end of this project you can:
+
 1. Model publishable content with slugs, status workflow (draft/published/archived), and featured flags.
 2. Build authorized admin CRUD screens for posts, restricted to editors/admins.
 3. Render public content safely with escaping and published-only queries.

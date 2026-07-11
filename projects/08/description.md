@@ -10,6 +10,7 @@ Extend your Project 07 CMS with social features that let authenticated users lik
 ### Learning Objectives
 
 By the end of this project you can:
+
 1. Design join tables with foreign keys and unique constraints for likes and favorites.
 2. Implement toggle actions (like/unlike, fav/unfav) through routes, controllers, and model helpers.
 3. Build a moderated comment workflow (pending → published) with an admin queue.

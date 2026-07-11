@@ -12,6 +12,7 @@ Add environment variable support with `vlucas/phpdotenv`, centralize PDO setup i
 ### Learning Objectives
 
 By the end of this project you can:
+
 1. Externalize configuration into `.env` with phpdotenv (and a committed `.env.example`).
 2. Centralize PDO setup in a reusable `Database` helper.
 3. Implement an Active Record `BaseModel` with static CRUD methods and mass-assignment protection.
