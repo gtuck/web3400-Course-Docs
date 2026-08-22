@@ -350,12 +350,12 @@ git push origin main
 ---
 
 ### **9. Submit the Project**
-Submit the direct URL (replace YOUR-USER):
+Submit the direct GitHub file URL for `projects/00/index.php`. Replace `YOUR-REPO` with the repo CRSApps created for you in the `web3400-fall26` organization:
 ```
-https://github.com/YOUR-USER/web3400-fall26/blob/main/projects/00/index.php
+https://github.com/web3400-fall26/YOUR-REPO/blob/main/projects/00/index.php
 ```
 
-Open in a private/incognito window to confirm accessibility.
+If you are unsure, open the file on GitHub and copy the browser URL from the address bar.
 
 ---
 
@@ -378,4 +378,3 @@ Open in a private/incognito window to confirm accessibility.
 - [ ] No duplicate DOCTYPE or `<html>` tags; include order: head → nav → flash → content → footer.
 - [ ] `$pageTitle` used and renders; assets consistent with A04 (Bulma 1.0.4, FontAwesome 5.15.4, BulmaJS 0.12).
 - [ ] Any legacy `index.html` removed; `index.php` is the entry.
-

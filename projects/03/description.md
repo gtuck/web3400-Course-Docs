@@ -301,8 +301,8 @@ php -S 0.0.0.0:8000 -t projects/03/public
 ---
 
 ## Submission
-Submit the direct URL to your Project 03 folder in your repository (replace YOUR-USER and repo name):
+Submit the direct GitHub URL to your Project 03 folder. Replace `YOUR-REPO` with the repo CRSApps created for you in the `web3400-fall26` organization:
 
 ```
-https://github.com/YOUR-USER/YOUR-REPO/blob/main/projects/03/
+https://github.com/web3400-fall26/YOUR-REPO/tree/main/projects/03/
 ```

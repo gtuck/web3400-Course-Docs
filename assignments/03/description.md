@@ -36,10 +36,10 @@ You can:
 6. Maintain incremental commits; submit correct file URL.
 
 ## Prerequisites
-- Repo `web3400-fall26` (A00 complete).
+- Course repo created through the WEB 3400 CRSApps workflow (A00 complete).
 - A01 & A02 present (for reference).
 - Dev Container or Codespace running.
-- Collaborator `gtuck` already invited.
+- Repo visible in the `web3400-fall26` GitHub organization.
 
 ---
 
@@ -172,13 +172,13 @@ git push origin main
 ---
 
 ## Submission
-Submit direct file URL (replace YOUR-USER):
+Submit the direct GitHub file URL for `assignments/03/index.html`. Replace `YOUR-REPO` with the repo CRSApps created for you in the `web3400-fall26` organization:
 
 ```
-https://github.com/YOUR-USER/web3400-fall26/blob/main/assignments/03/index.html
+https://github.com/web3400-fall26/YOUR-REPO/blob/main/assignments/03/index.html
 ```
 
-Open in a private/incognito window to verify visibility.
+If you are unsure, open the file on GitHub and copy the browser URL from the address bar.
 
 ---
 

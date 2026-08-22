@@ -14,8 +14,8 @@ You can:
 6. Submit the correct GitHub file URL.
 
 ## Prerequisites
-- Repository `web3400-fall26` already created from the template (Assignment 00).
-- Instructor (`gtuck`) added as collaborator.
+- Course repo already created through the WEB 3400 CRSApps workflow (Assignment 00).
+- Repo visible in the `web3400-fall26` GitHub organization.
 - Dev Container or Codespace running (PHP not required for this assignment, but environment should already work).
 
 ---
@@ -196,13 +196,13 @@ Manual checks:
 ---
 
 ## Step 5. Submission
-Submit this URL (replace YOUR-USER):
+Submit the direct GitHub file URL for `assignments/01/index.html`. Replace `YOUR-REPO` with the repo CRSApps created for you in the `web3400-fall26` organization:
 
 ```
-https://github.com/YOUR-USER/web3400-fall26/blob/main/assignments/01/index.html
+https://github.com/web3400-fall26/YOUR-REPO/blob/main/assignments/01/index.html
 ```
 
-Open it in a private/incognito window to ensure access (instructor must have collaborator rights).
+If you are unsure, open the file on GitHub and copy the browser URL from the address bar.
 
 ---
 

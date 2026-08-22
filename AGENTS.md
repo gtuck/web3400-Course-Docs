@@ -19,7 +19,7 @@ This is a course documentation repository for **WEB 3400 - Web Application Devel
 - **Meetings:** Monday & Wednesday, 11:00 AM–12:15 PM, synchronous virtual via Zoom — Fall 2026 class meeting ID `817 8654 1971` (`weber.zoom.us/j/81786541971`), CRN 22096; meeting ID changes each semester and is also posted in Canvas
 - **Office hours:** Monday & Wednesday, 8:00–9:00 AM and 12:30–2:00 PM, by appointment, in the instructor's personal Zoom room (`weber.zoom.us/j/8013088825`)
 - **No-class days:** Labor Day (Sep 7), Fall Break (Fri Oct 9), Thanksgiving (Nov 26–27)
-- **Student repo name:** `web3400-fall26` (updated throughout gettingStarted, A00–A04, P00, and the interview agenda)
+- **Student GitHub repos:** provisioned through CRSApps into the `web3400-fall26` organization; setup/submission docs use `https://github.com/web3400-fall26/YOUR-REPO/...` because the repo name is assigned by that workflow
 - **Known gaps:** none — welcome.md meeting ID and schedule.md CRN updated 2026-07-11
 
 ## Repository Structure

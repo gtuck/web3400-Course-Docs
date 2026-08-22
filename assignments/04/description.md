@@ -29,10 +29,10 @@ You can:
 7. Commit and push changes; submit the correct file URL.
 
 ## Prerequisites
-- Repository: `web3400-fall26`
+- Course repo created through the WEB 3400 CRSApps workflow
 - A00–A03 complete
 - Dev Container or Codespace running (PHP available)
-- Instructor collaborator (`gtuck`) already invited
+- Repo visible in the `web3400-fall26` GitHub organization
 
 ---
 
@@ -235,13 +235,13 @@ git push origin main
 ---
 
 ## Submission
-Submit direct URL (replace YOUR-USER):
+Submit the direct GitHub file URL for `assignments/04/index.php`. Replace `YOUR-REPO` with the repo CRSApps created for you in the `web3400-fall26` organization:
 
 ```
-https://github.com/YOUR-USER/web3400-fall26/blob/main/assignments/04/index.php
+https://github.com/web3400-fall26/YOUR-REPO/blob/main/assignments/04/index.php
 ```
 
-Open in a private/incognito window to confirm accessibility.
+If you are unsure, open the file on GitHub and copy the browser URL from the address bar.
 
 ---
 

@@ -318,7 +318,7 @@ Visit (adjust port as needed):
 ---
 
 ## Submit
-Submit the direct URL to your Project 01 folder (replace YOUR‑USER and repo name):
+Submit the direct GitHub URL to your Project 01 folder. Replace `YOUR-REPO` with the repo CRSApps created for you in the `web3400-fall26` organization:
 ```
-https://github.com/YOUR-USER/YOUR-REPO/blob/main/projects/01/
+https://github.com/web3400-fall26/YOUR-REPO/tree/main/projects/01/
 ```

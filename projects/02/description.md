@@ -439,9 +439,9 @@ http://localhost:8000/projects/02/index.php
 
 ## Submit
 
-Submit the direct URL to your Project 02 folder (replace YOUR-USER and repo name):
+Submit the direct GitHub URL to your Project 02 folder. Replace `YOUR-REPO` with the repo CRSApps created for you in the `web3400-fall26` organization:
 ```
-https://github.com/YOUR-USER/YOUR-REPO/blob/main/projects/02/
+https://github.com/web3400-fall26/YOUR-REPO/tree/main/projects/02/
 ```
 
 ---
