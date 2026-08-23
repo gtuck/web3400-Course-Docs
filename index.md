@@ -23,12 +23,22 @@
 
 ## **Learning Outcomes**
 By the end of the course, you will be able to:  
-- Utilize Git repositories and Docker Development Containers  
-- Create HTML/CSS documents  
-- Implement server-side PHP with PDO (database access), session handling, reusable template structures, and MVC framework. 
-- Apply common programming techniques  
-- Use SQL with MySQL, including PHP-based database connections and manipulations  
-- Control program flow and information effectively  
+- Use Git repositories and Docker Development Containers to develop and submit web applications.
+- Create accessible, semantic, responsive HTML/CSS interfaces using a component framework.
+- Build server-side PHP applications that use control flow, reusable templates, sessions, and MVC architecture.
+- Design and query MySQL databases through PHP using PDO and prepared statements.
+- Apply secure web-development practices, including validation, output escaping, CSRF protection, password hashing, and authorization.
+- Design, implement, and test a multi-feature MVC CMS using maintainable models, controllers, routes, and views.
+
+---
+
+## **Assessment Alignment**
+- Git and development-container workflow: Getting Started, Assignment 00, and Quiz 1.
+- Accessible HTML/CSS interfaces: Assignments 01-03 and Quiz 2.
+- PHP control flow and reusable templates: Assignments 03-04, Project 00, and Quizzes 3-4.
+- MySQL, PDO, and prepared statements: Projects 00-04 and Quizzes 5-6 and 9.
+- MVC architecture and secure web development: Projects 02-08, the Final Project, and Quizzes 7-12.
+- Integrated CMS design, implementation, and testing: Projects 07-08, the Final Project, and required status-review interviews.
 
 ---
 
@@ -52,7 +62,7 @@ By the end of the course, you will be able to:
 3. **Late Work:** Late work accepted up to 5 days after due date with a 10% per day penalty; after 5 days, assignments earn 0.  
 4. **Extra Credit:** One 50-point extra credit opportunity is offered near the end of the semester (see the course schedule). No other extra credit is available.  
 5. **Class Recording:** All class sessions are automatically recorded via Zoom and posted in Canvas within an hour or two after each class — use them to review or catch up on a missed session. Personal recording by students is prohibited without instructor authorization.
-6. **Grading:** Based on assignments, projects, and a final project (Assignments	30%, Projects	50%, Final Project	20%).
+6. **Grading:** Based on assignments (including quizzes), projects, and a final project (Assignments	30%, Projects	50%, Final Project	20%).
 7. **Reference Code:** Complete reference implementations for several projects are published in the course repository (`projects/*/complete`). You may read them to study patterns or to get unstuck after making a genuine attempt. Submitting reference code wholesale as your own work (outside the Fresh Start Policy below) is academic misconduct — status-review interviews require you to explain any code you submit.
 8. **Fresh Start Policy:** Projects build on each other, but one bad week should not cascade. If your previous project isn't working, you may start the new project from the most recent reference implementation (for example, begin Project 06 from `projects/05/complete`) — just say so in your project README. No penalty applies to the new project; the earlier project is still graded on its own merits.
 

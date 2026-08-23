@@ -22,6 +22,7 @@ Class meets **Mon & Wed, 11:00 AM–12:15 PM** via Zoom. Deliverable names link 
 | Mon Aug 31, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
 | Wed Sep 2, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
 | Thu Sep 3, 2026 | Assignment [Assignment 01](assignments/01/description.html) | due by 11:59pm |
+| Fri Sep 4, 2026 | Quiz 1: Git, Repos & Dev Containers (in Canvas) | due by 11:59pm |
 
 #### Week 3 · Sep 7–13
 
@@ -30,6 +31,7 @@ Class meets **Mon & Wed, 11:00 AM–12:15 PM** via Zoom. Deliverable names link 
 | Mon Sep 7, 2026 | Labor Day — No Classes | |
 | Tue Sep 8, 2026 | Assignment [Assignment 02](assignments/02/description.html) | due by 11:59pm |
 | Wed Sep 9, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
+| Fri Sep 11, 2026 | Quiz 2: HTML, CSS & Bulma (in Canvas) | due by 11:59pm |
 
 #### Week 4 · Sep 14–20
 
@@ -39,6 +41,7 @@ Class meets **Mon & Wed, 11:00 AM–12:15 PM** via Zoom. Deliverable names link 
 | Tue Sep 15, 2026 | Assignment [Assignment 03](assignments/03/description.html) | due by 11:59pm |
 | Wed Sep 16, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
 | Thu Sep 17, 2026 | Assignment [Assignment 04](assignments/04/description.html) | due by 11:59pm |
+| Fri Sep 18, 2026 | Quiz 3: PHP Basics (in Canvas) | due by 11:59pm |
 
 #### Week 5 · Sep 21–27
 
@@ -47,6 +50,7 @@ Class meets **Mon & Wed, 11:00 AM–12:15 PM** via Zoom. Deliverable names link 
 | Mon Sep 21, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
 | Mon Sep 21, 2026 | Assignment [Mandatory Assignment Status Review Interview](assignments/interview_agenda.html) | due by 12:30pm |
 | Wed Sep 23, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
+| Fri Sep 25, 2026 | Quiz 4: Templates & Forms (in Canvas) | due by 11:59pm |
 | Sun Sep 27, 2026 | Assignment [Project 00](projects/00/description.html) | due by 11:59pm |
 
 #### Week 6 · Sep 28–Oct 4
@@ -55,6 +59,7 @@ Class meets **Mon & Wed, 11:00 AM–12:15 PM** via Zoom. Deliverable names link 
 |------|---------|-----|
 | Mon Sep 28, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
 | Wed Sep 30, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
+| Fri Oct 2, 2026 | Quiz 5: PDO, Prepared Statements & Flash (in Canvas) | due by 11:59pm |
 | Sun Oct 4, 2026 | Assignment [Project 01](projects/01/description.html) | due by 11:59pm |
 
 #### Week 7 · Oct 5–11
@@ -64,6 +69,7 @@ Class meets **Mon & Wed, 11:00 AM–12:15 PM** via Zoom. Deliverable names link 
 | Mon Oct 5, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
 | Wed Oct 7, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
 | Thu Oct 8, 2026 | Assignment [Project 02](projects/02/description.html) | due by 11:59pm |
+| Thu Oct 8, 2026 | Quiz 6: CRUD & PRG (in Canvas) | due by 11:59pm |
 | Fri Oct 9, 2026 | Fall Break — No Classes | |
 
 #### Week 8 · Oct 12–18
@@ -72,6 +78,7 @@ Class meets **Mon & Wed, 11:00 AM–12:15 PM** via Zoom. Deliverable names link 
 |------|---------|-----|
 | Mon Oct 12, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
 | Wed Oct 14, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
+| Fri Oct 16, 2026 | Quiz 7: MVC Concepts (in Canvas) | due by 11:59pm |
 | Sun Oct 18, 2026 | Assignment [Project 03](projects/03/description.html) | due by 11:59pm |
 
 #### Week 9 · Oct 19–25
@@ -81,6 +88,7 @@ Class meets **Mon & Wed, 11:00 AM–12:15 PM** via Zoom. Deliverable names link 
 | Mon Oct 19, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
 | Mon Oct 19, 2026 | Assignment [Mandatory Midterm Status Review Interview](projects/midterm-interview-agenda.html) | due by 12:30pm |
 | Wed Oct 21, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
+| Fri Oct 23, 2026 | Quiz 8: Router, Namespaces & Autoloading (in Canvas) | due by 11:59pm |
 | Sun Oct 25, 2026 | Assignment [Project 04](projects/04/description.html) | due by 11:59pm |
 
 #### Week 10 · Oct 26–Nov 1
@@ -89,6 +97,7 @@ Class meets **Mon & Wed, 11:00 AM–12:15 PM** via Zoom. Deliverable names link 
 |------|---------|-----|
 | Mon Oct 26, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
 | Wed Oct 28, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
+| Fri Oct 30, 2026 | Quiz 9: Dotenv, BaseModel & Active Record (in Canvas) | due by 11:59pm |
 
 #### Week 11 · Nov 2–8
 
@@ -97,6 +106,7 @@ Class meets **Mon & Wed, 11:00 AM–12:15 PM** via Zoom. Deliverable names link 
 | Mon Nov 2, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
 | Wed Nov 4, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
 | Wed Nov 4, 2026 | Assignment [Project 05](projects/05/description.html) | due by 11:59pm |
+| Fri Nov 6, 2026 | Quiz 10: Templating, CSRF & Validation (in Canvas) | due by 11:59pm |
 
 #### Week 12 · Nov 9–15
 
@@ -104,6 +114,7 @@ Class meets **Mon & Wed, 11:00 AM–12:15 PM** via Zoom. Deliverable names link 
 |------|---------|-----|
 | Mon Nov 9, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
 | Wed Nov 11, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
+| Fri Nov 13, 2026 | Quiz 11: Authentication & Authorization (in Canvas) | due by 11:59pm |
 | Sat Nov 14, 2026 | Assignment [Project 06](projects/06/description.html) | due by 11:59pm |
 
 #### Week 13 · Nov 16–22
@@ -130,6 +141,7 @@ Class meets **Mon & Wed, 11:00 AM–12:15 PM** via Zoom. Deliverable names link 
 | Mon Nov 30, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
 | Mon Nov 30, 2026 | Assignment [Project 08](projects/08/description.html) | due by 11:59pm |
 | Wed Dec 2, 2026 | Calendar Event WEB 3400 VTL Fall 2026 22096 | 11:00am to 12:15pm |
+| Wed Dec 2, 2026 | Quiz 12: CMS & Engagement (in Canvas) | due by 11:59pm |
 | Wed Dec 2, 2026 | Assignment Fifty Points of Extra Credit Available (in Canvas) | due by 11:59pm |
 | Fri Dec 4, 2026 | Assignment [Final Project - Mandatory Status Review Interview](projects/fp/final-interview-agenda.html) | due by 12:30pm |
 

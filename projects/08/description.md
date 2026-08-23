@@ -857,26 +857,36 @@ Notes:
 
 ---
 
-## Rubric (100 points)
+## Rubric (110 points)
 
-- Database & Models (20)
+- Database & Models (30)
   - Tables for `post_likes`, `post_favorites`, and `comments` created with appropriate constraints (10)
   - `PostLike`, `PostFavorite`, and `Comment` models implemented and integrated with `Post` helpers (10)
-- Likes & Favorites (25)
+  - `Post` counter and engagement-state helpers keep counters accurate and prevent negative values (10)
+- Likes & Favorites (20)
   - Authenticated users can like/unlike posts; likes are stored per user and update `posts.likes` (10)
   - Authenticated users can fav/unfav posts; favorites are stored per user and update `posts.favs` (10)
-  - UI clearly shows current counts and user’s like/fav state (5)
-- Comments (25)
-  - Authenticated users can add comments to posts (with validation and CSRF) (10)
-  - Comments appear on the post page in a clear, readable layout (10)
-  - Users and/or admins can delete comments; `posts.comments_count` stays in sync (5)
-- Admin Moderation (15)
-  - Admin comments index shows recent comments with basic info and actions (10)
-  - Only `admin`/`editor` can access moderation routes and perform publish/delete actions (5)
-- Profile Activity Tabs (5)
-  - Profile page shows Bulma tabs listing liked, favorited, and commented posts for the current user (5)
+- Comments & Moderation (30)
+  - Authenticated users can add and delete comments with validation, CSRF, permissions, and synchronized counters (15)
+  - Admins/editors can filter, publish, and delete comments through secured moderation routes (15)
+- Post Detail Engagement UI (10)
+  - Public post detail shows engagement counts, user state, toggle actions, published comments, and the authenticated comment form (10)
+- Profile Activity Tabs (10)
+  - Profile page shows Bulma tabs listing liked, favorited, and commented posts for the current user, with useful empty states (10)
 - Code Quality & UX (10)
-  - Follows MVC patterns, keeps controllers thin, uses models for DB logic, uses `$this->e()` for output, and provides a reasonable user experience (10)
+  - Follows MVC patterns, keeps controllers thin, uses models for DB logic, uses `$this->e()` for output, and protects all state-changing actions with CSRF and authorization checks (10)
+
+---
+
+## Submission
+
+Commit and push your completed `projects/08/` folder. Submit its direct GitHub URL in Canvas, replacing `YOUR-REPO` with the repository CRSApps created for you:
+
+```
+https://github.com/web3400-fall26/YOUR-REPO/tree/main/projects/08/
+```
+
+If you are unsure, open the `projects/08` folder on GitHub and copy the browser URL.
 
 ---
 

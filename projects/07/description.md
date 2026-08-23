@@ -668,4 +668,16 @@ Replace the single Admin/Users link with a dropdown. Show “Manage Users” onl
 
 ---
 
+## Submission
+
+Commit and push your completed `projects/07/` folder. Submit its direct GitHub URL in Canvas, replacing `YOUR-REPO` with the repository CRSApps created for you:
+
+```
+https://github.com/web3400-fall26/YOUR-REPO/tree/main/projects/07/
+```
+
+If you are unsure, open the `projects/07` folder on GitHub and copy the browser URL.
+
+---
+
 Note: Ensure you’ve run the SQL in Steps 2–3 and have at least one `editor` or `admin` user to access the admin posts area.
