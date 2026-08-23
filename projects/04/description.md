@@ -33,17 +33,6 @@ You will extend your Project 03 MVC app by:
 
 ---
 
-## Learning Objectives
-- Configure Composer dependencies and autoloading
-- Use environment variables to manage secrets and configuration
-- Centralize and reuse PDO connection logic
-- Build GET/POST routes in an MVC app
-- Validate user input and prevent SQL injection using prepared statements
-- Implement a lightweight `BaseModel` (CRUD, fillable whitelist)
-- Use a generator script to scaffold concrete models (e.g., `Contact`)
-
----
-
 ## Prerequisites
 - Project 03 structure in place (front controller, router, controllers/views)
 - MySQL `contact_us` table exists (from a previous assignment)
@@ -963,6 +952,19 @@ If necessary, confirm your table exists: see `projects/01/sql/contact_us.sql`.
 - Keep views plain HTML for this project (no CSS). A later project will add styling/templates.
 - If you see class not found issues, run `composer dump-autoload`.
 - When using BaseModel, whitelist allowed columns in `$fillable` and let `create`/`update` sanitize inputs.
+
+---
+
+## Assessment (70 points)
+
+Your work is assessed using [`rubric.csv`](rubric.csv). Full-credit work uses phpdotenv without committing secrets, boots through the front controller, centralizes PDO access, implements `BaseModel` and the model generator, and delivers a validated, escaped, parameterized Contact workflow.
+
+### Accessibility Check
+- [ ] The page has one clear `<h1>` and logical heading order.
+- [ ] Form controls have visible labels associated with their inputs.
+- [ ] All controls can be used with a keyboard.
+- [ ] Images, if used, have meaningful alternative text.
+- [ ] Status and error messages do not rely on color alone.
 
 ---
 

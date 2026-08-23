@@ -28,15 +28,6 @@ In Project 02, you separated concerns into Model, View, and Controller within a 
 
 ---
 
-## Learning Objectives
-- Apply namespaces and PSR-4 autoloading in PHP
-- Implement a front controller and a simple router
-- Organize code into `Controllers`, `Models`, and `Views` with clear responsibilities
-- Reuse your Project 02 logic in a more scalable architecture
-- Maintain separation of concerns and PSR naming conventions
-
----
-
 ## Target File Structure
 
 ```
@@ -297,6 +288,19 @@ php -S 0.0.0.0:8000 -t projects/03/public
 - Keep View focused on display; escape all output.
 - Router should parse the path without query string and check both URI and HTTP method.
 - If you see “Class not found”, run `composer dump-autoload` again.
+
+---
+
+## Assessment (100 points)
+
+Your work is assessed using [`rubric.csv`](rubric.csv). Full-credit work has a working front controller and router, correct Composer/PSR-4 autoloading and namespaces, a thin controller with model-backed data access, an escaped view, and a successful end-to-end `GET /` request.
+
+### Accessibility Check
+- [ ] The page has one clear `<h1>` and logical heading order.
+- [ ] Form controls have visible labels associated with their inputs.
+- [ ] All controls can be used with a keyboard.
+- [ ] Images, if used, have meaningful alternative text.
+- [ ] Status and error messages do not rely on color alone.
 
 ---
 

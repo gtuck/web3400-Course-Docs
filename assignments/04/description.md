@@ -1,6 +1,6 @@
 # Assignment 04: PHP Template System (Head / Nav / Footer Includes)
 
-**Estimated time:** 4–6 hours · **Points:** see Canvas · **Due:** see the course schedule in Canvas
+**Estimated time:** 4–6 hours · **Points:** 30 · **Due:** see the course schedule in Canvas
 
 Purpose: Introduce a lightweight PHP templating approach that reduces repetition, improves maintainability, and sets the stage for future dynamic pages.
 
@@ -19,14 +19,11 @@ A simple include-based template system:
 Common industry practice: Even full frameworks (Laravel, Rails, Django) formalize this idea with layout and partial templates. You are building the minimal foundation manually to understand the concept.
 
 ## Learning Objectives
-You can:
-1. Copy prior assignment (A03) into a new folder `assignments/04`.
-2. Create a `templates/` directory with `head.php`, `nav.php`, and `footer.php`.
-3. Extract and relocate shared markup cleanly (no duplication, correct tag balance).
-4. Use `include` / `require` to assemble `index.php`.
-5. Pass a per-page title variable into the head template.
-6. Remove the old `index.html` and rely on `index.php`.
-7. Commit and push changes; submit the correct file URL.
+By the end of this assignment you can:
+1. Extract shared HTML into PHP templates without duplicate document structure.
+2. Assemble a PHP page with `include` statements and a dynamic page title.
+3. Preserve semantic structure and verify that the refactored page renders correctly.
+4. Commit and submit the required work from your CRSApps-provisioned repository.
 
 ## Prerequisites
 - Course repo created through the WEB 3400 CRSApps workflow
@@ -242,6 +239,14 @@ https://github.com/web3400-fall26/YOUR-REPO/blob/main/assignments/04/index.php
 ```
 
 If you are unsure, open the file on GitHub and copy the browser URL from the address bar.
+
+---
+
+## Assessment (30 points)
+
+- Template structure and include order: 10 points
+- Dynamic title, semantic structure, and valid page assembly: 10 points
+- Required files committed and correct GitHub URL submitted: 10 points
 
 ---
 

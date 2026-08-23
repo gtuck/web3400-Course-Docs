@@ -349,7 +349,7 @@ git push origin main
 
 ---
 
-### **9. Submit the Project**
+## Submission
 Submit the direct GitHub file URL for `projects/00/index.php`. Replace `YOUR-REPO` with the repo CRSApps created for you in the `web3400-fall26` organization:
 ```
 https://github.com/web3400-fall26/YOUR-REPO/blob/main/projects/00/index.php
@@ -367,7 +367,7 @@ If you are unsure, open the file on GitHub and copy the browser URL from the add
 
 ---
 
-## Grading Checklist
+## Assessment Checklist (50 points)
 - [ ] Project copied to `projects/00/` (not nested) and pushed.
 - [ ] `config.php` loads; session + PDO configured.
 - [ ] `.htaccess` present and denies `config.php` access.
@@ -378,3 +378,10 @@ If you are unsure, open the file on GitHub and copy the browser URL from the add
 - [ ] No duplicate DOCTYPE or `<html>` tags; include order: head → nav → flash → content → footer.
 - [ ] `$pageTitle` used and renders; assets consistent with A04 (Bulma 1.0.4, FontAwesome 5.15.4, BulmaJS 0.12).
 - [ ] Any legacy `index.html` removed; `index.php` is the entry.
+
+### Accessibility Check
+- [ ] The page has one clear `<h1>` and logical heading order.
+- [ ] Form controls have visible labels associated with their inputs.
+- [ ] All controls can be used with a keyboard.
+- [ ] Images, if used, have meaningful alternative text.
+- [ ] Status and error messages do not rely on color alone.

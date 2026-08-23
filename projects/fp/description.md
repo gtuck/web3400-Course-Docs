@@ -34,16 +34,6 @@ Instead of a standalone `admin_dashboard.php` file, your final project should tr
 
 ---
 
-## Learning Objectives
-- Integrate all previous project features into a cohesive MVC application
-- Design and secure an **admin‑only** workflow and navigation
-- Implement **read‑heavy** dashboard views using aggregate queries (KPIs)
-- Use models and prepared statements for **analytics‑style queries**
-- Present data using a clean, responsive dashboard layout
-- Practice **quality assurance**: testing, debugging, and polishing for production‑like readiness
-
----
-
 ## Prerequisites
 - A working CMS codebase from **Project 08** (or equivalent) with:
   - Front controller (`public/index.php`) and `Router`
@@ -453,7 +443,7 @@ To receive full credit, your final project must:
 
 ---
 
-## Quality Assurance & Submission
+## Quality Assurance, Submission & Assessment
 
 Before submitting:
 - Manually test all dashboard features as both an admin and a regular user
@@ -461,6 +451,11 @@ Before submitting:
 - Confirm KPIs update correctly when data changes (new posts, contact messages, users, etc.)
 - Check that forms validate input and show friendly error messages
 - Review your code for readability, consistency with previous projects, and security best practices
+- Verify the page has one clear `<h1>` and logical heading order.
+- Verify form controls have visible labels and all controls are keyboard-operable.
+- Verify images have meaningful alternative text and status messages do not rely on color alone.
+
+Assessment uses the 150-point [`rubric.csv`](rubric.csv), with the requirements checklist and final interview serving as the primary evidence of completion.
 
 When you are satisfied:
 - Commit and push your `projects/fp` folder to GitHub

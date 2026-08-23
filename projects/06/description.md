@@ -38,16 +38,6 @@ Constraints:
 
 ---
 
-## Learning Objectives
-- Implement session‑based authentication in vanilla PHP
-- Hash and verify passwords securely (`password_hash`/`password_verify`)
-- Enforce CSRF protection on all state‑changing actions
-- Use role checks to protect routes and views (authorization)
-- Keep controllers thin: validation in `Validator`, data access in `Models`
-- Extend a shared base to add small, composable features (e.g., minimal BaseModel helpers)
-
----
-
 ## Prerequisites
 - Completed Project 05 with:
   - `src/Support/View.php`, `src/Support/Validator.php`
@@ -1248,7 +1238,7 @@ $role = $_SESSION['user_role'] ?? 'user'; ?>
 
 ---
 
-## Grading Checklist
+## Assessment Checklist (100 points)
 
 Core Auth
 - [ ] `users` table with unique email, hashed password, role, is_active
@@ -1278,6 +1268,13 @@ Framework Integration
 - [ ] CSRF tokens included in all forms via `$this->csrfField()`
 - [ ] Minimal generic helpers added to `BaseModel` (`firstBy`, `existsBy`)
 - [ ] No external packages used; only Project 05 tooling + core PHP
+
+### Accessibility Check
+- [ ] The page has one clear `<h1>` and logical heading order.
+- [ ] Form controls have visible labels associated with their inputs.
+- [ ] All controls can be used with a keyboard.
+- [ ] Images, if used, have meaningful alternative text.
+- [ ] Status and error messages do not rely on color alone.
 
 ---
 

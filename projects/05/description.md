@@ -46,19 +46,6 @@ This is "vanilla PHP": no external templating or validation libraries.
 
 ---
 
-## Learning Objectives
-- Use output buffering to build a simple templating engine
-- Separate page layout/partials from view content
-- Integrate a view engine into an MVC base controller
-- **Implement CSRF protection** to prevent cross-site request forgery attacks
-- **Create reusable validation logic** with a declarative rule-based system
-- **Extend routing** to support RESTful HTTP methods beyond GET/POST
-- **Use custom exceptions** for better error handling and debugging
-- **Apply consistent XSS protection** throughout all views
-- Follow security best practices (timing-safe comparisons, prepared statements, mass assignment protection)
-
----
-
 ## Prerequisites
 - Start from your completed Project 04 (recommended): Dotenv bootstrapped in `public/index.php`, `Support/Database.php`, `Models/BaseModel.php`, generated models (e.g., `Blog`, `Contact`), and `/contact` GET/POST routes.
 - Composer PSR‑4 autoload in place (`App\ => src/`).
@@ -809,7 +796,7 @@ Also verify `http://localhost:8000/contact`:
 
 ---
 
-## Grading Checklist
+## Assessment Checklist (80 points)
 
 ### Core Templating (Original Requirements)
 - [ ] Project exists at `projects/05/` and runs
@@ -840,6 +827,13 @@ Also verify `http://localhost:8000/contact`:
 - [ ] **Static Model Calls:** `HomeController` uses `Post::all()`, not `$Post->all()`
 - [ ] **Model Generator:** `scripts/generate-model.php` outputs clean array syntax
 - [ ] **Documentation:** Key files have PHPDoc comments explaining purpose and usage
+
+### Accessibility Check
+- [ ] The page has one clear `<h1>` and logical heading order.
+- [ ] Form controls have visible labels associated with their inputs.
+- [ ] All controls can be used with a keyboard.
+- [ ] Images, if used, have meaningful alternative text.
+- [ ] Status and error messages do not rely on color alone.
 
 ---
 

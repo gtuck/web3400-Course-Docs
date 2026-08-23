@@ -348,7 +348,7 @@ Easy to find and fix issues - you know exactly where to look:
 
 ---
 
-## Grading Checklist
+## Assessment Checklist (75 points)
 
 - **Project 02 exists** at `projects/02/` and runs without errors
   - **`model.php` created** with a `Model` class
@@ -392,6 +392,13 @@ Easy to find and fix issues - you know exactly where to look:
   - Proper indentation and formatting
   - Comments are clear (if included)
   - No unused code or files
+
+### Accessibility Check
+- [ ] The page has one clear `<h1>` and logical heading order.
+- [ ] Form controls have visible labels associated with their inputs.
+- [ ] All controls can be used with a keyboard.
+- [ ] Images, if used, have meaningful alternative text.
+- [ ] Status and error messages do not rely on color alone.
 
 ---
 
@@ -437,7 +444,7 @@ http://localhost:8000/projects/02/index.php
 
 ---
 
-## Submit
+## Submission
 
 Submit the direct GitHub URL to your Project 02 folder. Replace `YOUR-REPO` with the repo CRSApps created for you in the `web3400-fall26` organization:
 ```

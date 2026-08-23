@@ -46,14 +46,6 @@ Constraints:
 
 ---
 
-## Learning Objectives
-- Design and implement one-to-many and many-to-many relationships (posts ↔ users for likes/favorites, posts ↔ comments).
-- Use join tables and model helpers to keep counter columns in sync.
-- Implement authenticated, CSRF-protected POST actions for likes, favorites, and comments.
-- Build simple moderation workflows for user-generated content inside your CMS.
-
----
-
 ## Prerequisites
 - Completed Project 07 with:
   - `posts` table including `favs`, `likes`, and `comments_count` numeric fields
@@ -857,7 +849,7 @@ Notes:
 
 ---
 
-## Rubric (110 points)
+## Assessment Rubric (110 points)
 
 - Database & Models (30)
   - Tables for `post_likes`, `post_favorites`, and `comments` created with appropriate constraints (10)
@@ -875,6 +867,13 @@ Notes:
   - Profile page shows Bulma tabs listing liked, favorited, and commented posts for the current user, with useful empty states (10)
 - Code Quality & UX (10)
   - Follows MVC patterns, keeps controllers thin, uses models for DB logic, uses `$this->e()` for output, and protects all state-changing actions with CSRF and authorization checks (10)
+
+### Accessibility Check
+- [ ] The page has one clear `<h1>` and logical heading order.
+- [ ] Form controls have visible labels associated with their inputs.
+- [ ] All controls can be used with a keyboard.
+- [ ] Images, if used, have meaningful alternative text.
+- [ ] Status and error messages do not rely on color alone.
 
 ---
 

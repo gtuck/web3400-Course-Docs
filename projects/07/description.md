@@ -37,14 +37,6 @@ Constraints:
 
 ---
 
-## Learning Objectives
-- Design a small CMS on top of your MVC foundation
-- Model content states and publication workflow
-- Implement role-gated admin features with clean controllers
-- Render lists and detail pages with safe output and small helpers
-
----
-
 ## Prerequisites
 - Completed Project 06 with:
   - Users + Auth + Roles (`admin`, `editor`, `user`)
@@ -647,7 +639,7 @@ Replace the single Admin/Users link with a dropdown. Show “Manage Users” onl
 
 ---
 
-## Rubric (100 points)
+## Assessment Rubric (100 points)
 
 - Database and Model (20)
   - `posts` table created with schema above (10)
@@ -665,6 +657,13 @@ Replace the single Admin/Users link with a dropdown. Show “Manage Users” onl
   - Admin dropdown with Manage Users/Posts; visibility by role (5)
 - Code Quality (10)
   - Follows MVC patterns, safe output, thin controllers (10)
+
+### Accessibility Check
+- [ ] The page has one clear `<h1>` and logical heading order.
+- [ ] Form controls have visible labels associated with their inputs.
+- [ ] All controls can be used with a keyboard.
+- [ ] Images, if used, have meaningful alternative text.
+- [ ] Status and error messages do not rely on color alone.
 
 ---
 

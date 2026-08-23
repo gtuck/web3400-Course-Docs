@@ -299,7 +299,7 @@ Visit (adjust port as needed):
 
 ---
 
-## Grading Checklist
+## Assessment Checklist (100 points)
 - [ ] Project 01 exists at `projects/01/` and runs.
 - [ ] `config.php` loads; session + PDO configured; `.htaccess` denies access to `config.php`.
 - [ ] `/sql/posts.sql` applied (and optional `/sql/seed.sql`).
@@ -315,9 +315,16 @@ Visit (adjust port as needed):
 - [ ] `contact.php` is present and works (form validates, flashes, and persists to DB as in Project 00).
 - [ ] `contact_us` table exists (created via `/sql/contact_us.sql` if needed).
 
+### Accessibility Check
+- [ ] The page has one clear `<h1>` and logical heading order.
+- [ ] Form controls have visible labels associated with their inputs.
+- [ ] All controls can be used with a keyboard.
+- [ ] Images, if used, have meaningful alternative text.
+- [ ] Status and error messages do not rely on color alone.
+
 ---
 
-## Submit
+## Submission
 Submit the direct GitHub URL to your Project 01 folder. Replace `YOUR-REPO` with the repo CRSApps created for you in the `web3400-fall26` organization:
 ```
 https://github.com/web3400-fall26/YOUR-REPO/tree/main/projects/01/
